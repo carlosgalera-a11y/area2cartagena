@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Violencia de Género - Cartagena Este</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        header h1 {
+            color: #333;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        header a {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+            font-weight: 500;
+        }
+        
+        header a:hover {
+            background: #764ba2;
+        }
+        
+        .recursos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .recurso-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .recurso-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+        }
+        
+        .recurso-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            text-align: center;
+            font-size: 48px;
+        }
+        
+        .recurso-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .recurso-content h2 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+        
+        .recurso-content p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        
+        .recurso-content .documento-tipo {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .btn-descargar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .btn-descargar:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-ver-online {
+            background: #f0f0f0;
+            color: #667eea;
+            padding: 12px 20px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin-right: 10px;
+            transition: all 0.2s;
+        }
+        
+        .btn-ver-online:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .botones-grupo {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .info-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .info-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .info-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        
+        .contacto-info {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .contacto-info strong {
+            color: #667eea;
+        }
+        
+        .emergencia-box {
+            background: #dc3545;
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+        }
+        
+        .emergencia-box h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .emergencia-box .telefono {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 15px 0;
+            letter-spacing: 2px;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            header h1 {
+                justify-content: center;
+            }
+            
+            .recursos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .botones-grupo {
+                flex-direction: column;
+            }
+            
+            .btn-descargar,
+            .btn-ver-online {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💜 Violencia de Género</h1>
+            <a href="notebook-local.html">← Volver al inicio</a>
+        </header>
+        
+        <div class="emergencia-box">
+            <h2>🚨 Emergencias - Atención 24 horas</h2>
+            <div class="telefono">016</div>
+            <p style="font-size: 16px; margin-bottom: 10px;">
+                <strong>Teléfono gratuito y confidencial de información y asesoramiento jurídico en materia de violencia de género</strong>
+            </p>
+            <p style="font-size: 14px; opacity: 0.9;">
+                • No deja rastro en la factura telefónica<br>
+                • Atención en 53 idiomas<br>
+                • También disponible por WhatsApp: 600 000 016<br>
+                • Email: 016-online@igualdad.gob.es
+            </p>
+        </div>
+        
+        <div class="recursos-grid">
+            <!-- Protocolo V5 -->
+            <div class="recurso-card">
+                <div class="recurso-icon">📋</div>
+                <div class="recurso-content">
+                    <span class="documento-tipo">PROTOCOLO OFICIAL</span>
+                    <h2>Protocolo de Actuación V5</h2>
+                    <p>Protocolo definitivo de actuación en casos de violencia de género. Guía completa para profesionales sanitarios.</p>
+                    <div class="botones-grupo">
+                        <a href="violencia-genero-protocolo.pdf" class="btn-ver-online" target="_blank">👁️ Ver Online</a>
+                        <a href="violencia-genero-protocolo.pdf" download class="btn-descargar">⬇️ Descargar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>ℹ️ Sobre Violencia de Género</h2>
+            <p>
+                La <strong>violencia de género</strong> es aquella ejercida sobre las mujeres por parte de quienes sean o hayan sido 
+                sus cónyuges o por quienes estén o hayan estado ligados a ellas por relaciones similares de afectividad, 
+                aun sin convivencia.
+            </p>
+            
+            <div class="contacto-info">
+                <strong>📞 Teléfonos de Ayuda</strong><br>
+                <strong style="font-size: 20px; color: #dc3545;">016</strong> - Información y asesoramiento (24h)<br>
+                <strong>091 / 092</strong> - Policía Nacional / Policía Local<br>
+                <strong>112</strong> - Emergencias generales<br>
+                <strong>900 100 009</strong> - Teléfono CAVI (Centro de Atención a Víctimas)<br>
+            </div>
+            
+            <div class="contacto-info" style="margin-top: 15px;">
+                <strong>🏥 Atención Sanitaria</strong><br>
+                Centro de Salud Cartagena Este<br>
+                📍 Consejería de Salud, Región de Murcia<br>
+                📞 968 362 000 (Información general)<br>
+                🌐 <a href="https://www.murciasalud.es" target="_blank">murciasalud.es</a>
+            </div>
+            
+            <h2 style="margin-top: 30px;">🛡️ Tipos de Violencia</h2>
+            <p>La violencia de género puede manifestarse de diferentes formas:</p>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li><strong>Física:</strong> Golpes, empujones, zarandeos, bofetadas</li>
+                <li><strong>Psicológica:</strong> Humillaciones, insultos, amenazas, control</li>
+                <li><strong>Sexual:</strong> Imposición de relaciones sexuales no consentidas</li>
+                <li><strong>Económica:</strong> Control del dinero, impedir trabajar</li>
+                <li><strong>Social:</strong> Aislamiento de familiares y amigos</li>
+            </ul>
+        </div>
+        
+        <div class="info-section" style="background: #f0f5ff; border-top: 4px solid #667eea;">
+            <h2>🆘 Si eres víctima o conoces un caso</h2>
+            <p style="margin-bottom: 20px;">
+                <strong>No estás sola.</strong> Existen recursos y profesionales preparados para ayudarte:
+            </p>
+            <ul style="margin-left: 20px; color: #666; line-height: 2;">
+                <li>✅ <strong>Llama al 016</strong> (gratuito, confidencial, 24h)</li>
+                <li>✅ Acude a tu <strong>Centro de Salud</strong> más cercano</li>
+                <li>✅ Denuncia en <strong>Policía Nacional (091)</strong> o <strong>Guardia Civil (062)</strong></li>
+                <li>✅ Contacta con el <strong>Centro de la Mujer</strong> de tu localidad</li>
+                <li>✅ Solicita una <strong>Orden de Protección</strong></li>
+            </ul>
+            <p style="margin-top: 20px; color: #667eea; font-weight: 600;">
+                💡 Recuerda: La violencia de género es un delito. Tienes derecho a vivir sin miedo.
+            </p>
+        </div>
+        
+        <div class="info-section" style="background: #fff3cd; border-top: 4px solid #ffc107;">
+            <h2>⚖️ Recursos Legales y Sociales</h2>
+            <p><strong>Derechos de las víctimas:</strong></p>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8; margin-top: 10px;">
+                <li>Asistencia jurídica gratuita</li>
+                <li>Orden de protección</li>
+                <li>Ayudas económicas</li>
+                <li>Acceso prioritario a vivienda protegida</li>
+                <li>Suspensión del régimen de visitas</li>
+                <li>Derecho a cambio de residencia</li>
+            </ul>
+            <p style="margin-top: 15px;">
+                <strong>📖 Ley Orgánica 1/2004</strong> de Medidas de Protección Integral contra la Violencia de Género
+            </p>
+        </div>
+    </div>
+</body>
+</html>
