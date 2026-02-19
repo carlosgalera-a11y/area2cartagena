@@ -906,22 +906,29 @@
             <p style="margin:6px 0 0;opacity:.9;font-size:.92rem;">Area II Cartagena</p>
         </div>
         
-        <!-- Form - Google Auth -->
+        <!-- Form -->
         <div style="padding:32px 24px;">
-            <div style="text-align:center;margin-bottom:20px;">
-                <p style="font-size:.9rem;color:var(--text-light);margin-bottom:20px;">Accede con tu cuenta de Google autorizada</p>
-                <button onclick="loginAdmin()" style="display:inline-flex;align-items:center;gap:12px;padding:16px 36px;background:#fff;border:2px solid #e0e0e0;border-radius:12px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:all .25s;font-family:var(--font-body);color:#333;width:100%;justify-content:center;" onmouseover="this.style.borderColor='#4285f4';this.style.boxShadow='0 4px 16px rgba(66,133,244,.2)';this.style.transform='translateY(-1px)'" onmouseout="this.style.borderColor='#e0e0e0';this.style.boxShadow='none';this.style.transform='translateY(0)'">
-                    <svg width="22" height="22" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-                    <span id="loginBtnText">Acceder con Google</span>
-                </button>
+            <div style="margin-bottom:18px;">
+                <label style="display:block;margin-bottom:8px;font-weight:600;color:var(--primary-dark);font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;">📧 Usuario</label>
+                <input type="email" id="loginUsername" placeholder="admin@cartagena.es" spellcheck="false" style="width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:10px;font-size:.95rem;font-family:var(--font-body);transition:.2s;background:var(--bg-main);" onfocus="this.style.borderColor='var(--primary)';this.style.boxShadow='0 0 0 4px rgba(26,107,74,.08)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
             </div>
             
-            <div style="background:var(--bg-main);border-radius:8px;padding:12px 14px;margin-bottom:8px;">
-                <p style="font-size:.82rem;color:var(--text-muted);text-align:center;margin:0;">🔒 Solo cuentas autorizadas por el administrador</p>
+            <div style="margin-bottom:8px;">
+                <label style="display:block;margin-bottom:8px;font-weight:600;color:var(--primary-dark);font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;">🔑 Contraseña</label>
+                <div style="position:relative;">
+                    <input type="password" id="loginPassword" placeholder="••••••••" style="width:100%;padding:14px 16px;padding-right:44px;border:2px solid var(--border);border-radius:10px;font-size:.95rem;font-family:var(--font-body);transition:.2s;background:var(--bg-main);" onfocus="this.style.borderColor='var(--primary)';this.style.boxShadow='0 0 0 4px rgba(26,107,74,.08)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+                    <button onclick="togglePasswordVisibility()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:1.2rem;padding:0;">👁️</button>
+                </div>
             </div>
             
-            <!-- Hidden fields for backward compatibility -->
-            <input type="hidden" id="loginUsername"><input type="hidden" id="loginPassword"><input type="hidden" id="rememberMe">
+            <div style="margin-bottom:24px;display:flex;gap:8px;align-items:center;">
+                <input type="checkbox" id="rememberMe" style="width:16px;height:16px;cursor:pointer;">
+                <label for="rememberMe" style="cursor:pointer;font-size:.88rem;color:var(--text-light);">Recuérdame en este dispositivo</label>
+            </div>
+            
+            <button onclick="loginAdmin()" style="width:100%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;padding:14px;border:none;border-radius:10px;cursor:pointer;font-weight:700;font-size:.95rem;font-family:var(--font-body);transition:.2s;box-shadow:0 4px 12px rgba(26,107,74,.25);" onmouseover="this.style.boxShadow='0 6px 20px rgba(26,107,74,.35)';this.style.transform='translateY(-1px)'" onmouseout="this.style.boxShadow='0 4px 12px rgba(26,107,74,.25)';this.style.transform='translateY(0)'">
+                <span id="loginBtnText">🚀 Acceder</span>
+            </button>
             
             <div id="loginError" style="margin-top:16px;padding:14px;background:#fee8e8;color:#c00;border:1px solid #f0b0b0;border-radius:10px;font-size:.88rem;display:none;font-weight:500;">
                 <div style="display:flex;align-items:center;gap:8px;">
@@ -1051,95 +1058,27 @@ function renderPatients(){
 }
 
 // ═══ ADMIN LOGIN - MEJORADO ═══
-// ═══ FIREBASE AUTH + FIRESTORE PERSISTENCE ═══
-var ADMIN_EMAILS=["admin@cartagena.es","ramongalera22@gmail.com"]; // Emails autorizados como admin
+var adminCredentials={username:"admin@cartagena.es",password:"Cartagena2026!"};
 var isAdminLoggedIn=false;
-var currentUser=null;
 var loginAttempts=0;
 var lockoutTime=0;
 
-// Firestore helpers
-function fsDoc(collection,docId){ return db.collection(collection).doc(docId); }
-function fsCollection(collection){ return db.collection(collection); }
-
-// Save data to Firestore
-async function fsSave(collection,docId,data){
-    try{ await fsDoc(collection,docId).set(data,{merge:true}); return true; }
-    catch(e){ console.error("Firestore save error:",e); return false; }
-}
-
-// Load data from Firestore
-async function fsLoad(collection,docId){
-    try{ var snap=await fsDoc(collection,docId).get(); return snap.exists?snap.data():null; }
-    catch(e){ console.error("Firestore load error:",e); return null; }
-}
-
-// Delete from Firestore
-async function fsDelete(collection,docId){
-    try{ await fsDoc(collection,docId).delete(); return true; }
-    catch(e){ console.error("Firestore delete error:",e); return false; }
-}
-
 function initLoginSession(){
-    // Firebase Auth state observer - persistent across sessions
-    firebase.auth().onAuthStateChanged(function(user){
-        if(user && ADMIN_EMAILS.indexOf(user.email)!==-1){
-            currentUser=user;
-            isAdminLoggedIn=true;
-            document.getElementById("adminPanel").style.display="block";
-            apShowAdminTab(true);
-            updateLoginButtons(true, user.displayName||user.email);
-            // Load data from Firestore
-            loadAllDataFromFirestore();
-        }else{
-            currentUser=null;
-            isAdminLoggedIn=false;
-            document.getElementById("adminPanel").style.display="none";
-            apShowAdminTab(false);
-            updateLoginButtons(false);
+    var savedSession=localStorage.getItem("adminSession");
+    if(savedSession){
+        try{
+            var session=JSON.parse(savedSession);
+            if(session.timestamp && Date.now()-session.timestamp<86400000){
+                isAdminLoggedIn=true;
+                document.getElementById("adminPanel").style.display="block";
+                apShowAdminTab(true);
+            }else{
+                localStorage.removeItem("adminSession");
+            }
+        }catch(e){
+            localStorage.removeItem("adminSession");
         }
-    });
-}
-
-function updateLoginButtons(loggedIn, name){
-    var btns=document.querySelectorAll("[id*=loginBtn]");
-    btns.forEach(function(btn){
-        if(loggedIn){
-            btn.textContent="👤 "+((name||"").split(" ")[0]||"Admin");
-            btn.onclick=function(){ if(confirm("¿Cerrar sesión?")) logoutAdmin(); };
-        }else{
-            btn.textContent="🔐 Admin Login";
-            btn.onclick=function(){ showLoginModal(); };
-        }
-    });
-}
-
-async function loadAllDataFromFirestore(){
-    // Load AI config
-    var cfg=await fsLoad("settings","ai_config");
-    if(cfg){
-        if(cfg.provider) CONFIG.provider=cfg.provider;
-        if(cfg.groqKey) CONFIG.groqKey=cfg.groqKey;
-        if(cfg.groqModel) CONFIG.groqModel=cfg.groqModel;
-        if(cfg.qwenKey) CONFIG.qwenKey=cfg.qwenKey;
-        if(cfg.qwenModel) CONFIG.qwenModel=cfg.qwenModel;
-        updateStatus();
     }
-    // Load preguntas
-    var pData=await fsLoad("app_data","preguntas");
-    if(pData && pData.data) preguntas=pData.data;
-    // Load notas
-    var nData=await fsLoad("app_data","notas");
-    if(nData && nData.data) notas=nData.data;
-    // Load custom protocols
-    var cpData=await fsLoad("app_data","custom_protocols");
-    if(cpData && cpData.list){ 
-        localStorage.setItem("ap_custom_protocols",JSON.stringify(cpData.list));
-        apRenderCustomList();
-        apUpdateProtoSelector();
-    }
-    actualizarUI();
-    console.log("✅ Datos cargados desde Firestore");
 }
 
 function showLoginModal(){
@@ -1168,36 +1107,55 @@ function togglePasswordVisibility(){
 }
 
 function loginAdmin(){
-    document.getElementById("loginBtnText").textContent="⏳ Conectando...";
+    if(Date.now()<lockoutTime){
+        showLoginError("Demasiados intentos. Intenta de nuevo en 5 minutos.");
+        return;
+    }
     
-    var provider=new firebase.auth.GoogleAuthProvider();
-    provider.setCustomParameters({prompt:"select_account"});
+    var user=document.getElementById("loginUsername").value.trim();
+    var pass=document.getElementById("loginPassword").value;
     
-    firebase.auth().signInWithPopup(provider).then(function(result){
-        var user=result.user;
-        if(ADMIN_EMAILS.indexOf(user.email)!==-1){
-            // Authorized admin
+    if(!user||!pass){
+        showLoginError("Por favor completa todos los campos");
+        return;
+    }
+    
+    document.getElementById("loginBtnText").textContent="⏳ Verificando...";
+    
+    setTimeout(function(){
+        if(user===adminCredentials.username&&pass===adminCredentials.password){
+            loginAttempts=0;
+            isAdminLoggedIn=true;
+            
+            if(document.getElementById("rememberMe").checked){
+                localStorage.setItem("adminSession",JSON.stringify({
+                    timestamp:Date.now(),
+                    user:user
+                }));
+            }
+            
             document.getElementById("loginSuccess").style.display="block";
             document.getElementById("loginError").style.display="none";
+            
             setTimeout(function(){
                 closeLoginModal();
+                document.getElementById("adminPanel").style.display="block";
                 document.getElementById("loginBtnText").textContent="🚀 Acceder";
+                apShowAdminTab(true);
             },800);
         }else{
-            // Not authorized - sign out
-            firebase.auth().signOut();
-            showLoginError("⛔ Email no autorizado: "+user.email+"\nContacta al administrador.");
+            loginAttempts++;
+            if(loginAttempts>=3){
+                lockoutTime=Date.now()+300000;
+                showLoginError("Máximo de intentos excedido. Intenta en 5 minutos.");
+            }else{
+                showLoginError("Credenciales incorrectas (Intento "+(4-loginAttempts)+")");
+            }
+            document.getElementById("loginPassword").value="";
+            document.getElementById("loginPassword").focus();
             document.getElementById("loginBtnText").textContent="🚀 Acceder";
         }
-    }).catch(function(error){
-        console.error("Login error:",error);
-        if(error.code==="auth/popup-closed-by-user"){
-            document.getElementById("loginBtnText").textContent="🚀 Acceder";
-        }else{
-            showLoginError("Error: "+error.message);
-            document.getElementById("loginBtnText").textContent="🚀 Acceder";
-        }
-    });
+    },600);
 }
 
 function showLoginError(msg){
@@ -1207,13 +1165,10 @@ function showLoginError(msg){
 }
 
 function logoutAdmin(){
-    firebase.auth().signOut().then(function(){
-        isAdminLoggedIn=false;
-        currentUser=null;
-        document.getElementById("adminPanel").style.display="none";
-        apShowAdminTab(false);
-        updateLoginButtons(false);
-    });
+    isAdminLoggedIn=false;
+    localStorage.removeItem("adminSession");
+    document.getElementById("adminPanel").style.display="none";
+    apShowAdminTab(false);
 }
 
 function showUploadForm(){document.getElementById("uploadForm").style.display="block";document.getElementById("categoryForm").style.display="none"}
@@ -1344,7 +1299,6 @@ function apGuardarConfig(){
     CONFIG.qwenKey=document.getElementById("apCfgQwenKey").value.trim();
     CONFIG.qwenModel=document.getElementById("apCfgQwenModel").value;
     localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
-    fsSave("settings","ai_config",{provider:CONFIG.provider,groqKey:CONFIG.groqKey,groqModel:CONFIG.groqModel,qwenKey:CONFIG.qwenKey,qwenModel:CONFIG.qwenModel,updatedAt:new Date().toISOString()});
     updateStatus();
     // Also sync the professionals config fields if they exist
     try{
@@ -1457,7 +1411,6 @@ function apGetCustomProtocols(){
 
 function apSaveCustomProtocols(list){
     localStorage.setItem('ap_custom_protocols',JSON.stringify(list));
-    fsSave("app_data","custom_protocols",{list:list,updatedAt:new Date().toISOString()});
 }
 
 function apLoadFileContent(){
@@ -1708,7 +1661,7 @@ function showPage(id){
 var categories={"Cardiología":"❤️","Dermatología":"🩹","Digestivo":"🫁","Endocrinología":"🧬","Geriatría":"👴","Ginecología":"🤰","Neurología":"🧠","Neumología":"💨","Pediatría":"👶","Traumatología":"🦴","Protocolos Médicos":"📋"};
 var currentCategory="Cardiología",documents={},preguntas={},notas={},isProcessing=false,profInitialized=false;
 var CONFIG={provider:"groq",groqKey:"",groqModel:"qwen/qwen3-32b",qwenKey:"",qwenModel:"qwen-turbo"};
-try{var s=localStorage.getItem("notebook_ai_cfg_v3");if(s)Object.assign(CONFIG,JSON.parse(s));}catch(e){} // Firestore sync happens in loadAllDataFromFirestore()
+try{var s=localStorage.getItem("notebook_ai_cfg_v3");if(s)Object.assign(CONFIG,JSON.parse(s));}catch(e){}
 var ENDPOINTS={groq:{url:"https://api.groq.com/openai/v1/chat/completions",getKey:function(){return CONFIG.groqKey},getModel:function(){return CONFIG.groqModel},prefix:"gsk_"},qwen:{url:"https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions",getKey:function(){return CONFIG.qwenKey},getModel:function(){return CONFIG.qwenModel},prefix:"sk-"}};
 function ep(){return ENDPOINTS[CONFIG.provider]||ENDPOINTS.groq}
 function isReady(){var e=ep();var k=e.getKey();return k&&k.startsWith(e.prefix)}
@@ -1727,9 +1680,9 @@ function switchTab(n,b){document.querySelectorAll(".tab-content").forEach(functi
 function cambiarCategoria(c,b){currentCategory=c;document.querySelectorAll(".category-btn").forEach(function(x){x.classList.remove("active")});if(b)b.classList.add("active");document.getElementById("categoryTitle").textContent=c;var sc=document.getElementById("studioCategory");if(sc)sc.textContent=c;switchTab("preguntas",document.querySelector(".tab-btn"));actualizarUI();}
 function esc(t){if(!t)return"";return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function actualizarUI(){var docs=documents[currentCategory]||[];document.getElementById("documentosList").innerHTML=docs.length===0?'<div class="empty-state"><div class="empty-state-icon">📄</div><p>No hay documentos</p></div>':docs.map(function(d){return'<div class="doc-item"><div><div class="doc-name">'+d.name+'</div><div class="doc-size">'+d.size_mb+' MB · '+d.type+'</div></div><a href="'+d.url+'" target="_blank" class="doc-btn">Abrir</a></div>'}).join("");document.getElementById("docsCount").textContent=docs.length;document.getElementById("preguntasCount").textContent=(preguntas[currentCategory]||[]).length;document.getElementById("notasCount").textContent=(notas[currentCategory]||[]).length;var pa=preguntas[currentCategory]||[],pl=document.getElementById("preguntasList");pl.innerHTML=pa.length===0?'<div class="empty-state"><div class="empty-state-icon">🩺</div><p>Haz tu primera pregunta</p></div>':pa.map(function(p){return'<div class="question-box"><div class="question-text">'+esc(p.pregunta)+'</div><div class="answer-text">'+esc(p.respuesta)+'</div><div class="note-time">'+p.fecha+'</div></div>'}).join("");var na=notas[currentCategory]||[],nl=document.getElementById("notasList");nl.innerHTML=na.length===0?'<div class="empty-state"><div class="empty-state-icon">📝</div><p>Sin notas</p></div>':na.map(function(n,i){return'<div class="question-box" style="border-left-color:var(--accent)"><div style="font-size:.92rem;white-space:pre-wrap;padding-right:30px;font-weight:300;line-height:1.6">'+esc(n.texto)+'</div><div class="note-time">'+n.fecha+'</div><button onclick="eliminarNota('+i+')" style="position:absolute;top:12px;right:12px;background:none;border:none;cursor:pointer;opacity:.35">🗑️</button></div>'}).join("");}
-function guardarConfig(){CONFIG.provider=document.getElementById("cfgProvider").value;CONFIG.groqKey=document.getElementById("cfgGroqKey").value.trim();CONFIG.groqModel=document.getElementById("cfgGroqModel").value;CONFIG.qwenKey=document.getElementById("cfgQwenKey").value.trim();CONFIG.qwenModel=document.getElementById("cfgQwenModel").value;localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));fsSave("settings","ai_config",{provider:CONFIG.provider,groqKey:CONFIG.groqKey,groqModel:CONFIG.groqModel,qwenKey:CONFIG.qwenKey,qwenModel:CONFIG.qwenModel,updatedAt:new Date().toISOString()});updateStatus();document.getElementById("cfgStatus").innerHTML='<span style="color:var(--primary)">✅ Guardado en la nube ☁️</span>';}
+function guardarConfig(){CONFIG.provider=document.getElementById("cfgProvider").value;CONFIG.groqKey=document.getElementById("cfgGroqKey").value.trim();CONFIG.groqModel=document.getElementById("cfgGroqModel").value;CONFIG.qwenKey=document.getElementById("cfgQwenKey").value.trim();CONFIG.qwenModel=document.getElementById("cfgQwenModel").value;localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));updateStatus();document.getElementById("cfgStatus").innerHTML='<span style="color:var(--primary)">✅ Guardado</span>';}
 async function testApiKey(){guardarConfig();if(!isReady()){document.getElementById("cfgStatus").innerHTML='<span style="color:#dc2626">❌ Key inválida</span>';return;}var st=document.getElementById("cfgStatus");st.innerHTML='<span style="color:var(--accent)">⏳ Probando...</span>';var e=ep();try{var r=await fetchWithCorsProxy(e.url,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+e.getKey()},body:JSON.stringify({model:e.getModel(),messages:[{role:"user",content:"Di: OK"}],max_tokens:10})});if(r.ok)st.innerHTML='<span style="color:var(--primary)">✅ ¡Conexión exitosa!</span>';else if(r.status===401)st.innerHTML='<span style="color:#dc2626">❌ Key inválida</span>';else{var err=await r.json().catch(function(){return{}});st.innerHTML='<span style="color:#dc2626">❌ Error '+r.status+"</span>";}}catch(err){st.innerHTML='<span style="color:#dc2626">❌ '+err.message+"</span>";}}
-function guardarDatos(){localStorage.setItem("cartagena_preguntas",JSON.stringify(preguntas));localStorage.setItem("cartagena_notas",JSON.stringify(notas));fsSave("app_data","preguntas",{data:preguntas,updatedAt:new Date().toISOString()});fsSave("app_data","notas",{data:notas,updatedAt:new Date().toISOString()});}
+function guardarDatos(){localStorage.setItem("cartagena_preguntas",JSON.stringify(preguntas));localStorage.setItem("cartagena_notas",JSON.stringify(notas));}
 function cargarDatos(){try{preguntas=JSON.parse(localStorage.getItem("cartagena_preguntas"))||{};}catch(e){preguntas={};}try{notas=JSON.parse(localStorage.getItem("cartagena_notas"))||{};}catch(e){notas={};}}
 
 function initProfessionals(){
@@ -1768,7 +1721,13 @@ document.addEventListener("DOMContentLoaded",function(){
     if(p.get("view")==="professionals"||p.get("category"))showPage("pageProfessionals");
     else if(p.get("view")==="patients")showPage("pagePatients");
     
-    // Login is now via Google popup - no keyboard listeners needed
+    // Enter key en login
+    document.getElementById("loginPassword").addEventListener("keypress",function(e){
+        if(e.key==="Enter")loginAdmin();
+    });
+    document.getElementById("loginUsername").addEventListener("keypress",function(e){
+        if(e.key==="Enter")document.getElementById("loginPassword").focus();
+    });
 });
 </script>
 </body>
