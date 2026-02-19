@@ -185,7 +185,7 @@
                 <p>Salud y formación para tu comunidad. Accede a recursos para pacientes o herramientas de docencia clínica para profesionales.</p>
                 <div class="hero-buttons">
                     <a class="hero-btn hero-btn-patients" onclick="showPage('pagePatients')"><span class="hero-btn-icon">👤</span> Pacientes</a>
-                    <a class="hero-btn hero-btn-professionals" onclick="showPage('pageProfessionals')"><span class="hero-btn-icon">🩺</span> Profesionales</a>
+                    <a class="hero-btn hero-btn-professionals" onclick="accessProfessionals()"><span class="hero-btn-icon">🩺</span> Profesionales</a>
                 </div>
                 <div class="hero-buttons" style="margin-top:20px;">
                     <a class="hero-btn hero-btn-patients" onclick="showPage('pageProtocolosAP')" style="background:#fff;color:var(--primary-dark);"><span class="hero-btn-icon">📋</span> Protocolos Atencion Primaria</a>
@@ -206,7 +206,7 @@
 
 <!-- ═══════ PROFESSIONALS PAGE ═══════ -->
 <div class="page" id="pageProfessionals">
-    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button><button class="page-back" id="loginBtnProf" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button><span id="statusBadge" class="nav-status wait">⚙️ Config</span></div></nav>
+    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button><span id="profUserInfo"></span><button class="page-back" id="loginBtnProf" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button><span id="statusBadge" class="nav-status wait">⚙️ Config</span></div></nav>
     <div class="prof-layout">
         <div class="sidebar-left"><div class="sidebar-hero"><h2>Especialidades</h2><p>Cuaderno AI · Docencia Clínica</p></div><div class="categories-list scrollbar" id="categoriesList"></div><div class="sidebar-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a></div></div>
         <div class="main-content"><div class="content-header"><h3 id="categoryTitle">Cardiología</h3></div>
@@ -994,9 +994,31 @@
 }
 </style>
 
+<!-- ═══════ GOOGLE LOGIN MODAL (PROFESIONALES) ═══════ -->
+<div id="googleLoginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(2px);" onclick="if(event.target===this)closeGoogleLoginModal()">
+    <div style="background:#fff;border-radius:16px;max-width:420px;width:90%;box-shadow:0 25px 80px rgba(0,0,0,.4);overflow:hidden;animation:slideInUp .3s ease;">
+        <div style="background:linear-gradient(135deg,#1a1f2e,#243347);padding:32px 24px;color:#fff;text-align:center;position:relative;">
+            <div style="position:absolute;top:12px;right:12px;cursor:pointer;font-size:1.5rem;opacity:.7;" onclick="closeGoogleLoginModal()">✕</div>
+            <div style="font-size:2.5rem;margin-bottom:12px;">🩺</div>
+            <h2 style="font-family:var(--font-display);font-size:1.6rem;font-weight:700;">Área Profesionales</h2>
+            <p style="margin:6px 0 0;opacity:.8;font-size:.88rem;">Acceso exclusivo para personal sanitario</p>
+        </div>
+        <div style="padding:32px 24px;text-align:center;">
+            <p style="font-size:.9rem;color:var(--text-light);margin-bottom:20px;">Inicia sesión con tu cuenta de Google para acceder a los recursos profesionales.</p>
+            <button onclick="googleLogin()" style="display:inline-flex;align-items:center;gap:12px;padding:16px 32px;background:#fff;border:2px solid #e0e0e0;border-radius:12px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:all .25s;font-family:var(--font-body);color:#333;width:100%;justify-content:center;" onmouseover="this.style.borderColor='#4285f4';this.style.boxShadow='0 4px 16px rgba(66,133,244,.2)'" onmouseout="this.style.borderColor='#e0e0e0';this.style.boxShadow='none'">
+                <svg width="22" height="22" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+                <span id="googleLoginBtnText">Acceder con Google</span>
+            </button>
+            <div id="googleLoginError" style="display:none;margin-top:14px;padding:10px;background:#fee8e8;color:#c00;border-radius:8px;font-size:.85rem;"></div>
+            <p style="font-size:.78rem;color:var(--text-muted);margin-top:16px;">🔒 Tus datos están protegidos por Google</p>
+        </div>
+    </div>
+</div>
+
 <!-- ═══════ ADMIN PANEL MODAL ═══════ -->
-<div id="adminPanel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1001;overflow:auto;padding:20px;">
-    <div style="background:#fff;border-radius:12px;padding:40px;max-width:600px;margin:40px auto;box-shadow:0 20px 60px rgba(0,0,0,.3);">
+<div id="adminPanel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1001;overflow:auto;padding:20px;" onclick="if(event.target===this)closeAdminPanel()">
+    <div style="background:#fff;border-radius:12px;padding:40px;max-width:600px;margin:40px auto;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;">
+        <div style="position:absolute;top:12px;right:16px;cursor:pointer;font-size:1.5rem;color:#999;z-index:2;" onclick="closeAdminPanel()" title="Cerrar panel">✕</div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
             <h2 style="font-family:var(--font-display);color:var(--primary-dark);font-size:1.5rem;">👨‍💼 Panel Administrativo</h2>
             <button onclick="logoutAdmin()" style="background:#c00;color:#fff;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:.85rem;font-family:var(--font-body);">Cerrar Sesión</button>
@@ -1241,6 +1263,69 @@ function logoutAdmin(){
     localStorage.removeItem("adminSession");
     document.getElementById("adminPanel").style.display="none";
     apShowAdminTab(false);
+}
+
+function closeAdminPanel(){
+    document.getElementById("adminPanel").style.display="none";
+    // La sesión sigue activa - no hace logout
+}
+
+// ═══ GOOGLE AUTH PARA PROFESIONALES ═══
+var googleUser=null;
+var ALLOWED_DOMAINS=["gmail.com","cartagena.es","sms.carm.es","murciaslaud.es"]; // Dominios permitidos
+
+function accessProfessionals(){
+    // Check if already logged in with Google
+    var user=firebase.auth().currentUser;
+    if(user){
+        googleUser=user;
+        showPage("pageProfessionals");
+        updateProfNavUser(user);
+        return;
+    }
+    // Show Google login
+    showGoogleLoginModal();
+}
+
+function showGoogleLoginModal(){
+    document.getElementById("googleLoginModal").style.display="flex";
+}
+
+function closeGoogleLoginModal(){
+    document.getElementById("googleLoginModal").style.display="none";
+}
+
+function googleLogin(){
+    var provider=new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({prompt:"select_account"});
+    document.getElementById("googleLoginBtnText").textContent="⏳ Conectando...";
+    
+    firebase.auth().signInWithPopup(provider).then(function(result){
+        googleUser=result.user;
+        closeGoogleLoginModal();
+        showPage("pageProfessionals");
+        updateProfNavUser(result.user);
+    }).catch(function(error){
+        if(error.code!=="auth/popup-closed-by-user"){
+            document.getElementById("googleLoginError").textContent="Error: "+error.message;
+            document.getElementById("googleLoginError").style.display="block";
+        }
+        document.getElementById("googleLoginBtnText").textContent="Acceder con Google";
+    });
+}
+
+function googleLogout(){
+    firebase.auth().signOut().then(function(){
+        googleUser=null;
+        showPage("pageLanding");
+    });
+}
+
+function updateProfNavUser(user){
+    var el=document.getElementById("profUserInfo");
+    if(el && user){
+        el.innerHTML='<span style="font-size:.82rem;color:rgba(255,255,255,.8);">👤 '+((user.displayName||user.email).split(" ")[0])+'</span> <button onclick="googleLogout()" style="background:rgba(255,255,255,.15);color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:.78rem;cursor:pointer;font-family:var(--font-body);">Salir</button>';
+    }
 }
 
 function showUploadForm(){document.getElementById("uploadForm").style.display="block";document.getElementById("categoryForm").style.display="none"}
@@ -1794,7 +1879,7 @@ document.addEventListener("DOMContentLoaded",function(){
     renderPatients();
     try{ initLoginSession(); }catch(e){ console.warn("Login init error:",e); }
     var p=new URLSearchParams(window.location.search);
-    if(p.get("view")==="professionals"||p.get("category"))showPage("pageProfessionals");
+    if(p.get("view")==="professionals"||p.get("category"))accessProfessionals();
     else if(p.get("view")==="patients")showPage("pagePatients");
     
     // Enter key en login
