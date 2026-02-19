@@ -288,7 +288,48 @@
                 </div>
             </div>
             
-            <div id="config-protocolos" class="protocol-content" style="display:none;margin-top:20px;"><div class="config-box"><h4>Proveedor de IA</h4><div class="config-row"><select id="cfgProvider" onchange="cambiarProvider()"><option value="groq">Groq (recomendado · ultra rápido)</option><option value="qwen">Qwen API directa (Alibaba Cloud)</option></select></div><div id="groqConfig"><p class="config-hint" style="margin-bottom:10px"><strong>Groq</strong> — Gratis, ultra rápido<br>1. <a href="https://console.groq.com" target="_blank">console.groq.com</a><br>2. Crea cuenta gratis<br>3. API Keys → Create<br>4. Pega key (<code>gsk_</code>)</p><div class="config-row"><input type="password" id="cfgGroqKey" placeholder="gsk_xxxxxxxxxxxx"></div><h4 style="margin-top:12px">Modelo</h4><div class="config-row"><select id="cfgGroqModel"><option value="qwen/qwen3-32b">Qwen3 32B</option><option value="llama-3.3-70b-versatile">Llama 3.3 70B</option><option value="deepseek-r1-distill-llama-70b">DeepSeek R1 70B</option><option value="gemma2-9b-it">Gemma 2 9B</option></select></div></div><div id="qwenConfig" style="display:none"><p class="config-hint" style="margin-bottom:10px"><strong>Qwen API</strong><br>1. <a href="https://www.alibabacloud.com/help/en/model-studio/get-api-key" target="_blank">Alibaba Cloud</a><br>2. Crea API Key (<code>sk-</code>)</p><div class="config-row"><input type="password" id="cfgQwenKey" placeholder="sk-xxxxxxxxxxxx"></div><h4 style="margin-top:12px">Modelo</h4><div class="config-row"><select id="cfgQwenModel"><option value="qwen-turbo">Qwen Turbo</option><option value="qwen-plus">Qwen Plus</option><option value="qwen3-32b">Qwen3 32B</option><option value="qwen-max">Qwen Max</option></select></div></div><div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-primary btn-small" onclick="guardarConfig()">💾 Guardar</button><button class="btn btn-secondary btn-small" onclick="testApiKey()">🧪 Probar</button></div><div id="cfgStatus" style="margin-top:12px"></div></div></div>
+            <div id="config-protocolos-content" class="protocol-content" style="display:none;margin-top:20px;">
+                <div class="config-box">
+                    <h4>Proveedor de IA</h4>
+                    <div class="config-row">
+                        <select id="apCfgProvider" onchange="apCambiarProvider()">
+                            <option value="groq">Groq (recomendado · ultra rápido)</option>
+                            <option value="qwen">Qwen API directa (Alibaba Cloud)</option>
+                        </select>
+                    </div>
+                    <div id="apGroqConfig">
+                        <p class="config-hint" style="margin-bottom:10px"><strong>Groq</strong> — Gratis, ultra rápido<br>1. <a href="https://console.groq.com" target="_blank">console.groq.com</a><br>2. Crea cuenta gratis<br>3. API Keys → Create<br>4. Pega key (<code>gsk_</code>)</p>
+                        <div class="config-row"><input type="password" id="apCfgGroqKey" placeholder="gsk_xxxxxxxxxxxx"></div>
+                        <h4 style="margin-top:12px">Modelo</h4>
+                        <div class="config-row">
+                            <select id="apCfgGroqModel">
+                                <option value="qwen/qwen3-32b">Qwen3 32B</option>
+                                <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
+                                <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 70B</option>
+                                <option value="gemma2-9b-it">Gemma 2 9B</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="apQwenConfig" style="display:none">
+                        <p class="config-hint" style="margin-bottom:10px"><strong>Qwen API</strong><br>1. <a href="https://www.alibabacloud.com/help/en/model-studio/get-api-key" target="_blank">Alibaba Cloud</a><br>2. Crea API Key (<code>sk-</code>)</p>
+                        <div class="config-row"><input type="password" id="apCfgQwenKey" placeholder="sk-xxxxxxxxxxxx"></div>
+                        <h4 style="margin-top:12px">Modelo</h4>
+                        <div class="config-row">
+                            <select id="apCfgQwenModel">
+                                <option value="qwen-turbo">Qwen Turbo</option>
+                                <option value="qwen-plus">Qwen Plus</option>
+                                <option value="qwen3-32b">Qwen3 32B</option>
+                                <option value="qwen-max">Qwen Max</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-top:16px;display:flex;gap:8px">
+                        <button class="btn btn-primary btn-small" onclick="apGuardarConfig()">💾 Guardar</button>
+                        <button class="btn btn-secondary btn-small" onclick="apTestApiKey()">🧪 Probar</button>
+                    </div>
+                    <div id="apCfgStatus" style="margin-top:12px"></div>
+                </div>
+            </div>
             
             <div id="cardiovasculares-content" class="protocol-content" style="display:none;margin-top:20px;">
                 <div id="cardiovascularesProtocols" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">
@@ -700,6 +741,62 @@ function switchProtocolTab(tabName,btnElement){
     var buttons=document.querySelectorAll(".tab-protocols");
     buttons.forEach(function(btn){btn.classList.remove("active")});
     btnElement.classList.add("active");
+    
+    // Sync AP config fields from shared CONFIG when opening config tab
+    if(tabName==="config-protocolos"){apSyncFromConfig();}
+}
+
+// ═══ PROTOCOLOS AP CONFIG (uses shared CONFIG, unique IDs) ═══
+function apCambiarProvider(){
+    var v=document.getElementById("apCfgProvider").value;
+    document.getElementById("apGroqConfig").style.display=v==="groq"?"block":"none";
+    document.getElementById("apQwenConfig").style.display=v==="qwen"?"block":"none";
+}
+
+function apSyncFromConfig(){
+    try{
+        document.getElementById("apCfgProvider").value=CONFIG.provider;
+        apCambiarProvider();
+        document.getElementById("apCfgGroqKey").value=CONFIG.groqKey||"";
+        document.getElementById("apCfgGroqModel").value=CONFIG.groqModel;
+        document.getElementById("apCfgQwenKey").value=CONFIG.qwenKey||"";
+        document.getElementById("apCfgQwenModel").value=CONFIG.qwenModel;
+    }catch(e){}
+}
+
+function apGuardarConfig(){
+    CONFIG.provider=document.getElementById("apCfgProvider").value;
+    CONFIG.groqKey=document.getElementById("apCfgGroqKey").value.trim();
+    CONFIG.groqModel=document.getElementById("apCfgGroqModel").value;
+    CONFIG.qwenKey=document.getElementById("apCfgQwenKey").value.trim();
+    CONFIG.qwenModel=document.getElementById("apCfgQwenModel").value;
+    localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
+    updateStatus();
+    // Also sync the professionals config fields if they exist
+    try{
+        document.getElementById("cfgProvider").value=CONFIG.provider;
+        cambiarProvider();
+        document.getElementById("cfgGroqKey").value=CONFIG.groqKey;
+        document.getElementById("cfgGroqModel").value=CONFIG.groqModel;
+        document.getElementById("cfgQwenKey").value=CONFIG.qwenKey;
+        document.getElementById("cfgQwenModel").value=CONFIG.qwenModel;
+    }catch(e){}
+    document.getElementById("apCfgStatus").innerHTML='<span style="color:var(--primary)">✅ Guardado</span>';
+    setTimeout(function(){document.getElementById("apCfgStatus").innerHTML=""},3000);
+}
+
+async function apTestApiKey(){
+    apGuardarConfig();
+    if(!isReady()){document.getElementById("apCfgStatus").innerHTML='<span style="color:#dc2626">❌ Key inválida</span>';return;}
+    var st=document.getElementById("apCfgStatus");
+    st.innerHTML='<span style="color:var(--accent)">⏳ Probando...</span>';
+    var e=ep();
+    try{
+        var r=await fetch(e.url,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+e.getKey()},body:JSON.stringify({model:e.getModel(),messages:[{role:"user",content:"Di: OK"}],max_tokens:10})});
+        if(r.ok)st.innerHTML='<span style="color:var(--primary)">✅ ¡Conexión exitosa!</span>';
+        else if(r.status===401)st.innerHTML='<span style="color:#dc2626">❌ Key inválida</span>';
+        else st.innerHTML='<span style="color:#dc2626">❌ Error '+r.status+'</span>';
+    }catch(err){st.innerHTML='<span style="color:#dc2626">❌ '+err.message+'</span>';}
 }
 
 // ═══ PAGE NAVIGATION ═══
