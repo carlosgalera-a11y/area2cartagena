@@ -6,7 +6,21 @@
     <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <title>Area II Cartagena</title>
+    <title>Area II Cartagena - Centro de Salud Virgen de la Caridad</title>
+    <meta name="description" content="Recursos clínicos y protocolos médicos del Área II Cartagena. Centro de Salud Virgen de la Caridad, Santa Lucía. Servicio Murciano de Salud.">
+    <meta name="keywords" content="Area II Cartagena, urgencias Santa Lucía, protocolos médicos, centro de salud, Servicio Murciano de Salud, atención primaria, Virgen de la Caridad">
+    <meta name="author" content="Área II Cartagena - Servicio Murciano de Salud">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Area II Cartagena - Recursos Clínicos">
+    <meta property="og:description" content="Protocolos médicos, urgencias y recursos para profesionales y pacientes del Área II Cartagena.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html">
+    <meta name="theme-color" content="#1a6b4a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Area II Cartagena">
+    <link rel="manifest" href="manifest.json">
+    <link rel="canonical" href="https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Firebase SDK (compat) -->
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
@@ -190,6 +204,13 @@
                 <div class="hero-buttons" style="margin-top:20px;">
                     <a class="hero-btn hero-btn-patients" onclick="showPage('pageProtocolosAP')" style="background:#fff;color:var(--primary-dark);"><span class="hero-btn-icon">📋</span> Protocolos Atencion Primaria</a>
                     <a class="hero-btn hero-btn-professionals" onclick="showPage('pageProtocolosUrgencias')" style="background:transparent;border-color:rgba(255,255,255,.4);color:#fff;"><span class="hero-btn-icon">🚨</span> Protocolos Urgencias</a>
+                </div>
+            </div>
+            <!-- QR Section -->
+            <div style="position:absolute;bottom:60px;left:0;right:0;z-index:2;text-align:center;">
+                <div onclick="document.getElementById('qrModal').style.display='flex'" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:8px 20px;cursor:pointer;transition:.3s;backdrop-filter:blur(4px);" onmouseover="this.style.background='rgba(255,255,255,.18)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAIAAAAhotZpAAADP0lEQVR42u3d0W3bQBAEUMtwFykpraQct5KSUofyF+gjtG+1OxSBe/NngyKpG+yM5m55vN3v9ze4Nt4NAZIASXvg4/GPH79+jl/gz+fv//7/8VpHx1SPPzpm6nutXDcxbiqJ3AGSdvSkFf1dwZFGr2h355iVe676SnUcEuOmksgdIGl3T6r6RNUPHs9Z9YMVz3v8bDUzJbJdZ9xUErkDJPGkeax4TzVjdfzjzLk4lUTuAElwLU/qrAN11pymclVnXk4lkTtAEsx40pQWV/V9xRum5uJW/GnKg1USuQMkQc2TrjB/Vc1P1TzU8b8z5/1UErkDJG2C25WfT0pkoxX/MHcHSEISvN6TOr/xp54HelWPXMcLOxlr5T5VErkDJO3uSVNZYSrTJLJXxy87/lcdE5VE7gBJm+BjRXOneg06njG1ftPJYZ3vKCeRO0AS1HJSOut0/KOTS9I5qXpv1ftXSeQOkLRjTupo99R+P519iVZ0v+OdUxmu6qMqidwBknb0pERfQNWHqj0FnYzS8cj0epv1JHIHSNoQY3N3K+j4TcdXpny043+dY1QSuQMk8aSZ3/gr+nvm3kKJjJXOlCqJ3AGSdvSk9P5yU3sipDNQJ5Ml5htVErkDJO3uSR0v6eh+Yh4s8extIiMenUclkTtA0o6eVM0HVd/qvKuiiqlslH5GWE4id4Ak+IdT++7S72xN969PrYdZTyJ3gCT43pOm5p2megGq5+zMrU31RMhJ5A6QBE+j3OOQ6D1b0euqd1aR7ue2nkTuAElQy0kJ/6h6QPWYdB955z6nxkQlkTtAkpyUfb/DVEap4sp7RqgkcgdI4knPv6sivZ9Covcvcd0qqvejksgdIGlHT0rjzP0apnyik9um+vFUErkDJG2Cw17wdCZYyTfVbNHJJZ1xSOw/q5LIHSBp95yU2I+ns6fq1Gen+gnT75NVSeQOkCQn1Tymo61V3U+vJ1Xvv5Ol7HdH7gBJMONJaSR64RKeOpWN7ONA7gBJcF1PSqw5debr0n3tchK5AyTB85409WxQwquq+t7ZJykxDnISuQMkwfeedOYzOolrdfZlqGav9LsEVRK5AyRtglOfTwKVhCRAEnyBv3VJDW7pns/HAAAAAElFTkSuQmCC" style="width:36px;height:36px;border-radius:4px;">
+                    <span style="color:rgba(255,255,255,.8);font-size:.82rem;font-weight:500;">📱 Escanea para abrir en tu móvil</span>
                 </div>
             </div>
             <div class="hero-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Creado con ❤️ <span onclick="seedAPIKey()" style="cursor:default;opacity:.2;font-size:.5rem;user-select:none;">⚙</span></div>
@@ -994,6 +1015,22 @@
     to { opacity: 1; }
 }
 </style>
+
+
+<!-- QR CODE MODAL -->
+<div id="qrModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px);" onclick="if(event.target===this)this.style.display='none'">
+    <div style="background:#fff;border-radius:20px;padding:40px;max-width:400px;width:90%;text-align:center;box-shadow:0 25px 80px rgba(0,0,0,.5);animation:slideInUp .3s ease;">
+        <div style="position:absolute;top:16px;right:20px;cursor:pointer;font-size:1.5rem;color:#999;" onclick="document.getElementById('qrModal').style.display='none'">✕</div>
+        <div style="font-size:2.5rem;margin-bottom:12px;">📱</div>
+        <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--primary-dark);margin-bottom:8px;">Abre en tu móvil</h3>
+        <p style="font-size:.88rem;color:var(--text-light);margin-bottom:20px;">Escanea este código QR con la cámara de tu teléfono</p>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAIAAAAhotZpAAADP0lEQVR42u3d0W3bQBAEUMtwFykpraQct5KSUofyF+gjtG+1OxSBe/NngyKpG+yM5m55vN3v9ze4Nt4NAZIASXvg4/GPH79+jl/gz+fv//7/8VpHx1SPPzpm6nutXDcxbiqJ3AGSdvSkFf1dwZFGr2h355iVe676SnUcEuOmksgdIGl3T6r6RNUPHs9Z9YMVz3v8bDUzJbJdZ9xUErkDJPGkeax4TzVjdfzjzLk4lUTuAElwLU/qrAN11pymclVnXk4lkTtAEsx40pQWV/V9xRum5uJW/GnKg1USuQMkQc2TrjB/Vc1P1TzU8b8z5/1UErkDJG2C25WfT0pkoxX/MHcHSEISvN6TOr/xp54HelWPXMcLOxlr5T5VErkDJO3uSVNZYSrTJLJXxy87/lcdE5VE7gBJm+BjRXOneg06njG1ftPJYZ3vKCeRO0AS1HJSOut0/KOTS9I5qXpv1ftXSeQOkLRjTupo99R+P519iVZ0v+OdUxmu6qMqidwBknb0pERfQNWHqj0FnYzS8cj0epv1JHIHSNoQY3N3K+j4TcdXpny043+dY1QSuQMk8aSZ3/gr+nvm3kKJjJXOlCqJ3AGSdvSk9P5yU3sipDNQJ5Ml5htVErkDJO3uSR0v6eh+Yh4s8extIiMenUclkTtA0o6eVM0HVd/qvKuiiqlslH5GWE4id4Ak+IdT++7S72xN969PrYdZTyJ3gCT43pOm5p2megGq5+zMrU31RMhJ5A6QBE+j3OOQ6D1b0euqd1aR7ue2nkTuAElQy0kJ/6h6QPWYdB955z6nxkQlkTtAkpyUfb/DVEap4sp7RqgkcgdI4knPv6sivZ9Covcvcd0qqvejksgdIGlHT0rjzP0apnyik9um+vFUErkDJG2Cw17wdCZYyTfVbNHJJZ1xSOw/q5LIHSBp95yU2I+ns6fq1Gen+gnT75NVSeQOkCQn1Tymo61V3U+vJ1Xvv5Ol7HdH7gBJMONJaSR64RKeOpWN7ONA7gBJcF1PSqw5debr0n3tchK5AyTB85409WxQwquq+t7ZJykxDnISuQMkwfeedOYzOolrdfZlqGav9LsEVRK5AyRtglOfTwKVhCRAEnyBv3VJDW7pns/HAAAAAElFTkSuQmCC" style="width:220px;height:220px;border:3px solid var(--primary);border-radius:12px;padding:8px;background:#fff;">
+        <p style="font-size:.78rem;color:var(--text-muted);margin-top:16px;word-break:break-all;">ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html</p>
+        <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;">
+            <button onclick="navigator.clipboard.writeText('https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html');this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='📋 Copiar enlace',2000)" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.85rem;font-family:var(--font-body);">📋 Copiar enlace</button>
+        </div>
+    </div>
+</div>
 
 <!-- ═══════ GOOGLE LOGIN MODAL (PROFESIONALES) ═══════ -->
 <div id="googleLoginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(2px);" onclick="if(event.target===this)closeGoogleLoginModal()">

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>QR - Area II Cartagena</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f5f5f5}
+        .poster{background:#fff;width:210mm;min-height:297mm;padding:30mm 25mm;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+        .header{background:linear-gradient(135deg,#1a6b4a,#238c62);color:#fff;padding:25px 20px;border-radius:16px;margin-bottom:30px}
+        .header h1{font-size:2.2rem;margin-bottom:6px}
+        .header p{font-size:1.1rem;opacity:.9}
+        .qr-box{margin:30px auto;padding:20px;display:inline-block;border:4px solid #1a6b4a;border-radius:20px}
+        .qr-box img{width:250px;height:250px}
+        .instructions{margin-top:25px;font-size:1.15rem;color:#333;line-height:1.8}
+        .instructions strong{color:#1a6b4a}
+        .url{margin-top:20px;font-size:.95rem;color:#666;word-break:break-all;background:#f0f4f0;padding:12px 20px;border-radius:10px;display:inline-block}
+        .features{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px;text-align:left}
+        .feat{background:#f0f8f0;padding:16px;border-radius:10px;border-left:4px solid #1a6b4a}
+        .feat strong{display:block;font-size:.95rem;color:#1a6b4a;margin-bottom:4px}
+        .feat span{font-size:.85rem;color:#555}
+        .footer{margin-top:30px;padding-top:20px;border-top:2px solid #e0e0e0;font-size:.85rem;color:#999}
+        @media print{body{background:#fff}.poster{box-shadow:none;width:100%;padding:20mm}}
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <div class="header">
+            <h1>🏥 Area II Cartagena</h1>
+            <p>Centro de Salud Virgen de la Caridad · Santa Lucía</p>
+        </div>
+        
+        <h2 style="font-size:1.6rem;color:#333;margin-bottom:10px;">Escanea para acceder</h2>
+        <p style="font-size:1rem;color:#666;">Abre la cámara de tu móvil y apunta al código QR</p>
+        
+        <div class="qr-box">
+            <img src="data:image/png;base64,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n3bju3rClwoAGVEBICMqAGREBYCMqACQERUAMqICQEZUAMiICgAZUQEgIyoAZL6e5xk72Latm217XO7Pr03uTU0e68S289lm299OZXL3rOJLBYCMqACQERUAMqICQEZUAMiICgAZUQEgIyoAZEQFgIyoAJARFQAy35MHm9xlqlTHOrn2bbtVk9de/c6NG1Db3ucb96ZO3PjOVyafly8VADKiAkBGVADIiAoAGVEBICMqAGREBYCMqACQERUAMqICQEZUAMh8Pc8zdrAbd5kmN3xu3B268Zwrk9c+ud3k7/TXJu/Ptj3AE75UAMiICgAZUQEgIyoAZEQFgIyoAJARFQAyogJARlQAyIgKABlRASCTbX+9dS9ocjNn0rbr2rajVR3rxCfvem27hzfuem3jSwWAjKgAkBEVADKiAkBGVADIiAoAGVEBICMqAGREBYCMqACQERUAMuu2v7ZtHN24z7NtR+utG2Intu16bXum257XpLfusPlSASAjKgBkRAWAjKgAkBEVADKiAkBGVADIiAoAGVEBICMqAGREBYDMuu2vE5P7RTdeV+XG8zlx417ZW7etJt+xt+6enZh8f3ypAJARFQAyogJARlQAyIgKABlRASAjKgBkRAWAjKgAkBEVADKiAkBm3fbXtn2eEzde++Q5V7Zd+4ltm12T9/DGv+UT296fbX/LvlQAyIgKABlRASAjKgBkRAWAjKgAkBEVADKiAkBGVADIiAoAGVEBIPP90yfwO7btO1Vu3EE6se26tu2VVba9G9W137gzVv3OjXt3vlQAyIgKABlRASAjKgBkRAWAjKgAkBEVADKiAkBGVADIiAoAGVEBIPP1PE/yQzfu89x4rGrDZ9t1bfPJ7/O2d2ySe/jnfKkAkBEVADKiAkBGVADIiAoAGVEBICMqAGREBYCMqACQERUAMqICQOb7p0/gd1S7OtuONenGza7JPaXq2rftg53YtkVWHavy1mNVz8KXCgAZUQEgIyoAZEQFgIyoAJARFQAyogJARlQAyIgKABlRASAjKgBksu2vya2kG03uVlXHeut2E79WPfdtu2eT/7dM/r1v40sFgIyoAJARFQAyogJARlQAyIgKABlRASAjKgBkRAWAjKgAkBEVADLZ9tcnbzdVO0gnqq2kyc2lSnVdN26abXteN97D6liTW2TbnvsJXyoAZEQFgIyoAJARFQAyogJARlQAyIgKABlRASAjKgBkRAWAjKgAkMm2v05s26g5ceN207ZjbVNtLt1o23VtexY37qdV96e6dl8qAGREBYCMqACQERUAMqICQEZUAMiICgAZUQEgIyoAZEQFgIyoAJAZ3f468dadn20bR5W3boht21y68Vjbnum286ls+7/FlwoAGVEBICMqAGREBYCMqACQERUAMqICQEZUAMiICgAZUQEgIyoAZNZtf/HnJve4qmNN/k51XW/dPZu0bffsRPX+vHVjzZcKABlRASAjKgBkRAWAjKgAkBEVADKiAkBGVADIiAoAGVEBICMqAGRsfy2ybZuoOp/Ktg2oE5PnvG0Datsu3OT9mdzNOzF5LF8qAGREBYCMqACQERUAMqICQEZUAMiICgAZUQEgIyoAZEQFgIyoAJBZt/21bW9qmxv3iyZ3kG7cyJq07XlNmrz2k9/ZtgtXPVNfKgBkRAWAjKgAkBEVADKiAkBGVADIiAoAGVEBICMqAGREBYCMqACQGd3++uTNpRPbdr2q39m2E/XWfbBt17Xt3Zh8509MPq/J++xLBYCMqACQERUAMqICQEZUAMiICgAZUQEgIyoAZEQFgIyoAJARFQAyX8/z/PQ5APASvlQAyIgKABlRASAjKgBkRAWAjKgAkBEVADKiAkBGVADIiAoAGVEBICMqAGREBYCMqACQERUAMqICQEZUAMiICgAZUQEgIyoAZEQFgIyoAJARFQAy/wOcINLjvOk86wAAAABJRU5ErkJggg==" alt="QR Code Area II Cartagena">
+        </div>
+        
+        <div class="instructions">
+            📱 <strong>Protocolos médicos</strong> y recursos clínicos<br>
+            🚨 <strong>Urgencias</strong> · Trípticos con PDFs<br>
+            🤖 <strong>Asistente IA</strong> para consultas clínicas<br>
+            👤 <strong>Información para pacientes</strong>
+        </div>
+        
+        <div class="url">
+            🔗 ramongalera22-ai.github.io/Cartagenaeste
+        </div>
+        
+        <div class="features">
+            <div class="feat"><strong>👤 Pacientes</strong><span>Dietas, vacunas, ejercicios, recursos sociales</span></div>
+            <div class="feat"><strong>🩺 Profesionales</strong><span>Especialidades, documentos, IA clínica</span></div>
+            <div class="feat"><strong>📋 Protocolos AP</strong><span>10 protocolos de Atención Primaria</span></div>
+            <div class="feat"><strong>🚨 Urgencias</strong><span>39 protocolos + 23 trípticos PDF</span></div>
+        </div>
+        
+        <div class="footer">
+            Servicio Murciano de Salud · Área II Cartagena · 2026
+        </div>
+    </div>
+</body>
+</html>
