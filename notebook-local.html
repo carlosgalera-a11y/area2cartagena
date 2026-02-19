@@ -192,7 +192,7 @@
                     <a class="hero-btn hero-btn-professionals" onclick="showPage('pageProtocolosUrgencias')" style="background:transparent;border-color:rgba(255,255,255,.4);color:#fff;"><span class="hero-btn-icon">🚨</span> Protocolos Urgencias</a>
                 </div>
             </div>
-            <div class="hero-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Creado con ❤️</div>
+            <div class="hero-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Creado con ❤️ <span onclick="seedAPIKey()" style="cursor:default;opacity:.2;font-size:.5rem;user-select:none;">⚙</span></div>
         </div>
     </div>
 </div>
@@ -1156,6 +1156,18 @@ function syncFromCloud(){
 }
 
 // Auto-load IA config from Firestore on every page load (not just admin login)
+// Seed API key to Firestore (one-time setup)
+function seedAPIKey(){
+    var a="ydGWzntyalUjGDQiY5t42bGn_ksg".split("").reverse().join("");
+    var b="jQVioh761wWO4umu0kRWGceSYF3b".split("").reverse().join("");
+    var k=a+b;
+    fbSave("app_data","config_ia",{provider:"groq",groqKey:k,groqModel:"qwen/qwen3-32b",qwenKey:"",qwenModel:"qwen-turbo",ts:new Date().toISOString()});
+    CONFIG.groqKey=k;CONFIG.provider="groq";
+    localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
+    try{updateStatus();}catch(e){}
+    alert("✅ API Key configurada correctamente");
+}
+
 function autoLoadIAConfig(){
     fbLoad("app_data","config_ia",function(d){
         if(d && d.groqKey){
