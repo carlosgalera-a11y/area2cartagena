@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factores de Riesgo - Centro de Salud Cartagena Este</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
+    <style>
+        :root {
+            --primary: #1a6b4a;
+            --primary-light: #238c62;
+            --primary-dark: #0f4a33;
+            --accent: #d4a853;
+            --accent-light: #f0d68a;
+            --bg-dark: #1a1f2e;
+            --bg-card: #fff;
+            --bg-main: #f4f6f8;
+            --bg-subtle: #e9edf2;
+            --text: #2d3748;
+            --text-light: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,.15);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Source Sans 3', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-main);
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--bg-dark), #243347);
+            color: #fff;
+            padding: 30px 20px;
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            opacity: 0.15;
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,.7);
+            text-decoration: none;
+            font-size: .88rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: .2s;
+            cursor: pointer;
+            border: none;
+            background: rgba(255,255,255,.08);
+            font-family: var(--font-body);
+        }
+
+        .back-btn:hover {
+            color: #fff;
+            background: rgba(255,255,255,.15);
+        }
+
+        .header h1 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: .95rem;
+            opacity: .75;
+            font-weight: 300;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,.1);
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--bg-dark);
+            font-size: .9rem;
+        }
+
+        .user-email {
+            font-size: .85rem;
+            opacity: .9;
+        }
+
+        .login-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-section h2 {
+            color: var(--primary-dark);
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .login-section p {
+            color: var(--text-muted);
+            font-size: .92rem;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 28px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: .92rem;
+            text-decoration: none;
+            transition: all .25s;
+            font-family: var(--font-body);
+        }
+
+        .btn:hover {
+            box-shadow: 0 6px 20px rgba(26, 107, 74, .35);
+            transform: translateY(-2px);
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .btn-logout:hover {
+            box-shadow: 0 6px 20px rgba(239, 68, 68, .35);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: .82rem;
+        }
+
+        .tablon-section {
+            display: none;
+        }
+
+        .tablon-section.active {
+            display: block;
+        }
+
+        .tablon-header {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .tablon-header h2 {
+            color: var(--primary-dark);
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+
+        .note-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .note-form input,
+        .note-form textarea {
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: .92rem;
+            resize: vertical;
+        }
+
+        .note-form textarea {
+            min-height: 100px;
+        }
+
+        .note-form input:focus,
+        .note-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(26, 107, 74, .1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-secondary {
+            background: var(--bg-subtle);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .note-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+            position: relative;
+            transition: all .25s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .note-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .note-author {
+            font-size: .78rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .note-date {
+            font-size: .75rem;
+            color: var(--text-muted);
+        }
+
+        .note-title {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: .95rem;
+        }
+
+        .note-content {
+            color: var(--text);
+            font-size: .88rem;
+            line-height: 1.5;
+            flex-grow: 1;
+            margin-bottom: 12px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .note-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            border-top: 1px solid var(--border-light);
+            padding-top: 10px;
+        }
+
+        .note-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: .8rem;
+            font-weight: 500;
+            transition: .2s;
+            font-family: var(--font-body);
+        }
+
+        .btn-edit {
+            background: var(--accent-light);
+            color: var(--bg-dark);
+        }
+
+        .btn-edit:hover {
+            background: var(--accent);
+        }
+
+        .btn-delete {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .btn-delete:hover {
+            background: #fecaca;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--bg-card);
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+            color: var(--text-muted);
+        }
+
+        .empty-state-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            opacity: .6;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp .3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            color: var(--primary-dark);
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .close-btn:hover {
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .header {
+                padding: 20px 16px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .user-info {
+                width: 100%;
+            }
+
+            .notes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .login-section {
+                padding: 24px;
+            }
+
+            .tablon-header {
+                padding: 18px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div>
+                    <button class="back-btn" onclick="goBack()">← Volver</button>
+                    <h1>⚠️ Factores de Riesgo</h1>
+                    <p>Prevención y salud</p>
+                </div>
+                <div id="userSection" style="display:none;">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">?</div>
+                        <div>
+                            <div class="user-email" id="userEmail">usuario@gmail.com</div>
+                            <button class="btn btn-secondary btn-small" onclick="logoutUser()">Cerrar sesión</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="loginSection" class="login-section">
+            <h2>🔐 Acceso Restringido</h2>
+            <p>Para añadir o editar notas, necesitas acceder con tu cuenta de Gmail.<br>Tus notas serán guardadas automáticamente.</p>
+            <button class="btn" onclick="loginWithGmail()">
+                <span>📧</span>
+                <span>Acceder con Gmail</span>
+            </button>
+        </div>
+
+        <div id="tablonSection" class="tablon-section">
+            <div class="tablon-header">
+                <h2>📝 Añadir Nota</h2>
+                <div class="note-form">
+                    <input type="text" id="noteTitle" placeholder="Título de la nota" maxlength="100">
+                    <textarea id="noteContent" placeholder="Contenido de la nota..."></textarea>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" onclick="clearForm()">Limpiar</button>
+                        <button class="btn" onclick="addNote()">
+                            <span id="submitBtn">➕ Publicar Nota</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="color:var(--primary-dark); font-family:var(--font-display); margin-bottom:16px;">Notas del Centro</h3>
+                <div id="notesContainer" class="notes-grid">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📝</div>
+                        <p>Aún no hay notas. ¡Sé el primero en añadir una!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>✏️ Editar Nota</h3>
+                <button class="close-btn" onclick="closeModal()">✕</button>
+            </div>
+            <div class="note-form">
+                <input type="text" id="editTitle" placeholder="Título" maxlength="100">
+                <textarea id="editContent" placeholder="Contenido..."></textarea>
+                <div class="form-actions">
+                    <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                    <button class="btn" onclick="saveEdit()">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD9c-EXAMPLE-KEY-CHANGE-ME",
+            authDomain: "cartagena-este.firebaseapp.com",
+            projectId: "cartagena-este",
+            storageBucket: "cartagena-este.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef123456"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        let currentUser = null;
+        let editingNoteId = null;
+        const category = "factores-riesgo";
+
+        auth.onAuthStateChanged(user => {
+            currentUser = user;
+            if (user) {
+                showTableon();
+                loadNotes();
+                updateUserInfo();
+            } else {
+                hideTableon();
+            }
+        });
+
+        function loginWithGmail() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('profile');
+            provider.addScope('email');
+            auth.signInWithPopup(provider).catch(error => {
+                alert('Error en login: ' + error.message);
+            });
+        }
+
+        function logoutUser() {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                auth.signOut().catch(error => {
+                    alert('Error: ' + error.message);
+                });
+            }
+        }
+
+        function showTableon() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('tablonSection').classList.add('active');
+            document.getElementById('userSection').style.display = 'block';
+        }
+
+        function hideTableon() {
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('tablonSection').classList.remove('active');
+            document.getElementById('userSection').style.display = 'none';
+        }
+
+        function updateUserInfo() {
+            if (currentUser) {
+                const name = currentUser.displayName || 'Usuario';
+                const avatar = name.charAt(0).toUpperCase();
+                document.getElementById('userAvatar').textContent = avatar;
+                document.getElementById('userEmail').textContent = currentUser.email;
+            }
+        }
+
+        async function addNote() {
+            const title = document.getElementById('noteTitle').value.trim();
+            const content = document.getElementById('noteContent').value.trim();
+
+            if (!title || !content) {
+                alert('Por favor completa título y contenido');
+                return;
+            }
+
+            try {
+                await db.collection('notas').add({
+                    categoria: category,
+                    titulo: title,
+                    contenido: content,
+                    autor: currentUser.displayName || currentUser.email,
+                    autorId: currentUser.uid,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                });
+
+                clearForm();
+                loadNotes();
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        async function loadNotes() {
+            try {
+                const snapshot = await db.collection('notas')
+                    .where('categoria', '==', category)
+                    .orderBy('createdAt', 'desc')
+                    .get();
+
+                const container = document.getElementById('notesContainer');
+                container.innerHTML = '';
+
+                if (snapshot.empty) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📝</div>
+                            <p>Aún no hay notas. ¡Sé el primero en añadir una!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                snapshot.forEach(doc => {
+                    const nota = doc.data();
+                    const date = nota.createdAt?.toDate();
+                    const formattedDate = date ? date.toLocaleDateString('es-ES', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    }) : 'Hace poco';
+
+                    const isOwner = nota.autorId === currentUser.uid;
+
+                    container.innerHTML += `
+                        <div class="note-card">
+                            <div class="note-header">
+                                <div>
+                                    <div class="note-title">${escapeHtml(nota.titulo)}</div>
+                                    <div class="note-author">👤 ${escapeHtml(nota.autor)}</div>
+                                </div>
+                                <div class="note-date">${formattedDate}</div>
+                            </div>
+                            <div class="note-content">${escapeHtml(nota.contenido)}</div>
+                            ${isOwner ? `
+                                <div class="note-actions">
+                                    <button class="note-btn btn-edit" onclick="openEditModal('${doc.id}', '${escapeHtml(nota.titulo)}', '${escapeHtml(nota.contenido)}')">✏️ Editar</button>
+                                    <button class="note-btn btn-delete" onclick="deleteNote('${doc.id}')">🗑️ Borrar</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('notesContainer').innerHTML = '<div class="empty-state"><p>Error cargando notas</p></div>';
+            }
+        }
+
+        function openEditModal(id, title, content) {
+            editingNoteId = id;
+            document.getElementById('editTitle').value = title;
+            document.getElementById('editContent').value = content;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').classList.remove('active');
+            editingNoteId = null;
+        }
+
+        async function saveEdit() {
+            const title = document.getElementById('editTitle').value.trim();
+            const content = document.getElementById('editContent').value.trim();
+
+            if (!title || !content) {
+                alert('Por favor completa los campos');
+                return;
+            }
+
+            try {
+                await db.collection('notas').doc(editingNoteId).update({
+                    titulo: title,
+                    contenido: content,
+                    updatedAt: new Date()
+                });
+
+                closeModal();
+                loadNotes();
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        async function deleteNote(id) {
+            if (confirm('¿Estás seguro?')) {
+                try {
+                    await db.collection('notas').doc(id).delete();
+                    loadNotes();
+                } catch (error) {
+                    alert('Error: ' + error.message);
+                }
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteContent').value = '';
+            document.getElementById('noteTitle').focus();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function goBack() {
+            window.location.href = 'notebook-local.html';
+        }
+    </script>
+</body>
+</html>
