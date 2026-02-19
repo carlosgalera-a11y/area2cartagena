@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolos de Atención Primaria - Area II Cartagena</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        nav {
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .content {
+            padding: 40px 20px;
+        }
+
+        .section-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .section-intro h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .section-intro p {
+            color: #555;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .protocols-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .protocol-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .protocol-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .protocol-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .protocol-card .icon {
+            font-size: 1.5em;
+        }
+
+        .protocol-card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            min-height: 60px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #764ba2;
+            transform: translateX(-5px);
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 30px 0;
+        }
+
+        .info-box strong {
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .protocols-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                width: 100%;
+                text-align: center;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>📋 Protocolos de Atención Primaria</h1>
+            <p>Area II Cartagena - Recursos para Profesionales Sanitarios</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; flex: 1;">
+                <a href="notebook-local.html">← Volver al Inicio</a>
+                <a href="index.html">🏠 Home</a>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="#protocolos">📁 Protocolos</a>
+                <a href="#info">ℹ️ Información</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Section Intro -->
+            <div class="section-intro">
+                <h2>Guías Clínicas y Protocolos</h2>
+                <p>
+                    Accede a los protocolos de atención primaria más actualizados. Estos documentos 
+                    proporcionan pautas clínicas basadas en evidencia para el manejo de pacientes en el 
+                    contexto de atención primaria. Descarga y consulta según sea necesario.
+                </p>
+            </div>
+
+            <div class="info-box">
+                <strong>📌 Nota:</strong> Todos los protocolos están disponibles en formato PDF. 
+                Se recomienda consultar regularmente para mantenerse actualizado con los cambios en las 
+                guías clínicas y recomendaciones de atención.
+            </div>
+
+            <!-- Protocols Grid -->
+            <h2 id="protocolos" style="color: #667eea; margin: 40px 0 20px 0; text-align: center;">
+                Descargas de Protocolos
+            </h2>
+            <div class="protocols-grid">
+                <!-- Protocol 1 -->
+                <div class="protocol-card">
+                    <h3><span class="icon">📄</span> Protocolo 1</h3>
+                    <p>Guía clínica de atención primaria. Procedimientos y protocolos estandarizados 
+                    para el manejo de pacientes comunes.</p>
+                    <a href="protocolos-1.pdf" download class="download-btn">
+                        📥 Descargar PDF
+                    </a>
+                </div>
+
+                <!-- Protocol 2 -->
+                <div class="protocol-card">
+                    <h3><span class="icon">📄</span> Protocolo 2</h3>
+                    <p>Recomendaciones de diagnóstico y tratamiento. Protocolos basados en evidencia 
+                    para casos clínicos frecuentes en atención primaria.</p>
+                    <a href="protocolos-2.pdf" download class="download-btn">
+                        📥 Descargar PDF
+                    </a>
+                </div>
+
+                <!-- Protocol 3 -->
+                <div class="protocol-card">
+                    <h3><span class="icon">📄</span> Protocolo 3</h3>
+                    <p>Manejo de enfermedades crónicas. Estrategias de prevención, diagnóstico 
+                    y tratamiento para patologías prevalentes.</p>
+                    <a href="protocolos-3.pdf" download class="download-btn">
+                        📥 Descargar PDF
+                    </a>
+                </div>
+
+                <!-- Protocol 4 -->
+                <div class="protocol-card">
+                    <h3><span class="icon">📄</span> Protocolo 4</h3>
+                    <p>Protocolos de urgencia. Procedimientos para situaciones que requieren 
+                    atención urgente en el contexto de atención primaria.</p>
+                    <a href="protocolos-4.pdf" download class="download-btn">
+                        📥 Descargar PDF
+                    </a>
+                </div>
+
+                <!-- Protocol 5 -->
+                <div class="protocol-card">
+                    <h3><span class="icon">📄</span> Protocolo 5</h3>
+                    <p>Prevención y promoción de la salud. Guías sobre medidas preventivas 
+                    y educación para la salud en atención primaria.</p>
+                    <a href="protocolos-5.pdf" download class="download-btn">
+                        📥 Descargar PDF
+                    </a>
+                </div>
+
+                <!-- Protocol 6 -->
+                <div class="protocol-card">
+                    <h3><span class="icon">📄</span> Protocolo 6</h3>
+                    <p>Cuidados de enfermería. Protocolos para procedimientos de enfermería 
+                    comunes en atención primaria.</p>
+                    <a href="protocolos-6.pdf" download class="download-btn">
+                        📥 Descargar PDF
+                    </a>
+                </div>
+
+                <!-- Protocol 7 -->
+                <div class="protocol-card">
+                    <h3><span class="icon">📄</span> Protocolo 7</h3>
+                    <p>Salud materno-infantil. Recomendaciones para el seguimiento y atención 
+                    de embarazadas, madres e infantes.</p>
+                    <a href="protocolos-7.pdf" download class="download-btn">
+                        📥 Descargar PDF
+                    </a>
+                </div>
+
+                <!-- Protocol 8 -->
+                <div class="protocol-card">
+                    <h3><span class="icon">📄</span> Protocolo 8</h3>
+                    <p>Salud mental en atención primaria. Protocolos para el manejo de 
+                    trastornos mentales comunes.</p>
+                    <a href="protocolos-8.pdf" download class="download-btn">
+                        📥 Descargar PDF
+                    </a>
+                </div>
+
+                <!-- Protocol 9 -->
+                <div class="protocol-card">
+                    <h3><span class="icon">📄</span> Protocolo 9</h3>
+                    <p>Infecciones y enfermedades transmisibles. Guías sobre diagnóstico, 
+                    tratamiento y control de enfermedades infecciosas.</p>
+                    <a href="protocolos-9.pdf" download class="download-btn">
+                        📥 Descargar PDF
+                    </a>
+                </div>
+
+                <!-- Protocol 10 -->
+                <div class="protocol-card">
+                    <h3><span class="icon">📄</span> Protocolo 10</h3>
+                    <p>Procedimientos y técnicas clínicas. Manuales de procedimientos para 
+                    realizar pruebas diagnósticas y técnicas clínicas.</p>
+                    <a href="protocolos-10.pdf" download class="download-btn">
+                        📥 Descargar PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Information Section -->
+            <div id="info" style="background: #f8f9fa; padding: 30px; border-radius: 8px; margin-top: 40px;">
+                <h2 style="color: #667eea; margin-bottom: 20px;">ℹ️ Información Adicional</h2>
+                
+                <h3 style="color: #555; margin-top: 20px;">Cómo usar estos protocolos:</h3>
+                <ul style="margin-left: 20px; color: #666; line-height: 2;">
+                    <li>📖 Lee los protocolos completos antes de aplicarlos</li>
+                    <li>✔️ Verifica la fecha de actualización de cada documento</li>
+                    <li>🔍 Consulta con colegas en caso de dudas</li>
+                    <li>📝 Mantén anotaciones de cambios importantes</li>
+                    <li>🔄 Actualiza regularmente tu conocimiento de protocolos</li>
+                </ul>
+
+                <h3 style="color: #555; margin-top: 25px;">Contacto y Soporte:</h3>
+                <p style="color: #666; margin-top: 10px;">
+                    Para consultas sobre los protocolos o sugerencias de actualizaciones, 
+                    contacta con el departamento médico de Area II Cartagena.
+                </p>
+                <p style="color: #666; margin-top: 10px;">
+                    <strong>Teléfono:</strong> +34 968 XX XXXX<br>
+                    <strong>Email:</strong> protocolos@areaiicta.es<br>
+                    <strong>Horario:</strong> Lunes a Viernes, 08:00 - 18:00
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 Area II Cartagena - Todos los derechos reservados</p>
+            <p>Recursos de atención médica | Protocolos clínicos estandarizados</p>
+        </footer>
+    </div>
+</body>
+</html>
