@@ -3,755 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuaderno Medical AI Local - Cartagena Este</title>
+    <title>Cuaderno Medical AI - Cartagena Este</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #f0f4f8 0%, #e9f0f7 100%);
-            color: #333;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: 280px 1fr 320px;
-            height: 100vh;
-            gap: 0;
-        }
-
-        /* SIDEBAR IZQUIERDA */
-        .sidebar-left {
-            background: white;
-            border-right: 1px solid #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 2px 0 8px rgba(0,0,0,0.05);
-        }
-
-        .sidebar-header {
-            padding: 20px;
-            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
-            color: white;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .sidebar-header h2 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .sidebar-header p {
-            font-size: 0.8rem;
-            opacity: 0.9;
-        }
-
-        .categories-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px 0;
-        }
-
-        .category-btn {
-            display: block;
-            width: 100%;
-            padding: 15px 20px;
-            text-align: left;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            color: #333;
-            border-left: 3px solid transparent;
-        }
-
-        .category-btn:hover {
-            background: #f5f5f5;
-            border-left-color: #0066cc;
-        }
-
-        .category-btn.active {
-            background: #f0f7ff;
-            border-left-color: #0066cc;
-            color: #0066cc;
-            font-weight: 600;
-        }
-
-        /* MAIN CONTENT */
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            background: white;
-        }
-
-        .content-header {
-            padding: 20px;
-            border-bottom: 1px solid #e0e0e0;
-            background: #f9f9f9;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .content-header h3 {
-            font-size: 1.4rem;
-            color: #0066cc;
-        }
-
-        .ollama-status {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .ollama-status.connected {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .ollama-status.disconnected {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .content-area {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .tab-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 10px;
-        }
-
-        .tab-btn {
-            padding: 10px 20px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            color: #666;
-            font-weight: 600;
-            transition: all 0.3s;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -13px;
-        }
-
-        .tab-btn.active {
-            color: #0066cc;
-            border-bottom-color: #0066cc;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .question-input {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .question-input input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 0.95rem;
-        }
-
-        .question-input input:focus {
-            outline: none;
-            border-color: #0066cc;
-            box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: #0066cc;
-            color: white;
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            background: #004499;
-            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
-        }
-
-        .btn-primary:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .question-box {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 3px solid #0066cc;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .question-text {
-            color: #0066cc;
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .answer-text {
-            color: #555;
-            line-height: 1.6;
-            font-size: 0.95rem;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .answer-loading {
-            color: #0066cc;
-            font-style: italic;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .note-time {
-            font-size: 0.8rem;
-            color: #999;
-            margin-top: 10px;
-        }
-
-        .doc-item {
-            background: #f9f9f9;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            border-left: 2px solid #0066cc;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .doc-info {
-            flex: 1;
-        }
-
-        .doc-name {
-            font-weight: 600;
-            color: #333;
-            font-size: 0.9rem;
-            margin-bottom: 3px;
-        }
-
-        .doc-size {
-            font-size: 0.8rem;
-            color: #999;
-        }
-
-        .doc-btn {
-            background: #0066cc;
-            color: white;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-
-        .doc-btn:hover {
-            background: #004499;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #999;
-        }
-
-        .empty-state-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        /* SIDEBAR DERECHA */
-        .sidebar-right {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
-            border-left: 1px solid #e0e0e0;
-            padding: 20px;
-            overflow-y: auto;
-            box-shadow: -2px 0 8px rgba(0,0,0,0.05);
-        }
-
-        .sidebar-section-title {
-            font-weight: 600;
-            margin: 0 0 15px 0;
-            color: #0066cc;
-            font-size: 1rem;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border-left: 3px solid #0066cc;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: #999;
-            margin-bottom: 5px;
-        }
-
-        .stat-value {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #0066cc;
-        }
-
-        .info-box {
-            background: #f0f7ff;
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 3px solid #0066cc;
-            font-size: 0.85rem;
-            line-height: 1.5;
-            color: #333;
-        }
-
-        .scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .scrollbar::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 4px;
-        }
-
-        .scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #999;
-        }
-
-        @media (max-width: 960px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar-left,
-            .sidebar-right {
-                display: none;
-            }
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#f0f4f8,#e9f0f7);color:#333;height:100vh;overflow:hidden}
+        .container{display:grid;grid-template-columns:280px 1fr 320px;height:100vh}
+        .sidebar-left{background:#fff;border-right:1px solid #e0e0e0;display:flex;flex-direction:column;box-shadow:2px 0 8px rgba(0,0,0,.05)}
+        .sidebar-header{padding:20px;background:linear-gradient(135deg,#0066cc,#004499);color:#fff}
+        .sidebar-header h2{font-size:1.1rem;margin-bottom:5px}.sidebar-header p{font-size:.8rem;opacity:.9}
+        .categories-list{flex:1;overflow-y:auto;padding:10px 0}
+        .category-btn{display:block;width:100%;padding:15px 20px;text-align:left;border:none;background:0 0;cursor:pointer;transition:.3s;font-size:.9rem;color:#333;border-left:3px solid transparent;font-family:inherit}
+        .category-btn:hover{background:#f5f5f5;border-left-color:#0066cc}
+        .category-btn.active{background:#f0f7ff;border-left-color:#0066cc;color:#0066cc;font-weight:600}
+        .main-content{display:flex;flex-direction:column;background:#fff}
+        .content-header{padding:20px;border-bottom:1px solid #e0e0e0;background:#f9f9f9;display:flex;justify-content:space-between;align-items:center}
+        .content-header h3{font-size:1.4rem;color:#0066cc}
+        .status-badge{padding:6px 12px;border-radius:20px;font-size:.85rem;font-weight:600}
+        .status-badge.ok{background:#d4edda;color:#155724}.status-badge.err{background:#f8d7da;color:#721c24}.status-badge.wait{background:#fff3cd;color:#856404}
+        .content-area{flex:1;overflow-y:auto;padding:20px}
+        .tab-buttons{display:flex;gap:10px;margin-bottom:20px;border-bottom:2px solid #e0e0e0;padding-bottom:10px}
+        .tab-btn{padding:10px 20px;border:none;background:0 0;cursor:pointer;color:#666;font-weight:600;transition:.3s;border-bottom:3px solid transparent;margin-bottom:-13px;font-family:inherit}
+        .tab-btn.active{color:#0066cc;border-bottom-color:#0066cc}.tab-btn:hover:not(.active){color:#444}
+        .tab-content{display:none}.tab-content.active{display:block;animation:fadeIn .3s}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        .question-input{display:flex;gap:10px;margin-bottom:15px}
+        .question-input input{flex:1;padding:12px;border:1px solid #e0e0e0;border-radius:8px;font-size:.95rem;font-family:inherit}
+        .question-input input:focus{outline:none;border-color:#0066cc;box-shadow:0 0 0 3px rgba(0,102,204,.1)}
+        .btn{padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-weight:600;transition:.3s;font-family:inherit}
+        .btn-primary{background:#0066cc;color:#fff}.btn-primary:hover:not(:disabled){background:#004499;box-shadow:0 4px 12px rgba(0,102,204,.3)}.btn-primary:disabled{background:#ccc;cursor:not-allowed}
+        .btn-secondary{background:#f0f0f0;color:#333}.btn-secondary:hover{background:#e0e0e0}.btn-small{padding:7px 14px;font-size:.85rem}
+        .question-box{background:#fff;padding:15px;border-radius:8px;margin-bottom:15px;border-left:3px solid #0066cc;box-shadow:0 1px 4px rgba(0,0,0,.06);animation:slideIn .3s}
+        @keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        .question-text{color:#0066cc;font-weight:600;margin-bottom:10px;font-size:.95rem}
+        .answer-text{color:#555;line-height:1.6;font-size:.95rem;white-space:pre-wrap;word-wrap:break-word}
+        .note-time{font-size:.8rem;color:#999;margin-top:10px}
+        .doc-item{background:#f9f9f9;padding:10px;border-radius:6px;margin-bottom:8px;border-left:2px solid #0066cc;display:flex;justify-content:space-between;align-items:center}
+        .doc-name{font-weight:600;color:#333;font-size:.9rem;margin-bottom:3px}.doc-size{font-size:.8rem;color:#999}
+        .doc-btn{background:#0066cc;color:#fff;padding:6px 12px;border:none;border-radius:4px;cursor:pointer;font-size:.85rem;text-decoration:none}.doc-btn:hover{background:#004499}
+        .empty-state{text-align:center;padding:40px 20px;color:#999}.empty-state-icon{font-size:3rem;margin-bottom:15px}
+        .studio-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+        .studio-card{background:#f8f9fa;border:1px solid #e0e0e0;border-radius:10px;padding:14px;cursor:pointer;transition:.2s;text-align:left;font-family:inherit}
+        .studio-card:hover:not(:disabled){border-color:#0066cc;box-shadow:0 2px 8px rgba(0,102,204,.12);transform:translateY(-1px)}.studio-card:disabled{opacity:.4;cursor:not-allowed}
+        .studio-card-icon{font-size:1.4rem;margin-bottom:6px}.studio-card-title{font-weight:600;font-size:.9rem;color:#333;margin-bottom:2px}.studio-card-desc{font-size:.8rem;color:#888}
+        .config-box{background:#f0f7ff;border:1px solid #b8d4f0;border-radius:10px;padding:16px;margin-bottom:16px}
+        .config-box h4{color:#0066cc;margin-bottom:10px;font-size:.95rem}
+        .config-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+        .config-row input,.config-row select{flex:1;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:.88rem;font-family:inherit}
+        .config-row input:focus,.config-row select:focus{outline:none;border-color:#0066cc}.config-hint{font-size:.8rem;color:#888;margin-top:4px}
+        .sidebar-right{background:linear-gradient(135deg,#f5f7fa,#e8ecf1);border-left:1px solid #e0e0e0;padding:20px;overflow-y:auto;box-shadow:-2px 0 8px rgba(0,0,0,.05)}
+        .sidebar-section-title{font-weight:600;margin:0 0 15px;color:#0066cc;font-size:1rem}
+        .stat-card{background:#fff;padding:12px;border-radius:8px;margin-bottom:10px;border-left:3px solid #0066cc}
+        .stat-label{font-size:.8rem;color:#999;margin-bottom:5px}.stat-value{font-size:1.4rem;font-weight:700;color:#0066cc}
+        .info-box{background:#f0f7ff;padding:12px;border-radius:8px;border-left:3px solid #0066cc;font-size:.85rem;line-height:1.5;color:#333}
+        .model-badge{display:inline-block;background:#e8f4fd;color:#0066cc;padding:3px 10px;border-radius:12px;font-size:.78rem;font-weight:600;font-family:Consolas,monospace}
+        .scrollbar::-webkit-scrollbar{width:8px}.scrollbar::-webkit-scrollbar-track{background:0 0}.scrollbar::-webkit-scrollbar-thumb{background:#ccc;border-radius:4px}
+        @media(max-width:960px){.container{grid-template-columns:1fr}.sidebar-left,.sidebar-right{display:none}}
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- SIDEBAR IZQUIERDA -->
-        <div class="sidebar-left scrollbar">
-            <div class="sidebar-header">
-                <h2>📚 Categorías</h2>
-                <p>IA Local Ollama</p>
+<div class="container">
+    <div class="sidebar-left scrollbar"><div class="sidebar-header"><h2>📚 Categorías</h2><p>IA Gratuita · Qwen API</p></div><div class="categories-list" id="categoriesList"></div></div>
+    <div class="main-content">
+        <div class="content-header"><h3 id="categoryTitle">Cardiología</h3><span id="statusBadge" class="status-badge wait">⚙️ Configura API Key</span></div>
+        <div class="content-area scrollbar">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('preguntas',this)">🤖 Preguntas IA</button>
+                <button class="tab-btn" onclick="switchTab('documentos',this)">📚 Documentos</button>
+                <button class="tab-btn" onclick="switchTab('notas',this)">📝 Notas</button>
+                <button class="tab-btn" onclick="switchTab('studio',this)">✨ Studio</button>
+                <button class="tab-btn" onclick="switchTab('config',this)">⚙️</button>
             </div>
-            <div class="categories-list" id="categoriesList">
-                <!-- Generado dinámicamente -->
+            <div id="preguntas" class="tab-content active">
+                <div class="question-input"><input type="text" id="preguntaInput" placeholder="Pregunta sobre los documentos..." spellcheck="false"><button class="btn btn-primary" onclick="hacerPregunta()" id="btnPreguntar">Preguntar</button></div>
+                <div id="preguntasList"><div class="empty-state"><div class="empty-state-icon">❓</div><p>Haz preguntas usando IA gratuita</p></div></div>
             </div>
-        </div>
-
-        <!-- MAIN CONTENT -->
-        <div class="main-content">
-            <div class="content-header">
-                <h3 id="categoryTitle">Cardiología</h3>
-                <span id="statusOllama" class="ollama-status disconnected">⏳ Iniciando Ollama...</span>
+            <div id="documentos" class="tab-content"><div id="documentosList" style="margin-top:10px"></div></div>
+            <div id="notas" class="tab-content">
+                <div style="margin-bottom:20px"><textarea id="noteInput" placeholder="Escribe tus notas..." style="width:100%;padding:12px;border:1px solid #e0e0e0;border-radius:8px;min-height:80px;font-family:inherit;resize:vertical"></textarea>
+                <div style="margin-top:10px;display:flex;gap:10px"><button class="btn btn-primary btn-small" onclick="agregarNota()">✓ Guardar</button><button class="btn btn-secondary btn-small" onclick="document.getElementById('noteInput').value=''">Limpiar</button></div></div>
+                <div id="notasList"></div>
             </div>
-
-            <div class="content-area scrollbar">
-                <!-- TABS -->
-                <div class="tab-buttons">
-                    <button class="tab-btn active" onclick="switchTab('preguntas')">🤖 Preguntas IA</button>
-                    <button class="tab-btn" onclick="switchTab('documentos')">📚 Documentos</button>
-                    <button class="tab-btn" onclick="switchTab('notas')">📝 Notas</button>
+            <div id="studio" class="tab-content">
+                <div style="background:linear-gradient(135deg,#e8f4fd,#f0e8fd);border:1px solid #b8d4f0;border-radius:10px;padding:16px;margin-bottom:16px"><h4 style="color:#0066cc;margin-bottom:6px">✨ AI Studio</h4><p style="font-size:.88rem;color:#555;line-height:1.5">Genera contenido sobre <strong id="studioCategory">Cardiología</strong> con Qwen AI gratuito.</p></div>
+                <div class="studio-grid">
+                    <button class="studio-card" onclick="studioAction('resumen')"><div class="studio-card-icon">📋</div><div class="studio-card-title">Resumen ejecutivo</div><div class="studio-card-desc">Puntos clave</div></button>
+                    <button class="studio-card" onclick="studioAction('faq')"><div class="studio-card-icon">❓</div><div class="studio-card-title">FAQ</div><div class="studio-card-desc">Preguntas frecuentes</div></button>
+                    <button class="studio-card" onclick="studioAction('guia')"><div class="studio-card-icon">📖</div><div class="studio-card-title">Guía de estudio</div><div class="studio-card-desc">Conceptos y repaso</div></button>
+                    <button class="studio-card" onclick="studioAction('diagnostico')"><div class="studio-card-icon">🩺</div><div class="studio-card-title">Diagnóstico diferencial</div><div class="studio-card-desc">Patologías principales</div></button>
+                    <button class="studio-card" onclick="studioAction('farmacologia')"><div class="studio-card-icon">💊</div><div class="studio-card-title">Farmacología</div><div class="studio-card-desc">Fármacos y dosis</div></button>
+                    <button class="studio-card" onclick="studioAction('emergencia')"><div class="studio-card-icon">🚨</div><div class="studio-card-title">Protocolo emergencia</div><div class="studio-card-desc">Actuación urgente</div></button>
                 </div>
+                <div id="studioResult" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h4 style="color:#0066cc" id="studioResultTitle"></h4><button class="btn btn-primary btn-small" onclick="guardarStudioComoNota()">💾 Guardar como nota</button></div><div id="studioResultContent" class="scrollbar" style="background:#fafafa;border:1px solid #e0e0e0;border-radius:8px;padding:16px;line-height:1.65;font-size:.95rem;white-space:pre-wrap;max-height:400px;overflow-y:auto"></div></div>
+            </div>
+            <div id="config" class="tab-content">
+                <div class="config-box">
+                    <h4>🔑 Elige tu proveedor de IA gratuito</h4>
+                    <div class="config-row"><select id="cfgProvider" onchange="cambiarProvider()">
+                        <option value="groq">Groq (recomendado - ultra rápido)</option>
+                        <option value="qwen">Qwen API directa (Alibaba Cloud)</option>
+                    </select></div>
 
-                <!-- PREGUNTAS TAB -->
-                <div id="preguntas" class="tab-content active">
-                    <div class="question-input">
-                        <input type="text" id="preguntaInput" placeholder="Pregunta sobre los documentos..." spellcheck="false">
-                        <button class="btn btn-primary" onclick="hacerPregunta()" id="btnPreguntar">Preguntar</button>
+                    <div id="groqConfig">
+                        <p class="config-hint" style="margin-bottom:10px">
+                            <strong>Groq</strong> — Gratis, ultra rápido, incluye Qwen3-32B<br>
+                            1. Ve a <a href="https://console.groq.com" target="_blank" style="color:#0066cc;font-weight:600">console.groq.com</a><br>
+                            2. Crea cuenta gratis (sin tarjeta)<br>
+                            3. API Keys → Create API Key<br>
+                            4. Pega la key aquí (empieza por <code>gsk_</code>)
+                        </p>
+                        <div class="config-row"><input type="password" id="cfgGroqKey" placeholder="gsk_xxxxxxxxxxxx"></div>
+                        <h4 style="margin-top:10px">Modelo</h4>
+                        <div class="config-row"><select id="cfgGroqModel">
+                            <option value="qwen/qwen3-32b">Qwen3 32B (recomendado)</option>
+                            <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
+                            <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 70B</option>
+                            <option value="gemma2-9b-it">Gemma 2 9B</option>
+                            <option value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout</option>
+                        </select></div>
                     </div>
 
-                    <div id="preguntasList">
-                        <div class="empty-state">
-                            <div class="empty-state-icon">❓</div>
-                            <p>Haz preguntas usando IA local</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DOCUMENTOS TAB -->
-                <div id="documentos" class="tab-content">
-                    <div id="documentosList" style="margin-top: 10px;">
-                        <!-- Generado dinámicamente -->
-                    </div>
-                </div>
-
-                <!-- NOTAS TAB -->
-                <div id="notas" class="tab-content">
-                    <div style="margin-bottom: 20px;">
-                        <textarea id="noteInput" placeholder="Escribe tus notas..." style="width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; min-height: 80px; font-family: inherit; resize: vertical;"></textarea>
-                        <div style="margin-top: 10px; display: flex; gap: 10px;">
-                            <button class="btn btn-primary" onclick="agregarNota()">✓ Guardar</button>
-                            <button class="btn btn-secondary" onclick="limpiarEditor()">Limpiar</button>
-                        </div>
+                    <div id="qwenConfig" style="display:none">
+                        <p class="config-hint" style="margin-bottom:10px">
+                            <strong>Qwen API</strong> — API oficial de Alibaba Cloud<br>
+                            1. Ve a <a href="https://www.alibabacloud.com/help/en/model-studio/get-api-key" target="_blank" style="color:#0066cc;font-weight:600">Alibaba Cloud Model Studio</a><br>
+                            2. Crea cuenta y activa Model Studio<br>
+                            3. Crea API Key (empieza por <code>sk-</code>)<br>
+                            4. Pega la key aquí
+                        </p>
+                        <div class="config-row"><input type="password" id="cfgQwenKey" placeholder="sk-xxxxxxxxxxxx"></div>
+                        <h4 style="margin-top:10px">Modelo</h4>
+                        <div class="config-row"><select id="cfgQwenModel">
+                            <option value="qwen-turbo">Qwen Turbo (más rápido, gratis)</option>
+                            <option value="qwen-plus">Qwen Plus (mejor calidad)</option>
+                            <option value="qwen3-32b">Qwen3 32B</option>
+                            <option value="qwen3-8b">Qwen3 8B</option>
+                            <option value="qwen-max">Qwen Max (el mejor)</option>
+                        </select></div>
                     </div>
 
-                    <div id="notasList"></div>
+                    <div style="margin-top:14px;display:flex;gap:8px">
+                        <button class="btn btn-primary btn-small" onclick="guardarConfig()">💾 Guardar</button>
+                        <button class="btn btn-secondary btn-small" onclick="testApiKey()">🧪 Probar conexión</button>
+                    </div>
+                    <div id="cfgStatus" style="margin-top:10px"></div>
                 </div>
-            </div>
-        </div>
-
-        <!-- SIDEBAR DERECHA -->
-        <div class="sidebar-right scrollbar">
-            <div class="sidebar-section-title">📊 Estadísticas</div>
-
-            <div class="stat-card">
-                <div class="stat-label">Documentos</div>
-                <div class="stat-value" id="docsCount">0</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-label">Preguntas</div>
-                <div class="stat-value" id="preguntasCount">0</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-label">Notas</div>
-                <div class="stat-value" id="notasCount">0</div>
-            </div>
-
-            <div class="info-box" style="margin-top: 20px;">
-                <strong>💡 IA Local</strong><br>
-                Modelo Qwen instalado localmente vía Ollama.
-                <br><br>
-                <strong>✅ Ventajas:</strong>
-                <br>• Sin API key
-                <br>• Ilimitado
-                <br>• Completamente gratis
-                <br>• Offline (sin internet)
             </div>
         </div>
     </div>
+    <div class="sidebar-right scrollbar">
+        <div class="sidebar-section-title">📊 Estadísticas</div>
+        <div class="stat-card"><div class="stat-label">Documentos</div><div class="stat-value" id="docsCount">0</div></div>
+        <div class="stat-card"><div class="stat-label">Preguntas</div><div class="stat-value" id="preguntasCount">0</div></div>
+        <div class="stat-card"><div class="stat-label">Notas</div><div class="stat-value" id="notasCount">0</div></div>
+        <div style="margin-top:15px"><div class="sidebar-section-title">🤖 Modelo</div><div class="stat-card"><span class="model-badge" id="modelBadge">--</span><div style="font-size:.8rem;color:#999;margin-top:6px" id="modelInfo">Configura API Key</div></div></div>
+        <div class="info-box" style="margin-top:15px"><strong>💡 IA Gratuita</strong><br>Qwen AI vía API gratuita.<br><br><strong>✅ Ventajas:</strong><br>• Gratis<br>• Ultra rápido<br>• Sin instalar nada<br>• Desde cualquier lugar</div>
+    </div>
+</div>
+<script>
+var categories={"Cardiología":"❤️","Dermatología":"🩹","Digestivo":"🫁","Endocrinología":"🧬","Geriatría":"👴","Ginecología":"🤰","Neurología":"🧠","Neumología":"💨","Pediatría":"👶","Traumatología":"🦴","Protocolos Médicos":"📋"};
+var currentCategory="Cardiología",documents={},preguntas={},notas={},isProcessing=false;
+var CONFIG={provider:"groq",groqKey:"",groqModel:"qwen/qwen3-32b",qwenKey:"",qwenModel:"qwen-turbo"};
+try{var s=localStorage.getItem("notebook_ai_cfg_v3");if(s)Object.assign(CONFIG,JSON.parse(s));}catch(e){}
 
-    <script>
-        const categories = {
-            "Cardiología": "❤️",
-            "Dermatología": "🩹",
-            "Digestivo": "🫁",
-            "Endocrinología": "🧬",
-            "Geriatría": "👴",
-            "Ginecología": "🤰",
-            "Neurología": "🧠",
-            "Neumología": "💨",
-            "Pediatría": "👶",
-            "Traumatología": "🦴",
-            "Protocolos Médicos": "📋"
-        };
+var ENDPOINTS={
+    groq:{url:"https://api.groq.com/openai/v1/chat/completions",getKey:function(){return CONFIG.groqKey},getModel:function(){return CONFIG.groqModel},prefix:"gsk_"},
+    qwen:{url:"https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions",getKey:function(){return CONFIG.qwenKey},getModel:function(){return CONFIG.qwenModel},prefix:"sk-"}
+};
 
-        let currentCategory = "Cardiología";
-        let documents = {};
-        let preguntas = {};
-        let notas = {};
-        let ollamaConnected = false;
-        const OLLAMA_API = 'http://localhost:11434/api/generate';
+function ep(){return ENDPOINTS[CONFIG.provider]||ENDPOINTS.groq}
+function isReady(){var e=ep();var k=e.getKey();return k&&k.startsWith(e.prefix)}
+function updateStatus(){
+    var el=document.getElementById("statusBadge"),b=document.getElementById("modelBadge"),i=document.getElementById("modelInfo");
+    if(isReady()){el.className="status-badge ok";el.textContent="✅ IA Conectada";b.textContent=ep().getModel().split("/").pop();i.textContent=CONFIG.provider==="groq"?"Groq API · Gratis":"Qwen API · Alibaba";}
+    else{el.className="status-badge wait";el.textContent="⚙️ Configura API Key";b.textContent="--";i.textContent="Ve a ⚙️ Config";}
+}
 
-        // Verificar conexión a Ollama
-        async function checkOllamaConnection() {
-            try {
-                const response = await fetch('http://localhost:11434/api/tags');
-                if (response.ok) {
-                    const data = await response.json();
-                    ollamaConnected = true;
-                    updateOllamaStatus(true);
-                    console.log('✅ Ollama conectado:', data.models?.length, 'modelos');
-                } else {
-                    updateOllamaStatus(false);
-                }
-            } catch (e) {
-                updateOllamaStatus(false);
-                console.log('Ollama no disponible');
-            }
-        }
+function cambiarProvider(){
+    var v=document.getElementById("cfgProvider").value;
+    document.getElementById("groqConfig").style.display=v==="groq"?"block":"none";
+    document.getElementById("qwenConfig").style.display=v==="qwen"?"block":"none";
+}
 
-        function updateOllamaStatus(connected) {
-            const status = document.getElementById('statusOllama');
-            if (connected) {
-                status.className = 'ollama-status connected';
-                status.textContent = '✅ Ollama Conectado';
-            } else {
-                status.className = 'ollama-status disconnected';
-                status.textContent = '❌ Ollama Desconectado';
-            }
-        }
-
-        // Generar respuesta con Ollama
-        async function generarRespuestaOllama(pregunta, categoria) {
-            const docs = documents[currentCategory] || [];
-            const docsInfo = docs.map(d => `- ${d.name}`).join('\n');
-
-            const prompt = `Eres un asistente médico especializado en ${categoria}.
-
-Documentos disponibles:
-${docsInfo || 'Sin documentos específicos'}
-
-Pregunta del usuario: ${pregunta}
-
-Responde de forma clara y concisa sobre el tema médico. Si es relevante menciona cuál documento podría contener más información.`;
-
-            try {
-                const response = await fetch(OLLAMA_API, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        model: 'qwen2.5-coder:7b',
-                        prompt: prompt,
-                        stream: false,
-                        temperature: 0.7
-                    })
-                });
-
-                if (!response.ok) {
-                    return 'Error: Ollama no respondió correctamente. ¿Está ejecutándose?';
-                }
-
-                const data = await response.json();
-                return data.response || 'Sin respuesta';
-            } catch (e) {
-                return `Error: ${e.message}. Asegúrate de que Ollama está ejecutándose en http://localhost:11434`;
-            }
-        }
-
-        // Cargar documentos
-        async function loadDocuments() {
-            try {
-                const response = await fetch('documents.json');
-                const data = await response.json();
-                documents = data.categories;
-                actualizarUI();
-            } catch (e) {
-                console.log("Error cargando documentos:", e);
-            }
-        }
-
-        // Hacer pregunta
-        async function hacerPregunta() {
-            const pregunta = document.getElementById('preguntaInput').value.trim();
-            if (!pregunta) return;
-
-            if (!ollamaConnected) {
-                alert('⚠️ Ollama no está conectado. Asegúrate de ejecutar "ollama serve" en terminal');
-                return;
-            }
-
-            document.getElementById('btnPreguntar').disabled = true;
-
-            if (!preguntas[currentCategory]) preguntas[currentCategory] = [];
-
-            preguntas[currentCategory].push({
-                pregunta: pregunta,
-                respuesta: '⏳ Ollama está procesando...',
-                fecha: new Date().toLocaleString('es-ES')
-            });
-
-            document.getElementById('preguntaInput').value = '';
-            actualizarUI();
-
-            const respuesta = await generarRespuestaOllama(pregunta, currentCategory);
-
-            preguntas[currentCategory][preguntas[currentCategory].length - 1].respuesta = respuesta;
-            guardarDatos();
-            actualizarUI();
-
-            document.getElementById('btnPreguntar').disabled = false;
-        }
-
-        function agregarNota() {
-            const texto = document.getElementById('noteInput').value.trim();
-            if (!texto) return;
-
-            if (!notas[currentCategory]) notas[currentCategory] = [];
-            notas[currentCategory].push({
-                texto: texto,
-                fecha: new Date().toLocaleString('es-ES')
-            });
-
-            document.getElementById('noteInput').value = '';
-            guardarDatos();
-            actualizarUI();
-        }
-
-        function limpiarEditor() {
-            document.getElementById('noteInput').value = '';
-            document.getElementById('noteInput').focus();
-        }
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        function cambiarCategoria(cat) {
-            currentCategory = cat;
-            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.closest('.category-btn').classList.add('active');
-            document.getElementById('categoryTitle').textContent = cat;
-            switchTab('preguntas');
-            actualizarUI();
-        }
-
-        function actualizarUI() {
-            // Documentos
-            const docs = documents[currentCategory] || [];
-            const docList = document.getElementById('documentosList');
-
-            docList.innerHTML = docs.length === 0 ?
-                '<p style="color: #999;">No hay documentos en esta categoría</p>' :
-                docs.map(doc => `
-                    <div class="doc-item">
-                        <div class="doc-info">
-                            <div class="doc-name">${doc.name}</div>
-                            <div class="doc-size">${doc.size_mb} MB • ${doc.type}</div>
-                        </div>
-                        <a href="${doc.url}" target="_blank" class="doc-btn">Ver</a>
-                    </div>
-                `).join('');
-
-            document.getElementById('docsCount').textContent = docs.length;
-            document.getElementById('preguntasCount').textContent = (preguntas[currentCategory] || []).length;
-            document.getElementById('notasCount').textContent = (notas[currentCategory] || []).length;
-
-            // Preguntas
-            const preguntasList = document.getElementById('preguntasList');
-            const preguntasActuales = preguntas[currentCategory] || [];
-
-            if (preguntasActuales.length === 0) {
-                preguntasList.innerHTML = `<div class="empty-state"><div class="empty-state-icon">❓</div><p>Haz tu primera pregunta</p></div>`;
-            } else {
-                preguntasList.innerHTML = preguntasActuales.map((p) => `
-                    <div class="question-box">
-                        <div class="question-text">❓ ${p.pregunta}</div>
-                        <div class="answer-text">${p.respuesta}</div>
-                        <div class="note-time">${p.fecha}</div>
-                    </div>
-                `).join('');
-            }
-
-            // Notas
-            const notasList = document.getElementById('notasList');
-            const notasActuales = notas[currentCategory] || [];
-
-            if (notasActuales.length === 0) {
-                notasList.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📝</div><p>Sin notas aún</p></div>';
-            } else {
-                notasList.innerHTML = notasActuales.map((n) => `
-                    <div style="background: #f9f9f9; padding: 10px; border-radius: 6px; margin-bottom: 8px; border-left: 2px solid #0066cc;">
-                        <div style="color: #333; font-size: 0.95rem; margin-bottom: 5px;">${n.texto}</div>
-                        <div style="font-size: 0.8rem; color: #999;">${n.fecha}</div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        function guardarDatos() {
-            localStorage.setItem('cartagena_preguntas', JSON.stringify(preguntas));
-            localStorage.setItem('cartagena_notas', JSON.stringify(notas));
-        }
-
-        function cargarDatos() {
-            preguntas = JSON.parse(localStorage.getItem('cartagena_preguntas')) || {};
-            notas = JSON.parse(localStorage.getItem('cartagena_notas')) || {};
-        }
-
-        function init() {
-            const params = new URLSearchParams(window.location.search);
-            const catFromUrl = params.get('category');
-            if (catFromUrl && categories[catFromUrl]) {
-                currentCategory = catFromUrl;
-            }
-
-            const categoriesList = document.getElementById('categoriesList');
-            Object.keys(categories).forEach(cat => {
-                const btn = document.createElement('button');
-                btn.className = 'category-btn' + (cat === currentCategory ? ' active' : '');
-                btn.innerHTML = `${categories[cat]} ${cat}`;
-                btn.onclick = () => cambiarCategoria(cat);
-                categoriesList.appendChild(btn);
-            });
-
-            cargarDatos();
-            loadDocuments();
-            checkOllamaConnection();
-
-            // Reintentar conexión cada 5 segundos
-            setInterval(checkOllamaConnection, 5000);
-        }
-
-        document.addEventListener('DOMContentLoaded', init);
-        document.getElementById('preguntaInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') hacerPregunta();
+async function llamarIA(userPrompt,systemPrompt){
+    if(!isReady())return"⚠️ Configura tu API Key en la pestaña ⚙️";
+    var e=ep();
+    try{
+        var r=await fetch(e.url,{
+            method:"POST",
+            headers:{"Content-Type":"application/json","Authorization":"Bearer "+e.getKey()},
+            body:JSON.stringify({model:e.getModel(),messages:[{role:"system",content:systemPrompt||"Eres un asistente médico. Responde en español."},{role:"user",content:userPrompt}],temperature:0.7,max_tokens:2048})
         });
-    </script>
+        if(!r.ok){
+            var err=await r.json().catch(function(){return{}});
+            if(r.status===401)return"❌ API Key inválida. Genera una nueva en "+(CONFIG.provider==="groq"?"console.groq.com":"Alibaba Cloud");
+            if(r.status===429)return"⏳ Límite alcanzado. Espera un momento.";
+            return"❌ Error "+r.status+": "+(err.error&&err.error.message?err.error.message:"Error desconocido");
+        }
+        var data=await r.json();
+        var content=(data.choices&&data.choices[0]&&data.choices[0].message)?data.choices[0].message.content:"Sin respuesta";
+        content=content.replace(/<think>[\s\S]*?<\/think>/g,"").trim();
+        return content||"Sin respuesta";
+    }catch(e){return"❌ Error de conexión: "+e.message}
+}
+
+async function hacerPregunta(){
+    var input=document.getElementById("preguntaInput"),q=input.value.trim();
+    if(!q||isProcessing)return;
+    if(!isReady()){switchTab("config",document.querySelectorAll(".tab-btn")[4]);alert("⚙️ Configura tu API Key primero");return;}
+    isProcessing=true;document.getElementById("btnPreguntar").disabled=true;
+    if(!preguntas[currentCategory])preguntas[currentCategory]=[];
+    var idx=preguntas[currentCategory].length;
+    preguntas[currentCategory].push({pregunta:q,respuesta:"⏳ Procesando con "+ep().getModel().split("/").pop()+"...",fecha:new Date().toLocaleString("es-ES")});
+    input.value="";actualizarUI();
+    var docs=documents[currentCategory]||[];
+    var docsCtx=docs.map(function(d){return"- "+d.name}).join("\n");
+    var sys="Eres un asistente médico especializado en "+currentCategory+". Responde de forma clara, precisa y basada en evidencia médica. Responde siempre en español."+(docsCtx?"\n\nDocumentos disponibles:\n"+docsCtx:"");
+    var resp=await llamarIA(q,sys);
+    preguntas[currentCategory][idx].respuesta=resp;
+    guardarDatos();actualizarUI();isProcessing=false;document.getElementById("btnPreguntar").disabled=false;
+}
+
+var studioPrompts={
+    resumen:{title:"📋 Resumen - ",prompt:"Genera un resumen ejecutivo completo sobre {cat}. Incluye: patologías frecuentes, métodos diagnósticos, tratamientos estándar."},
+    faq:{title:"❓ FAQ - ",prompt:"Genera 8 preguntas frecuentes sobre {cat} con respuestas detalladas."},
+    guia:{title:"📖 Guía - ",prompt:"Crea una guía de estudio sobre {cat}: conceptos, clasificaciones, criterios diagnósticos, fármacos clave con dosis, preguntas de repaso."},
+    diagnostico:{title:"🩺 Dx - ",prompt:"Diagnóstico diferencial de patologías comunes en {cat}. Síntomas, pruebas, diferenciales, red flags."},
+    farmacologia:{title:"💊 Farma - ",prompt:"Resumen farmacológico de {cat}: grupos, mecanismo, indicaciones, dosis, efectos adversos, contraindicaciones."},
+    emergencia:{title:"🚨 Urgencia - ",prompt:"Protocolos de emergencia en {cat}: reconocimiento, medidas inmediatas, tratamiento urgente con dosis, criterios derivación."}
+};
+var lastStudioContent="",lastStudioTitle="";
+
+async function studioAction(tipo){
+    if(!isReady()||isProcessing){if(!isReady()){switchTab("config",document.querySelectorAll(".tab-btn")[4]);alert("⚙️ Configura API Key primero");}return;}
+    var cfg=studioPrompts[tipo];if(!cfg)return;
+    isProcessing=true;document.querySelectorAll(".studio-card").forEach(function(c){c.disabled=true});
+    var rd=document.getElementById("studioResult"),cd=document.getElementById("studioResultContent");
+    lastStudioTitle=cfg.title+currentCategory;document.getElementById("studioResultTitle").textContent=lastStudioTitle;
+    cd.textContent="⏳ Generando...";rd.style.display="block";
+    lastStudioContent=await llamarIA(cfg.prompt.replace(/\{cat\}/g,currentCategory),"Eres un experto médico. Responde en español con precisión.");
+    cd.textContent=lastStudioContent;isProcessing=false;document.querySelectorAll(".studio-card").forEach(function(c){c.disabled=false});
+}
+function guardarStudioComoNota(){if(!lastStudioContent)return;if(!notas[currentCategory])notas[currentCategory]=[];notas[currentCategory].push({texto:lastStudioTitle+"\n\n"+lastStudioContent,fecha:new Date().toLocaleString("es-ES")});guardarDatos();actualizarUI();alert("✅ Guardado como nota")}
+
+function agregarNota(){var t=document.getElementById("noteInput").value.trim();if(!t)return;if(!notas[currentCategory])notas[currentCategory]=[];notas[currentCategory].push({texto:t,fecha:new Date().toLocaleString("es-ES")});document.getElementById("noteInput").value="";guardarDatos();actualizarUI();}
+function eliminarNota(i){if(!confirm("¿Eliminar?"))return;notas[currentCategory].splice(i,1);guardarDatos();actualizarUI();}
+
+function switchTab(n,b){document.querySelectorAll(".tab-content").forEach(function(t){t.classList.remove("active")});document.querySelectorAll(".tab-btn").forEach(function(x){x.classList.remove("active")});document.getElementById(n).classList.add("active");if(b)b.classList.add("active");}
+function cambiarCategoria(c,b){currentCategory=c;document.querySelectorAll(".category-btn").forEach(function(x){x.classList.remove("active")});if(b)b.classList.add("active");document.getElementById("categoryTitle").textContent=c;var sc=document.getElementById("studioCategory");if(sc)sc.textContent=c;switchTab("preguntas",document.querySelector(".tab-btn"));actualizarUI();}
+
+function esc(t){if(!t)return"";return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function actualizarUI(){
+    var docs=documents[currentCategory]||[];
+    document.getElementById("documentosList").innerHTML=docs.length===0?'<p style="color:#999">No hay documentos</p>':docs.map(function(d){return'<div class="doc-item"><div class="doc-info"><div class="doc-name">'+d.name+'</div><div class="doc-size">'+d.size_mb+' MB • '+d.type+'</div></div><a href="'+d.url+'" target="_blank" class="doc-btn">Ver</a></div>'}).join("");
+    document.getElementById("docsCount").textContent=docs.length;
+    document.getElementById("preguntasCount").textContent=(preguntas[currentCategory]||[]).length;
+    document.getElementById("notasCount").textContent=(notas[currentCategory]||[]).length;
+    var pa=preguntas[currentCategory]||[],pl=document.getElementById("preguntasList");
+    pl.innerHTML=pa.length===0?'<div class="empty-state"><div class="empty-state-icon">❓</div><p>Haz preguntas usando IA gratuita</p></div>':pa.map(function(p){return'<div class="question-box"><div class="question-text">❓ '+esc(p.pregunta)+'</div><div class="answer-text">'+esc(p.respuesta)+'</div><div class="note-time">'+p.fecha+'</div></div>'}).join("");
+    var na=notas[currentCategory]||[],nl=document.getElementById("notasList");
+    nl.innerHTML=na.length===0?'<div class="empty-state"><div class="empty-state-icon">📝</div><p>Sin notas</p></div>':na.map(function(n,i){return'<div style="background:#f9f9f9;padding:12px;border-radius:6px;margin-bottom:8px;border-left:2px solid #0066cc;position:relative"><div style="color:#333;font-size:.95rem;margin-bottom:5px;white-space:pre-wrap;padding-right:30px">'+esc(n.texto)+'</div><div style="font-size:.8rem;color:#999">'+n.fecha+'</div><button onclick="eliminarNota('+i+')" style="position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;font-size:.9rem;opacity:.4">🗑️</button></div>'}).join("");
+}
+
+function guardarConfig(){
+    CONFIG.provider=document.getElementById("cfgProvider").value;
+    CONFIG.groqKey=document.getElementById("cfgGroqKey").value.trim();
+    CONFIG.groqModel=document.getElementById("cfgGroqModel").value;
+    CONFIG.qwenKey=document.getElementById("cfgQwenKey").value.trim();
+    CONFIG.qwenModel=document.getElementById("cfgQwenModel").value;
+    localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
+    updateStatus();document.getElementById("cfgStatus").innerHTML='<span style="color:#155724">✅ Guardado</span>';
+}
+
+async function testApiKey(){
+    guardarConfig();
+    if(!isReady()){document.getElementById("cfgStatus").innerHTML='<span style="color:#721c24">❌ Introduce una API Key válida</span>';return;}
+    var st=document.getElementById("cfgStatus");st.innerHTML='<span style="color:#856404">⏳ Probando...</span>';
+    var e=ep();
+    try{
+        var r=await fetch(e.url,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+e.getKey()},
+            body:JSON.stringify({model:e.getModel(),messages:[{role:"user",content:"Di solo: OK"}],max_tokens:10})});
+        if(r.ok)st.innerHTML='<span style="color:#155724">✅ ¡Conexión exitosa! Todo funciona.</span>';
+        else if(r.status===401)st.innerHTML='<span style="color:#721c24">❌ API Key inválida</span>';
+        else{var err=await r.json().catch(function(){return{}});st.innerHTML='<span style="color:#721c24">❌ Error '+r.status+": "+(err.error&&err.error.message?err.error.message:"")+"</span>";}
+    }catch(err){st.innerHTML='<span style="color:#721c24">❌ Error: '+err.message+"</span>";}
+}
+
+function guardarDatos(){localStorage.setItem("cartagena_preguntas",JSON.stringify(preguntas));localStorage.setItem("cartagena_notas",JSON.stringify(notas));}
+function cargarDatos(){try{preguntas=JSON.parse(localStorage.getItem("cartagena_preguntas"))||{};}catch(e){preguntas={};}try{notas=JSON.parse(localStorage.getItem("cartagena_notas"))||{};}catch(e){notas={};}}
+
+function init(){
+    var p=new URLSearchParams(window.location.search),c=p.get("category");if(c&&categories[c])currentCategory=c;
+    var list=document.getElementById("categoriesList");
+    Object.keys(categories).forEach(function(cat){var btn=document.createElement("button");btn.className="category-btn"+(cat===currentCategory?" active":"");btn.innerHTML=categories[cat]+" "+cat;btn.onclick=function(){cambiarCategoria(cat,btn)};list.appendChild(btn);});
+    document.getElementById("categoryTitle").textContent=currentCategory;
+    document.getElementById("cfgProvider").value=CONFIG.provider;cambiarProvider();
+    document.getElementById("cfgGroqKey").value=CONFIG.groqKey||"";
+    document.getElementById("cfgGroqModel").value=CONFIG.groqModel;
+    document.getElementById("cfgQwenKey").value=CONFIG.qwenKey||"";
+    document.getElementById("cfgQwenModel").value=CONFIG.qwenModel;
+    cargarDatos();updateStatus();actualizarUI();
+    fetch("documents.json").then(function(r){return r.json()}).then(function(d){documents=d.categories;actualizarUI();}).catch(function(){});
+    document.getElementById("preguntaInput").addEventListener("keypress",function(e){if(e.key==="Enter")hacerPregunta()});
+    if(!isReady())setTimeout(function(){switchTab("config",document.querySelectorAll(".tab-btn")[4])},500);
+}
+document.addEventListener("DOMContentLoaded",init);
+</script>
 </body>
 </html>
+Footer
+© 2026 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
