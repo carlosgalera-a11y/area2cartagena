@@ -1133,7 +1133,7 @@ function fbLoad(col,docId,callback){
 // Sync on login - load cloud data into local
 function syncFromCloud(){
     fbLoad("app_data","config_ia",function(d){
-        if(d && d.provider){
+        if(d && d.groqKey){
             CONFIG.provider=d.provider||CONFIG.provider;
             CONFIG.groqKey=d.groqKey||CONFIG.groqKey;
             CONFIG.groqModel=d.groqModel||CONFIG.groqModel;
@@ -1152,6 +1152,22 @@ function syncFromCloud(){
     });
     fbLoad("app_data","custom_protocols",function(d){
         if(d && d.list){ localStorage.setItem("ap_custom_protocols",JSON.stringify(d.list)); try{apRenderCustomList();apUpdateProtoSelector();}catch(e){} console.log("☁️ Protocolos custom cargados"); }
+    });
+}
+
+// Auto-load IA config from Firestore on every page load (not just admin login)
+function autoLoadIAConfig(){
+    fbLoad("app_data","config_ia",function(d){
+        if(d && d.groqKey){
+            CONFIG.groqKey=d.groqKey;
+            CONFIG.provider=d.provider||"groq";
+            CONFIG.groqModel=d.groqModel||CONFIG.groqModel;
+            CONFIG.qwenKey=d.qwenKey||"";
+            CONFIG.qwenModel=d.qwenModel||CONFIG.qwenModel;
+            localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
+            try{updateStatus();}catch(e){}
+            console.log("🔑 API Key cargada desde Firestore");
+        }
     });
 }
 
@@ -1877,6 +1893,7 @@ try{
 // ═══ INIT ═══
 document.addEventListener("DOMContentLoaded",function(){
     renderPatients();
+    setTimeout(autoLoadIAConfig,500); // Cargar API key desde Firestore
     try{ initLoginSession(); }catch(e){ console.warn("Login init error:",e); }
     var p=new URLSearchParams(window.location.search);
     if(p.get("view")==="professionals"||p.get("category"))accessProfessionals();
