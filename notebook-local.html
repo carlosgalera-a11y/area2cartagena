@@ -153,6 +153,10 @@
                     <a class="hero-btn hero-btn-patients" onclick="showPage('pagePatients')"><span class="hero-btn-icon">👤</span> Pacientes</a>
                     <a class="hero-btn hero-btn-professionals" onclick="showPage('pageProfessionals')"><span class="hero-btn-icon">🩺</span> Profesionales</a>
                 </div>
+                <div class="hero-buttons" style="margin-top:20px;">
+                    <a class="hero-btn hero-btn-patients" onclick="showPage('pageProtocolosAP')" style="background:#fff;color:var(--primary-dark);"><span class="hero-btn-icon">📋</span> Protocolos Atencion Primaria</a>
+                    <a class="hero-btn hero-btn-professionals" onclick="showPage('pageProtocolosUrgencias')" style="background:transparent;border-color:rgba(255,255,255,.4);color:#fff;"><span class="hero-btn-icon">🚨</span> Protocolos Urgencias</a>
+                </div>
             </div>
             <div class="hero-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Creado con ❤️</div>
         </div>
@@ -183,6 +187,26 @@
             </div>
         </div>
         <div class="sidebar-right scrollbar"><div class="sidebar-section-title">Estadísticas</div><div class="stat-card"><div class="stat-label">Documentos</div><div class="stat-value" id="docsCount">0</div></div><div class="stat-card"><div class="stat-label">Preguntas</div><div class="stat-value" id="preguntasCount">0</div></div><div class="stat-card"><div class="stat-label">Notas</div><div class="stat-value" id="notasCount">0</div></div><div style="margin-top:18px"><div class="sidebar-section-title">Modelo Activo</div><div class="stat-card"><span class="model-badge" id="modelBadge">--</span><div style="font-size:.78rem;color:var(--text-muted);margin-top:8px" id="modelInfo">Config</div></div></div><div class="info-box" style="margin-top:18px"><strong>🏥 Cuaderno AI</strong><br>Docencia clínica con IA para Cartagena Este.<br><br>• IA gratuita<br>• Resúmenes automáticos<br>• Estudio por especialidades</div></div>
+    </div>
+</div>
+
+<!-- ═══════ PROTOCOLOS ATENCION PRIMARIA PAGE ═══════ -->
+<div class="page" id="pageProtocolosAP">
+    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button><button class="page-back" id="loginBtnAP" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button></div></nav>
+    <div style="background:linear-gradient(135deg,var(--bg-dark),#243347);padding:30px 40px 20px;color:#fff;min-height:100vh;">
+        <h2 style="font-family:var(--font-display);font-size:1.8rem;margin-bottom:20px;">📋 Protocolos de Atencion Primaria</h2>
+        <p style="font-size:.95rem;opacity:.85;margin-bottom:30px;max-width:600px;">Accede a los protocolos y guías de atención primaria para profesionales médicos.</p>
+        <div style="background:var(--bg-card);border-radius:var(--radius);padding:30px;max-width:600px;"><h3 style="color:var(--primary-dark);font-family:var(--font-display);margin-bottom:20px;">Documentos Disponibles</h3><div id="protocolosAPList" style="display:grid;grid-template-columns:1fr;gap:12px;"><div style="background:var(--bg-main);padding:16px;border-radius:8px;border-left:4px solid var(--primary);text-align:center;"><div style="font-size:1.5rem;margin-bottom:8px;">📄</div><div style="font-weight:600;color:var(--text);margin-bottom:4px;">Aún sin documentos</div><div style="font-size:.88rem;color:var(--text-muted);">Los documentos estarán disponibles pronto</div></div></div><div style="margin-top:20px;padding:16px;background:#e3f2fd;border-radius:8px;font-size:.88rem;color:#1565c0;"><strong>💡 Tip:</strong> Accede al Panel Admin para subir protocolos de Atencion Primaria.</div></div>
+    </div>
+</div>
+
+<!-- ═══════ PROTOCOLOS URGENCIAS PAGE ═══════ -->
+<div class="page" id="pageProtocolosUrgencias">
+    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button><button class="page-back" id="loginBtnUrgencias" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button></div></nav>
+    <div style="background:linear-gradient(135deg,var(--bg-dark),#243347);padding:30px 40px 20px;color:#fff;min-height:100vh;">
+        <h2 style="font-family:var(--font-display);font-size:1.8rem;margin-bottom:20px;">🚨 Protocolos de Urgencias</h2>
+        <p style="font-size:.95rem;opacity:.85;margin-bottom:30px;max-width:600px;">Accede a los protocolos y guías de emergencias para profesionales médicos.</p>
+        <div style="background:var(--bg-card);border-radius:var(--radius);padding:30px;max-width:600px;"><h3 style="color:var(--primary-dark);font-family:var(--font-display);margin-bottom:20px;">Documentos Disponibles</h3><div id="protocolosUrgenciasList" style="display:grid;grid-template-columns:1fr;gap:12px;"><div style="background:var(--bg-main);padding:16px;border-radius:8px;border-left:4px solid #d32f2f;text-align:center;"><div style="font-size:1.5rem;margin-bottom:8px;">🚨</div><div style="font-weight:600;color:var(--text);margin-bottom:4px;">Aún sin documentos</div><div style="font-size:.88rem;color:var(--text-muted);">Los documentos estarán disponibles pronto</div></div></div><div style="margin-top:20px;padding:16px;background:#ffebee;border-radius:8px;font-size:.88rem;color:#c62828;"><strong>⚠️ Importante:</strong> Accede al Panel Admin para subir protocolos de Urgencias.</div></div>
     </div>
 </div>
 
