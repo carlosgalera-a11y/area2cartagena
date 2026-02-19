@@ -136,7 +136,7 @@
 <!-- ═══════ LANDING PAGE ═══════ -->
 <div class="page active" id="pageLanding">
     <div class="landing">
-        <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Centro de Salud <span>Cartagena Este</span></h1></div><div class="nav-links"><a href="https://cartagenaeste.es/" target="_blank">Web</a><a href="https://cartagenaeste.es/home/blog-categorias/" target="_blank">Blog</a><a href="https://cartagenaeste.es/podcast-2/" target="_blank">Podcast</a></div></nav>
+        <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Centro de Salud <span>Cartagena Este</span></h1></div><div class="nav-links"><button class="page-back" id="loginBtnLanding" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button></div></nav>
         <div class="hero">
             <div class="hero-bg"></div>
             <div class="hero-overlay"></div>
@@ -156,14 +156,14 @@
 
 <!-- ═══════ PATIENTS PAGE ═══════ -->
 <div class="page" id="pagePatients">
-    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Centro de Salud <span>Cartagena Este</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button></div></nav>
+    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Centro de Salud <span>Cartagena Este</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button><button class="page-back" id="loginBtnPatients" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button></div></nav>
     <div class="patients-header"><h2>👤 Pacientes</h2><p>Recursos e información para pacientes del Centro de Salud</p></div>
     <div class="patients-grid" id="patientsGrid"></div>
 </div>
 
 <!-- ═══════ PROFESSIONALS PAGE ═══════ -->
 <div class="page" id="pageProfessionals">
-    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Centro de Salud <span>Cartagena Este</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button><span id="statusBadge" class="nav-status wait">⚙️ Config</span></div></nav>
+    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Centro de Salud <span>Cartagena Este</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button><button class="page-back" id="loginBtnProf" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button><span id="statusBadge" class="nav-status wait">⚙️ Config</span></div></nav>
     <div class="prof-layout">
         <div class="sidebar-left"><div class="sidebar-hero"><h2>Especialidades</h2><p>Cuaderno AI · Docencia Clínica</p></div><div class="categories-list scrollbar" id="categoriesList"></div><div class="sidebar-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a></div></div>
         <div class="main-content"><div class="content-header"><h3 id="categoryTitle">Cardiología</h3></div>
@@ -178,6 +178,98 @@
             </div>
         </div>
         <div class="sidebar-right scrollbar"><div class="sidebar-section-title">Estadísticas</div><div class="stat-card"><div class="stat-label">Documentos</div><div class="stat-value" id="docsCount">0</div></div><div class="stat-card"><div class="stat-label">Preguntas</div><div class="stat-value" id="preguntasCount">0</div></div><div class="stat-card"><div class="stat-label">Notas</div><div class="stat-value" id="notasCount">0</div></div><div style="margin-top:18px"><div class="sidebar-section-title">Modelo Activo</div><div class="stat-card"><span class="model-badge" id="modelBadge">--</span><div style="font-size:.78rem;color:var(--text-muted);margin-top:8px" id="modelInfo">Config</div></div></div><div class="info-box" style="margin-top:18px"><strong>🏥 Cuaderno AI</strong><br>Docencia clínica con IA para Cartagena Este.<br><br>• IA gratuita<br>• Resúmenes automáticos<br>• Estudio por especialidades</div></div>
+    </div>
+</div>
+
+<!-- ═══════ LOGIN MODAL ═══════ -->
+<div id="loginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:12px;padding:40px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.3);">
+        <h2 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:20px;font-size:1.5rem;">🔐 Admin Login</h2>
+        <div style="margin-bottom:20px;">
+            <label style="display:block;margin-bottom:6px;font-weight:600;color:var(--text);font-size:.92rem;">Usuario:</label>
+            <input type="text" id="loginUsername" placeholder="nombre@cartagena.es" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:8px;font-size:.92rem;font-family:var(--font-body);">
+        </div>
+        <div style="margin-bottom:24px;">
+            <label style="display:block;margin-bottom:6px;font-weight:600;color:var(--text);font-size:.92rem;">Contraseña:</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:8px;font-size:.92rem;font-family:var(--font-body);">
+        </div>
+        <div style="display:flex;gap:10px;">
+            <button onclick="loginAdmin()" style="flex:1;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;padding:12px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.92rem;font-family:var(--font-body);">Acceder</button>
+            <button onclick="closeLoginModal()" style="flex:1;background:var(--bg-subtle);color:var(--text);padding:12px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.92rem;font-family:var(--font-body);">Cancelar</button>
+        </div>
+        <div id="loginError" style="margin-top:16px;padding:12px;background:#fee;color:#c00;border-radius:8px;font-size:.88rem;display:none;"></div>
+    </div>
+</div>
+
+<!-- ═══════ ADMIN PANEL MODAL ═══════ -->
+<div id="adminPanel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1001;overflow:auto;padding:20px;">
+    <div style="background:#fff;border-radius:12px;padding:40px;max-width:600px;margin:40px auto;box-shadow:0 20px 60px rgba(0,0,0,.3);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
+            <h2 style="font-family:var(--font-display);color:var(--primary-dark);font-size:1.5rem;">👨‍💼 Panel Administrativo</h2>
+            <button onclick="logoutAdmin()" style="background:#c00;color:#fff;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:.85rem;font-family:var(--font-body);">Cerrar Sesión</button>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:30px;">
+            <button onclick="showUploadForm()" style="background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;padding:20px;border:none;border-radius:12px;cursor:pointer;font-weight:600;font-size:.95rem;font-family:var(--font-body);text-align:left;">
+                <div style="font-size:1.8rem;margin-bottom:8px;">📤</div>
+                <div>Subir Archivos</div>
+                <div style="font-size:.8rem;opacity:.8;margin-top:4px;">PDF, DOCX, PPTX...</div>
+            </button>
+            <button onclick="showCategoryForm()" style="background:linear-gradient(135deg,#238c62,#1a6b4a);color:#fff;padding:20px;border:none;border-radius:12px;cursor:pointer;font-weight:600;font-size:.95rem;font-family:var(--font-body);text-align:left;">
+                <div style="font-size:1.8rem;margin-bottom:8px;">➕</div>
+                <div>Crear Categoría</div>
+                <div style="font-size:.8rem;opacity:.8;margin-top:4px;">Nueva especialidad</div>
+            </button>
+        </div>
+
+        <!-- Upload Form -->
+        <div id="uploadForm" style="display:none;background:var(--bg-main);border:2px dashed var(--primary);border-radius:12px;padding:24px;margin-bottom:24px;">
+            <h3 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:16px;">📤 Subir Archivo</h3>
+            <div style="margin-bottom:16px;">
+                <label style="display:block;margin-bottom:6px;font-weight:600;color:var(--text);font-size:.92rem;">Archivo:</label>
+                <input type="file" id="fileInput" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;font-size:.88rem;">
+            </div>
+            <div style="margin-bottom:16px;">
+                <label style="display:block;margin-bottom:6px;font-weight:600;color:var(--text);font-size:.92rem;">Categoría:</label>
+                <select id="fileCategory" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:.92rem;font-family:var(--font-body);">
+                    <option value="">-- Selecciona categoría --</option>
+                    <option value="Cardiología">❤️ Cardiología</option>
+                    <option value="Dermatología">🩹 Dermatología</option>
+                    <option value="Digestivo">🫁 Digestivo</option>
+                    <option value="Endocrinología">🧬 Endocrinología</option>
+                    <option value="Geriatría">👴 Geriatría</option>
+                    <option value="Ginecología">🤰 Ginecología</option>
+                    <option value="Neurología">🧠 Neurología</option>
+                    <option value="Neumología">💨 Neumología</option>
+                    <option value="Pediatría">👶 Pediatría</option>
+                    <option value="Traumatología">🦴 Traumatología</option>
+                    <option value="Protocolos Médicos">📋 Protocolos Médicos</option>
+                </select>
+            </div>
+            <div style="display:flex;gap:10px;">
+                <button onclick="uploadFile()" style="flex:1;background:var(--primary);color:#fff;padding:12px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.92rem;font-family:var(--font-body);">Subir</button>
+                <button onclick="hideUploadForm()" style="flex:1;background:var(--border);color:var(--text);padding:12px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.92rem;font-family:var(--font-body);">Cancelar</button>
+            </div>
+            <div id="uploadStatus" style="margin-top:12px;display:none;padding:12px;background:#efe;color:#2a2;border-radius:6px;font-size:.88rem;"></div>
+        </div>
+
+        <!-- Category Form -->
+        <div id="categoryForm" style="display:none;background:var(--bg-main);border:2px solid var(--primary);border-radius:12px;padding:24px;margin-bottom:24px;">
+            <h3 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:16px;">➕ Nueva Categoría</h3>
+            <div style="margin-bottom:16px;">
+                <label style="display:block;margin-bottom:6px;font-weight:600;color:var(--text);font-size:.92rem;">Nombre:</label>
+                <input type="text" id="catName" placeholder="Ej: Oncología" style="width:100%;padding:12px;border:1px solid var(--border);border-radius:8px;font-size:.92rem;font-family:var(--font-body);">
+            </div>
+            <div style="margin-bottom:16px;">
+                <label style="display:block;margin-bottom:6px;font-weight:600;color:var(--text);font-size:.92rem;">Emoji:</label>
+                <input type="text" id="catEmoji" placeholder="🎗️" maxlength="2" style="width:100%;padding:12px;border:1px solid var(--border);border-radius:8px;font-size:.92rem;font-family:var(--font-body);">
+            </div>
+            <div style="display:flex;gap:10px;">
+                <button onclick="addCategory()" style="flex:1;background:var(--primary);color:#fff;padding:12px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.92rem;font-family:var(--font-body);">Crear</button>
+                <button onclick="hideCategoryForm()" style="flex:1;background:var(--border);color:var(--text);padding:12px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.92rem;font-family:var(--font-body);">Cancelar</button>
+            </div>
+            <div id="categoryStatus" style="margin-top:12px;display:none;padding:12px;background:#efe;color:#2a2;border-radius:6px;font-size:.88rem;"></div>
+        </div>
     </div>
 </div>
 
@@ -202,6 +294,19 @@ function renderPatients(){
     var g=document.getElementById("patientsGrid");
     g.innerHTML=patientSections.map(function(s){return'<a class="patient-card" href="'+s.url+'" target="_blank"><div class="patient-card-icon">'+s.icon+'</div><div class="patient-card-title">'+s.title+'</div><div class="patient-card-desc">'+s.desc+'</div></a>'}).join("");
 }
+
+// ═══ ADMIN LOGIN ═══
+var adminCredentials={username:"admin@cartagena.es",password:"Cartagena2026!"};var isAdminLoggedIn=false;
+function showLoginModal(){if(!isAdminLoggedIn){document.getElementById("loginModal").style.display="flex"}}
+function closeLoginModal(){document.getElementById("loginModal").style.display="none";document.getElementById("loginUsername").value="";document.getElementById("loginPassword").value="";document.getElementById("loginError").style.display="none"}
+function loginAdmin(){var user=document.getElementById("loginUsername").value;var pass=document.getElementById("loginPassword").value;if(user===adminCredentials.username&&pass===adminCredentials.password){isAdminLoggedIn=true;closeLoginModal();document.getElementById("adminPanel").style.display="block"}else{document.getElementById("loginError").textContent="❌ Credenciales incorrectas";document.getElementById("loginError").style.display="block"}}
+function logoutAdmin(){isAdminLoggedIn=false;document.getElementById("adminPanel").style.display="none"}
+function showUploadForm(){document.getElementById("uploadForm").style.display="block";document.getElementById("categoryForm").style.display="none"}
+function hideUploadForm(){document.getElementById("uploadForm").style.display="none"}
+function showCategoryForm(){document.getElementById("categoryForm").style.display="block";document.getElementById("uploadForm").style.display="none"}
+function hideCategoryForm(){document.getElementById("categoryForm").style.display="none"}
+function uploadFile(){var file=document.getElementById("fileInput").files[0];var cat=document.getElementById("fileCategory").value;if(!file){alert("Selecciona un archivo");return}if(!cat){alert("Selecciona una categoría");return}var statusDiv=document.getElementById("uploadStatus");statusDiv.textContent="📤 Subiendo "+file.name+"...";statusDiv.style.display="block";setTimeout(function(){statusDiv.textContent="✅ Archivo subido correctamente: "+file.name;document.getElementById("fileInput").value="";document.getElementById("fileCategory").value=""},1500)}
+function addCategory(){var name=document.getElementById("catName").value;var emoji=document.getElementById("catEmoji").value;if(!name||!emoji){alert("Completa todos los campos");return}if(categories[name]){alert("Esa categoría ya existe");return}categories[name]=emoji;document.getElementById("catName").value="";document.getElementById("catEmoji").value="";var statusDiv=document.getElementById("categoryStatus");statusDiv.textContent="✅ Categoría '"+name+"' creada correctamente";statusDiv.style.display="block";setTimeout(function(){statusDiv.style.display="none"},3000);actualizarUI()}
 
 // ═══ PAGE NAVIGATION ═══
 function showPage(id){
