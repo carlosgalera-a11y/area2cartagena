@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios Bucodentales - Centro de Salud Cartagena Este</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a6b4a;
+            --primary-light: #238c62;
+            --primary-dark: #0f4a33;
+            --accent: #d4a853;
+            --accent-light: #f0d68a;
+            --bg-dark: #1a1f2e;
+            --bg-card: #fff;
+            --bg-main: #f4f6f8;
+            --bg-subtle: #e9edf2;
+            --text: #2d3748;
+            --text-light: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,.15);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Source Sans 3', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-main);
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-dark), #243347);
+            color: #fff;
+            padding: 30px 20px;
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            opacity: 0.15;
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,.7);
+            text-decoration: none;
+            font-size: .88rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: .2s;
+            margin-bottom: 16px;
+        }
+
+        .back-btn:hover {
+            color: #fff;
+            background: rgba(255,255,255,.08);
+        }
+
+        .header h1 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: .95rem;
+            opacity: .75;
+            font-weight: 300;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: var(--bg-card);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .info-box h3 {
+            color: var(--primary-dark);
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+
+        .info-box p {
+            color: var(--text);
+            line-height: 1.7;
+            font-size: .92rem;
+            margin-bottom: 8px;
+        }
+
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .info-box li {
+            color: var(--text);
+            margin-bottom: 6px;
+            font-size: .92rem;
+            line-height: 1.6;
+        }
+
+        /* Service Cards Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            transition: all .25s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .3s;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .service-card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        .service-card-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+
+        .service-card-desc {
+            font-size: .82rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* Download Section */
+        .download-section {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .download-section h3 {
+            color: var(--primary-dark);
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .download-section p {
+            color: var(--text-muted);
+            font-size: .9rem;
+            margin-bottom: 18px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 28px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: .92rem;
+            text-decoration: none;
+            transition: all .25s;
+            font-family: var(--font-body);
+        }
+
+        .btn:hover {
+            box-shadow: 0 6px 20px rgba(26, 107, 74, .35);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Access Section */
+        .access-section {
+            background: linear-gradient(135deg, rgba(26,107,74,.06), rgba(212,168,83,.04));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .access-section h3 {
+            color: var(--primary-dark);
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            margin-bottom: 14px;
+        }
+
+        .step {
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .step-num {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-weight: 600;
+            font-size: .8rem;
+            margin-right: 8px;
+        }
+
+        .step-text {
+            display: inline;
+            color: var(--text);
+            font-size: .92rem;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-dark);
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            font-size: 1.2rem;
+            min-width: 24px;
+        }
+
+        .contact-text {
+            font-size: .9rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .contact-text strong {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .header {
+                padding: 20px 16px;
+                margin-bottom: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .download-section {
+                padding: 18px;
+            }
+
+            .access-section {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="notebook-local.html" class="back-btn">← Volver al inicio</a>
+            <div class="header-content">
+                <h1>🦷 Servicios Bucodentales</h1>
+                <p>Información sobre prestaciones de salud bucodental en la cartera pública</p>
+            </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <h3>ℹ️ Sobre los Servicios Bucodentales</h3>
+            <p>La Cartera de Servicios Comunes del Sistema Nacional de Salud cubre diferentes prestaciones bucodentales según la edad y características del paciente. A continuación encontrarás los servicios incluidos, los grupos de población beneficiarios y cómo acceder a ellos.</p>
+        </div>
+
+        <!-- Service Cards -->
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-card-icon">👶</div>
+                <div class="service-card-title">Niños (0-14 años)</div>
+                <div class="service-card-desc">Revisiones, prevención, empastes, extracciones y educación en salud bucodental.</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-icon">♿</div>
+                <div class="service-card-title">Discapacidad >33%</div>
+                <div class="service-card-desc">Servicios especializados adaptados a necesidades específicas de personas adultas con discapacidad.</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-icon">🤰</div>
+                <div class="service-card-title">Embarazadas</div>
+                <div class="service-card-desc">Revisión específica, control de placa y asesoramiento preventivo durante el embarazo.</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-icon">🏥</div>
+                <div class="service-card-title">Pacientes Oncológicos</div>
+                <div class="service-card-desc">Control y vigilancia durante tratamiento contra el cáncer con seguimiento intensivo.</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-icon">🎓</div>
+                <div class="service-card-title">Talleres en Escuelas</div>
+                <div class="service-card-desc">Programas de educación preventiva y revisiones colectivas en centros educativos.</div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-icon">🧠</div>
+                <div class="service-card-title">Necesidades Especiales</div>
+                <div class="service-card-desc">Opciones de sedación consciente y derivación a unidades especializadas cuando es necesario.</div>
+            </div>
+        </div>
+
+        <!-- Download Section -->
+        <div class="download-section">
+            <h3>📋 Documento Oficial</h3>
+            <p>Descarga la guía completa con todos los detalles sobre servicios, acceso y procedimientos</p>
+            <a href="servicios-bucodentales.pdf" download class="btn">
+                <span>📥</span>
+                <span>Descargar PDF</span>
+            </a>
+        </div>
+
+        <!-- Access Procedure -->
+        <div class="access-section">
+            <h3>📝 Cómo Acceder a los Servicios</h3>
+            <div class="step">
+                <span class="step-num">1</span>
+                <span class="step-text"><strong>Solicita cita</strong> en tu centro de salud de referencia o pide "Cita en la Unidad de Salud Bucodental"</span>
+            </div>
+            <div class="step">
+                <span class="step-num">2</span>
+                <span class="step-text"><strong>Presenta documentación:</strong> Tarjeta sanitaria y en su caso documentos de embarazo o discapacidad</span>
+            </div>
+            <div class="step">
+                <span class="step-num">3</span>
+                <span class="step-text"><strong>Valoración inicial</strong> del dentista para determinar el tratamiento y lugar de atención</span>
+            </div>
+            <div class="step">
+                <span class="step-num">4</span>
+                <span class="step-text"><strong>Realización del tratamiento</strong> incluyendo sesiones de educación, prevención y rehabilitación</span>
+            </div>
+            <div class="step">
+                <span class="step-num">5</span>
+                <span class="step-text"><strong>Seguimiento posterior</strong> según el grupo de riesgo o situación personal del paciente</span>
+            </div>
+        </div>
+
+        <!-- Important Note -->
+        <div class="info-box" style="border-left-color: var(--accent); margin-bottom: 30px;">
+            <h3>⚠️ Importante - No Cubierto</h3>
+            <p>La cartera pública <strong>NO cubre</strong>:</p>
+            <ul>
+                <li>Tratamientos de ortodoncia estética</li>
+                <li>Implantes dentales</li>
+                <li>Prótesis dentales</li>
+                <li>Blanqueamientos dentales</li>
+            </ul>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <h3>📞 Contacto</h3>
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div class="contact-text"><strong>Centro de Salud Cartagena Este</strong> - Tu centro de referencia</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">☎️</div>
+                <div class="contact-text">Pide cita en tu centro de salud o consulta directamente con el dentista de la sanidad pública</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">❓</div>
+                <div class="contact-text">Si tienes dudas sobre qué servicios te corresponden, <strong>contacta con tu médico de familia</strong></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
