@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos Sociales - Cartagena Este</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        header h1 {
+            color: #333;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        header a {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+            font-weight: 500;
+        }
+        
+        header a:hover {
+            background: #764ba2;
+        }
+        
+        .recursos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .recurso-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .recurso-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+        }
+        
+        .recurso-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            text-align: center;
+            font-size: 48px;
+        }
+        
+        .recurso-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .recurso-content h2 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+        
+        .recurso-content p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        
+        .recurso-content .documento-tipo {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .btn-descargar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .btn-descargar:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-ver-online {
+            background: #f0f0f0;
+            color: #667eea;
+            padding: 12px 20px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin-right: 10px;
+            transition: all 0.2s;
+        }
+        
+        .btn-ver-online:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .botones-grupo {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .info-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .info-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .info-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        
+        .contacto-info {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .contacto-info strong {
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            header h1 {
+                justify-content: center;
+            }
+            
+            .recursos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .botones-grupo {
+                flex-direction: column;
+            }
+            
+            .btn-descargar,
+            .btn-ver-online {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Recursos Sociales</h1>
+            <a href="index.html">← Volver al inicio</a>
+        </header>
+        
+        <div class="recursos-grid">
+            <!-- 1. Grado de Dependencia -->
+            <div class="recurso-card">
+                <div class="recurso-icon">📋</div>
+                <div class="recurso-content">
+                    <span class="documento-tipo">FORMULARIO OFICIAL</span>
+                    <h2>Reconocimiento de Grado de Dependencia</h2>
+                    <p>Solicitud inicial para obtener el reconocimiento de grado de dependencia y prestaciones del Sistema de Dependencia en Murcia.</p>
+                    <div class="botones-grupo">
+                        <a href="recursos-sociales-grado-dependencia.pdf" class="btn-ver-online" target="_blank">👁️ Ver Online</a>
+                        <a href="recursos-sociales-grado-dependencia.pdf" download class="btn-descargar">⬇️ Descargar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2. Ayuda a Domicilio -->
+            <div class="recurso-card">
+                <div class="recurso-icon">🏠</div>
+                <div class="recurso-content">
+                    <span class="documento-tipo">SOLICITUD AYUDA</span>
+                    <h2>Solicitud Ayuda a Domicilio</h2>
+                    <p>Formulario para solicitar servicios de ayuda a domicilio, comida a domicilio, teleasistencia y respiro familiar.</p>
+                    <div class="botones-grupo">
+                        <a href="recursos-sociales-ayuda-domicilio.pdf" class="btn-ver-online" target="_blank">👁️ Ver Online</a>
+                        <a href="recursos-sociales-ayuda-domicilio.pdf" download class="btn-descargar">⬇️ Descargar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3. Servicios Domiciliarios -->
+            <div class="recurso-card">
+                <div class="recurso-icon">👨‍⚕️</div>
+                <div class="recurso-content">
+                    <span class="documento-tipo">SERVICIOS SOCIALES</span>
+                    <h2>Servicios Domiciliarios</h2>
+                    <p>Información sobre solicitud de servicios de ayuda a domicilio, comidas y teleasistencia para personas dependientes.</p>
+                    <div class="botones-grupo">
+                        <a href="recursos-sociales-servicios-domiciliarios.pdf" class="btn-ver-online" target="_blank">👁️ Ver Online</a>
+                        <a href="recursos-sociales-servicios-domiciliarios.pdf" download class="btn-descargar">⬇️ Descargar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4. Pensión de Jubilación No Contributiva -->
+            <div class="recurso-card">
+                <div class="recurso-icon">💰</div>
+                <div class="recurso-content">
+                    <span class="documento-tipo">PENSIÓN SOCIAL</span>
+                    <h2>Pensión Jubilación No Contributiva</h2>
+                    <p>Solicitud de pensión de jubilación no contributiva según la Seguridad Social para personas sin ingresos suficientes.</p>
+                    <div class="botones-grupo">
+                        <a href="recursos-sociales-pension-jubilacion.pdf" class="btn-ver-online" target="_blank">👁️ Ver Online</a>
+                        <a href="recursos-sociales-pension-jubilacion.pdf" download class="btn-descargar">⬇️ Descargar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5. Punto de Acceso a Servicios Sociales -->
+            <div class="recurso-card">
+                <div class="recurso-icon">📞</div>
+                <div class="recurso-content">
+                    <span class="documento-tipo">INFORMACIÓN</span>
+                    <h2>Punto de Acceso a Servicios Sociales</h2>
+                    <p>Información de contacto y horarios del Punto de Acceso a Servicios Sociales (PASS) sin cita previa en Cartagena.</p>
+                    <div class="botones-grupo">
+                        <a href="recursos-sociales-punto-acceso.pdf" class="btn-ver-online" target="_blank">👁️ Ver Online</a>
+                        <a href="recursos-sociales-punto-acceso.pdf" download class="btn-descargar">⬇️ Descargar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>ℹ️ Sobre Estos Recursos</h2>
+            <p>
+                Esta sección reúne los formularios y documentos oficiales más importantes para acceder a los servicios sociales 
+                y prestaciones en la Región de Murcia y el Ayuntamiento de Cartagena.
+            </p>
+            
+            <div class="contacto-info">
+                <strong>📍 Centro de Servicios Sociales Principal</strong><br>
+                C/ Sor Francisca Armendáriz, s/n<br>
+                Edificio La Milagrosa, 1ª planta<br>
+                Cartagena, Murcia
+            </div>
+            
+            <div class="contacto-info" style="margin-top: 15px;">
+                <strong>📞 Teléfono de Atención</strong><br>
+                Servicio: 900 923 491<br>
+                IMAS Murcia: 968 362 000 ó 012<br>
+                <strong>⏰ Horario:</strong> Lunes a viernes, 9:00 - 12:30 (presencial) / 9:00 - 13:00 (telefónico)
+            </div>
+            
+            <div class="contacto-info" style="margin-top: 15px;">
+                <strong>🌐 Sede Electrónica</strong><br>
+                Cartagena: <a href="https://www.cartagena.es" target="_blank">https://www.cartagena.es</a><br>
+                CARM: <a href="https://sede.carm.es" target="_blank">https://sede.carm.es</a>
+            </div>
+            
+            <h2 style="margin-top: 30px;">✅ Requisitos Generales</h2>
+            <p>
+                Para acceder a la mayoría de prestaciones sociales, se requiere:
+            </p>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li><strong>Edad:</strong> Generalmente mayor de 65 años (o 60 en algunos casos)</li>
+                <li><strong>Residencia:</strong> Residencia legal en España/Murcia</li>
+                <li><strong>Ingresos:</strong> Estar por debajo de los límites económicos establecidos</li>
+                <li><strong>Situación de dependencia:</strong> Reconocimiento oficial de dependencia</li>
+                <li><strong>Documentación:</strong> DNI/NIE, certificados de ingresos, pruebas de empadronamiento</li>
+            </ul>
+        </div>
+        
+        <div class="info-section" style="background: #f0f5ff; border-top: 4px solid #667eea;">
+            <h2>📱 Tramitación Online</h2>
+            <p>
+                Muchos de estos trámites pueden iniciarse a través de la Sede Electrónica. Para ello necesitarás:
+            </p>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8; margin-top: 15px;">
+                <li>✅ <strong>DNI electrónico</strong> o Certificado Digital</li>
+                <li>✅ Acceso a la Sede Electrónica de la CARM o tu Ayuntamiento</li>
+                <li>✅ Documentos digitalizados (ingresos, empadronamiento, etc.)</li>
+            </ul>
+            <p style="margin-top: 15px; color: #667eea; font-weight: 600;">
+                💡 Recomendación: Si tienes dudas, contacta primero con el PASS sin cita previa. Te orientarán gratuitamente.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
