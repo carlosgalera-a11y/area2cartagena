@@ -516,7 +516,18 @@
             </div>
         </div>
 
-        <div id="loginSection" class="login-section">
+        <!-- Recursos del Centro -->
+        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px;">
+            <h2 style="color: var(--primary-dark); font-family: var(--font-display); margin-bottom: 16px;">📚 Recursos y Documentos</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                <a href="vacunas-informacion.pdf" download class="btn" style="text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <span>📄</span>
+                    <span>Descargar Guía de Vacunas</span>
+                </a>
+            </div>
+        </div>
+
+        <div id="loginSection" class="login-section" style="display: none;">
             <h2>🔐 Acceso Restringido</h2>
             <p>Para añadir o editar notas, necesitas acceder con tu cuenta de Gmail.<br>Tus notas serán guardadas automáticamente.</p>
             <button class="btn" onclick="loginWithGmail()">
@@ -589,12 +600,11 @@
 
         auth.onAuthStateChanged(user => {
             currentUser = user;
+            // Mostrar tablón sin importar si está autenticado
+            showTableon();
+            loadNotes();
             if (user) {
-                showTableon();
-                loadNotes();
                 updateUserInfo();
-            } else {
-                hideTableon();
             }
         });
 
@@ -628,11 +638,15 @@
         }
 
         function updateUserInfo() {
+            const userSection = document.getElementById('userSection');
             if (currentUser) {
                 const name = currentUser.displayName || 'Usuario';
                 const avatar = name.charAt(0).toUpperCase();
                 document.getElementById('userAvatar').textContent = avatar;
                 document.getElementById('userEmail').textContent = currentUser.email;
+                userSection.style.display = 'block';
+            } else {
+                userSection.style.display = 'none';
             }
         }
 
@@ -646,12 +660,15 @@
             }
 
             try {
+                const autorNombre = currentUser ? (currentUser.displayName || currentUser.email) : 'Anónimo';
+                const autorId = currentUser ? currentUser.uid : 'anonymous-' + Date.now();
+                
                 await db.collection('notas').add({
                     categoria: category,
                     titulo: title,
                     contenido: content,
-                    autor: currentUser.displayName || currentUser.email,
-                    autorId: currentUser.uid,
+                    autor: autorNombre,
+                    autorId: autorId,
                     createdAt: new Date(),
                     updatedAt: new Date()
                 });
@@ -692,7 +709,7 @@
                         day: 'numeric'
                     }) : 'Hace poco';
 
-                    const isOwner = nota.autorId === currentUser.uid;
+                    const isOwner = currentUser && nota.autorId === currentUser.uid;
 
                     container.innerHTML += `
                         <div class="note-card">
