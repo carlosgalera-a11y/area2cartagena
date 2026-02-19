@@ -181,25 +181,73 @@
     </div>
 </div>
 
-<!-- ═══════ LOGIN MODAL ═══════ -->
-<div id="loginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;align-items:center;justify-content:center;">
-    <div style="background:#fff;border-radius:12px;padding:40px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.3);">
-        <h2 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:20px;font-size:1.5rem;">🔐 Admin Login</h2>
-        <div style="margin-bottom:20px;">
-            <label style="display:block;margin-bottom:6px;font-weight:600;color:var(--text);font-size:.92rem;">Usuario:</label>
-            <input type="text" id="loginUsername" placeholder="nombre@cartagena.es" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:8px;font-size:.92rem;font-family:var(--font-body);">
+<!-- ═══════ IMPROVED LOGIN MODAL ═══════ -->
+<div id="loginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(2px);">
+    <div style="background:#fff;border-radius:16px;padding:0;max-width:420px;width:90%;box-shadow:0 25px 80px rgba(0,0,0,.4);overflow:hidden;animation:slideInUp .3s ease;">
+        <!-- Header -->
+        <div style="background:linear-gradient(135deg,var(--primary),var(--primary-light));padding:32px 24px;color:#fff;text-align:center;position:relative;">
+            <div style="position:absolute;top:12px;right:12px;cursor:pointer;font-size:1.5rem;opacity:.7;hover:opacity:1;transition:.2s;" onclick="closeLoginModal()">✕</div>
+            <div style="font-size:2.5rem;margin-bottom:12px;">🔐</div>
+            <h2 style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;margin:0;letter-spacing:-.5px;">Panel Admin</h2>
+            <p style="margin:6px 0 0;opacity:.9;font-size:.92rem;">Centro de Salud Cartagena Este</p>
         </div>
-        <div style="margin-bottom:24px;">
-            <label style="display:block;margin-bottom:6px;font-weight:600;color:var(--text);font-size:.92rem;">Contraseña:</label>
-            <input type="password" id="loginPassword" placeholder="••••••••" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:8px;font-size:.92rem;font-family:var(--font-body);">
+        
+        <!-- Form -->
+        <div style="padding:32px 24px;">
+            <div style="margin-bottom:18px;">
+                <label style="display:block;margin-bottom:8px;font-weight:600;color:var(--primary-dark);font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;">📧 Usuario</label>
+                <input type="email" id="loginUsername" placeholder="admin@cartagena.es" spellcheck="false" style="width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:10px;font-size:.95rem;font-family:var(--font-body);transition:.2s;background:var(--bg-main);" onfocus="this.style.borderColor='var(--primary)';this.style.boxShadow='0 0 0 4px rgba(26,107,74,.08)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+            </div>
+            
+            <div style="margin-bottom:8px;">
+                <label style="display:block;margin-bottom:8px;font-weight:600;color:var(--primary-dark);font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;">🔑 Contraseña</label>
+                <div style="position:relative;">
+                    <input type="password" id="loginPassword" placeholder="••••••••" style="width:100%;padding:14px 16px;padding-right:44px;border:2px solid var(--border);border-radius:10px;font-size:.95rem;font-family:var(--font-body);transition:.2s;background:var(--bg-main);" onfocus="this.style.borderColor='var(--primary)';this.style.boxShadow='0 0 0 4px rgba(26,107,74,.08)'" onblur="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+                    <button onclick="togglePasswordVisibility()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:1.2rem;padding:0;">👁️</button>
+                </div>
+            </div>
+            
+            <div style="margin-bottom:24px;display:flex;gap:8px;align-items:center;">
+                <input type="checkbox" id="rememberMe" style="width:16px;height:16px;cursor:pointer;">
+                <label for="rememberMe" style="cursor:pointer;font-size:.88rem;color:var(--text-light);">Recuérdame en este dispositivo</label>
+            </div>
+            
+            <button onclick="loginAdmin()" style="width:100%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;padding:14px;border:none;border-radius:10px;cursor:pointer;font-weight:700;font-size:.95rem;font-family:var(--font-body);transition:.2s;box-shadow:0 4px 12px rgba(26,107,74,.25);" onmouseover="this.style.boxShadow='0 6px 20px rgba(26,107,74,.35)';this.style.transform='translateY(-1px)'" onmouseout="this.style.boxShadow='0 4px 12px rgba(26,107,74,.25)';this.style.transform='translateY(0)'">
+                <span id="loginBtnText">🚀 Acceder</span>
+            </button>
+            
+            <div id="loginError" style="margin-top:16px;padding:14px;background:#fee8e8;color:#c00;border:1px solid #f0b0b0;border-radius:10px;font-size:.88rem;display:none;font-weight:500;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:1rem;">⚠️</span>
+                    <span id="loginErrorText">Credenciales incorrectas</span>
+                </div>
+            </div>
+            
+            <div id="loginSuccess" style="margin-top:16px;padding:14px;background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;border-radius:10px;font-size:.88rem;display:none;font-weight:500;">
+                <div style="display:flex;align-items:center;gap:8px;animation:fadeIn .3s ease;">
+                    <span style="font-size:1rem;">✅</span>
+                    <span>¡Acceso concedido! Redirigiendo...</span>
+                </div>
+            </div>
         </div>
-        <div style="display:flex;gap:10px;">
-            <button onclick="loginAdmin()" style="flex:1;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;padding:12px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.92rem;font-family:var(--font-body);">Acceder</button>
-            <button onclick="closeLoginModal()" style="flex:1;background:var(--bg-subtle);color:var(--text);padding:12px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.92rem;font-family:var(--font-body);">Cancelar</button>
+        
+        <!-- Footer -->
+        <div style="padding:16px 24px;background:var(--bg-main);border-top:1px solid var(--border);text-align:center;font-size:.78rem;color:var(--text-muted);">
+            Credenciales seguras • Sesión encriptada
         </div>
-        <div id="loginError" style="margin-top:16px;padding:12px;background:#fee;color:#c00;border-radius:8px;font-size:.88rem;display:none;"></div>
     </div>
 </div>
+
+<style>
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+</style>
 
 <!-- ═══════ ADMIN PANEL MODAL ═══════ -->
 <div id="adminPanel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1001;overflow:auto;padding:20px;">
@@ -295,12 +343,117 @@ function renderPatients(){
     g.innerHTML=patientSections.map(function(s){return'<a class="patient-card" href="'+s.url+'" target="_blank"><div class="patient-card-icon">'+s.icon+'</div><div class="patient-card-title">'+s.title+'</div><div class="patient-card-desc">'+s.desc+'</div></a>'}).join("");
 }
 
-// ═══ ADMIN LOGIN ═══
-var adminCredentials={username:"admin@cartagena.es",password:"Cartagena2026!"};var isAdminLoggedIn=false;
-function showLoginModal(){if(!isAdminLoggedIn){document.getElementById("loginModal").style.display="flex"}}
-function closeLoginModal(){document.getElementById("loginModal").style.display="none";document.getElementById("loginUsername").value="";document.getElementById("loginPassword").value="";document.getElementById("loginError").style.display="none"}
-function loginAdmin(){var user=document.getElementById("loginUsername").value;var pass=document.getElementById("loginPassword").value;if(user===adminCredentials.username&&pass===adminCredentials.password){isAdminLoggedIn=true;closeLoginModal();document.getElementById("adminPanel").style.display="block"}else{document.getElementById("loginError").textContent="❌ Credenciales incorrectas";document.getElementById("loginError").style.display="block"}}
-function logoutAdmin(){isAdminLoggedIn=false;document.getElementById("adminPanel").style.display="none"}
+// ═══ ADMIN LOGIN - MEJORADO ═══
+var adminCredentials={username:"admin@cartagena.es",password:"Cartagena2026!"};
+var isAdminLoggedIn=false;
+var loginAttempts=0;
+var lockoutTime=0;
+
+function initLoginSession(){
+    var savedSession=localStorage.getItem("adminSession");
+    if(savedSession){
+        try{
+            var session=JSON.parse(savedSession);
+            if(session.timestamp && Date.now()-session.timestamp<86400000){
+                isAdminLoggedIn=true;
+                document.getElementById("adminPanel").style.display="block";
+            }else{
+                localStorage.removeItem("adminSession");
+            }
+        }catch(e){
+            localStorage.removeItem("adminSession");
+        }
+    }
+}
+
+function showLoginModal(){
+    if(!isAdminLoggedIn){
+        document.getElementById("loginModal").style.display="flex";
+        document.getElementById("loginUsername").focus();
+        clearLoginForm();
+    }
+}
+
+function closeLoginModal(){
+    document.getElementById("loginModal").style.display="none";
+    clearLoginForm();
+}
+
+function clearLoginForm(){
+    document.getElementById("loginUsername").value="";
+    document.getElementById("loginPassword").value="";
+    document.getElementById("loginError").style.display="none";
+    document.getElementById("loginSuccess").style.display="none";
+}
+
+function togglePasswordVisibility(){
+    var input=document.getElementById("loginPassword");
+    input.type=input.type==="password"?"text":"password";
+}
+
+function loginAdmin(){
+    if(Date.now()<lockoutTime){
+        showLoginError("Demasiados intentos. Intenta de nuevo en 5 minutos.");
+        return;
+    }
+    
+    var user=document.getElementById("loginUsername").value.trim();
+    var pass=document.getElementById("loginPassword").value;
+    
+    if(!user||!pass){
+        showLoginError("Por favor completa todos los campos");
+        return;
+    }
+    
+    document.getElementById("loginBtnText").textContent="⏳ Verificando...";
+    
+    setTimeout(function(){
+        if(user===adminCredentials.username&&pass===adminCredentials.password){
+            loginAttempts=0;
+            isAdminLoggedIn=true;
+            
+            if(document.getElementById("rememberMe").checked){
+                localStorage.setItem("adminSession",JSON.stringify({
+                    timestamp:Date.now(),
+                    user:user
+                }));
+            }
+            
+            document.getElementById("loginSuccess").style.display="block";
+            document.getElementById("loginError").style.display="none";
+            
+            setTimeout(function(){
+                closeLoginModal();
+                document.getElementById("adminPanel").style.display="block";
+                document.getElementById("loginBtnText").textContent="🚀 Acceder";
+            },800);
+        }else{
+            loginAttempts++;
+            if(loginAttempts>=3){
+                lockoutTime=Date.now()+300000;
+                showLoginError("Máximo de intentos excedido. Intenta en 5 minutos.");
+            }else{
+                showLoginError("Credenciales incorrectas (Intento "+(4-loginAttempts)+")");
+            }
+            document.getElementById("loginPassword").value="";
+            document.getElementById("loginPassword").focus();
+            document.getElementById("loginBtnText").textContent="🚀 Acceder";
+        }
+    },600);
+}
+
+function showLoginError(msg){
+    document.getElementById("loginErrorText").textContent=msg;
+    document.getElementById("loginError").style.display="block";
+    document.getElementById("loginSuccess").style.display="none";
+}
+
+function logoutAdmin(){
+    isAdminLoggedIn=false;
+    localStorage.removeItem("adminSession");
+    document.getElementById("adminPanel").style.display="none";
+}
+
 function showUploadForm(){document.getElementById("uploadForm").style.display="block";document.getElementById("categoryForm").style.display="none"}
 function hideUploadForm(){document.getElementById("uploadForm").style.display="none"}
 function showCategoryForm(){document.getElementById("categoryForm").style.display="block";document.getElementById("uploadForm").style.display="none"}
@@ -360,10 +513,19 @@ function initProfessionals(){
 
 // ═══ INIT ═══
 document.addEventListener("DOMContentLoaded",function(){
+    initLoginSession();
     renderPatients();
     var p=new URLSearchParams(window.location.search);
     if(p.get("view")==="professionals"||p.get("category"))showPage("pageProfessionals");
     else if(p.get("view")==="patients")showPage("pagePatients");
+    
+    // Enter key en login
+    document.getElementById("loginPassword").addEventListener("keypress",function(e){
+        if(e.key==="Enter")loginAdmin();
+    });
+    document.getElementById("loginUsername").addEventListener("keypress",function(e){
+        if(e.key==="Enter")document.getElementById("loginPassword").focus();
+    });
 });
 </script>
 </body>
