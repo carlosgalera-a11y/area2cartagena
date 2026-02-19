@@ -1701,33 +1701,37 @@ function initProfessionals(){
 }
 
 // ═══ FIREBASE INITIALIZATION ═══
-const firebaseConfig={
-    apiKey:"AIzaSyAvdYi6BVdltgeFH4KLHD_5iFZrSRgoykc",
-    authDomain:"docenciacartagenaeste.firebaseapp.com",
-    projectId:"docenciacartagenaeste",
-    storageBucket:"docenciacartagenaeste.firebasestorage.app",
-    messagingSenderId:"1056320755107",
-    appId:"1:1056320755107:web:126637bf63c13bbb297616"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db=firebase.firestore();
+var db=null;
+try{
+    const firebaseConfig={
+        apiKey:"AIzaSyAvdYi6BVdltgeFH4KLHD_5iFZrSRgoykc",
+        authDomain:"docenciacartagenaeste.firebaseapp.com",
+        projectId:"docenciacartagenaeste",
+        storageBucket:"docenciacartagenaeste.firebasestorage.app",
+        messagingSenderId:"1056320755107",
+        appId:"1:1056320755107:web:126637bf63c13bbb297616"
+    };
+    firebase.initializeApp(firebaseConfig);
+    db=firebase.firestore();
+}catch(e){ console.warn("Firebase init error:",e); }
 
 // ═══ INIT ═══
 document.addEventListener("DOMContentLoaded",function(){
-    initLoginSession();
     renderPatients();
+    try{ initLoginSession(); }catch(e){ console.warn("Login init error:",e); }
     var p=new URLSearchParams(window.location.search);
     if(p.get("view")==="professionals"||p.get("category"))showPage("pageProfessionals");
     else if(p.get("view")==="patients")showPage("pagePatients");
     
     // Enter key en login
-    document.getElementById("loginPassword").addEventListener("keypress",function(e){
-        if(e.key==="Enter")loginAdmin();
-    });
-    document.getElementById("loginUsername").addEventListener("keypress",function(e){
-        if(e.key==="Enter")document.getElementById("loginPassword").focus();
-    });
+    try{
+        document.getElementById("loginPassword").addEventListener("keypress",function(e){
+            if(e.key==="Enter")loginAdmin();
+        });
+        document.getElementById("loginUsername").addEventListener("keypress",function(e){
+            if(e.key==="Enter")document.getElementById("loginPassword").focus();
+        });
+    }catch(e){}
 });
 </script>
 </body>
