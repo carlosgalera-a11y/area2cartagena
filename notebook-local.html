@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centro de Salud Cartagena Este</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js"></script>
     <style>
         :root{--primary:#1a6b4a;--primary-light:#238c62;--primary-dark:#0f4a33;--accent:#d4a853;--accent-light:#f0d68a;--bg-dark:#1a1f2e;--bg-card:#fff;--bg-main:#f4f6f8;--bg-subtle:#e9edf2;--text:#2d3748;--text-light:#64748b;--text-muted:#94a3b8;--border:#e2e8f0;--border-light:#f1f5f9;--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--shadow-lg:0 8px 30px rgba(0,0,0,.15);--radius:12px;--radius-sm:8px;--font-display:'Playfair Display',Georgia,serif;--font-body:'Source Sans 3',-apple-system,sans-serif}
         *{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font-body);background:var(--bg-main);color:var(--text)}
@@ -458,7 +463,90 @@ function showUploadForm(){document.getElementById("uploadForm").style.display="b
 function hideUploadForm(){document.getElementById("uploadForm").style.display="none"}
 function showCategoryForm(){document.getElementById("categoryForm").style.display="block";document.getElementById("uploadForm").style.display="none"}
 function hideCategoryForm(){document.getElementById("categoryForm").style.display="none"}
-function uploadFile(){var file=document.getElementById("fileInput").files[0];var cat=document.getElementById("fileCategory").value;if(!file){alert("Selecciona un archivo");return}if(!cat){alert("Selecciona una categoría");return}var statusDiv=document.getElementById("uploadStatus");statusDiv.textContent="📤 Subiendo "+file.name+"...";statusDiv.style.display="block";setTimeout(function(){statusDiv.textContent="✅ Archivo subido correctamente: "+file.name;document.getElementById("fileInput").value="";document.getElementById("fileCategory").value=""},1500)}
+var uploadInProgress=false;
+function uploadFile(){
+    if(uploadInProgress)return;
+    var file=document.getElementById("fileInput").files[0];
+    var cat=document.getElementById("fileCategory").value;
+    
+    if(!file){
+        showUploadError("Selecciona un archivo");
+        return;
+    }
+    if(!cat){
+        showUploadError("Selecciona una categoría");
+        return;
+    }
+    
+    var validTypes=["application/pdf","application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","application/vnd.ms-powerpoint","application/vnd.openxmlformats-officedocument.presentationml.presentation","text/plain","image/jpeg","image/png"];
+    if(!validTypes.includes(file.type)){
+        showUploadError("Tipo de archivo no permitido. Usa: PDF, DOCX, XLS, PPTX, TXT, JPG, PNG");
+        return;
+    }
+    
+    if(file.size>52428800){
+        showUploadError("El archivo es demasiado grande (máximo 50 MB)");
+        return;
+    }
+    
+    uploadInProgress=true;
+    var statusDiv=document.getElementById("uploadStatus");
+    statusDiv.innerHTML="📤 Subiendo "+file.name+" (0%)...";
+    statusDiv.style.display="block";
+    statusDiv.style.background="#e3f2fd";
+    statusDiv.style.color="#1565c0";
+    statusDiv.style.border="1px solid #90caf9";
+    
+    var fileName=cat+"/"+Date.now()+"_"+file.name;
+    var storageRef=firebase.storage().ref(fileName);
+    var uploadTask=storageRef.put(file);
+    
+    uploadTask.on('state_changed',
+        function(snapshot){
+            var progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+            statusDiv.innerHTML="📤 Subiendo "+file.name+" ("+Math.round(progress)+"%)...";
+        },
+        function(error){
+            uploadInProgress=false;
+            showUploadError("Error al subir: "+error.message);
+        },
+        function(){
+            uploadInProgress=false;
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL){
+                saveDocumentMetadata(cat,file.name,downloadURL,file.size);
+                statusDiv.innerHTML="✅ Archivo subido correctamente: "+file.name;
+                statusDiv.style.background="#e8f5e9";
+                statusDiv.style.color="#2e7d32";
+                statusDiv.style.border="1px solid #a5d6a7";
+                document.getElementById("fileInput").value="";
+                document.getElementById("fileCategory").value="";
+                setTimeout(function(){statusDiv.style.display="none"},3000);
+            });
+        }
+    );
+}
+
+function showUploadError(msg){
+    var statusDiv=document.getElementById("uploadStatus");
+    statusDiv.innerHTML="❌ "+msg;
+    statusDiv.style.display="block";
+    statusDiv.style.background="#ffebee";
+    statusDiv.style.color="#c62828";
+    statusDiv.style.border="1px solid #ef9a9a";
+}
+
+function saveDocumentMetadata(category,fileName,downloadURL,fileSize){
+    db.collection("documentos").add({
+        categoria:category,
+        nombre:fileName,
+        url:downloadURL,
+        tamaño:fileSize,
+        uploadedAt:new Date(),
+        uploadedBy:"admin"
+    }).catch(function(error){
+        console.error("Error guardando metadata: "+error.message);
+    });
+}
 function addCategory(){var name=document.getElementById("catName").value;var emoji=document.getElementById("catEmoji").value;if(!name||!emoji){alert("Completa todos los campos");return}if(categories[name]){alert("Esa categoría ya existe");return}categories[name]=emoji;document.getElementById("catName").value="";document.getElementById("catEmoji").value="";var statusDiv=document.getElementById("categoryStatus");statusDiv.textContent="✅ Categoría '"+name+"' creada correctamente";statusDiv.style.display="block";setTimeout(function(){statusDiv.style.display="none"},3000);actualizarUI()}
 
 // ═══ PAGE NAVIGATION ═══
@@ -510,6 +598,19 @@ function initProfessionals(){
     document.getElementById("preguntaInput").addEventListener("keypress",function(e){if(e.key==="Enter")hacerPregunta()});
     if(!isReady())setTimeout(function(){switchTab("config",document.querySelectorAll(".tab-btn")[4])},500);
 }
+
+// ═══ FIREBASE INITIALIZATION ═══
+const firebaseConfig={
+    apiKey:"AIzaSyAvdYi6BVdltgeFH4KLHD_5iFZrSRgoykc",
+    authDomain:"docenciacartagenaeste.firebaseapp.com",
+    projectId:"docenciacartagenaeste",
+    storageBucket:"docenciacartagenaeste.firebasestorage.app",
+    messagingSenderId:"1056320755107",
+    appId:"1:1056320755107:web:126637bf63c13bbb297616"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
 
 // ═══ INIT ═══
 document.addEventListener("DOMContentLoaded",function(){
