@@ -137,6 +137,37 @@
         .nav-status.ok{background:rgba(34,197,94,.15);color:#4ade80}.nav-status.wait{background:rgba(234,179,8,.15);color:#fbbf24}
         .scrollbar::-webkit-scrollbar{width:6px}.scrollbar::-webkit-scrollbar-track{background:0 0}.scrollbar::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
         @media(max-width:1024px){.prof-layout{grid-template-columns:1fr}.sidebar-left,.sidebar-right{display:none}.landing-nav .nav-links{display:none}.hero-content h2{font-size:2rem}.hero-buttons{flex-direction:column;align-items:center}.patients-grid{padding:20px}}
+        @media(max-width:768px){
+            .landing-nav{padding:0 16px;height:50px}
+            .landing-nav .brand h1{font-size:.95rem}
+            .landing-nav .brand .logo{width:30px;height:30px;font-size:.9rem}
+            .landing-nav .nav-links{gap:4px}
+            .landing-nav .nav-links a,.page-back{font-size:.78rem;padding:6px 10px}
+            .hero-content{padding:20px 16px}
+            .hero-content h2{font-size:1.6rem}
+            .hero-content p{font-size:.95rem}
+            .hero-btn{padding:14px 20px;font-size:.9rem;min-width:auto;width:100%}
+            .patients-header{padding:20px 16px 14px}
+            .patients-header h2{font-size:1.4rem}
+            .patients-grid{padding:16px;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+            .patient-card{padding:16px}
+            .patient-card-icon{font-size:1.6rem;margin-bottom:8px}
+            .patient-card-title{font-size:.92rem}
+            .patient-card-desc{font-size:.75rem}
+            .tab-buttons{flex-wrap:wrap;gap:2px}
+            .tab-btn{font-size:.78rem;padding:8px 10px}
+            .config-box{padding:14px}
+            .question-box{padding:12px}
+            #loginModal>div{width:95%;max-width:400px}
+        }
+        @media(max-width:480px){
+            .hero-content h2{font-size:1.3rem}
+            .hero-badge{font-size:.72rem;padding:4px 14px}
+            .patients-grid{grid-template-columns:repeat(2,1fr);gap:10px;padding:12px}
+            .patient-card{padding:12px}
+            .patient-card-icon{font-size:1.4rem;margin-bottom:6px}
+            .patient-card-title{font-size:.85rem}
+        }
     </style>
 </head>
 <body>
@@ -1063,6 +1094,45 @@ var isAdminLoggedIn=false;
 var loginAttempts=0;
 var lockoutTime=0;
 
+// ═══ FIRESTORE SYNC - Persistencia en la nube ═══
+// localStorage = caché local rápida | Firestore = persistencia entre dispositivos
+function fbSave(col,docId,data){
+    try{ if(db) db.collection(col).doc(docId).set(data,{merge:true}); }
+    catch(e){ console.warn("fbSave:",e); }
+}
+function fbLoad(col,docId,callback){
+    try{
+        if(!db) return;
+        db.collection(col).doc(docId).get().then(function(snap){
+            if(snap.exists) callback(snap.data());
+        }).catch(function(e){ console.warn("fbLoad:",e); });
+    }catch(e){ console.warn("fbLoad:",e); }
+}
+// Sync on login - load cloud data into local
+function syncFromCloud(){
+    fbLoad("app_data","config_ia",function(d){
+        if(d && d.provider){
+            CONFIG.provider=d.provider||CONFIG.provider;
+            CONFIG.groqKey=d.groqKey||CONFIG.groqKey;
+            CONFIG.groqModel=d.groqModel||CONFIG.groqModel;
+            CONFIG.qwenKey=d.qwenKey||CONFIG.qwenKey;
+            CONFIG.qwenModel=d.qwenModel||CONFIG.qwenModel;
+            localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
+            try{updateStatus();}catch(e){}
+            console.log("☁️ Config IA cargada desde Firestore");
+        }
+    });
+    fbLoad("app_data","preguntas",function(d){
+        if(d && d.data){ preguntas=d.data; localStorage.setItem("cartagena_preguntas",JSON.stringify(preguntas)); try{actualizarUI();}catch(e){} console.log("☁️ Preguntas cargadas"); }
+    });
+    fbLoad("app_data","notas",function(d){
+        if(d && d.data){ notas=d.data; localStorage.setItem("cartagena_notas",JSON.stringify(notas)); try{actualizarUI();}catch(e){} console.log("☁️ Notas cargadas"); }
+    });
+    fbLoad("app_data","custom_protocols",function(d){
+        if(d && d.list){ localStorage.setItem("ap_custom_protocols",JSON.stringify(d.list)); try{apRenderCustomList();apUpdateProtoSelector();}catch(e){} console.log("☁️ Protocolos custom cargados"); }
+    });
+}
+
 function initLoginSession(){
     var savedSession=localStorage.getItem("adminSession");
     if(savedSession){
@@ -1072,6 +1142,7 @@ function initLoginSession(){
                 isAdminLoggedIn=true;
                 document.getElementById("adminPanel").style.display="block";
                 apShowAdminTab(true);
+                syncFromCloud(); // Cargar datos desde Firestore
             }else{
                 localStorage.removeItem("adminSession");
             }
@@ -1126,6 +1197,7 @@ function loginAdmin(){
         if(user===adminCredentials.username&&pass===adminCredentials.password){
             loginAttempts=0;
             isAdminLoggedIn=true;
+            syncFromCloud(); // Cargar datos desde Firestore
             
             if(document.getElementById("rememberMe").checked){
                 localStorage.setItem("adminSession",JSON.stringify({
@@ -1299,6 +1371,7 @@ function apGuardarConfig(){
     CONFIG.qwenKey=document.getElementById("apCfgQwenKey").value.trim();
     CONFIG.qwenModel=document.getElementById("apCfgQwenModel").value;
     localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
+    fbSave("app_data","config_ia",{provider:CONFIG.provider,groqKey:CONFIG.groqKey,groqModel:CONFIG.groqModel,qwenKey:CONFIG.qwenKey,qwenModel:CONFIG.qwenModel,ts:new Date().toISOString()});
     updateStatus();
     // Also sync the professionals config fields if they exist
     try{
@@ -1411,6 +1484,7 @@ function apGetCustomProtocols(){
 
 function apSaveCustomProtocols(list){
     localStorage.setItem('ap_custom_protocols',JSON.stringify(list));
+    fbSave("app_data","custom_protocols",{list:list,ts:new Date().toISOString()});
 }
 
 function apLoadFileContent(){
@@ -1680,9 +1754,9 @@ function switchTab(n,b){document.querySelectorAll(".tab-content").forEach(functi
 function cambiarCategoria(c,b){currentCategory=c;document.querySelectorAll(".category-btn").forEach(function(x){x.classList.remove("active")});if(b)b.classList.add("active");document.getElementById("categoryTitle").textContent=c;var sc=document.getElementById("studioCategory");if(sc)sc.textContent=c;switchTab("preguntas",document.querySelector(".tab-btn"));actualizarUI();}
 function esc(t){if(!t)return"";return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function actualizarUI(){var docs=documents[currentCategory]||[];document.getElementById("documentosList").innerHTML=docs.length===0?'<div class="empty-state"><div class="empty-state-icon">📄</div><p>No hay documentos</p></div>':docs.map(function(d){return'<div class="doc-item"><div><div class="doc-name">'+d.name+'</div><div class="doc-size">'+d.size_mb+' MB · '+d.type+'</div></div><a href="'+d.url+'" target="_blank" class="doc-btn">Abrir</a></div>'}).join("");document.getElementById("docsCount").textContent=docs.length;document.getElementById("preguntasCount").textContent=(preguntas[currentCategory]||[]).length;document.getElementById("notasCount").textContent=(notas[currentCategory]||[]).length;var pa=preguntas[currentCategory]||[],pl=document.getElementById("preguntasList");pl.innerHTML=pa.length===0?'<div class="empty-state"><div class="empty-state-icon">🩺</div><p>Haz tu primera pregunta</p></div>':pa.map(function(p){return'<div class="question-box"><div class="question-text">'+esc(p.pregunta)+'</div><div class="answer-text">'+esc(p.respuesta)+'</div><div class="note-time">'+p.fecha+'</div></div>'}).join("");var na=notas[currentCategory]||[],nl=document.getElementById("notasList");nl.innerHTML=na.length===0?'<div class="empty-state"><div class="empty-state-icon">📝</div><p>Sin notas</p></div>':na.map(function(n,i){return'<div class="question-box" style="border-left-color:var(--accent)"><div style="font-size:.92rem;white-space:pre-wrap;padding-right:30px;font-weight:300;line-height:1.6">'+esc(n.texto)+'</div><div class="note-time">'+n.fecha+'</div><button onclick="eliminarNota('+i+')" style="position:absolute;top:12px;right:12px;background:none;border:none;cursor:pointer;opacity:.35">🗑️</button></div>'}).join("");}
-function guardarConfig(){CONFIG.provider=document.getElementById("cfgProvider").value;CONFIG.groqKey=document.getElementById("cfgGroqKey").value.trim();CONFIG.groqModel=document.getElementById("cfgGroqModel").value;CONFIG.qwenKey=document.getElementById("cfgQwenKey").value.trim();CONFIG.qwenModel=document.getElementById("cfgQwenModel").value;localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));updateStatus();document.getElementById("cfgStatus").innerHTML='<span style="color:var(--primary)">✅ Guardado</span>';}
+function guardarConfig(){CONFIG.provider=document.getElementById("cfgProvider").value;CONFIG.groqKey=document.getElementById("cfgGroqKey").value.trim();CONFIG.groqModel=document.getElementById("cfgGroqModel").value;CONFIG.qwenKey=document.getElementById("cfgQwenKey").value.trim();CONFIG.qwenModel=document.getElementById("cfgQwenModel").value;localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));fbSave("app_data","config_ia",{provider:CONFIG.provider,groqKey:CONFIG.groqKey,groqModel:CONFIG.groqModel,qwenKey:CONFIG.qwenKey,qwenModel:CONFIG.qwenModel,ts:new Date().toISOString()});updateStatus();document.getElementById("cfgStatus").innerHTML='<span style="color:var(--primary)">✅ Guardado ☁️</span>';}
 async function testApiKey(){guardarConfig();if(!isReady()){document.getElementById("cfgStatus").innerHTML='<span style="color:#dc2626">❌ Key inválida</span>';return;}var st=document.getElementById("cfgStatus");st.innerHTML='<span style="color:var(--accent)">⏳ Probando...</span>';var e=ep();try{var r=await fetchWithCorsProxy(e.url,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+e.getKey()},body:JSON.stringify({model:e.getModel(),messages:[{role:"user",content:"Di: OK"}],max_tokens:10})});if(r.ok)st.innerHTML='<span style="color:var(--primary)">✅ ¡Conexión exitosa!</span>';else if(r.status===401)st.innerHTML='<span style="color:#dc2626">❌ Key inválida</span>';else{var err=await r.json().catch(function(){return{}});st.innerHTML='<span style="color:#dc2626">❌ Error '+r.status+"</span>";}}catch(err){st.innerHTML='<span style="color:#dc2626">❌ '+err.message+"</span>";}}
-function guardarDatos(){localStorage.setItem("cartagena_preguntas",JSON.stringify(preguntas));localStorage.setItem("cartagena_notas",JSON.stringify(notas));}
+function guardarDatos(){localStorage.setItem("cartagena_preguntas",JSON.stringify(preguntas));localStorage.setItem("cartagena_notas",JSON.stringify(notas));fbSave("app_data","preguntas",{data:preguntas,ts:new Date().toISOString()});fbSave("app_data","notas",{data:notas,ts:new Date().toISOString()});}
 function cargarDatos(){try{preguntas=JSON.parse(localStorage.getItem("cartagena_preguntas"))||{};}catch(e){preguntas={};}try{notas=JSON.parse(localStorage.getItem("cartagena_notas"))||{};}catch(e){notas={};}}
 
 function initProfessionals(){
