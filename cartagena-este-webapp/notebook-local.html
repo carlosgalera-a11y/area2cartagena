@@ -2115,10 +2115,8 @@ function showScanLogin(){
         var user=firebase.auth().currentUser;
         if(user){
             console.log("User already logged in:",user.email);
-            sessionStorage.setItem("scan_auth","1");
             showPage("pageScanIA");scanRenderHist();return;
         }
-        if(sessionStorage.getItem("scan_auth")==="1"){showPage("pageScanIA");scanRenderHist();return;}
         var m=document.getElementById("scanLoginModal");
         console.log("Showing modal",m);
         m.style.display="flex";
@@ -2131,7 +2129,6 @@ function scanGoogleLogin(){
     var provider=new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result){
         console.log("Login success:",result.user.email);
-        sessionStorage.setItem("scan_auth","1");
         document.getElementById("scanLoginModal").style.display="none";
         showPage("pageScanIA");scanRenderHist();
     }).catch(function(error){
@@ -2679,7 +2676,6 @@ const db=firebase.firestore();
 firebase.auth().getRedirectResult().then(function(result){
     if(result.user){
         console.log("Redirect login success:",result.user.email);
-        sessionStorage.setItem("scan_auth","1");
         showPage("pageScanIA");scanRenderHist();
     }
 }).catch(function(e){console.log("No redirect result:",e);});
