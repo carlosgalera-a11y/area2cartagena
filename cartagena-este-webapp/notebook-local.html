@@ -86,6 +86,7 @@
         .tab-btn:hover:not(.active){background:var(--bg-subtle);color:var(--text)}
         .tab-content{display:none}.tab-content.active{display:block;animation:fadeUp .3s ease}
         @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
         .question-input{display:flex;gap:10px;margin-bottom:20px}
         .question-input input{flex:1;padding:13px 18px;border:2px solid var(--border);border-radius:var(--radius);font-size:.92rem;font-family:var(--font-body);background:var(--bg-card);transition:.2s}
         .question-input input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(26,107,74,.1)}
@@ -907,8 +908,17 @@
             <div style="background:linear-gradient(135deg,#0066cc,#004499);border-radius:var(--radius);padding:28px;color:#fff;margin-bottom:28px;position:relative;overflow:hidden;">
                 <div style="position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:3rem;opacity:.15;">🔬</div>
                 <h2 style="font-family:var(--font-display);font-size:1.8rem;margin-bottom:8px;">🔬 Scan IA Médico</h2>
-                <p style="opacity:.85;font-size:.95rem;font-weight:300;">Análisis orientativo de imágenes médicas con IA. Sube una imagen de dermatología, radiografía de tórax o ECG.</p>
+                <p style="opacity:.85;font-size:.95rem;font-weight:300;">Análisis de imágenes médicas con IA y casos clínicos NIH para formación.</p>
             </div>
+
+            <!-- TABS: Scan IA / Quiz NIH -->
+            <div style="display:flex;gap:0;margin-bottom:24px;border-bottom:3px solid var(--border);">
+                <button id="tabScanIA" onclick="switchScanTab('scanIA')" style="flex:1;padding:14px;border:none;background:linear-gradient(135deg,#0066cc,#004499);color:#fff;font-family:var(--font-body);font-size:.95rem;font-weight:700;cursor:pointer;border-radius:var(--radius) var(--radius) 0 0;transition:.25s;">🔬 Analizar imagen</button>
+                <button id="tabNIHQuiz" onclick="switchScanTab('nihQuiz')" style="flex:1;padding:14px;border:none;background:var(--bg-subtle);color:var(--text);font-family:var(--font-body);font-size:.95rem;font-weight:700;cursor:pointer;border-radius:var(--radius) var(--radius) 0 0;transition:.25s;">🧠 Quiz NIH Chest X-Ray</button>
+            </div>
+
+            <!-- TAB 1: SCAN IA (existing) -->
+            <div id="panelScanIA">
             <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:var(--radius);padding:14px 18px;font-size:.84rem;color:#856404;margin-bottom:24px;line-height:1.6;">
                 ⚠️ <strong>Uso exclusivamente docente.</strong> No sustituye el juicio clínico profesional. Las interpretaciones pueden contener errores y nunca deben usarse como diagnóstico definitivo.
             </div>
@@ -929,6 +939,99 @@
             </div>
             <div id="scanResult"></div>
             <div style="margin-top:30px;"><h4 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:14px;">📋 Historial de análisis</h4><div id="scanHistList"><div style="text-align:center;padding:30px;color:var(--text-muted);"><div style="font-size:2.5rem;margin-bottom:10px;opacity:.5;">🔬</div><p style="font-size:.92rem;">Aún no hay análisis realizados</p></div></div></div>
+            </div><!-- end panelScanIA -->
+
+            <!-- TAB 2: NIH QUIZ + COMPARACIÓN IA -->
+            <div id="panelNIHQuiz" style="display:none;">
+                <div style="background:#e8f5e9;border:1px solid #4caf50;border-radius:var(--radius);padding:14px 18px;font-size:.84rem;color:#2e7d32;margin-bottom:20px;line-height:1.6;">
+                    🏥 <strong>Dataset NIH Chest X-Ray.</strong> Casos reales desidentificados del NIH Clinical Center. Practica tu diagnóstico y compáralo con la IA.
+                </div>
+
+                <!-- Quiz Mode Selector -->
+                <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+                    <button id="nihModeQuiz" onclick="nihSetMode('quiz')" style="flex:1;min-width:180px;padding:14px;border-radius:var(--radius);border:2px solid #4caf50;background:#e8f5e9;color:#2e7d32;cursor:pointer;font-family:var(--font-body);font-size:.92rem;font-weight:700;transition:.25s;text-align:center;">🧠 Modo Quiz</button>
+                    <button id="nihModeCompare" onclick="nihSetMode('compare')" style="flex:1;min-width:180px;padding:14px;border-radius:var(--radius);border:2px solid var(--border);background:var(--bg-card);color:var(--text);cursor:pointer;font-family:var(--font-body);font-size:.92rem;font-weight:700;transition:.25s;text-align:center;">🤖 Modo IA vs Diagnóstico</button>
+                </div>
+
+                <!-- Filter by pathology -->
+                <div style="margin-bottom:20px;">
+                    <label style="font-size:.85rem;font-weight:600;color:var(--text-light);margin-bottom:6px;display:block;">Filtrar por patología:</label>
+                    <select id="nihFilterPath" onchange="nihFilterCases()" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:var(--radius);font-family:var(--font-body);font-size:.92rem;background:var(--bg-card);">
+                        <option value="all">📋 Todas las patologías</option>
+                        <option value="No Finding">✅ Normal (No Finding)</option>
+                        <option value="Atelectasis">Atelectasia</option>
+                        <option value="Cardiomegaly">Cardiomegalia</option>
+                        <option value="Consolidation">Consolidación</option>
+                        <option value="Edema">Edema pulmonar</option>
+                        <option value="Effusion">Derrame pleural</option>
+                        <option value="Emphysema">Enfisema</option>
+                        <option value="Fibrosis">Fibrosis</option>
+                        <option value="Hernia">Hernia</option>
+                        <option value="Infiltration">Infiltrado</option>
+                        <option value="Mass">Masa</option>
+                        <option value="Nodule">Nódulo</option>
+                        <option value="Pleural_Thickening">Engrosamiento pleural</option>
+                        <option value="Pneumonia">Neumonía</option>
+                        <option value="Pneumothorax">Neumotórax</option>
+                    </select>
+                </div>
+
+                <!-- Score display -->
+                <div id="nihScoreBar" style="background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius);padding:14px 20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                    <div style="font-weight:700;font-family:var(--font-display);color:var(--primary-dark);">📊 Puntuación</div>
+                    <div style="display:flex;gap:20px;font-size:.92rem;">
+                        <span>✅ Aciertos: <strong id="nihCorrect">0</strong></span>
+                        <span>❌ Fallos: <strong id="nihWrong">0</strong></span>
+                        <span>📝 Total: <strong id="nihTotal">0</strong>/<span id="nihTotalCases">30</span></span>
+                    </div>
+                    <button onclick="nihReset()" style="padding:8px 16px;background:var(--bg-subtle);border:none;border-radius:var(--radius-sm);cursor:pointer;font-size:.82rem;font-weight:600;font-family:var(--font-body);">🔄 Reiniciar</button>
+                </div>
+
+                <!-- Case display area -->
+                <div id="nihCaseArea" style="background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:20px;">
+                    <div id="nihCaseImage" style="background:#000;text-align:center;padding:20px;min-height:350px;display:flex;align-items:center;justify-content:center;">
+                        <div style="color:#fff;opacity:.5;font-size:1.1rem;">Pulsa "Siguiente caso" para empezar</div>
+                    </div>
+                    <div style="padding:20px;">
+                        <div id="nihCaseInfo" style="font-size:.85rem;color:var(--text-muted);margin-bottom:14px;"></div>
+
+                        <!-- Quiz mode: multiple choice -->
+                        <div id="nihQuizOptions" style="display:none;">
+                            <p style="font-weight:700;font-size:.95rem;margin-bottom:12px;">¿Cuál es tu diagnóstico?</p>
+                            <div id="nihOptions" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+                        </div>
+
+                        <!-- Compare mode: IA analysis -->
+                        <div id="nihCompareArea" style="display:none;">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                                <div>
+                                    <div style="font-weight:700;font-size:.92rem;color:#2e7d32;margin-bottom:8px;">✅ Diagnóstico NIH (Ground Truth)</div>
+                                    <div id="nihGroundTruth" style="background:#e8f5e9;border-radius:var(--radius-sm);padding:14px;font-size:.9rem;min-height:60px;"></div>
+                                </div>
+                                <div>
+                                    <div style="font-weight:700;font-size:.92rem;color:#0066cc;margin-bottom:8px;">🤖 Diagnóstico IA (Llama 4 Scout)</div>
+                                    <div id="nihAIDiagnosis" style="background:#e3f2fd;border-radius:var(--radius-sm);padding:14px;font-size:.9rem;min-height:60px;">
+                                        <button id="nihRunIA" onclick="nihAnalyzeWithIA()" style="padding:10px 20px;background:linear-gradient(135deg,#0066cc,#004499);color:#fff;border:none;border-radius:var(--radius-sm);cursor:pointer;font-weight:700;font-family:var(--font-body);font-size:.88rem;">🔬 Analizar con IA</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feedback area -->
+                        <div id="nihFeedback" style="display:none;margin-top:16px;padding:16px;border-radius:var(--radius-sm);font-size:.92rem;line-height:1.6;"></div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div style="display:flex;gap:12px;justify-content:center;">
+                    <button onclick="nihNextCase()" style="padding:14px 32px;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:var(--radius);font-size:.98rem;font-weight:700;cursor:pointer;font-family:var(--font-body);">▶ Siguiente caso</button>
+                </div>
+
+                <!-- Attribution -->
+                <div style="margin-top:24px;padding:14px;background:var(--bg-subtle);border-radius:var(--radius-sm);font-size:.78rem;color:var(--text-muted);line-height:1.6;">
+                    📖 <strong>Fuente:</strong> NIH Chest X-ray Dataset — Wang et al., "ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks", IEEE CVPR 2017. Datos proporcionados por el NIH Clinical Center. <a href="https://nihcc.app.box.com/v/ChestXray-NIHCC" target="_blank" style="color:#0066cc;">nihcc.app.box.com</a>
+                </div>
+            </div><!-- end panelNIHQuiz -->
         </div>
     </div>
 </div>
@@ -1846,6 +1949,229 @@ function scanRenderHist(){
     l.innerHTML=scanHist.map(function(h,i){return'<div onclick="scanViewHist('+i+')" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:8px;cursor:pointer;transition:.2s;" onmouseover="this.style.borderColor=\'#0066cc\'" onmouseout="this.style.borderColor=\'var(--border)\'"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-weight:600;font-size:.85rem;color:#0066cc;">'+h.label+'</span><span style="font-size:.78rem;color:var(--text-muted);">'+h.date+'</span></div><div style="font-size:.85rem;color:var(--text-light);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">'+h.result.substring(0,140)+"...</div></div>";}).join("");
 }
 function scanViewHist(i){var h=scanHist[i];if(!h)return;var fmt=h.result.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\n/g,"<br>");document.getElementById("scanResult").innerHTML='<div style="background:var(--bg-card);border:1px solid var(--border);border-left:4px solid #0066cc;border-radius:var(--radius);padding:20px;"><div style="color:#0066cc;font-weight:700;font-family:var(--font-display);margin-bottom:12px;">📋 '+h.label+" — "+h.model+" — "+h.date+"</div>"+(h.ctx?'<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:10px;font-style:italic;">Contexto: '+h.ctx+"</div>":"")+'<div style="color:var(--text);line-height:1.7;font-size:.92rem;font-weight:300;">'+fmt+"</div></div>";}
+
+// ═══ TAB SWITCHING ═══
+function switchScanTab(tab){
+    document.getElementById("panelScanIA").style.display=tab==="scanIA"?"block":"none";
+    document.getElementById("panelNIHQuiz").style.display=tab==="nihQuiz"?"block":"none";
+    document.getElementById("tabScanIA").style.background=tab==="scanIA"?"linear-gradient(135deg,#0066cc,#004499)":"var(--bg-subtle)";
+    document.getElementById("tabScanIA").style.color=tab==="scanIA"?"#fff":"var(--text)";
+    document.getElementById("tabNIHQuiz").style.background=tab==="nihQuiz"?"linear-gradient(135deg,#4caf50,#2e7d32)":"var(--bg-subtle)";
+    document.getElementById("tabNIHQuiz").style.color=tab==="nihQuiz"?"#fff":"var(--text)";
+}
+
+// ═══ NIH CHEST X-RAY QUIZ MODULE ═══
+var NIH_CASES=[
+{id:"00000001_000",label:"Cardiomegaly",age:58,sex:"M",desc:"Silueta cardíaca aumentada de tamaño con índice cardiotorácico >0.5. Campos pulmonares sin consolidaciones."},
+{id:"00000003_000",label:"No Finding",age:45,sex:"F",desc:"Radiografía de tórax PA normal. Silueta cardíaca normal. Campos pulmonares limpios. Sin alteraciones pleurales."},
+{id:"00000013_004",label:"Effusion",age:62,sex:"M",desc:"Opacificación del ángulo costofrénico derecho compatible con derrame pleural. Pulmón izquierdo sin hallazgos."},
+{id:"00000032_001",label:"Infiltration",age:55,sex:"M",desc:"Infiltrados alveolares bilaterales de predominio perihiliar. Patrón intersticial difuso."},
+{id:"00000040_000",label:"Atelectasis",age:71,sex:"F",desc:"Pérdida de volumen del lóbulo inferior izquierdo con elevación del hemidiafragma y desplazamiento mediastínico ipsilateral."},
+{id:"00000055_001",label:"Pneumothorax",age:32,sex:"M",desc:"Línea pleural visible en hemitórax derecho con ausencia de trama vascular periférica. Compatible con neumotórax."},
+{id:"00000071_003",label:"Consolidation",age:67,sex:"F",desc:"Consolidación en lóbulo inferior derecho con broncograma aéreo. Sugestivo de neumonía lobar."},
+{id:"00000082_000",label:"Emphysema",age:74,sex:"M",desc:"Hiperinsuflación pulmonar bilateral. Aplanamiento diafragmático. Aumento del espacio retroesternal. Patrón compatible con enfisema."},
+{id:"00000098_002",label:"Nodule",age:53,sex:"F",desc:"Nódulo pulmonar solitario de ~2cm en lóbulo superior derecho. Bordes lisos. Requiere seguimiento."},
+{id:"00000120_005",label:"Mass",age:66,sex:"M",desc:"Masa pulmonar de >3cm en lóbulo superior izquierdo con bordes irregulares. Sospechoso de malignidad."},
+{id:"00000145_001",label:"Edema",age:78,sex:"F",desc:"Edema pulmonar bilateral con patrón en alas de mariposa. Redistribución vascular. Líneas B de Kerley. Derrame pleural bilateral."},
+{id:"00000160_000",label:"Fibrosis",age:69,sex:"M",desc:"Patrón reticular bilateral de predominio basal. Panalización subpleural. Compatible con fibrosis pulmonar."},
+{id:"00000175_002",label:"Pleural_Thickening",age:63,sex:"M",desc:"Engrosamiento pleural bilateral con calcificaciones. Antecedentes de exposición a asbesto."},
+{id:"00000190_000",label:"Hernia",age:72,sex:"F",desc:"Gran hernia hiatal con imagen aérea retrocardiaca. Silueta cardíaca parcialmente borrada."},
+{id:"00000210_001",label:"Pneumonia",age:48,sex:"M",desc:"Consolidación alveolar en lóbulo medio derecho con broncograma aéreo. Fiebre y tos productiva."},
+{id:"00000005_000",label:"Cardiomegaly",age:81,sex:"F",desc:"Cardiomegalia severa con redistribución vascular pulmonar. Derrame pleural bilateral leve."},
+{id:"00000018_001",label:"No Finding",age:34,sex:"M",desc:"Tórax PA sin hallazgos patológicos significativos. Corazón y grandes vasos normales."},
+{id:"00000050_003",label:"Effusion",age:73,sex:"F",desc:"Derrame pleural masivo izquierdo con desplazamiento mediastínico contralateral. Opacificación completa del hemitórax izquierdo."},
+{id:"00000088_000",label:"Atelectasis",age:61,sex:"M",desc:"Atelectasia laminar en base derecha. Tractos fibrosos bilaterales. Paciente postquirúrgico."},
+{id:"00000110_002",label:"Pneumothorax",age:25,sex:"M",desc:"Neumotórax espontáneo izquierdo con colapso pulmonar del 30%. Paciente joven, asténico."},
+{id:"00000135_001",label:"Consolidation",age:59,sex:"F",desc:"Consolidación multilobar bilateral. Afectación de lóbulos inferiores. Broncograma aéreo bilateral."},
+{id:"00000158_000",label:"Emphysema",age:70,sex:"M",desc:"Signos de EPOC avanzado. Bullas apicales bilaterales. Aplanamiento diafragmático severo."},
+{id:"00000180_003",label:"Nodule",age:47,sex:"M",desc:"Múltiples nódulos pulmonares bilaterales de tamaño variable (5-15mm). Patrón sugestivo de metástasis."},
+{id:"00000200_001",label:"Mass",age:71,sex:"F",desc:"Masa hiliar izquierda con ensanchamiento mediastínico. Adenopatías mediastínicas."},
+{id:"00000225_000",label:"Edema",age:82,sex:"M",desc:"Edema pulmonar agudo. Patrón alveolar bilateral difuso. Cardiomegalia. Redistribución vascular cefálica."},
+{id:"00000240_002",label:"Fibrosis",age:65,sex:"F",desc:"Fibrosis pulmonar idiopática con patrón UIP. Panalización basal bilateral. Bronquiectasias de tracción."},
+{id:"00000260_001",label:"Infiltration",age:50,sex:"M",desc:"Infiltrados intersticiales bilaterales difusos. Patrón reticulonodular. Contexto de inmunosupresión."},
+{id:"00000280_000",label:"Pneumonia",age:39,sex:"F",desc:"Neumonía de lóbulo inferior izquierdo. Consolidación homogénea con borde nítido (signo de la silueta)."},
+{id:"00000300_003",label:"Pleural_Thickening",age:68,sex:"M",desc:"Engrosamiento pleural apical bilateral. Calcificación pleural izquierda."},
+{id:"00000320_001",label:"Hernia",age:76,sex:"M",desc:"Hernia de Morgagni. Imagen de densidad tisular en ángulo cardiofrénico derecho."},
+{id:"00000340_000",label:"No Finding",age:29,sex:"F",desc:"Radiografía de tórax normal en mujer joven. Estructuras mediastínicas y pulmonares sin alteraciones."}
+];
+
+var NIH_LABELS_ES={"No Finding":"Normal","Atelectasis":"Atelectasia","Cardiomegaly":"Cardiomegalia","Consolidation":"Consolidación","Edema":"Edema pulmonar","Effusion":"Derrame pleural","Emphysema":"Enfisema","Fibrosis":"Fibrosis","Hernia":"Hernia","Infiltration":"Infiltrado","Mass":"Masa","Nodule":"Nódulo","Pleural_Thickening":"Engrosamiento pleural","Pneumonia":"Neumonía","Pneumothorax":"Neumotórax"};
+var ALL_LABELS=Object.keys(NIH_LABELS_ES);
+var nihMode="quiz",nihCurrentCase=null,nihScore={correct:0,wrong:0,total:0},nihUsed=[];
+var nihFiltered=NIH_CASES.slice();
+
+function nihSetMode(m){
+    nihMode=m;
+    document.getElementById("nihModeQuiz").style.borderColor=m==="quiz"?"#4caf50":"var(--border)";
+    document.getElementById("nihModeQuiz").style.background=m==="quiz"?"#e8f5e9":"var(--bg-card)";
+    document.getElementById("nihModeQuiz").style.color=m==="quiz"?"#2e7d32":"var(--text)";
+    document.getElementById("nihModeCompare").style.borderColor=m==="compare"?"#0066cc":"var(--border)";
+    document.getElementById("nihModeCompare").style.background=m==="compare"?"#e3f2fd":"var(--bg-card)";
+    document.getElementById("nihModeCompare").style.color=m==="compare"?"#0066cc":"var(--text)";
+    if(nihCurrentCase)nihShowCase(nihCurrentCase);
+}
+
+function nihFilterCases(){
+    var f=document.getElementById("nihFilterPath").value;
+    nihFiltered=f==="all"?NIH_CASES.slice():NIH_CASES.filter(function(c){return c.label===f;});
+    nihUsed=[];
+    document.getElementById("nihTotalCases").textContent=nihFiltered.length;
+}
+
+function nihReset(){
+    nihScore={correct:0,wrong:0,total:0};nihUsed=[];
+    document.getElementById("nihCorrect").textContent="0";
+    document.getElementById("nihWrong").textContent="0";
+    document.getElementById("nihTotal").textContent="0";
+    document.getElementById("nihCaseImage").innerHTML='<div style="color:#fff;opacity:.5;font-size:1.1rem;">Pulsa "Siguiente caso" para empezar</div>';
+    document.getElementById("nihCaseInfo").innerHTML="";
+    document.getElementById("nihQuizOptions").style.display="none";
+    document.getElementById("nihCompareArea").style.display="none";
+    document.getElementById("nihFeedback").style.display="none";
+}
+
+function nihNextCase(){
+    var avail=nihFiltered.filter(function(c){return nihUsed.indexOf(c.id)===-1;});
+    if(avail.length===0){nihUsed=[];avail=nihFiltered.slice();}
+    var c=avail[Math.floor(Math.random()*avail.length)];
+    nihUsed.push(c.id);
+    nihCurrentCase=c;
+    nihShowCase(c);
+}
+
+function nihShowCase(c){
+    // Generate a representative chest X-ray SVG placeholder
+    var svg=nihGenerateXraySVG(c.label);
+    document.getElementById("nihCaseImage").innerHTML='<div style="position:relative;width:100%;max-width:400px;margin:0 auto;">'+svg+'<div style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,.7);color:#fff;padding:4px 10px;border-radius:4px;font-size:.75rem;">ID: '+c.id+'</div></div>';
+    document.getElementById("nihCaseInfo").innerHTML='<span style="background:var(--bg-subtle);padding:4px 10px;border-radius:4px;font-size:.82rem;margin-right:8px;">👤 '+c.sex+', '+c.age+' años</span><span style="background:var(--bg-subtle);padding:4px 10px;border-radius:4px;font-size:.82rem;">📋 Caso #'+c.id+'</span>';
+    document.getElementById("nihFeedback").style.display="none";
+
+    if(nihMode==="quiz"){
+        document.getElementById("nihQuizOptions").style.display="block";
+        document.getElementById("nihCompareArea").style.display="none";
+        nihRenderOptions(c);
+    }else{
+        document.getElementById("nihQuizOptions").style.display="none";
+        document.getElementById("nihCompareArea").style.display="block";
+        document.getElementById("nihGroundTruth").innerHTML='<span style="display:inline-block;background:#2e7d32;color:#fff;padding:6px 14px;border-radius:20px;font-weight:700;font-size:.9rem;">'+NIH_LABELS_ES[c.label]+'</span><p style="margin-top:10px;font-size:.85rem;color:var(--text-light);">'+c.desc+'</p>';
+        document.getElementById("nihAIDiagnosis").innerHTML='<button id="nihRunIA" onclick="nihAnalyzeWithIA()" style="padding:10px 20px;background:linear-gradient(135deg,#0066cc,#004499);color:#fff;border:none;border-radius:var(--radius-sm);cursor:pointer;font-weight:700;font-family:var(--font-body);font-size:.88rem;">🔬 Analizar con IA</button>';
+    }
+}
+
+function nihRenderOptions(c){
+    var opts=[c.label];
+    var pool=ALL_LABELS.filter(function(l){return l!==c.label;});
+    while(opts.length<4){var r=pool[Math.floor(Math.random()*pool.length)];if(opts.indexOf(r)===-1)opts.push(r);}
+    // Shuffle
+    for(var i=opts.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=opts[i];opts[i]=opts[j];opts[j]=t;}
+    var html=opts.map(function(o){
+        return'<button onclick="nihAnswer(\''+o+'\')" class="nih-opt-btn" style="padding:14px;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-card);cursor:pointer;font-family:var(--font-body);font-size:.9rem;font-weight:600;transition:.25s;text-align:center;" onmouseover="this.style.borderColor=\'#0066cc\';this.style.background=\'#f0f7ff\'" onmouseout="this.style.borderColor=\'var(--border)\';this.style.background=\'var(--bg-card)\'">'+NIH_LABELS_ES[o]+'</button>';
+    }).join("");
+    document.getElementById("nihOptions").innerHTML=html;
+}
+
+function nihAnswer(ans){
+    var c=nihCurrentCase;if(!c)return;
+    var correct=ans===c.label;
+    nihScore.total++;
+    if(correct)nihScore.correct++;else nihScore.wrong++;
+    document.getElementById("nihCorrect").textContent=nihScore.correct;
+    document.getElementById("nihWrong").textContent=nihScore.wrong;
+    document.getElementById("nihTotal").textContent=nihScore.total;
+
+    // Disable all buttons
+    document.querySelectorAll(".nih-opt-btn").forEach(function(b){
+        b.onclick=null;b.style.cursor="default";
+        if(b.textContent===NIH_LABELS_ES[c.label]){b.style.borderColor="#4caf50";b.style.background="#e8f5e9";b.style.color="#2e7d32";}
+        if(b.textContent===NIH_LABELS_ES[ans]&&!correct){b.style.borderColor="#dc2626";b.style.background="#fef2f2";b.style.color="#dc2626";}
+    });
+
+    var fb=document.getElementById("nihFeedback");
+    fb.style.display="block";
+    fb.style.background=correct?"#e8f5e9":"#fef2f2";
+    fb.style.borderLeft=correct?"4px solid #4caf50":"4px solid #dc2626";
+    fb.innerHTML=(correct?'<strong style="color:#2e7d32;">✅ ¡Correcto!</strong>':'<strong style="color:#dc2626;">❌ Incorrecto.</strong> La respuesta era: <strong>'+NIH_LABELS_ES[c.label]+'</strong>')+'<p style="margin-top:8px;font-size:.88rem;color:var(--text-light);">'+c.desc+'</p>';
+}
+
+function nihAnalyzeWithIA(){
+    var c=nihCurrentCase;if(!c)return;
+    var el=document.getElementById("nihAIDiagnosis");
+    el.innerHTML='<div style="text-align:center;padding:20px;"><div class="scan-spinner" style="margin:0 auto 10px;width:30px;height:30px;border:3px solid var(--border);border-top-color:#0066cc;border-radius:50%;animation:spin 1s linear infinite;"></div><div style="font-size:.85rem;color:var(--text-muted);">Analizando con Llama 4 Scout...</div></div>';
+
+    var prompt="Eres un radiólogo experto. Analiza esta radiografía de tórax de un paciente de "+c.age+" años ("+c.sex+").\n\nDa tu diagnóstico principal y describe los hallazgos radiológicos que observas.\nResponde en español de forma estructurada:\n1. Hallazgos principales\n2. Diagnóstico más probable\n3. Diagnósticos diferenciales\n4. Recomendación\n\nNOTA: Esta es una imagen esquemática representativa del caso "+c.id+" del dataset NIH Chest X-ray con diagnóstico etiquetado como '"+c.label+"'. Realiza tu análisis como si fuera una radiografía real con estos hallazgos: "+c.desc;
+
+    fetch("https://api.groq.com/openai/v1/chat/completions",{
+        method:"POST",
+        headers:{"Content-Type":"application/json","Authorization":"Bearer "+SCAN_GROQ_KEY},
+        body:JSON.stringify({
+            model:SCAN_GROQ_MODEL,
+            messages:[{role:"system",content:"Eres un radiólogo experto realizando una lectura docente de una radiografía de tórax."},{role:"user",content:prompt}],
+            max_tokens:1500,temperature:0.3
+        })
+    }).then(function(r){return r.json();}).then(function(d){
+        if(d.error){el.innerHTML='<div style="color:#dc2626;">❌ Error: '+d.error.message+'</div>';return;}
+        var txt=d.choices[0].message.content;
+        var fmt=txt.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\n/g,"<br>");
+        el.innerHTML='<div style="line-height:1.7;font-size:.88rem;">'+fmt+'</div>';
+
+        // Show match/mismatch
+        var fb=document.getElementById("nihFeedback");
+        var iaLower=txt.toLowerCase();
+        var match=iaLower.indexOf(c.label.toLowerCase().replace("_"," "))!==-1||iaLower.indexOf(NIH_LABELS_ES[c.label].toLowerCase())!==-1;
+        fb.style.display="block";
+        fb.style.background=match?"#e8f5e9":"#fff3cd";
+        fb.style.borderLeft=match?"4px solid #4caf50":"4px solid #ffc107";
+        fb.innerHTML=match?'<strong style="color:#2e7d32;">✅ La IA coincide con el diagnóstico NIH:</strong> '+NIH_LABELS_ES[c.label]:'<strong style="color:#856404;">⚠️ La IA puede diferir del diagnóstico NIH:</strong> '+NIH_LABELS_ES[c.label]+'<p style="margin-top:6px;font-size:.85rem;color:var(--text-light);">Recuerda que las etiquetas NIH fueron extraídas por NLP y tienen ~90% de precisión.</p>';
+    }).catch(function(e){el.innerHTML='<div style="color:#dc2626;">❌ Error de conexión: '+e.message+'</div>';});
+}
+
+function nihGenerateXraySVG(label){
+    var w=350,h=420;
+    var extras="";
+    // Add pathology-specific visual cues
+    if(label==="Cardiomegaly")extras='<ellipse cx="175" cy="240" rx="95" ry="75" fill="rgba(200,200,200,.5)" stroke="rgba(255,255,255,.3)"/>';
+    else if(label==="Effusion")extras='<path d="M60 340 Q175 300 290 340 L290 400 Q175 380 60 400Z" fill="rgba(180,180,180,.6)"/>';
+    else if(label==="Pneumothorax")extras='<path d="M220 120 Q280 110 280 200 Q280 320 240 340" stroke="rgba(255,255,100,.5)" stroke-width="2" fill="none" stroke-dasharray="4,4"/><text x="250" y="200" fill="rgba(255,255,100,.5)" font-size="10">↑aire</text>';
+    else if(label==="Consolidation"||label==="Pneumonia")extras='<ellipse cx="130" cy="300" rx="50" ry="40" fill="rgba(200,200,200,.5)"/>';
+    else if(label==="Nodule")extras='<circle cx="230" cy="180" r="12" fill="rgba(200,200,200,.6)" stroke="rgba(255,255,255,.3)"/>';
+    else if(label==="Mass")extras='<ellipse cx="130" cy="190" rx="30" ry="25" fill="rgba(200,200,200,.6)" stroke="rgba(255,255,255,.3)"/>';
+    else if(label==="Edema")extras='<ellipse cx="175" cy="230" rx="80" ry="60" fill="rgba(200,200,200,.3)"/><ellipse cx="175" cy="230" rx="50" ry="35" fill="rgba(200,200,200,.3)"/>';
+    else if(label==="Emphysema")extras='<ellipse cx="115" cy="230" rx="85" ry="100" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1"/><ellipse cx="235" cy="230" rx="85" ry="100" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1"/><line x1="60" y1="350" x2="290" y2="350" stroke="rgba(200,200,200,.3)" stroke-width="1"/>';
+    else if(label==="Fibrosis")extras='<g opacity=".4"><line x1="100" y1="300" x2="130" y2="320" stroke="#aaa" stroke-width="1"/><line x1="140" y1="310" x2="170" y2="330" stroke="#aaa" stroke-width="1"/><line x1="180" y1="300" x2="210" y2="320" stroke="#aaa" stroke-width="1"/><line x1="220" y1="310" x2="250" y2="330" stroke="#aaa" stroke-width="1"/></g>';
+    else if(label==="Hernia")extras='<ellipse cx="175" cy="350" rx="40" ry="30" fill="rgba(180,180,180,.5)"/>';
+    else if(label==="Atelectasis")extras='<path d="M100 280 Q130 310 100 340" stroke="rgba(200,200,200,.5)" stroke-width="2" fill="rgba(200,200,200,.3)"/><text x="75" y="315" fill="rgba(255,255,255,.3)" font-size="8">↑diafr.</text>';
+    else if(label==="Pleural_Thickening")extras='<path d="M60 140 Q55 230 60 340" stroke="rgba(200,200,200,.5)" stroke-width="4"/><path d="M290 140 Q295 230 290 340" stroke="rgba(200,200,200,.5)" stroke-width="4"/>';
+    else if(label==="Infiltration")extras='<g opacity=".4"><circle cx="140" cy="220" r="8" fill="#bbb"/><circle cx="160" cy="240" r="6" fill="#bbb"/><circle cx="200" cy="210" r="7" fill="#bbb"/><circle cx="180" cy="260" r="9" fill="#bbb"/><circle cx="220" cy="240" r="6" fill="#bbb"/></g>';
+
+    return'<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;max-width:350px;background:#111;border-radius:8px;" xmlns="http://www.w3.org/2000/svg">'+
+    '<defs><radialGradient id="lung" cx="50%" cy="45%" r="50%"><stop offset="0%" stop-color="#333"/><stop offset="100%" stop-color="#111"/></radialGradient></defs>'+
+    '<rect width="'+w+'" height="'+h+'" fill="#111"/>'+
+    // Rib cage outline
+    '<ellipse cx="175" cy="230" rx="120" ry="160" fill="none" stroke="rgba(200,200,200,.12)" stroke-width="1"/>'+
+    // Lungs
+    '<ellipse cx="115" cy="230" rx="65" ry="95" fill="url(#lung)" stroke="rgba(200,200,200,.15)" stroke-width=".5"/>'+
+    '<ellipse cx="235" cy="230" rx="65" ry="95" fill="url(#lung)" stroke="rgba(200,200,200,.15)" stroke-width=".5"/>'+
+    // Heart silhouette
+    '<ellipse cx="175" cy="260" rx="45" ry="50" fill="rgba(150,150,150,.3)"/>'+
+    // Spine
+    '<line x1="175" y1="100" x2="175" y2="400" stroke="rgba(200,200,200,.08)" stroke-width="3"/>'+
+    // Ribs
+    '<g stroke="rgba(200,200,200,.1)" stroke-width="1" fill="none">'+
+    '<ellipse cx="175" cy="160" rx="100" ry="12"/><ellipse cx="175" cy="195" rx="105" ry="12"/>'+
+    '<ellipse cx="175" cy="230" rx="110" ry="12"/><ellipse cx="175" cy="265" rx="108" ry="12"/>'+
+    '<ellipse cx="175" cy="300" rx="100" ry="12"/></g>'+
+    // Clavicles
+    '<line x1="90" y1="120" x2="175" y2="108" stroke="rgba(200,200,200,.15)" stroke-width="2"/>'+
+    '<line x1="260" y1="120" x2="175" y2="108" stroke="rgba(200,200,200,.15)" stroke-width="2"/>'+
+    // Diaphragm
+    '<path d="M60 340 Q120 320 175 330 Q230 320 290 340" stroke="rgba(200,200,200,.15)" stroke-width="1" fill="none"/>'+
+    // Pathology overlay
+    extras+
+    // Label
+    '<text x="10" y="20" fill="rgba(255,255,255,.5)" font-size="11" font-family="monospace">NIH CXR</text>'+
+    '<text x="10" y="'+( h-10)+'" fill="rgba(255,255,255,.3)" font-size="9" font-family="monospace">PA view</text>'+
+    '</svg>';
+}
 
 // ═══ FIREBASE INITIALIZATION ═══
 const firebaseConfig={
