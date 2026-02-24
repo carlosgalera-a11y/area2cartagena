@@ -146,7 +146,7 @@
 <!-- ═══════ LANDING PAGE ═══════ -->
 <div class="page active" id="pageLanding">
     <div class="landing">
-        <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" id="loginBtnLanding" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button></div></nav>
+        <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="document.getElementById('instruccionesModal').style.display='flex'" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:500;font-size:.85rem;font-family:var(--font-body);">📖 Instrucciones</button><button class="page-back" id="loginBtnLanding" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button></div></nav>
         <div class="hero">
             <div class="hero-bg"></div>
             <div class="hero-overlay"></div>
@@ -1246,6 +1246,64 @@
                 </label>
             </div>
             <p style="font-size:.78rem;color:var(--text-muted);text-align:center;margin-top:12px;">Solo cuentas autorizadas pueden acceder.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════ INSTRUCCIONES MODAL ═══════ -->
+<div id="instruccionesModal" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1002;align-items:center;justify-content:center;backdrop-filter:blur(2px);overflow:auto;padding:20px;">
+    <div style="background:#fff;border-radius:16px;max-width:600px;width:95%;max-height:90vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,.4);animation:slideInUp .3s ease;">
+        <div style="background:linear-gradient(135deg,var(--primary),var(--primary-light));padding:24px;color:#fff;text-align:center;position:sticky;top:0;z-index:1;">
+            <div style="position:absolute;top:12px;right:12px;cursor:pointer;font-size:1.5rem;opacity:.7;" onclick="document.getElementById('instruccionesModal').style.display='none'">✕</div>
+            <div style="font-size:2rem;margin-bottom:6px;">📖</div>
+            <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin:0;">Guía rápida de uso</h2>
+            <p style="margin:4px 0 0;opacity:.85;font-size:.85rem;">Centro de Salud Virgen de la Caridad · Santa Lucía</p>
+        </div>
+        <div style="padding:24px;font-size:.9rem;line-height:1.7;color:#334155;">
+            <div style="margin-bottom:20px;">
+                <h3 style="font-size:1rem;color:var(--primary-dark);margin-bottom:6px;">¿Qué es esta aplicación?</h3>
+                <p style="margin:0;">Web app del Área II de Cartagena que reúne protocolos médicos, recursos para pacientes, herramientas de IA clínica y documentación profesional. Funciona desde cualquier móvil u ordenador, sin instalar nada.</p>
+            </div>
+            <div style="margin-bottom:20px;">
+                <h3 style="font-size:1rem;color:var(--primary-dark);margin-bottom:6px;">¿Cómo accedo?</h3>
+                <p style="margin:0 0 6px;"><strong>Opción 1:</strong> Escanea el QR de la pantalla principal con tu cámara.</p>
+                <p style="margin:0 0 6px;"><strong>Opción 2:</strong> Escribe en el navegador: <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.85rem;">ramongalera22-ai.github.io/Cartagenaeste</code></p>
+                <p style="margin:0;"><strong>Opción 3:</strong> En Chrome, pulsa ⋮ → "Añadir a pantalla de inicio" para crear un icono como app.</p>
+            </div>
+            <div style="margin-bottom:20px;">
+                <h3 style="font-size:1rem;color:var(--primary-dark);margin-bottom:8px;">Secciones</h3>
+                <div style="display:grid;gap:10px;">
+                    <div style="background:#f0fdf4;padding:12px;border-radius:8px;border-left:3px solid #22c55e;">
+                        <strong>👤 Pacientes</strong> — Acceso libre. Dietas, vacunas, ejercicios, dejar de fumar, recursos sociales y más.
+                    </div>
+                    <div style="background:#eff6ff;padding:12px;border-radius:8px;border-left:3px solid #3b82f6;">
+                        <strong>🩺 Profesionales</strong> — Requiere login Google. Documentos por especialidad, preguntas IA, notas y apuntes.
+                    </div>
+                    <div style="background:#fefce8;padding:12px;border-radius:8px;border-left:3px solid #eab308;">
+                        <strong>📋 Protocolos AP</strong> — 10 protocolos de atención primaria con texto completo y asistente IA.
+                    </div>
+                    <div style="background:#fef2f2;padding:12px;border-radius:8px;border-left:3px solid #ef4444;">
+                        <strong>🚨 Protocolos Urgencias</strong> — 77 protocolos: trípticos, protocolos SEMFyC y hospitalarios con IA especializada.
+                    </div>
+                    <div style="background:#f0f9ff;padding:12px;border-radius:8px;border-left:3px solid #0ea5e9;">
+                        <strong>🛠️ Herramientas</strong> — IA de imagen médica: dermatología, Rx tórax/ósea/abdomen, ECG, ecografía.
+                    </div>
+                    <div style="background:#fdf4ff;padding:12px;border-radius:8px;border-left:3px solid #d946ef;">
+                        <strong>📞 Teléfonos Buscas</strong> — Directorio de buscas y teléfonos del hospital.
+                    </div>
+                </div>
+            </div>
+            <div style="margin-bottom:20px;">
+                <h3 style="font-size:1rem;color:var(--primary-dark);margin-bottom:6px;">El asistente de IA</h3>
+                <p style="margin:0;">Escribe tu pregunta clínica en cualquier pestaña "Preguntas IA" o "IA Urgencias". El asistente responde basándose en los protocolos cargados. <em>Es una herramienta de apoyo — contrasta siempre con tu criterio clínico.</em></p>
+            </div>
+            <div style="margin-bottom:16px;">
+                <h3 style="font-size:1rem;color:var(--primary-dark);margin-bottom:6px;">Panel de Administrador</h3>
+                <p style="margin:0;">El botón "Admin Login" permite al administrador subir archivos, crear categorías y gestionar protocolos.</p>
+            </div>
+            <div style="text-align:center;padding:12px;background:#f8fafc;border-radius:8px;font-size:.8rem;color:#94a3b8;">
+                Área II Cartagena · Servicio Murciano de Salud · 2026
+            </div>
         </div>
     </div>
 </div>
@@ -2686,7 +2744,7 @@ firebase.auth().getRedirectResult().then(function(result){
 }).catch(function(e){console.log("No redirect result:",e);});
 
 // ═══ INIT ═══
-document.addEventListener("keydown",function(e){if(e.key==="Escape"){var ap=document.getElementById("adminPanel");if(ap&&ap.style.display!=="none"){ap.style.display="none";return;}var sl=document.getElementById("scanLoginModal");if(sl&&sl.style.display==="flex"){sl.style.display="none";return;}}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){var im=document.getElementById("instruccionesModal");if(im&&im.style.display==="flex"){im.style.display="none";return;}var ap=document.getElementById("adminPanel");if(ap&&ap.style.display!=="none"){ap.style.display="none";return;}var sl=document.getElementById("scanLoginModal");if(sl&&sl.style.display==="flex"){sl.style.display="none";return;}}});
 document.addEventListener("DOMContentLoaded",function(){
     initLoginSession();
     renderPatients();
