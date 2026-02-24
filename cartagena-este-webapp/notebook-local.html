@@ -1765,7 +1765,7 @@ var scanType="derma";
 var scanB64=null;
 var scanHist=JSON.parse(localStorage.getItem("scan_hist_v2")||"[]");
 var SCAN_GROQ_KEY="REDACTED_GROQ_2026-04";
-var SCAN_GROQ_MODEL="llama-4-scout-17b-16e-instruct";
+var SCAN_GROQ_MODEL="meta-llama/llama-4-scout-17b-16e-instruct";
 var SCAN_PROMPTS={
 derma:"Eres un dermatólogo experto realizando una evaluación docente de una imagen clínica de piel.\n\nAnaliza siguiendo esta estructura:\n1. **Descripción de la lesión**: Morfología, color, bordes, distribución\n2. **Diagnóstico diferencial**: 3-5 diagnósticos más probables\n3. **Hallazgos clave**: Elementos que apoyan cada diagnóstico\n4. **Signos de alarma**: Criterios ABCDE de melanoma\n5. **Recomendación**: Siguiente paso clínico\n\nIMPORTANTE: Herramienta DOCENTE. El diagnóstico definitivo requiere valoración presencial.",
 torax:"Eres un radiólogo experto realizando una lectura docente de una radiografía de tórax.\n\nAnaliza siguiendo lectura sistemática:\n1. **Calidad técnica**: Rotación, inspiración, penetración\n2. **Mediastino**: Silueta cardíaca, hilio, tráquea, aorta\n3. **Campos pulmonares**: Transparencia, infiltrados, consolidaciones, nódulos\n4. **Pleura**: Derrame, neumotórax\n5. **Estructuras óseas**: Costillas, clavículas, columna\n6. **Diafragma**: Ángulos costofrénicos\n7. **Impresión diagnóstica**: Hallazgos y diagnóstico diferencial\n8. **Recomendación**: Siguiente paso\n\nHerramienta DOCENTE.",
