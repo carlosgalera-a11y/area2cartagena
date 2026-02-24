@@ -140,6 +140,18 @@
         @media(max-width:1024px){.prof-layout{grid-template-columns:1fr}.sidebar-left,.sidebar-right{display:none}.landing-nav .nav-links{display:none}.hero-content h2{font-size:2rem}.hero-buttons{flex-direction:column;align-items:center}.patients-grid{padding:20px}}
         .scan-mode-btn.active,.scan-mode-btn[style*="border-color: rgb(0, 102, 204)"]{border-color:#0066cc!important;background:linear-gradient(135deg,#0066cc,#004499)!important;color:#fff!important;}
     </style>
+<!-- PWA Meta Tags -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f6b4a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Área II">
+<link rel="apple-touch-icon" href="icons/icon-152x152.png">
+<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512x512.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="msapplication-TileImage" content="icons/icon-144x144.png">
+<meta name="msapplication-TileColor" content="#0f6b4a">
 </head>
 <body>
 
@@ -2797,5 +2809,98 @@ document.addEventListener("DOMContentLoaded",function(){
     });
 });
 </script>
+<!-- PWA Install Banner -->
+<div id="pwaInstallBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#0f6b4a,#0a4f36);color:#fff;padding:14px 18px;z-index:99999;box-shadow:0 -4px 20px rgba(0,0,0,.4);font-family:var(--font-display,system-ui);animation:slideUpPWA .4s ease;">
+<div style="display:flex;align-items:center;gap:12px;max-width:600px;margin:0 auto;">
+<img src="icons/icon-96x96.png" alt="" style="width:48px;height:48px;border-radius:12px;flex-shrink:0;">
+<div style="flex:1;min-width:0;">
+<div style="font-weight:700;font-size:.95rem;">Instalar Área II Cartagena</div>
+<div style="font-size:.78rem;opacity:.85;margin-top:2px;">Accede sin conexión desde tu pantalla de inicio</div>
+</div>
+<button onclick="pwaInstallApp()" style="background:#fff;color:#0f6b4a;border:none;padding:8px 18px;border-radius:8px;font-weight:700;font-size:.85rem;cursor:pointer;flex-shrink:0;">Instalar</button>
+<button onclick="pwaCloseBanner()" style="background:none;border:none;color:#fff;opacity:.7;font-size:1.3rem;cursor:pointer;padding:4px 8px;flex-shrink:0;">✕</button>
+</div>
+</div>
+<style>
+@keyframes slideUpPWA{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+</style>
+
+<!-- PWA Service Worker Registration & Install Logic -->
+<script>
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/Cartagenaeste/sw.js', { scope: '/Cartagenaeste/' })
+      .then(function(reg) {
+        console.log('✅ SW registrado:', reg.scope);
+        // Check for updates periodically
+        setInterval(function() { reg.update(); }, 60 * 60 * 1000); // every hour
+      })
+      .catch(function(err) {
+        console.log('⚠️ SW error:', err);
+      });
+  });
+}
+
+// PWA Install Prompt
+var pwaInstallEvent = null;
+var pwaInstallDismissed = false;
+
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  pwaInstallEvent = e;
+  // Show banner if not dismissed recently
+  if (!pwaInstallDismissed && !localStorage.getItem('pwa-install-dismissed')) {
+    setTimeout(function() {
+      document.getElementById('pwaInstallBanner').style.display = 'block';
+    }, 3000); // show after 3s
+  }
+});
+
+function pwaInstallApp() {
+  if (pwaInstallEvent) {
+    pwaInstallEvent.prompt();
+    pwaInstallEvent.userChoice.then(function(result) {
+      console.log('PWA install:', result.outcome);
+      pwaInstallEvent = null;
+      document.getElementById('pwaInstallBanner').style.display = 'none';
+    });
+  }
+}
+
+function pwaCloseBanner() {
+  document.getElementById('pwaInstallBanner').style.display = 'none';
+  pwaInstallDismissed = true;
+  localStorage.setItem('pwa-install-dismissed', Date.now());
+}
+
+// Hide banner if already installed
+window.addEventListener('appinstalled', function() {
+  document.getElementById('pwaInstallBanner').style.display = 'none';
+  console.log('✅ App instalada como PWA');
+});
+
+// iOS: Show manual install hint
+(function() {
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  var isStandalone = window.navigator.standalone === true;
+  if (isIOS && !isStandalone && !localStorage.getItem('pwa-ios-hint-dismissed')) {
+    setTimeout(function() {
+      var b = document.getElementById('pwaInstallBanner');
+      if (b) {
+        b.querySelector('div > div:nth-child(2) > div:first-child').textContent = 'Añadir a pantalla de inicio';
+        b.querySelector('div > div:nth-child(2) > div:last-child').textContent = 'Pulsa Compartir ⬆ → "Añadir a pantalla de inicio"';
+        b.querySelector('button').textContent = 'Entendido';
+        b.querySelector('button').onclick = function() {
+          pwaCloseBanner();
+          localStorage.setItem('pwa-ios-hint-dismissed', '1');
+        };
+        b.style.display = 'block';
+      }
+    }, 4000);
+  }
+})();
+</script>
+
 </body>
 </html>
