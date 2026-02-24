@@ -1,18 +1,26 @@
 {
-  "name": "Area II Cartagena - Centro de Salud",
-  "short_name": "Area II",
-  "description": "Protocolos médicos y recursos clínicos del Área II Cartagena",
+  "name": "Área II Cartagena - Centro de Salud",
+  "short_name": "Área II",
+  "description": "Protocolos médicos, herramientas clínicas y recursos del Área II Cartagena. Urgencias, Atención Primaria, IA diagnóstica docente.",
   "start_url": "/Cartagenaeste/notebook-local.html",
+  "scope": "/Cartagenaeste/",
   "display": "standalone",
-  "background_color": "#1a1f2e",
-  "theme_color": "#1a6b4a",
+  "background_color": "#0a0f1a",
+  "theme_color": "#0f6b4a",
   "orientation": "portrait-primary",
-  "categories": ["medical", "health"],
+  "lang": "es",
+  "dir": "ltr",
+  "categories": ["medical", "health", "education"],
   "icons": [
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231a6b4a' width='100' height='100' rx='20'/><text x='50' y='68' text-anchor='middle' font-size='55'>🏥</text></svg>",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
+    { "src": "icons/icon-72x72.png", "sizes": "72x72", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-96x96.png", "sizes": "96x96", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-128x128.png", "sizes": "128x128", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-144x144.png", "sizes": "144x144", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-152x152.png", "sizes": "152x152", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-384x384.png", "sizes": "384x384", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192x192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-512x512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
