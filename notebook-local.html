@@ -6,27 +6,13 @@
     <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <title>Area II Cartagena - Centro de Salud Virgen de la Caridad</title>
-    <meta name="description" content="Recursos clínicos y protocolos médicos del Área II Cartagena. Centro de Salud Virgen de la Caridad, Santa Lucía. Servicio Murciano de Salud.">
-    <meta name="keywords" content="Area II Cartagena, urgencias Santa Lucía, protocolos médicos, centro de salud, Servicio Murciano de Salud, atención primaria, Virgen de la Caridad">
-    <meta name="author" content="Área II Cartagena - Servicio Murciano de Salud">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Area II Cartagena - Recursos Clínicos">
-    <meta property="og:description" content="Protocolos médicos, urgencias y recursos para profesionales y pacientes del Área II Cartagena.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html">
-    <meta name="theme-color" content="#1a6b4a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Area II Cartagena">
-    <link rel="manifest" href="manifest.json">
-    <link rel="canonical" href="https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html">
+    <title>Area II Cartagena</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Firebase SDK (compat) -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-storage-compat.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js"></script>
     <style>
         :root{--primary:#1a6b4a;--primary-light:#238c62;--primary-dark:#0f4a33;--accent:#d4a853;--accent-light:#f0d68a;--bg-dark:#1a1f2e;--bg-card:#fff;--bg-main:#f4f6f8;--bg-subtle:#e9edf2;--text:#2d3748;--text-light:#64748b;--text-muted:#94a3b8;--border:#e2e8f0;--border-light:#f1f5f9;--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 12px rgba(0,0,0,.08);--shadow-lg:0 8px 30px rgba(0,0,0,.15);--radius:12px;--radius-sm:8px;--font-display:'Playfair Display',Georgia,serif;--font-body:'Source Sans 3',-apple-system,sans-serif}
         *{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font-body);background:var(--bg-main);color:var(--text)}
@@ -151,37 +137,7 @@
         .nav-status.ok{background:rgba(34,197,94,.15);color:#4ade80}.nav-status.wait{background:rgba(234,179,8,.15);color:#fbbf24}
         .scrollbar::-webkit-scrollbar{width:6px}.scrollbar::-webkit-scrollbar-track{background:0 0}.scrollbar::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
         @media(max-width:1024px){.prof-layout{grid-template-columns:1fr}.sidebar-left,.sidebar-right{display:none}.landing-nav .nav-links{display:none}.hero-content h2{font-size:2rem}.hero-buttons{flex-direction:column;align-items:center}.patients-grid{padding:20px}}
-        @media(max-width:768px){
-            .landing-nav{padding:0 16px;height:50px}
-            .landing-nav .brand h1{font-size:.95rem}
-            .landing-nav .brand .logo{width:30px;height:30px;font-size:.9rem}
-            .landing-nav .nav-links{gap:4px}
-            .landing-nav .nav-links a,.page-back{font-size:.78rem;padding:6px 10px}
-            .hero-content{padding:20px 16px}
-            .hero-content h2{font-size:1.6rem}
-            .hero-content p{font-size:.95rem}
-            .hero-btn{padding:14px 20px;font-size:.9rem;min-width:auto;width:100%}
-            .patients-header{padding:20px 16px 14px}
-            .patients-header h2{font-size:1.4rem}
-            .patients-grid{padding:16px;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
-            .patient-card{padding:16px}
-            .patient-card-icon{font-size:1.6rem;margin-bottom:8px}
-            .patient-card-title{font-size:.92rem}
-            .patient-card-desc{font-size:.75rem}
-            .tab-buttons{flex-wrap:wrap;gap:2px}
-            .tab-btn{font-size:.78rem;padding:8px 10px}
-            .config-box{padding:14px}
-            .question-box{padding:12px}
-            #loginModal>div{width:95%;max-width:400px}
-        }
-        @media(max-width:480px){
-            .hero-content h2{font-size:1.3rem}
-            .hero-badge{font-size:.72rem;padding:4px 14px}
-            .patients-grid{grid-template-columns:repeat(2,1fr);gap:10px;padding:12px}
-            .patient-card{padding:12px}
-            .patient-card-icon{font-size:1.4rem;margin-bottom:6px}
-            .patient-card-title{font-size:.85rem}
-        }
+        .scan-mode-btn.active,.scan-mode-btn[style*="border-color: rgb(0, 102, 204)"]{border-color:#0066cc!important;background:linear-gradient(135deg,#0066cc,#004499)!important;color:#fff!important;}
     </style>
 </head>
 <body>
@@ -199,21 +155,17 @@
                 <p>Salud y formación para tu comunidad. Accede a recursos para pacientes o herramientas de docencia clínica para profesionales.</p>
                 <div class="hero-buttons">
                     <a class="hero-btn hero-btn-patients" onclick="showPage('pagePatients')"><span class="hero-btn-icon">👤</span> Pacientes</a>
-                    <a class="hero-btn hero-btn-professionals" onclick="accessProfessionals()"><span class="hero-btn-icon">🩺</span> Profesionales</a>
+                    <a class="hero-btn hero-btn-professionals" onclick="showPage('pageProfessionals')"><span class="hero-btn-icon">🩺</span> Profesionales</a>
                 </div>
                 <div class="hero-buttons" style="margin-top:20px;">
                     <a class="hero-btn hero-btn-patients" onclick="showPage('pageProtocolosAP')" style="background:#fff;color:var(--primary-dark);"><span class="hero-btn-icon">📋</span> Protocolos Atencion Primaria</a>
                     <a class="hero-btn hero-btn-professionals" onclick="showPage('pageProtocolosUrgencias')" style="background:transparent;border-color:rgba(255,255,255,.4);color:#fff;"><span class="hero-btn-icon">🚨</span> Protocolos Urgencias</a>
                 </div>
-            </div>
-            <!-- QR Section -->
-            <div style="position:absolute;bottom:60px;left:0;right:0;z-index:2;text-align:center;">
-                <div onclick="document.getElementById('qrModal').style.display='flex'" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:8px 20px;cursor:pointer;transition:.3s;backdrop-filter:blur(4px);" onmouseover="this.style.background='rgba(255,255,255,.18)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAIAAAAhotZpAAADP0lEQVR42u3d0W3bQBAEUMtwFykpraQct5KSUofyF+gjtG+1OxSBe/NngyKpG+yM5m55vN3v9ze4Nt4NAZIASXvg4/GPH79+jl/gz+fv//7/8VpHx1SPPzpm6nutXDcxbiqJ3AGSdvSkFf1dwZFGr2h355iVe676SnUcEuOmksgdIGl3T6r6RNUPHs9Z9YMVz3v8bDUzJbJdZ9xUErkDJPGkeax4TzVjdfzjzLk4lUTuAElwLU/qrAN11pymclVnXk4lkTtAEsx40pQWV/V9xRum5uJW/GnKg1USuQMkQc2TrjB/Vc1P1TzU8b8z5/1UErkDJG2C25WfT0pkoxX/MHcHSEISvN6TOr/xp54HelWPXMcLOxlr5T5VErkDJO3uSVNZYSrTJLJXxy87/lcdE5VE7gBJm+BjRXOneg06njG1ftPJYZ3vKCeRO0AS1HJSOut0/KOTS9I5qXpv1ftXSeQOkLRjTupo99R+P519iVZ0v+OdUxmu6qMqidwBknb0pERfQNWHqj0FnYzS8cj0epv1JHIHSNoQY3N3K+j4TcdXpny043+dY1QSuQMk8aSZ3/gr+nvm3kKJjJXOlCqJ3AGSdvSk9P5yU3sipDNQJ5Ml5htVErkDJO3uSR0v6eh+Yh4s8extIiMenUclkTtA0o6eVM0HVd/qvKuiiqlslH5GWE4id4Ak+IdT++7S72xN969PrYdZTyJ3gCT43pOm5p2megGq5+zMrU31RMhJ5A6QBE+j3OOQ6D1b0euqd1aR7ue2nkTuAElQy0kJ/6h6QPWYdB955z6nxkQlkTtAkpyUfb/DVEap4sp7RqgkcgdI4knPv6sivZ9Covcvcd0qqvejksgdIGlHT0rjzP0apnyik9um+vFUErkDJG2Cw17wdCZYyTfVbNHJJZ1xSOw/q5LIHSBp95yU2I+ns6fq1Gen+gnT75NVSeQOkCQn1Tymo61V3U+vJ1Xvv5Ol7HdH7gBJMONJaSR64RKeOpWN7ONA7gBJcF1PSqw5debr0n3tchK5AyTB85409WxQwquq+t7ZJykxDnISuQMkwfeedOYzOolrdfZlqGav9LsEVRK5AyRtglOfTwKVhCRAEnyBv3VJDW7pns/HAAAAAElFTkSuQmCC" style="width:36px;height:36px;border-radius:4px;">
-                    <span style="color:rgba(255,255,255,.8);font-size:.82rem;font-weight:500;">📱 Escanea para abrir en tu móvil</span>
+                <div class="hero-buttons" style="margin-top:20px;">
+                    <a class="hero-btn" onclick="showScanLogin()" style="background:linear-gradient(135deg,#0066cc,#004499);color:#fff;border:2px solid rgba(255,255,255,.3);"><span class="hero-btn-icon">🔬</span> Scan IA Médico</a>
                 </div>
             </div>
-            <div class="hero-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Creado con ❤️ <span onclick="seedAPIKey()" style="cursor:default;opacity:.2;font-size:.5rem;user-select:none;">⚙</span></div>
+            <div class="hero-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Creado con ❤️</div>
         </div>
     </div>
 </div>
@@ -227,7 +179,7 @@
 
 <!-- ═══════ PROFESSIONALS PAGE ═══════ -->
 <div class="page" id="pageProfessionals">
-    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button><span id="profUserInfo"></span><button class="page-back" id="loginBtnProf" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button><span id="statusBadge" class="nav-status wait">⚙️ Config</span></div></nav>
+    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button><button class="page-back" id="loginBtnProf" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button><span id="statusBadge" class="nav-status wait">⚙️ Config</span></div></nav>
     <div class="prof-layout">
         <div class="sidebar-left"><div class="sidebar-hero"><h2>Especialidades</h2><p>Cuaderno AI · Docencia Clínica</p></div><div class="categories-list scrollbar" id="categoriesList"></div><div class="sidebar-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a></div></div>
         <div class="main-content"><div class="content-header"><h3 id="categoryTitle">Cardiología</h3></div>
@@ -427,8 +379,7 @@
                 <div id="apPreguntasList">
                     <div class="empty-state"><div class="empty-state-icon">🩺</div><p>Haz tu primera pregunta sobre los protocolos</p></div>
                 </div>
-            </div>
-            <div id="vertodo-content" class="protocol-content" style="display:none;margin-top:20px;">
+            </div> class="protocol-content" style="display:none;margin-top:20px;">
                 <div id="cardiovascularesProtocols" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">
                     <div style="background:var(--bg-main);padding:16px;border-radius:8px;border-left:4px solid #d32f2f;text-align:center;"><div style="font-size:1.5rem;margin-bottom:8px;">❤️</div><div style="font-weight:600;color:var(--text);margin-bottom:4px;">Aún sin documentos</div><div style="font-size:.88rem;color:var(--text-muted);">Los protocolos estarán disponibles pronto</div></div>
                 </div>
@@ -948,6 +899,58 @@
     </div>
 </div>
 
+<!-- ═══════ SCAN IA PAGE (protegido con contraseña) ═══════ -->
+<div class="page" id="pageScanIA">
+    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button></div></nav>
+    <div style="flex:1;overflow-y:auto;background:var(--bg-main);padding:40px 20px;">
+        <div style="max-width:800px;margin:0 auto;">
+            <div style="background:linear-gradient(135deg,#0066cc,#004499);border-radius:var(--radius);padding:28px;color:#fff;margin-bottom:28px;position:relative;overflow:hidden;">
+                <div style="position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:3rem;opacity:.15;">🔬</div>
+                <h2 style="font-family:var(--font-display);font-size:1.8rem;margin-bottom:8px;">🔬 Scan IA Médico</h2>
+                <p style="opacity:.85;font-size:.95rem;font-weight:300;">Análisis orientativo de imágenes médicas con IA. Sube una imagen de dermatología, radiografía de tórax o ECG.</p>
+            </div>
+            <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:var(--radius);padding:14px 18px;font-size:.84rem;color:#856404;margin-bottom:24px;line-height:1.6;">
+                ⚠️ <strong>Uso exclusivamente docente.</strong> No sustituye el juicio clínico profesional. Las interpretaciones pueden contener errores y nunca deben usarse como diagnóstico definitivo.
+            </div>
+            <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;">
+                <button class="scan-mode-btn active" onclick="scanSetType('derma',this)" style="flex:1;min-width:140px;padding:14px;border-radius:var(--radius);border:2px solid var(--border);background:var(--bg-card);cursor:pointer;font-family:var(--font-body);font-size:.92rem;font-weight:600;transition:.25s;text-align:center;">🩹 Dermatología</button>
+                <button class="scan-mode-btn" onclick="scanSetType('torax',this)" style="flex:1;min-width:140px;padding:14px;border-radius:var(--radius);border:2px solid var(--border);background:var(--bg-card);cursor:pointer;font-family:var(--font-body);font-size:.92rem;font-weight:600;transition:.25s;text-align:center;">🫁 Rx Tórax</button>
+                <button class="scan-mode-btn" onclick="scanSetType('ecg',this)" style="flex:1;min-width:140px;padding:14px;border-radius:var(--radius);border:2px solid var(--border);background:var(--bg-card);cursor:pointer;font-family:var(--font-body);font-size:.92rem;font-weight:600;transition:.25s;text-align:center;">💓 ECG</button>
+            </div>
+            <div id="scanDropZone" onclick="document.getElementById('scanFileIn').click()" style="border:2px dashed var(--border);border-radius:var(--radius);padding:48px 20px;text-align:center;cursor:pointer;background:var(--bg-card);margin-bottom:20px;transition:.3s;">
+                <input type="file" id="scanFileIn" accept="image/*" style="display:none" onchange="scanHandleFile(event)">
+                <div id="scanDropContent"><div style="font-size:3rem;margin-bottom:12px;opacity:.5;">📷</div><div style="color:var(--text-light);font-size:.95rem;margin-bottom:4px;">Arrastra una imagen o haz clic para seleccionar</div><div style="color:var(--text-muted);font-size:.82rem;">JPG, PNG · Fotos clínicas, radiografías o ECGs</div></div>
+                <img id="scanImgPreview" style="display:none;max-width:100%;max-height:380px;border-radius:8px;object-fit:contain;margin:0 auto;" alt="Preview">
+            </div>
+            <input type="text" id="scanCtx" placeholder="Contexto clínico (opcional): edad, sexo, síntomas, localización..." style="width:100%;padding:13px 18px;border:2px solid var(--border);border-radius:var(--radius);font-size:.92rem;font-family:var(--font-body);margin-bottom:16px;background:var(--bg-card);">
+            <div style="display:flex;gap:12px;margin-bottom:24px;">
+                <button id="scanBtnGo" onclick="scanAnalyze()" disabled style="padding:14px 32px;background:linear-gradient(135deg,#0066cc,#004499);color:#fff;border:none;border-radius:var(--radius);font-size:.98rem;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:.3s;display:flex;align-items:center;gap:8px;">🔬 Analizar con IA</button>
+                <button onclick="scanClear()" style="padding:14px 24px;background:var(--bg-subtle);color:var(--text);border:none;border-radius:var(--radius);font-size:.92rem;font-weight:600;cursor:pointer;font-family:var(--font-body);">🗑️ Limpiar</button>
+            </div>
+            <div id="scanResult"></div>
+            <div style="margin-top:30px;"><h4 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:14px;">📋 Historial de análisis</h4><div id="scanHistList"><div style="text-align:center;padding:30px;color:var(--text-muted);"><div style="font-size:2.5rem;margin-bottom:10px;opacity:.5;">🔬</div><p style="font-size:.92rem;">Aún no hay análisis realizados</p></div></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════ SCAN LOGIN MODAL ═══════ -->
+<div id="scanLoginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1001;align-items:center;justify-content:center;backdrop-filter:blur(2px);">
+    <div style="background:#fff;border-radius:16px;max-width:400px;width:90%;box-shadow:0 25px 80px rgba(0,0,0,.4);overflow:hidden;animation:slideInUp .3s ease;">
+        <div style="background:linear-gradient(135deg,#0066cc,#004499);padding:28px 24px;color:#fff;text-align:center;position:relative;">
+            <div style="position:absolute;top:12px;right:12px;cursor:pointer;font-size:1.5rem;opacity:.7;" onclick="document.getElementById('scanLoginModal').style.display='none'">✕</div>
+            <div style="font-size:2.2rem;margin-bottom:10px;">🔬</div>
+            <h2 style="font-family:var(--font-display);font-size:1.5rem;font-weight:700;">Scan IA Médico</h2>
+            <p style="margin:6px 0 0;opacity:.85;font-size:.88rem;">Acceso protegido</p>
+        </div>
+        <div style="padding:28px;">
+            <p style="font-size:.88rem;color:var(--text-light);margin-bottom:18px;text-align:center;">Introduce la contraseña para acceder al módulo de Scan IA.</p>
+            <input type="password" id="scanLoginPwd" placeholder="Contraseña" style="width:100%;padding:13px 18px;border:2px solid var(--border);border-radius:var(--radius);font-size:1rem;font-family:var(--font-body);text-align:center;letter-spacing:2px;margin-bottom:12px;">
+            <div id="scanLoginError" style="display:none;color:#dc2626;font-size:.85rem;text-align:center;margin-bottom:10px;">❌ Contraseña incorrecta</div>
+            <button onclick="scanCheckLogin()" style="width:100%;padding:14px;background:linear-gradient(135deg,#0066cc,#004499);color:#fff;border:none;border-radius:var(--radius);font-size:1rem;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:.3s;">Acceder</button>
+        </div>
+    </div>
+</div>
+
 <!-- ═══════ IMPROVED LOGIN MODAL ═══════ -->
 <div id="loginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(2px);">
     <div style="background:#fff;border-radius:16px;padding:0;max-width:420px;width:90%;box-shadow:0 25px 80px rgba(0,0,0,.4);overflow:hidden;animation:slideInUp .3s ease;">
@@ -1016,47 +1019,9 @@
 }
 </style>
 
-
-<!-- QR CODE MODAL -->
-<div id="qrModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px);" onclick="if(event.target===this)this.style.display='none'">
-    <div style="background:#fff;border-radius:20px;padding:40px;max-width:400px;width:90%;text-align:center;box-shadow:0 25px 80px rgba(0,0,0,.5);animation:slideInUp .3s ease;">
-        <div style="position:absolute;top:16px;right:20px;cursor:pointer;font-size:1.5rem;color:#999;" onclick="document.getElementById('qrModal').style.display='none'">✕</div>
-        <div style="font-size:2.5rem;margin-bottom:12px;">📱</div>
-        <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--primary-dark);margin-bottom:8px;">Abre en tu móvil</h3>
-        <p style="font-size:.88rem;color:var(--text-light);margin-bottom:20px;">Escanea este código QR con la cámara de tu teléfono</p>
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAIAAAAhotZpAAADP0lEQVR42u3d0W3bQBAEUMtwFykpraQct5KSUofyF+gjtG+1OxSBe/NngyKpG+yM5m55vN3v9ze4Nt4NAZIASXvg4/GPH79+jl/gz+fv//7/8VpHx1SPPzpm6nutXDcxbiqJ3AGSdvSkFf1dwZFGr2h355iVe676SnUcEuOmksgdIGl3T6r6RNUPHs9Z9YMVz3v8bDUzJbJdZ9xUErkDJPGkeax4TzVjdfzjzLk4lUTuAElwLU/qrAN11pymclVnXk4lkTtAEsx40pQWV/V9xRum5uJW/GnKg1USuQMkQc2TrjB/Vc1P1TzU8b8z5/1UErkDJG2C25WfT0pkoxX/MHcHSEISvN6TOr/xp54HelWPXMcLOxlr5T5VErkDJO3uSVNZYSrTJLJXxy87/lcdE5VE7gBJm+BjRXOneg06njG1ftPJYZ3vKCeRO0AS1HJSOut0/KOTS9I5qXpv1ftXSeQOkLRjTupo99R+P519iVZ0v+OdUxmu6qMqidwBknb0pERfQNWHqj0FnYzS8cj0epv1JHIHSNoQY3N3K+j4TcdXpny043+dY1QSuQMk8aSZ3/gr+nvm3kKJjJXOlCqJ3AGSdvSk9P5yU3sipDNQJ5Ml5htVErkDJO3uSR0v6eh+Yh4s8extIiMenUclkTtA0o6eVM0HVd/qvKuiiqlslH5GWE4id4Ak+IdT++7S72xN969PrYdZTyJ3gCT43pOm5p2megGq5+zMrU31RMhJ5A6QBE+j3OOQ6D1b0euqd1aR7ue2nkTuAElQy0kJ/6h6QPWYdB955z6nxkQlkTtAkpyUfb/DVEap4sp7RqgkcgdI4knPv6sivZ9Covcvcd0qqvejksgdIGlHT0rjzP0apnyik9um+vFUErkDJG2Cw17wdCZYyTfVbNHJJZ1xSOw/q5LIHSBp95yU2I+ns6fq1Gen+gnT75NVSeQOkCQn1Tymo61V3U+vJ1Xvv5Ol7HdH7gBJMONJaSR64RKeOpWN7ONA7gBJcF1PSqw5debr0n3tchK5AyTB85409WxQwquq+t7ZJykxDnISuQMkwfeedOYzOolrdfZlqGav9LsEVRK5AyRtglOfTwKVhCRAEnyBv3VJDW7pns/HAAAAAElFTkSuQmCC" style="width:220px;height:220px;border:3px solid var(--primary);border-radius:12px;padding:8px;background:#fff;">
-        <p style="font-size:.78rem;color:var(--text-muted);margin-top:16px;word-break:break-all;">ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html</p>
-        <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;">
-            <button onclick="navigator.clipboard.writeText('https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html');this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='📋 Copiar enlace',2000)" style="padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.85rem;font-family:var(--font-body);">📋 Copiar enlace</button>
-        </div>
-    </div>
-</div>
-
-<!-- ═══════ GOOGLE LOGIN MODAL (PROFESIONALES) ═══════ -->
-<div id="googleLoginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(2px);" onclick="if(event.target===this)closeGoogleLoginModal()">
-    <div style="background:#fff;border-radius:16px;max-width:420px;width:90%;box-shadow:0 25px 80px rgba(0,0,0,.4);overflow:hidden;animation:slideInUp .3s ease;">
-        <div style="background:linear-gradient(135deg,#1a1f2e,#243347);padding:32px 24px;color:#fff;text-align:center;position:relative;">
-            <div style="position:absolute;top:12px;right:12px;cursor:pointer;font-size:1.5rem;opacity:.7;" onclick="closeGoogleLoginModal()">✕</div>
-            <div style="font-size:2.5rem;margin-bottom:12px;">🩺</div>
-            <h2 style="font-family:var(--font-display);font-size:1.6rem;font-weight:700;">Área Profesionales</h2>
-            <p style="margin:6px 0 0;opacity:.8;font-size:.88rem;">Acceso exclusivo para personal sanitario</p>
-        </div>
-        <div style="padding:32px 24px;text-align:center;">
-            <p style="font-size:.9rem;color:var(--text-light);margin-bottom:20px;">Inicia sesión con tu cuenta de Google para acceder a los recursos profesionales.</p>
-            <button onclick="googleLogin()" style="display:inline-flex;align-items:center;gap:12px;padding:16px 32px;background:#fff;border:2px solid #e0e0e0;border-radius:12px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:all .25s;font-family:var(--font-body);color:#333;width:100%;justify-content:center;" onmouseover="this.style.borderColor='#4285f4';this.style.boxShadow='0 4px 16px rgba(66,133,244,.2)'" onmouseout="this.style.borderColor='#e0e0e0';this.style.boxShadow='none'">
-                <svg width="22" height="22" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-                <span id="googleLoginBtnText">Acceder con Google</span>
-            </button>
-            <div id="googleLoginError" style="display:none;margin-top:14px;padding:10px;background:#fee8e8;color:#c00;border-radius:8px;font-size:.85rem;"></div>
-            <p style="font-size:.78rem;color:var(--text-muted);margin-top:16px;">🔒 Tus datos están protegidos por Google</p>
-        </div>
-    </div>
-</div>
-
 <!-- ═══════ ADMIN PANEL MODAL ═══════ -->
-<div id="adminPanel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1001;overflow:auto;padding:20px;" onclick="if(event.target===this)closeAdminPanel()">
-    <div style="background:#fff;border-radius:12px;padding:40px;max-width:600px;margin:40px auto;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;">
-        <div style="position:absolute;top:12px;right:16px;cursor:pointer;font-size:1.5rem;color:#999;z-index:2;" onclick="closeAdminPanel()" title="Cerrar panel">✕</div>
+<div id="adminPanel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1001;overflow:auto;padding:20px;">
+    <div style="background:#fff;border-radius:12px;padding:40px;max-width:600px;margin:40px auto;box-shadow:0 20px 60px rgba(0,0,0,.3);">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
             <h2 style="font-family:var(--font-display);color:var(--primary-dark);font-size:1.5rem;">👨‍💼 Panel Administrativo</h2>
             <button onclick="logoutAdmin()" style="background:#c00;color:#fff;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:.85rem;font-family:var(--font-body);">Cerrar Sesión</button>
@@ -1154,73 +1119,6 @@ var isAdminLoggedIn=false;
 var loginAttempts=0;
 var lockoutTime=0;
 
-// ═══ FIRESTORE SYNC - Persistencia en la nube ═══
-// localStorage = caché local rápida | Firestore = persistencia entre dispositivos
-function fbSave(col,docId,data){
-    try{ if(db) db.collection(col).doc(docId).set(data,{merge:true}); }
-    catch(e){ console.warn("fbSave:",e); }
-}
-function fbLoad(col,docId,callback){
-    try{
-        if(!db) return;
-        db.collection(col).doc(docId).get().then(function(snap){
-            if(snap.exists) callback(snap.data());
-        }).catch(function(e){ console.warn("fbLoad:",e); });
-    }catch(e){ console.warn("fbLoad:",e); }
-}
-// Sync on login - load cloud data into local
-function syncFromCloud(){
-    fbLoad("app_data","config_ia",function(d){
-        if(d && d.groqKey){
-            CONFIG.provider=d.provider||CONFIG.provider;
-            CONFIG.groqKey=d.groqKey||CONFIG.groqKey;
-            CONFIG.groqModel=d.groqModel||CONFIG.groqModel;
-            CONFIG.qwenKey=d.qwenKey||CONFIG.qwenKey;
-            CONFIG.qwenModel=d.qwenModel||CONFIG.qwenModel;
-            localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
-            try{updateStatus();}catch(e){}
-            console.log("☁️ Config IA cargada desde Firestore");
-        }
-    });
-    fbLoad("app_data","preguntas",function(d){
-        if(d && d.data){ preguntas=d.data; localStorage.setItem("cartagena_preguntas",JSON.stringify(preguntas)); try{actualizarUI();}catch(e){} console.log("☁️ Preguntas cargadas"); }
-    });
-    fbLoad("app_data","notas",function(d){
-        if(d && d.data){ notas=d.data; localStorage.setItem("cartagena_notas",JSON.stringify(notas)); try{actualizarUI();}catch(e){} console.log("☁️ Notas cargadas"); }
-    });
-    fbLoad("app_data","custom_protocols",function(d){
-        if(d && d.list){ localStorage.setItem("ap_custom_protocols",JSON.stringify(d.list)); try{apRenderCustomList();apUpdateProtoSelector();}catch(e){} console.log("☁️ Protocolos custom cargados"); }
-    });
-}
-
-// Auto-load IA config from Firestore on every page load (not just admin login)
-// Seed API key to Firestore (one-time setup)
-function seedAPIKey(){
-    var a="ydGWzntyalUjGDQiY5t42bGn_ksg".split("").reverse().join("");
-    var b="jQVioh761wWO4umu0kRWGceSYF3b".split("").reverse().join("");
-    var k=a+b;
-    fbSave("app_data","config_ia",{provider:"groq",groqKey:k,groqModel:"qwen/qwen3-32b",qwenKey:"",qwenModel:"qwen-turbo",ts:new Date().toISOString()});
-    CONFIG.groqKey=k;CONFIG.provider="groq";
-    localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
-    try{updateStatus();}catch(e){}
-    alert("✅ API Key configurada correctamente");
-}
-
-function autoLoadIAConfig(){
-    fbLoad("app_data","config_ia",function(d){
-        if(d && d.groqKey){
-            CONFIG.groqKey=d.groqKey;
-            CONFIG.provider=d.provider||"groq";
-            CONFIG.groqModel=d.groqModel||CONFIG.groqModel;
-            CONFIG.qwenKey=d.qwenKey||"";
-            CONFIG.qwenModel=d.qwenModel||CONFIG.qwenModel;
-            localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
-            try{updateStatus();}catch(e){}
-            console.log("🔑 API Key cargada desde Firestore");
-        }
-    });
-}
-
 function initLoginSession(){
     var savedSession=localStorage.getItem("adminSession");
     if(savedSession){
@@ -1230,7 +1128,6 @@ function initLoginSession(){
                 isAdminLoggedIn=true;
                 document.getElementById("adminPanel").style.display="block";
                 apShowAdminTab(true);
-                syncFromCloud(); // Cargar datos desde Firestore
             }else{
                 localStorage.removeItem("adminSession");
             }
@@ -1285,7 +1182,6 @@ function loginAdmin(){
         if(user===adminCredentials.username&&pass===adminCredentials.password){
             loginAttempts=0;
             isAdminLoggedIn=true;
-            syncFromCloud(); // Cargar datos desde Firestore
             
             if(document.getElementById("rememberMe").checked){
                 localStorage.setItem("adminSession",JSON.stringify({
@@ -1329,69 +1225,6 @@ function logoutAdmin(){
     localStorage.removeItem("adminSession");
     document.getElementById("adminPanel").style.display="none";
     apShowAdminTab(false);
-}
-
-function closeAdminPanel(){
-    document.getElementById("adminPanel").style.display="none";
-    // La sesión sigue activa - no hace logout
-}
-
-// ═══ GOOGLE AUTH PARA PROFESIONALES ═══
-var googleUser=null;
-var ALLOWED_DOMAINS=["gmail.com","cartagena.es","sms.carm.es","murciaslaud.es"]; // Dominios permitidos
-
-function accessProfessionals(){
-    // Check if already logged in with Google
-    var user=firebase.auth().currentUser;
-    if(user){
-        googleUser=user;
-        showPage("pageProfessionals");
-        updateProfNavUser(user);
-        return;
-    }
-    // Show Google login
-    showGoogleLoginModal();
-}
-
-function showGoogleLoginModal(){
-    document.getElementById("googleLoginModal").style.display="flex";
-}
-
-function closeGoogleLoginModal(){
-    document.getElementById("googleLoginModal").style.display="none";
-}
-
-function googleLogin(){
-    var provider=new firebase.auth.GoogleAuthProvider();
-    provider.setCustomParameters({prompt:"select_account"});
-    document.getElementById("googleLoginBtnText").textContent="⏳ Conectando...";
-    
-    firebase.auth().signInWithPopup(provider).then(function(result){
-        googleUser=result.user;
-        closeGoogleLoginModal();
-        showPage("pageProfessionals");
-        updateProfNavUser(result.user);
-    }).catch(function(error){
-        if(error.code!=="auth/popup-closed-by-user"){
-            document.getElementById("googleLoginError").textContent="Error: "+error.message;
-            document.getElementById("googleLoginError").style.display="block";
-        }
-        document.getElementById("googleLoginBtnText").textContent="Acceder con Google";
-    });
-}
-
-function googleLogout(){
-    firebase.auth().signOut().then(function(){
-        googleUser=null;
-        showPage("pageLanding");
-    });
-}
-
-function updateProfNavUser(user){
-    var el=document.getElementById("profUserInfo");
-    if(el && user){
-        el.innerHTML='<span style="font-size:.82rem;color:rgba(255,255,255,.8);">👤 '+((user.displayName||user.email).split(" ")[0])+'</span> <button onclick="googleLogout()" style="background:rgba(255,255,255,.15);color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:.78rem;cursor:pointer;font-family:var(--font-body);">Salir</button>';
-    }
 }
 
 function showUploadForm(){document.getElementById("uploadForm").style.display="block";document.getElementById("categoryForm").style.display="none"}
@@ -1522,7 +1355,6 @@ function apGuardarConfig(){
     CONFIG.qwenKey=document.getElementById("apCfgQwenKey").value.trim();
     CONFIG.qwenModel=document.getElementById("apCfgQwenModel").value;
     localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
-    fbSave("app_data","config_ia",{provider:CONFIG.provider,groqKey:CONFIG.groqKey,groqModel:CONFIG.groqModel,qwenKey:CONFIG.qwenKey,qwenModel:CONFIG.qwenModel,ts:new Date().toISOString()});
     updateStatus();
     // Also sync the professionals config fields if they exist
     try{
@@ -1635,7 +1467,6 @@ function apGetCustomProtocols(){
 
 function apSaveCustomProtocols(list){
     localStorage.setItem('ap_custom_protocols',JSON.stringify(list));
-    fbSave("app_data","custom_protocols",{list:list,ts:new Date().toISOString()});
 }
 
 function apLoadFileContent(){
@@ -1905,9 +1736,9 @@ function switchTab(n,b){document.querySelectorAll(".tab-content").forEach(functi
 function cambiarCategoria(c,b){currentCategory=c;document.querySelectorAll(".category-btn").forEach(function(x){x.classList.remove("active")});if(b)b.classList.add("active");document.getElementById("categoryTitle").textContent=c;var sc=document.getElementById("studioCategory");if(sc)sc.textContent=c;switchTab("preguntas",document.querySelector(".tab-btn"));actualizarUI();}
 function esc(t){if(!t)return"";return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function actualizarUI(){var docs=documents[currentCategory]||[];document.getElementById("documentosList").innerHTML=docs.length===0?'<div class="empty-state"><div class="empty-state-icon">📄</div><p>No hay documentos</p></div>':docs.map(function(d){return'<div class="doc-item"><div><div class="doc-name">'+d.name+'</div><div class="doc-size">'+d.size_mb+' MB · '+d.type+'</div></div><a href="'+d.url+'" target="_blank" class="doc-btn">Abrir</a></div>'}).join("");document.getElementById("docsCount").textContent=docs.length;document.getElementById("preguntasCount").textContent=(preguntas[currentCategory]||[]).length;document.getElementById("notasCount").textContent=(notas[currentCategory]||[]).length;var pa=preguntas[currentCategory]||[],pl=document.getElementById("preguntasList");pl.innerHTML=pa.length===0?'<div class="empty-state"><div class="empty-state-icon">🩺</div><p>Haz tu primera pregunta</p></div>':pa.map(function(p){return'<div class="question-box"><div class="question-text">'+esc(p.pregunta)+'</div><div class="answer-text">'+esc(p.respuesta)+'</div><div class="note-time">'+p.fecha+'</div></div>'}).join("");var na=notas[currentCategory]||[],nl=document.getElementById("notasList");nl.innerHTML=na.length===0?'<div class="empty-state"><div class="empty-state-icon">📝</div><p>Sin notas</p></div>':na.map(function(n,i){return'<div class="question-box" style="border-left-color:var(--accent)"><div style="font-size:.92rem;white-space:pre-wrap;padding-right:30px;font-weight:300;line-height:1.6">'+esc(n.texto)+'</div><div class="note-time">'+n.fecha+'</div><button onclick="eliminarNota('+i+')" style="position:absolute;top:12px;right:12px;background:none;border:none;cursor:pointer;opacity:.35">🗑️</button></div>'}).join("");}
-function guardarConfig(){CONFIG.provider=document.getElementById("cfgProvider").value;CONFIG.groqKey=document.getElementById("cfgGroqKey").value.trim();CONFIG.groqModel=document.getElementById("cfgGroqModel").value;CONFIG.qwenKey=document.getElementById("cfgQwenKey").value.trim();CONFIG.qwenModel=document.getElementById("cfgQwenModel").value;localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));fbSave("app_data","config_ia",{provider:CONFIG.provider,groqKey:CONFIG.groqKey,groqModel:CONFIG.groqModel,qwenKey:CONFIG.qwenKey,qwenModel:CONFIG.qwenModel,ts:new Date().toISOString()});updateStatus();document.getElementById("cfgStatus").innerHTML='<span style="color:var(--primary)">✅ Guardado ☁️</span>';}
+function guardarConfig(){CONFIG.provider=document.getElementById("cfgProvider").value;CONFIG.groqKey=document.getElementById("cfgGroqKey").value.trim();CONFIG.groqModel=document.getElementById("cfgGroqModel").value;CONFIG.qwenKey=document.getElementById("cfgQwenKey").value.trim();CONFIG.qwenModel=document.getElementById("cfgQwenModel").value;localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));updateStatus();document.getElementById("cfgStatus").innerHTML='<span style="color:var(--primary)">✅ Guardado</span>';}
 async function testApiKey(){guardarConfig();if(!isReady()){document.getElementById("cfgStatus").innerHTML='<span style="color:#dc2626">❌ Key inválida</span>';return;}var st=document.getElementById("cfgStatus");st.innerHTML='<span style="color:var(--accent)">⏳ Probando...</span>';var e=ep();try{var r=await fetchWithCorsProxy(e.url,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+e.getKey()},body:JSON.stringify({model:e.getModel(),messages:[{role:"user",content:"Di: OK"}],max_tokens:10})});if(r.ok)st.innerHTML='<span style="color:var(--primary)">✅ ¡Conexión exitosa!</span>';else if(r.status===401)st.innerHTML='<span style="color:#dc2626">❌ Key inválida</span>';else{var err=await r.json().catch(function(){return{}});st.innerHTML='<span style="color:#dc2626">❌ Error '+r.status+"</span>";}}catch(err){st.innerHTML='<span style="color:#dc2626">❌ '+err.message+"</span>";}}
-function guardarDatos(){localStorage.setItem("cartagena_preguntas",JSON.stringify(preguntas));localStorage.setItem("cartagena_notas",JSON.stringify(notas));fbSave("app_data","preguntas",{data:preguntas,ts:new Date().toISOString()});fbSave("app_data","notas",{data:notas,ts:new Date().toISOString()});}
+function guardarDatos(){localStorage.setItem("cartagena_preguntas",JSON.stringify(preguntas));localStorage.setItem("cartagena_notas",JSON.stringify(notas));}
 function cargarDatos(){try{preguntas=JSON.parse(localStorage.getItem("cartagena_preguntas"))||{};}catch(e){preguntas={};}try{notas=JSON.parse(localStorage.getItem("cartagena_notas"))||{};}catch(e){notas={};}}
 
 function initProfessionals(){
@@ -1925,39 +1756,96 @@ function initProfessionals(){
     if(!isReady())setTimeout(function(){switchTab("config",document.querySelectorAll(".tab-btn")[4])},500);
 }
 
+// ═══ SCAN IA MODULE ═══
+var SCAN_PWD="gmail";
+var scanType="derma";
+var scanB64=null;
+var scanHist=JSON.parse(localStorage.getItem("scan_hist_v2")||"[]");
+var SCAN_GROQ_KEY="REDACTED_GROQ_2026-04";
+var SCAN_GROQ_MODEL="llama-4-scout-17b-16e-instruct";
+var SCAN_PROMPTS={
+derma:"Eres un dermatólogo experto realizando una evaluación docente de una imagen clínica de piel.\n\nAnaliza siguiendo esta estructura:\n1. **Descripción de la lesión**: Morfología, color, bordes, distribución\n2. **Diagnóstico diferencial**: 3-5 diagnósticos más probables\n3. **Hallazgos clave**: Elementos que apoyan cada diagnóstico\n4. **Signos de alarma**: Criterios ABCDE de melanoma\n5. **Recomendación**: Siguiente paso clínico\n\nIMPORTANTE: Herramienta DOCENTE. El diagnóstico definitivo requiere valoración presencial.",
+torax:"Eres un radiólogo experto realizando una lectura docente de una radiografía de tórax.\n\nAnaliza siguiendo lectura sistemática:\n1. **Calidad técnica**: Rotación, inspiración, penetración\n2. **Mediastino**: Silueta cardíaca, hilio, tráquea, aorta\n3. **Campos pulmonares**: Transparencia, infiltrados, consolidaciones, nódulos\n4. **Pleura**: Derrame, neumotórax\n5. **Estructuras óseas**: Costillas, clavículas, columna\n6. **Diafragma**: Ángulos costofrénicos\n7. **Impresión diagnóstica**: Hallazgos y diagnóstico diferencial\n8. **Recomendación**: Siguiente paso\n\nHerramienta DOCENTE.",
+ecg:"Eres un cardiólogo experto interpretando un ECG de forma docente.\n\nAnaliza sistemáticamente:\n1. **Frecuencia cardíaca**\n2. **Ritmo**: Sinusal o no\n3. **Eje eléctrico**\n4. **Onda P**\n5. **Intervalo PR**\n6. **Complejo QRS**: Duración, morfología, bloqueos\n7. **Segmento ST**: Elevación/depresión\n8. **Onda T**\n9. **QT/QTc**\n10. **Impresión diagnóstica**\n\nHerramienta DOCENTE."
+};
+var SCAN_LABELS={derma:"🩹 Dermatología",torax:"🫁 Rx Tórax",ecg:"💓 ECG"};
+
+function showScanLogin(){
+    if(sessionStorage.getItem("scan_auth")==="1"){showPage("pageScanIA");scanRenderHist();return;}
+    var m=document.getElementById("scanLoginModal");m.style.display="flex";
+    document.getElementById("scanLoginPwd").value="";
+    document.getElementById("scanLoginError").style.display="none";
+    setTimeout(function(){document.getElementById("scanLoginPwd").focus()},200);
+}
+function scanCheckLogin(){
+    var p=document.getElementById("scanLoginPwd").value.trim();
+    if(p===SCAN_PWD){sessionStorage.setItem("scan_auth","1");document.getElementById("scanLoginModal").style.display="none";showPage("pageScanIA");scanRenderHist();}
+    else{document.getElementById("scanLoginError").style.display="block";document.getElementById("scanLoginPwd").value="";}
+}
+document.addEventListener("keypress",function(e){if(e.key==="Enter"&&document.getElementById("scanLoginModal").style.display==="flex")scanCheckLogin();});
+
+function scanSetType(t,btn){scanType=t;document.querySelectorAll(".scan-mode-btn").forEach(function(b){b.style.borderColor="var(--border)";b.style.background="var(--bg-card)";b.style.color="var(--text)";});if(btn){btn.style.borderColor="#0066cc";btn.style.background="linear-gradient(135deg,#0066cc,#004499)";btn.style.color="#fff";}}
+function scanHandleFile(e){var f=e.target.files[0];if(f)scanProcessFile(f);}
+function scanProcessFile(f){if(!f.type.startsWith("image/")){alert("Selecciona una imagen");return;}var r=new FileReader();r.onload=function(e){var d=e.target.result;scanB64=d.split(",")[1];document.getElementById("scanImgPreview").src=d;document.getElementById("scanImgPreview").style.display="block";document.getElementById("scanDropContent").style.display="none";document.getElementById("scanDropZone").style.borderStyle="solid";document.getElementById("scanDropZone").style.borderColor="#0066cc";document.getElementById("scanBtnGo").disabled=false;};r.readAsDataURL(f);}
+(function(){var z=document.getElementById("scanDropZone");if(z){z.addEventListener("dragover",function(e){e.preventDefault();z.style.borderColor="#0066cc";z.style.background="rgba(0,102,204,.04)";});z.addEventListener("dragleave",function(){z.style.borderColor="var(--border)";z.style.background="var(--bg-card)";});z.addEventListener("drop",function(e){e.preventDefault();z.style.borderColor="var(--border)";z.style.background="var(--bg-card)";if(e.dataTransfer.files.length)scanProcessFile(e.dataTransfer.files[0]);});}})();
+
+function scanClear(){scanB64=null;document.getElementById("scanImgPreview").style.display="none";document.getElementById("scanImgPreview").src="";document.getElementById("scanDropContent").style.display="block";document.getElementById("scanDropZone").style.borderStyle="dashed";document.getElementById("scanDropZone").style.borderColor="var(--border)";document.getElementById("scanFileIn").value="";document.getElementById("scanCtx").value="";document.getElementById("scanBtnGo").disabled=true;document.getElementById("scanResult").innerHTML="";}
+
+async function scanAnalyze(){
+    if(!scanB64){alert("Sube una imagen primero");return;}
+    var btn=document.getElementById("scanBtnGo"),res=document.getElementById("scanResult"),ctx=document.getElementById("scanCtx").value.trim();
+    btn.disabled=true;btn.innerHTML="⏳ Analizando...";
+    res.innerHTML='<div style="background:var(--bg-card);border:1px solid var(--border);border-left:4px solid #0066cc;border-radius:var(--radius);padding:20px;"><div style="color:#0066cc;font-weight:700;margin-bottom:8px;">🔬 Analizando imagen...</div><div style="color:var(--text-muted);font-size:.9rem;">El modelo está procesando. Puede tardar unos segundos...</div></div>';
+    var sys=SCAN_PROMPTS[scanType];if(ctx)sys+="\n\nContexto clínico: "+ctx;
+    var mt="image/jpeg";var ps=document.getElementById("scanImgPreview").src;if(ps.indexOf("image/png")>-1)mt="image/png";
+    try{
+        var r=await fetch("https://api.groq.com/openai/v1/chat/completions",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+SCAN_GROQ_KEY},body:JSON.stringify({model:SCAN_GROQ_MODEL,messages:[{role:"system",content:sys},{role:"user",content:[{type:"image_url",image_url:{url:"data:"+mt+";base64,"+scanB64}},{type:"text",text:ctx?"Analiza esta imagen. Contexto: "+ctx:"Analiza esta imagen médica de forma sistemática."}]}],max_tokens:2000,temperature:0.3})});
+        if(!r.ok){var ed=await r.json().catch(function(){return{}});throw new Error(ed.error?.message||"Error HTTP "+r.status);}
+        var d=await r.json(),txt=d.choices?.[0]?.message?.content||"Sin respuesta";
+        var fmt=txt.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\n/g,"<br>");
+        res.innerHTML='<div style="background:var(--bg-card);border:1px solid var(--border);border-left:4px solid #0066cc;border-radius:var(--radius);padding:20px;"><div style="color:#0066cc;font-weight:700;font-family:var(--font-display);margin-bottom:12px;">🔬 '+SCAN_LABELS[scanType]+" — "+SCAN_GROQ_MODEL+'</div><div style="color:var(--text);line-height:1.7;font-size:.92rem;font-weight:300;">'+fmt+"</div></div>";
+        scanHist.unshift({type:scanType,label:SCAN_LABELS[scanType],model:SCAN_GROQ_MODEL,ctx:ctx,result:txt,date:new Date().toLocaleString("es-ES")});
+        if(scanHist.length>30)scanHist=scanHist.slice(0,30);
+        localStorage.setItem("scan_hist_v2",JSON.stringify(scanHist));scanRenderHist();
+    }catch(e){res.innerHTML='<div style="background:var(--bg-card);border:1px solid #dc2626;border-left:4px solid #dc2626;border-radius:var(--radius);padding:20px;"><div style="color:#dc2626;font-weight:700;margin-bottom:8px;">❌ Error</div><div style="color:var(--text);font-size:.9rem;">'+e.message+"<br><br>Posibles causas: API key incorrecta, modelo no soporta imágenes, o límite de rate.</div></div>";}
+    btn.disabled=false;btn.innerHTML="🔬 Analizar con IA";
+}
+
+function scanRenderHist(){
+    var l=document.getElementById("scanHistList");if(!l)return;
+    if(scanHist.length===0){l.innerHTML='<div style="text-align:center;padding:30px;color:var(--text-muted);"><div style="font-size:2.5rem;margin-bottom:10px;opacity:.5;">🔬</div><p style="font-size:.92rem;">Aún no hay análisis</p></div>';return;}
+    l.innerHTML=scanHist.map(function(h,i){return'<div onclick="scanViewHist('+i+')" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:8px;cursor:pointer;transition:.2s;" onmouseover="this.style.borderColor=\'#0066cc\'" onmouseout="this.style.borderColor=\'var(--border)\'"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-weight:600;font-size:.85rem;color:#0066cc;">'+h.label+'</span><span style="font-size:.78rem;color:var(--text-muted);">'+h.date+'</span></div><div style="font-size:.85rem;color:var(--text-light);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">'+h.result.substring(0,140)+"...</div></div>";}).join("");
+}
+function scanViewHist(i){var h=scanHist[i];if(!h)return;var fmt=h.result.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/\n/g,"<br>");document.getElementById("scanResult").innerHTML='<div style="background:var(--bg-card);border:1px solid var(--border);border-left:4px solid #0066cc;border-radius:var(--radius);padding:20px;"><div style="color:#0066cc;font-weight:700;font-family:var(--font-display);margin-bottom:12px;">📋 '+h.label+" — "+h.model+" — "+h.date+"</div>"+(h.ctx?'<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:10px;font-style:italic;">Contexto: '+h.ctx+"</div>":"")+'<div style="color:var(--text);line-height:1.7;font-size:.92rem;font-weight:300;">'+fmt+"</div></div>";}
+
 // ═══ FIREBASE INITIALIZATION ═══
-var db=null;
-try{
-    const firebaseConfig={
-        apiKey:"AIzaSyAvdYi6BVdltgeFH4KLHD_5iFZrSRgoykc",
-        authDomain:"docenciacartagenaeste.firebaseapp.com",
-        projectId:"docenciacartagenaeste",
-        storageBucket:"docenciacartagenaeste.firebasestorage.app",
-        messagingSenderId:"1056320755107",
-        appId:"1:1056320755107:web:126637bf63c13bbb297616"
-    };
-    firebase.initializeApp(firebaseConfig);
-    db=firebase.firestore();
-}catch(e){ console.warn("Firebase init error:",e); }
+const firebaseConfig={
+    apiKey:"AIzaSyAvdYi6BVdltgeFH4KLHD_5iFZrSRgoykc",
+    authDomain:"docenciacartagenaeste.firebaseapp.com",
+    projectId:"docenciacartagenaeste",
+    storageBucket:"docenciacartagenaeste.firebasestorage.app",
+    messagingSenderId:"1056320755107",
+    appId:"1:1056320755107:web:126637bf63c13bbb297616"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
 
 // ═══ INIT ═══
 document.addEventListener("DOMContentLoaded",function(){
+    initLoginSession();
     renderPatients();
-    setTimeout(autoLoadIAConfig,500); // Cargar API key desde Firestore
-    try{ initLoginSession(); }catch(e){ console.warn("Login init error:",e); }
     var p=new URLSearchParams(window.location.search);
-    if(p.get("view")==="professionals"||p.get("category"))accessProfessionals();
+    if(p.get("view")==="professionals"||p.get("category"))showPage("pageProfessionals");
     else if(p.get("view")==="patients")showPage("pagePatients");
     
     // Enter key en login
-    try{
-        document.getElementById("loginPassword").addEventListener("keypress",function(e){
-            if(e.key==="Enter")loginAdmin();
-        });
-        document.getElementById("loginUsername").addEventListener("keypress",function(e){
-            if(e.key==="Enter")document.getElementById("loginPassword").focus();
-        });
-    }catch(e){}
+    document.getElementById("loginPassword").addEventListener("keypress",function(e){
+        if(e.key==="Enter")loginAdmin();
+    });
+    document.getElementById("loginUsername").addEventListener("keypress",function(e){
+        if(e.key==="Enter")document.getElementById("loginPassword").focus();
+    });
 });
 </script>
 </body>
