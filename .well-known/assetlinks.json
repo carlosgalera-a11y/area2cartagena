@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.ramongalera22_ai.twa",
+        "sha256_cert_fingerprints": ["92:C0:A1:18:DB:4B:0E:E1:C5:16:9E:31:A7:82:D5:E6:CE:2E:A8:D6:5E:1F:3C:08:31:97:98:B1:46:37:CF:3D"]
+      }
+    }]
