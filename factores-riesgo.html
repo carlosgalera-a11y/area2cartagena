@@ -516,7 +516,7 @@
             </div>
         </div>
 
-        <div id="loginSection" class="login-section">
+        <div id="loginSection" class="login-section" style="display:none;">
             <h2>🔐 Acceso Restringido</h2>
             <p>Para añadir o editar notas, necesitas acceder con tu cuenta de Gmail.<br>Tus notas serán guardadas automáticamente.</p>
             <button class="btn" onclick="loginWithGmail()">
@@ -525,7 +525,19 @@
             </button>
         </div>
 
-        <div id="tablonSection" class="tablon-section">
+        <div id="tablonSection" class="tablon-section active">
+            <div style="margin-bottom:24px;">
+                <h3 style="color:var(--primary-dark);font-family:var(--font-display);margin-bottom:16px;">📚 Documentos y Herramientas</h3>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+                    <a href="hoja-controles-glucosa.pdf" target="_blank" style="text-decoration:none;">
+                        <div style="background:#fff;padding:16px;border-radius:10px;border:2px solid #e0e0e0;text-align:center;transition:all .2s;cursor:pointer;" onmouseover="this.style.borderColor='#1976d2';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#e0e0e0';this.style.transform='translateY(0)'">
+                            <div style="font-size:2rem;margin-bottom:8px;">📊</div>
+                            <div style="font-weight:700;color:#1565c0;font-size:.9rem;margin-bottom:4px;">Hoja Controles Glucosa</div>
+                            <div style="font-size:.75rem;color:#999;">SAEDYN · Autocontrol · PDF</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
             <div class="tablon-header">
                 <h2>📝 Añadir Nota</h2>
                 <div class="note-form">
