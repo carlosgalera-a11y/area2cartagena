@@ -162,7 +162,7 @@
                     <a class="hero-btn hero-btn-professionals" onclick="showPage('pageProtocolosUrgencias')" style="background:transparent;border-color:rgba(255,255,255,.4);color:#fff;"><span class="hero-btn-icon">🚨</span> Protocolos Urgencias</a>
                 </div>
                 <div class="hero-buttons" style="margin-top:20px;">
-                    <a class="hero-btn" onclick="showScanLogin()" style="background:linear-gradient(135deg,#0066cc,#004499);color:#fff;border:2px solid rgba(255,255,255,.3);"><span class="hero-btn-icon">🔬</span> Scan IA Médico</a>
+                    <a class="hero-btn" href="javascript:void(0)" onclick="showScanLogin()" style="background:linear-gradient(135deg,#0066cc,#004499);color:#fff;border:2px solid rgba(255,255,255,.3);cursor:pointer;"><span class="hero-btn-icon">🔬</span> Scan IA Médico</a>
                 </div>
             </div>
             <div class="hero-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Creado con ❤️</div>
@@ -1777,27 +1777,39 @@ var SCAN_LABELS={derma:"🩹 Dermatología",torax:"🫁 Rx Tórax",ecg:"💓 ECG
 var SCAN_ALLOWED_EMAILS=["ramongalera22@gmail.com"];
 
 function showScanLogin(){
-    // Si ya está autenticado con Google en esta sesión
-    var user=firebase.auth().currentUser;
-    if(user){
-        sessionStorage.setItem("scan_auth","1");
-        showPage("pageScanIA");scanRenderHist();return;
-    }
-    if(sessionStorage.getItem("scan_auth")==="1"){showPage("pageScanIA");scanRenderHist();return;}
-    var m=document.getElementById("scanLoginModal");m.style.display="flex";
-    document.getElementById("scanLoginError").style.display="none";
+    console.log("showScanLogin called");
+    try{
+        var user=firebase.auth().currentUser;
+        if(user){
+            console.log("User already logged in:",user.email);
+            sessionStorage.setItem("scan_auth","1");
+            showPage("pageScanIA");scanRenderHist();return;
+        }
+        if(sessionStorage.getItem("scan_auth")==="1"){showPage("pageScanIA");scanRenderHist();return;}
+        var m=document.getElementById("scanLoginModal");
+        console.log("Showing modal",m);
+        m.style.display="flex";
+        document.getElementById("scanLoginError").style.display="none";
+    }catch(e){console.error("showScanLogin error:",e);alert("Error: "+e.message);}
 }
 
 function scanGoogleLogin(){
+    console.log("scanGoogleLogin called");
     var provider=new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result){
+        console.log("Login success:",result.user.email);
         sessionStorage.setItem("scan_auth","1");
         document.getElementById("scanLoginModal").style.display="none";
         showPage("pageScanIA");scanRenderHist();
     }).catch(function(error){
-        console.error("Error Google login:",error);
-        document.getElementById("scanLoginError").innerHTML="❌ "+error.message;
-        document.getElementById("scanLoginError").style.display="block";
+        console.error("Google login error:",error);
+        if(error.code==="auth/popup-blocked"||error.code==="auth/popup-closed-by-browser"){
+            console.log("Popup blocked, trying redirect...");
+            firebase.auth().signInWithRedirect(provider);
+        }else{
+            document.getElementById("scanLoginError").innerHTML="❌ "+error.message;
+            document.getElementById("scanLoginError").style.display="block";
+        }
     });
 }
 
@@ -1847,6 +1859,15 @@ const firebaseConfig={
 
 firebase.initializeApp(firebaseConfig);
 const db=firebase.firestore();
+
+// Handle redirect result (for mobile where popup is blocked)
+firebase.auth().getRedirectResult().then(function(result){
+    if(result.user){
+        console.log("Redirect login success:",result.user.email);
+        sessionStorage.setItem("scan_auth","1");
+        showPage("pageScanIA");scanRenderHist();
+    }
+}).catch(function(e){console.log("No redirect result:",e);});
 
 // ═══ INIT ═══
 document.addEventListener("DOMContentLoaded",function(){
