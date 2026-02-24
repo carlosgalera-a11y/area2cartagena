@@ -1134,11 +1134,14 @@
 </style>
 
 <!-- ═══════ ADMIN PANEL MODAL ═══════ -->
-<div id="adminPanel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1001;overflow:auto;padding:20px;">
+<div id="adminPanel" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1001;overflow:auto;padding:20px;">
     <div style="background:#fff;border-radius:12px;padding:40px;max-width:600px;margin:40px auto;box-shadow:0 20px 60px rgba(0,0,0,.3);">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
             <h2 style="font-family:var(--font-display);color:var(--primary-dark);font-size:1.5rem;">👨‍💼 Panel Administrativo</h2>
-            <button onclick="logoutAdmin()" style="background:#c00;color:#fff;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:.85rem;font-family:var(--font-body);">Cerrar Sesión</button>
+            <div style="display:flex;gap:10px;align-items:center;">
+                <button onclick="document.getElementById('adminPanel').style.display='none'" style="background:var(--bg-subtle);color:var(--text);padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:.85rem;font-family:var(--font-body);transition:.2s;" onmouseover="this.style.background='var(--border)'" onmouseout="this.style.background='var(--bg-subtle)'">✕ Cerrar</button>
+                <button onclick="logoutAdmin()" style="background:#c00;color:#fff;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:.85rem;font-family:var(--font-body);">Cerrar Sesión</button>
+            </div>
         </div>
         
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:30px;">
@@ -2326,6 +2329,7 @@ firebase.auth().getRedirectResult().then(function(result){
 }).catch(function(e){console.log("No redirect result:",e);});
 
 // ═══ INIT ═══
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){var ap=document.getElementById("adminPanel");if(ap&&ap.style.display!=="none"){ap.style.display="none";return;}var sl=document.getElementById("scanLoginModal");if(sl&&sl.style.display==="flex"){sl.style.display="none";return;}}});
 document.addEventListener("DOMContentLoaded",function(){
     initLoginSession();
     renderPatients();
