@@ -1409,117 +1409,68 @@ function renderPatients(){
     g.innerHTML=patientSections.map(function(s){return'<a class="patient-card" href="'+s.url+'" target="_blank"><div class="patient-card-icon">'+s.icon+'</div><div class="patient-card-title">'+s.title+'</div><div class="patient-card-desc">'+s.desc+'</div></a>'}).join("");
 }
 
-// ═══ ADMIN LOGIN - MEJORADO ═══
-var adminCredentials={username:"admin@cartagena.es",password:"Cartagena2026!"};
+// ═══ ADMIN LOGIN - GOOGLE BASED ═══
+var ADMIN_EMAIL="ramongalera22@gmail.com";
 var isAdminLoggedIn=false;
 var loginAttempts=0;
 var lockoutTime=0;
 
-function initLoginSession(){
-    var savedSession=localStorage.getItem("adminSession");
-    if(savedSession){
-        try{
-            var session=JSON.parse(savedSession);
-            if(session.timestamp && Date.now()-session.timestamp<86400000){
-                isAdminLoggedIn=true;
-                document.getElementById("adminPanel").style.display="block";
-                apShowAdminTab(true);
-            }else{
-                localStorage.removeItem("adminSession");
-            }
-        }catch(e){
-            localStorage.removeItem("adminSession");
-        }
+function isAdmin(){
+    var user=firebase.auth().currentUser;
+    return user&&user.email===ADMIN_EMAIL;
+}
+
+function checkAdminStatus(){
+    var wasAdmin=isAdminLoggedIn;
+    isAdminLoggedIn=isAdmin();
+    if(isAdminLoggedIn&&!wasAdmin){
+        apShowAdminTab(true);
+    }else if(!isAdminLoggedIn&&wasAdmin){
+        apShowAdminTab(false);
     }
+    return isAdminLoggedIn;
+}
+
+function initLoginSession(){
+    setTimeout(function(){checkAdminStatus();},1000);
 }
 
 function showLoginModal(){
-    if(!isAdminLoggedIn){
-        document.getElementById("loginModal").style.display="flex";
-        document.getElementById("loginUsername").focus();
-        clearLoginForm();
+    if(isAdmin()){
+        isAdminLoggedIn=true;
+        apShowAdminTab(true);
+        return;
     }
+    // Use Google login modal (scanLoginModal)
+    try{
+        document.getElementById("scanLoginModal").style.display="flex";
+        document.getElementById("scanLoginError").style.display="none";
+    }catch(e){console.error(e);}
 }
 
 function closeLoginModal(){
-    document.getElementById("loginModal").style.display="none";
-    clearLoginForm();
+    try{document.getElementById("loginModal").style.display="none";}catch(e){}
+    try{document.getElementById("scanLoginModal").style.display="none";}catch(e){}
 }
 
-function clearLoginForm(){
-    document.getElementById("loginUsername").value="";
-    document.getElementById("loginPassword").value="";
-    document.getElementById("loginError").style.display="none";
-    document.getElementById("loginSuccess").style.display="none";
-}
-
-function togglePasswordVisibility(){
-    var input=document.getElementById("loginPassword");
-    input.type=input.type==="password"?"text":"password";
-}
+function clearLoginForm(){}
+function togglePasswordVisibility(){}
 
 function loginAdmin(){
-    if(Date.now()<lockoutTime){
-        showLoginError("Demasiados intentos. Intenta de nuevo en 5 minutos.");
-        return;
-    }
-    
-    var user=document.getElementById("loginUsername").value.trim();
-    var pass=document.getElementById("loginPassword").value;
-    
-    if(!user||!pass){
-        showLoginError("Por favor completa todos los campos");
-        return;
-    }
-    
-    document.getElementById("loginBtnText").textContent="⏳ Verificando...";
-    
-    setTimeout(function(){
-        if(user===adminCredentials.username&&pass===adminCredentials.password){
-            loginAttempts=0;
-            isAdminLoggedIn=true;
-            
-            if(document.getElementById("rememberMe").checked){
-                localStorage.setItem("adminSession",JSON.stringify({
-                    timestamp:Date.now(),
-                    user:user
-                }));
-            }
-            
-            document.getElementById("loginSuccess").style.display="block";
-            document.getElementById("loginError").style.display="none";
-            
-            setTimeout(function(){
-                closeLoginModal();
-                document.getElementById("adminPanel").style.display="block";
-                document.getElementById("loginBtnText").textContent="🚀 Acceder";
-                apShowAdminTab(true);
-            },800);
-        }else{
-            loginAttempts++;
-            if(loginAttempts>=3){
-                lockoutTime=Date.now()+300000;
-                showLoginError("Máximo de intentos excedido. Intenta en 5 minutos.");
-            }else{
-                showLoginError("Credenciales incorrectas (Intento "+(4-loginAttempts)+")");
-            }
-            document.getElementById("loginPassword").value="";
-            document.getElementById("loginPassword").focus();
-            document.getElementById("loginBtnText").textContent="🚀 Acceder";
-        }
-    },600);
+    // Now uses Google login - trigger scanGoogleLogin
+    scanGoogleLogin();
 }
 
 function showLoginError(msg){
-    document.getElementById("loginErrorText").textContent=msg;
-    document.getElementById("loginError").style.display="block";
-    document.getElementById("loginSuccess").style.display="none";
+    try{
+        document.getElementById("scanLoginError").innerHTML="❌ "+msg;
+        document.getElementById("scanLoginError").style.display="block";
+    }catch(e){}
 }
 
 function logoutAdmin(){
     isAdminLoggedIn=false;
-    localStorage.removeItem("adminSession");
-    document.getElementById("adminPanel").style.display="none";
+    firebase.auth().signOut().catch(function(e){});
     apShowAdminTab(false);
 }
 
@@ -1529,6 +1480,7 @@ function showCategoryForm(){document.getElementById("categoryForm").style.displa
 function hideCategoryForm(){document.getElementById("categoryForm").style.display="none"}
 var uploadInProgress=false;
 function uploadFile(){
+    if(!isAdmin()){alert("⛔ Solo el administrador puede subir archivos.");return;}
     if(uploadInProgress)return;
     var file=document.getElementById("fileInput").files[0];
     var cat=document.getElementById("fileCategory").value;
@@ -1611,7 +1563,7 @@ function saveDocumentMetadata(category,fileName,downloadURL,fileSize){
         console.error("Error guardando metadata: "+error.message);
     });
 }
-function addCategory(){var name=document.getElementById("catName").value;var emoji=document.getElementById("catEmoji").value;if(!name||!emoji){alert("Completa todos los campos");return}if(categories[name]){alert("Esa categoría ya existe");return}categories[name]=emoji;document.getElementById("catName").value="";document.getElementById("catEmoji").value="";var statusDiv=document.getElementById("categoryStatus");statusDiv.textContent="✅ Categoría '"+name+"' creada correctamente";statusDiv.style.display="block";setTimeout(function(){statusDiv.style.display="none"},3000);actualizarUI()}
+function addCategory(){if(!isAdmin()){alert("⛔ Solo el administrador puede añadir categorías. Inicia sesión con la cuenta autorizada.");return;}var name=document.getElementById("catName").value;var emoji=document.getElementById("catEmoji").value;if(!name||!emoji){alert("Completa todos los campos");return}if(categories[name]){alert("Esa categoría ya existe");return}categories[name]=emoji;document.getElementById("catName").value="";document.getElementById("catEmoji").value="";var statusDiv=document.getElementById("categoryStatus");statusDiv.textContent="✅ Categoría '"+name+"' creada correctamente";statusDiv.style.display="block";setTimeout(function(){statusDiv.style.display="none"},3000);actualizarUI()}
 
 function switchProtocolTab(tabName,btnElement){
     var contents=document.querySelectorAll(".protocol-content");
@@ -1782,6 +1734,7 @@ function apLoadFileContent(){
 }
 
 function apAddProtocol(){
+    if(!isAdmin()){alert("⛔ Solo el administrador puede añadir protocolos.");return;}
     var name=document.getElementById('apNewProtoName').value.trim();
     var content=document.getElementById('apNewProtoContent').value.trim();
     var status=document.getElementById('apAddStatus');
@@ -1817,6 +1770,7 @@ function apAddProtocol(){
 }
 
 function apDeleteProtocol(idx){
+    if(!isAdmin()){alert("⛔ Solo el administrador puede eliminar protocolos.");return;}
     var list=apGetCustomProtocols();
     if(idx<0||idx>=list.length)return;
     var name=list[idx].name;
@@ -2132,6 +2086,8 @@ function scanGoogleLogin(){
     firebase.auth().signInWithPopup(provider).then(function(result){
         console.log("Login success:",result.user.email);
         document.getElementById("scanLoginModal").style.display="none";
+        // Check admin status
+        checkAdminStatus();
         if(pendingPageAfterLogin){
             var pg=pendingPageAfterLogin;pendingPageAfterLogin=null;
             logPageAccess(pg,result.user);
@@ -2700,6 +2656,7 @@ const db=firebase.firestore();
 firebase.auth().getRedirectResult().then(function(result){
     if(result.user){
         console.log("Redirect login success:",result.user.email);
+        checkAdminStatus();
         if(pendingPageAfterLogin){
             var pg=pendingPageAfterLogin;pendingPageAfterLogin=null;
             logPageAccess(pg,result.user);
