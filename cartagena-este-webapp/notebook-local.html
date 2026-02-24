@@ -933,20 +933,23 @@
     </div>
 </div>
 
-<!-- ═══════ SCAN LOGIN MODAL ═══════ -->
+<!-- ═══════ SCAN LOGIN MODAL (Google Auth) ═══════ -->
 <div id="scanLoginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1001;align-items:center;justify-content:center;backdrop-filter:blur(2px);">
     <div style="background:#fff;border-radius:16px;max-width:400px;width:90%;box-shadow:0 25px 80px rgba(0,0,0,.4);overflow:hidden;animation:slideInUp .3s ease;">
         <div style="background:linear-gradient(135deg,#0066cc,#004499);padding:28px 24px;color:#fff;text-align:center;position:relative;">
             <div style="position:absolute;top:12px;right:12px;cursor:pointer;font-size:1.5rem;opacity:.7;" onclick="document.getElementById('scanLoginModal').style.display='none'">✕</div>
             <div style="font-size:2.2rem;margin-bottom:10px;">🔬</div>
             <h2 style="font-family:var(--font-display);font-size:1.5rem;font-weight:700;">Scan IA Médico</h2>
-            <p style="margin:6px 0 0;opacity:.85;font-size:.88rem;">Acceso protegido</p>
+            <p style="margin:6px 0 0;opacity:.85;font-size:.88rem;">Acceso con cuenta de Google</p>
         </div>
         <div style="padding:28px;">
-            <p style="font-size:.88rem;color:var(--text-light);margin-bottom:18px;text-align:center;">Introduce la contraseña para acceder al módulo de Scan IA.</p>
-            <input type="password" id="scanLoginPwd" placeholder="Contraseña" style="width:100%;padding:13px 18px;border:2px solid var(--border);border-radius:var(--radius);font-size:1rem;font-family:var(--font-body);text-align:center;letter-spacing:2px;margin-bottom:12px;">
-            <div id="scanLoginError" style="display:none;color:#dc2626;font-size:.85rem;text-align:center;margin-bottom:10px;">❌ Contraseña incorrecta</div>
-            <button onclick="scanCheckLogin()" style="width:100%;padding:14px;background:linear-gradient(135deg,#0066cc,#004499);color:#fff;border:none;border-radius:var(--radius);font-size:1rem;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:.3s;">Acceder</button>
+            <p style="font-size:.88rem;color:var(--text-light);margin-bottom:18px;text-align:center;">Inicia sesión con tu cuenta de Google para acceder al módulo de Scan IA.</p>
+            <button onclick="scanGoogleLogin()" style="width:100%;padding:14px;background:#fff;color:#333;border:2px solid #ddd;border-radius:var(--radius);font-size:1rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:.3s;display:flex;align-items:center;justify-content:center;gap:12px;" onmouseover="this.style.borderColor='#4285f4';this.style.background='#f8f9ff'" onmouseout="this.style.borderColor='#ddd';this.style.background='#fff'">
+                <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+                Iniciar sesión con Google
+            </button>
+            <div id="scanLoginError" style="display:none;color:#dc2626;font-size:.85rem;text-align:center;margin-top:12px;">❌ Error al iniciar sesión</div>
+            <p style="font-size:.78rem;color:var(--text-muted);text-align:center;margin-top:16px;">Solo cuentas autorizadas pueden acceder.</p>
         </div>
     </div>
 </div>
@@ -1770,19 +1773,41 @@ ecg:"Eres un cardiólogo experto interpretando un ECG de forma docente.\n\nAnali
 };
 var SCAN_LABELS={derma:"🩹 Dermatología",torax:"🫁 Rx Tórax",ecg:"💓 ECG"};
 
+// Emails autorizados para Scan IA (añade los que quieras)
+var SCAN_ALLOWED_EMAILS=["ramongalera22@gmail.com"];
+
 function showScanLogin(){
+    // Si ya está autenticado con Google en esta sesión
+    var user=firebase.auth().currentUser;
+    if(user && SCAN_ALLOWED_EMAILS.indexOf(user.email)!==-1){
+        sessionStorage.setItem("scan_auth","1");
+        showPage("pageScanIA");scanRenderHist();return;
+    }
     if(sessionStorage.getItem("scan_auth")==="1"){showPage("pageScanIA");scanRenderHist();return;}
     var m=document.getElementById("scanLoginModal");m.style.display="flex";
-    document.getElementById("scanLoginPwd").value="";
     document.getElementById("scanLoginError").style.display="none";
-    setTimeout(function(){document.getElementById("scanLoginPwd").focus()},200);
 }
-function scanCheckLogin(){
-    var p=document.getElementById("scanLoginPwd").value.trim();
-    if(p===SCAN_PWD){sessionStorage.setItem("scan_auth","1");document.getElementById("scanLoginModal").style.display="none";showPage("pageScanIA");scanRenderHist();}
-    else{document.getElementById("scanLoginError").style.display="block";document.getElementById("scanLoginPwd").value="";}
+
+function scanGoogleLogin(){
+    var provider=new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(function(result){
+        var email=result.user.email;
+        if(SCAN_ALLOWED_EMAILS.indexOf(email)!==-1){
+            sessionStorage.setItem("scan_auth","1");
+            document.getElementById("scanLoginModal").style.display="none";
+            showPage("pageScanIA");scanRenderHist();
+        } else {
+            // Email no autorizado
+            document.getElementById("scanLoginError").innerHTML="❌ La cuenta <strong>"+email+"</strong> no está autorizada.";
+            document.getElementById("scanLoginError").style.display="block";
+            firebase.auth().signOut();
+        }
+    }).catch(function(error){
+        console.error("Error Google login:",error);
+        document.getElementById("scanLoginError").innerHTML="❌ "+error.message;
+        document.getElementById("scanLoginError").style.display="block";
+    });
 }
-document.addEventListener("keypress",function(e){if(e.key==="Enter"&&document.getElementById("scanLoginModal").style.display==="flex")scanCheckLogin();});
 
 function scanSetType(t,btn){scanType=t;document.querySelectorAll(".scan-mode-btn").forEach(function(b){b.style.borderColor="var(--border)";b.style.background="var(--bg-card)";b.style.color="var(--text)";});if(btn){btn.style.borderColor="#0066cc";btn.style.background="linear-gradient(135deg,#0066cc,#004499)";btn.style.color="#fff";}}
 function scanHandleFile(e){var f=e.target.files[0];if(f)scanProcessFile(f);}
