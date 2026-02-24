@@ -1779,7 +1779,7 @@ var SCAN_ALLOWED_EMAILS=["ramongalera22@gmail.com"];
 function showScanLogin(){
     // Si ya está autenticado con Google en esta sesión
     var user=firebase.auth().currentUser;
-    if(user && SCAN_ALLOWED_EMAILS.indexOf(user.email)!==-1){
+    if(user){
         sessionStorage.setItem("scan_auth","1");
         showPage("pageScanIA");scanRenderHist();return;
     }
@@ -1791,17 +1791,9 @@ function showScanLogin(){
 function scanGoogleLogin(){
     var provider=new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then(function(result){
-        var email=result.user.email;
-        if(SCAN_ALLOWED_EMAILS.indexOf(email)!==-1){
-            sessionStorage.setItem("scan_auth","1");
-            document.getElementById("scanLoginModal").style.display="none";
-            showPage("pageScanIA");scanRenderHist();
-        } else {
-            // Email no autorizado
-            document.getElementById("scanLoginError").innerHTML="❌ La cuenta <strong>"+email+"</strong> no está autorizada.";
-            document.getElementById("scanLoginError").style.display="block";
-            firebase.auth().signOut();
-        }
+        sessionStorage.setItem("scan_auth","1");
+        document.getElementById("scanLoginModal").style.display="none";
+        showPage("pageScanIA");scanRenderHist();
     }).catch(function(error){
         console.error("Error Google login:",error);
         document.getElementById("scanLoginError").innerHTML="❌ "+error.message;
