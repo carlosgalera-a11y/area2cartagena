@@ -186,10 +186,44 @@
         <div class="sidebar-left"><div class="sidebar-hero"><h2>Especialidades</h2><p>Cuaderno AI · Docencia Clínica</p></div><div class="categories-list scrollbar" id="categoriesList"></div><div class="sidebar-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a></div></div>
         <div class="main-content"><div class="content-header"><h3 id="categoryTitle">Cardiología</h3></div>
             <div class="content-area scrollbar">
-                <div class="tab-buttons"><button class="tab-btn active" onclick="switchTab('preguntas',this)">🤖 Preguntas IA</button><button class="tab-btn" onclick="switchTab('documentos',this)">📚 Documentos</button><button class="tab-btn" onclick="switchTab('notas',this)">📝 Notas</button><button class="tab-btn" onclick="switchTab('studio',this)">✨ Studio</button><button class="tab-btn" onclick="switchTab('recursos',this)">📋 Recursos</button><button class="tab-btn" onclick="switchTab('config',this)">⚙️ Config</button></div>
+                <div class="tab-buttons"><button class="tab-btn active" onclick="switchTab('preguntas',this)">🤖 Preguntas IA</button><button class="tab-btn" onclick="switchTab('documentos',this)">📚 Documentos</button><button class="tab-btn" onclick="switchTab('notas',this)">📝 Notas</button><button class="tab-btn" onclick="switchTab('guardiaPacientes',this)">🛏️ Pacientes</button><button class="tab-btn" onclick="switchTab('studio',this)">✨ Studio</button><button class="tab-btn" onclick="switchTab('recursos',this)">📋 Recursos</button><button class="tab-btn" onclick="switchTab('config',this)">⚙️ Config</button></div>
                 <div id="preguntas" class="tab-content active"><div class="question-input"><input type="text" id="preguntaInput" placeholder="Haz una pregunta clínica..." spellcheck="false"><button class="btn btn-primary" onclick="hacerPregunta()" id="btnPreguntar">Preguntar</button></div><div id="preguntasList"><div class="empty-state"><div class="empty-state-icon">🩺</div><p>Haz tu primera pregunta clínica</p></div></div></div>
                 <div id="documentos" class="tab-content"><div id="documentosList" style="margin-top:8px"></div></div>
                 <div id="notas" class="tab-content"><div style="margin-bottom:20px"><textarea id="noteInput" placeholder="Escribe tus notas clínicas..." style="width:100%;padding:14px;border:2px solid var(--border);border-radius:var(--radius);min-height:90px;font-family:var(--font-body);resize:vertical;font-size:.92rem;background:var(--bg-card)"></textarea><div style="margin-top:10px;display:flex;gap:10px"><button class="btn btn-primary btn-small" onclick="agregarNota()">✓ Guardar</button><button class="btn btn-secondary btn-small" onclick="document.getElementById('noteInput').value=''">Limpiar</button></div></div><div id="notasList"></div></div>
+                <div id="guardiaPacientes" class="tab-content">
+                    <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:var(--radius);padding:14px 18px;font-size:.84rem;color:#856404;margin-bottom:20px;line-height:1.6;">
+                        🔒 <strong>Datos anonimizados.</strong> No incluyas nombre, DNI, NHC ni datos identificativos. Usa solo iniciales o número de cama. Los datos se guardan localmente en tu dispositivo y se borran al limpiar el navegador.
+                    </div>
+                    <div style="background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px;">
+                        <h4 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:14px;">➕ Nuevo paciente de guardia</h4>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                            <input type="text" id="gpCama" placeholder="Cama / Ubicación (ej: C12, Box3)" style="padding:10px;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;">
+                            <input type="text" id="gpId" placeholder="ID anónimo (ej: JM, Pac.3)" style="padding:10px;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;">
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                            <input type="text" id="gpEdad" placeholder="Edad / Sexo (ej: 72M, 45F)" style="padding:10px;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;">
+                            <select id="gpPrioridad" style="padding:10px;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;">
+                                <option value="normal">🟢 Normal</option>
+                                <option value="atento">🟡 Atento</option>
+                                <option value="urgente">🔴 Urgente</option>
+                            </select>
+                        </div>
+                        <input type="text" id="gpMotivo" placeholder="Motivo ingreso / consulta" style="width:100%;padding:10px;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;margin-bottom:10px;">
+                        <textarea id="gpNotas" placeholder="Notas / pendientes / recordatorios de guardia..." style="width:100%;padding:10px;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;min-height:70px;resize:vertical;margin-bottom:10px;"></textarea>
+                        <div style="display:flex;gap:10px;">
+                            <button class="btn btn-primary btn-small" onclick="gpAdd()">🛏️ Añadir paciente</button>
+                            <button class="btn btn-secondary btn-small" onclick="gpClearForm()">Limpiar</button>
+                        </div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                        <h4 style="font-family:var(--font-display);color:var(--primary-dark);">🛏️ Lista de pacientes en guardia</h4>
+                        <div style="display:flex;gap:8px;">
+                            <button onclick="gpExport()" style="padding:6px 12px;background:var(--bg-subtle);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:.8rem;font-family:var(--font-body);font-weight:600;">📋 Copiar</button>
+                            <button onclick="if(confirm('¿Borrar todos los pacientes de guardia?'))gpClearAll()" style="padding:6px 12px;background:#fef2f2;border:1px solid #fca5a5;border-radius:var(--radius-sm);cursor:pointer;font-size:.8rem;font-family:var(--font-body);font-weight:600;color:#dc2626;">🗑️ Borrar todo</button>
+                        </div>
+                    </div>
+                    <div id="gpList"><div style="text-align:center;padding:30px;color:var(--text-muted);"><div style="font-size:2rem;margin-bottom:8px;opacity:.4;">🛏️</div><p style="font-size:.9rem;">No hay pacientes registrados en esta guardia</p></div></div>
+                </div>
                 <div id="studio" class="tab-content"><div class="studio-intro"><h4>AI Studio · Generador Clínico</h4><p>Genera contenido médico sobre <strong id="studioCategory">Cardiología</strong> con IA.</p></div><div class="studio-grid"><button class="studio-card" onclick="studioAction('resumen')"><div class="studio-card-icon">📋</div><div class="studio-card-title">Resumen ejecutivo</div><div class="studio-card-desc">Puntos clave</div></button><button class="studio-card" onclick="studioAction('faq')"><div class="studio-card-icon">❓</div><div class="studio-card-title">FAQ Clínico</div><div class="studio-card-desc">Preguntas frecuentes</div></button><button class="studio-card" onclick="studioAction('guia')"><div class="studio-card-icon">📖</div><div class="studio-card-title">Guía de estudio</div><div class="studio-card-desc">Conceptos y repaso</div></button><button class="studio-card" onclick="studioAction('diagnostico')"><div class="studio-card-icon">🩺</div><div class="studio-card-title">Diagnóstico diferencial</div><div class="studio-card-desc">Patologías principales</div></button><button class="studio-card" onclick="studioAction('farmacologia')"><div class="studio-card-icon">💊</div><div class="studio-card-title">Farmacología</div><div class="studio-card-desc">Fármacos y dosis</div></button><button class="studio-card" onclick="studioAction('emergencia')"><div class="studio-card-icon">🚨</div><div class="studio-card-title">Protocolo emergencia</div><div class="studio-card-desc">Actuación urgente</div></button></div><div id="studioResult" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-family:var(--font-display);color:var(--primary-dark)" id="studioResultTitle"></h4><button class="btn btn-primary btn-small" onclick="guardarStudioComoNota()">💾 Guardar</button></div><div id="studioResultContent" class="scrollbar" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;line-height:1.7;font-size:.92rem;white-space:pre-wrap;max-height:400px;overflow-y:auto;font-weight:300"></div></div></div>
                 <div id="recursos" class="tab-content"><div style="padding:16px 0;"><h3 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:20px;font-size:1.2rem">📋 Recursos Sociales</h3><p style="color:var(--text-light);margin-bottom:20px;font-size:.9rem">Formularios y documentos oficiales para prestaciones sociales, pensiones y servicios de dependencia.</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;"><a href="recursos-sociales-grado-dependencia.pdf" target="_blank" style="text-decoration:none;"><div style="background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s;text-align:center;hover:border-color:var(--primary)"><div style="font-size:1.8rem;margin-bottom:8px">📋</div><div style="font-weight:600;color:var(--primary-dark);font-size:.95rem;margin-bottom:4px">Grado de Dependencia</div><div style="font-size:.78rem;color:var(--text-muted)">2.0 MB · PDF</div></div></a><a href="recursos-sociales-ayuda-domicilio.pdf" target="_blank" style="text-decoration:none;"><div style="background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s;text-align:center"><div style="font-size:1.8rem;margin-bottom:8px">🏠</div><div style="font-weight:600;color:var(--primary-dark);font-size:.95rem;margin-bottom:4px">Ayuda a Domicilio</div><div style="font-size:.78rem;color:var(--text-muted)">825 KB · PDF</div></div></a><a href="recursos-sociales-servicios-domiciliarios.pdf" target="_blank" style="text-decoration:none;"><div style="background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s;text-align:center"><div style="font-size:1.8rem;margin-bottom:8px">👨‍⚕️</div><div style="font-weight:600;color:var(--primary-dark);font-size:.95rem;margin-bottom:4px">Servicios Domiciliarios</div><div style="font-size:.78rem;color:var(--text-muted)">213 KB · PDF</div></div></a><a href="recursos-sociales-pension-jubilacion.pdf" target="_blank" style="text-decoration:none;"><div style="background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s;text-align:center"><div style="font-size:1.8rem;margin-bottom:8px">💰</div><div style="font-weight:600;color:var(--primary-dark);font-size:.95rem;margin-bottom:4px">Pensión Jubilación</div><div style="font-size:.78rem;color:var(--text-muted)">1.9 MB · PDF</div></div></a><a href="recursos-sociales-punto-acceso.pdf" target="_blank" style="text-decoration:none;"><div style="background:var(--bg-card);border:2px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s;text-align:center"><div style="font-size:1.8rem;margin-bottom:8px">📞</div><div style="font-weight:600;color:var(--primary-dark);font-size:.95rem;margin-bottom:4px">PASS</div><div style="font-size:.78rem;color:var(--text-muted)">29 KB · PDF</div></div></a></div><div style="margin-top:24px;background:linear-gradient(135deg,var(--bg-dark),#243347);border-radius:var(--radius);padding:18px;color:#fff;font-size:.88rem;line-height:1.6;"><strong>☎️ Contacto Servicios Sociales</strong><br>📍 C/ Sor Francisca Armendáriz, s/n · Cartagena<br>📞 900 923 491<br>⏰ L-V 9:00-12:30 (presencial) / 9:00-13:00 (teléfono)<br><br><strong style="margin-top:10px;display:block">🌐 Sedes Electrónicas</strong><br><a href="https://www.cartagena.es" target="_blank" style="color:rgba(255,255,255,.8)">cartagena.es</a> · <a href="https://sede.carm.es" target="_blank" style="color:rgba(255,255,255,.8)">sede.carm.es</a></div></div></div>
                 <div id="config" class="tab-content"><div class="config-box"><h4>Proveedor de IA</h4><div class="config-row"><select id="cfgProvider" onchange="cambiarProvider()"><option value="groq">Groq (recomendado · ultra rápido)</option><option value="qwen">Qwen API directa (Alibaba Cloud)</option></select></div><div id="groqConfig"><p class="config-hint" style="margin-bottom:10px"><strong>Groq</strong> — Gratis, ultra rápido<br>1. <a href="https://console.groq.com" target="_blank">console.groq.com</a><br>2. Crea cuenta gratis<br>3. API Keys → Create<br>4. Pega key (<code>gsk_</code>)</p><div class="config-row"><input type="password" id="cfgGroqKey" placeholder="gsk_xxxxxxxxxxxx"></div><h4 style="margin-top:12px">Modelo</h4><div class="config-row"><select id="cfgGroqModel"><option value="qwen/qwen3-32b">Qwen3 32B</option><option value="llama-3.3-70b-versatile">Llama 3.3 70B</option><option value="deepseek-r1-distill-llama-70b">DeepSeek R1 70B</option><option value="gemma2-9b-it">Gemma 2 9B</option></select></div></div><div id="qwenConfig" style="display:none"><p class="config-hint" style="margin-bottom:10px"><strong>Qwen API</strong><br>1. <a href="https://www.alibabacloud.com/help/en/model-studio/get-api-key" target="_blank">Alibaba Cloud</a><br>2. Crea API Key (<code>sk-</code>)</p><div class="config-row"><input type="password" id="cfgQwenKey" placeholder="sk-xxxxxxxxxxxx"></div><h4 style="margin-top:12px">Modelo</h4><div class="config-row"><select id="cfgQwenModel"><option value="qwen-turbo">Qwen Turbo</option><option value="qwen-plus">Qwen Plus</option><option value="qwen3-32b">Qwen3 32B</option><option value="qwen-max">Qwen Max</option></select></div></div><div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-primary btn-small" onclick="guardarConfig()">💾 Guardar</button><button class="btn btn-secondary btn-small" onclick="testApiKey()">🧪 Probar</button></div><div id="cfgStatus" style="margin-top:12px"></div></div></div>
@@ -465,6 +499,7 @@
                 <button class="tab-btn tab-urg active" onclick="switchUrgTab('urg-trip',this)" style="cursor:pointer;color:#fff;">📄 Trípticos</button>
                 <button class="tab-btn tab-urg" onclick="switchUrgTab('urg-list',this)" style="cursor:pointer;color:rgba(255,255,255,.6);">📋 Protocolos</button>
                 <button class="tab-btn tab-urg" onclick="switchUrgTab('urg-ia',this)" style="cursor:pointer;color:rgba(255,255,255,.6);">🤖 Preguntas IA</button>
+                <button class="tab-btn tab-urg" onclick="switchUrgTab('urg-pacientes',this)" style="cursor:pointer;color:rgba(255,255,255,.6);">🛏️ Pacientes</button>
             </div>
             
             <!-- TRÍPTICOS VISUALES -->
@@ -876,6 +911,42 @@
                     <button onclick="urgQuickAsk('Compara los diagnósticos diferenciales')" style="padding:5px 12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:18px;font-size:.8rem;cursor:pointer;color:rgba(255,255,255,.8);font-family:var(--font-body);">🔍 Dx Diferencial</button>
                 </div>
                 <div id="urgPreguntasList"><div style="text-align:center;padding:30px;opacity:.5;"><div style="font-size:2rem;margin-bottom:8px;">🩺</div><p>Haz tu primera pregunta sobre urgencias</p></div></div>
+            </div>
+
+            <!-- PACIENTES GUARDIA (Urgencias) -->
+            <div id="urg-pacientes-content" class="urg-tab-content" style="display:none;margin-top:20px;">
+                <div style="background:rgba(255,193,7,.12);border:1px solid rgba(255,193,7,.35);border-radius:var(--radius);padding:14px 18px;font-size:.84rem;color:#ffc107;margin-bottom:20px;line-height:1.6;">
+                    🔒 <strong>Datos anonimizados.</strong> No incluyas nombre, DNI, NHC ni datos identificativos. Usa solo iniciales o número de cama. Los datos se guardan localmente en tu dispositivo.
+                </div>
+                <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:20px;margin-bottom:20px;">
+                    <h4 style="font-family:var(--font-display);margin-bottom:14px;">➕ Nuevo paciente de guardia</h4>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                        <input type="text" id="gpCamaUrg" placeholder="Cama / Box (ej: Box3, C12)" style="padding:10px;border:2px solid rgba(255,255,255,.15);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;background:rgba(255,255,255,.08);color:#fff;">
+                        <input type="text" id="gpIdUrg" placeholder="ID anónimo (ej: JM, Pac.3)" style="padding:10px;border:2px solid rgba(255,255,255,.15);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;background:rgba(255,255,255,.08);color:#fff;">
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                        <input type="text" id="gpEdadUrg" placeholder="Edad / Sexo (ej: 72M)" style="padding:10px;border:2px solid rgba(255,255,255,.15);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;background:rgba(255,255,255,.08);color:#fff;">
+                        <select id="gpPrioridadUrg" style="padding:10px;border:2px solid rgba(255,255,255,.15);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;background:rgba(255,255,255,.08);color:#fff;">
+                            <option value="normal">🟢 Normal</option>
+                            <option value="atento">🟡 Atento</option>
+                            <option value="urgente">🔴 Urgente</option>
+                        </select>
+                    </div>
+                    <input type="text" id="gpMotivoUrg" placeholder="Motivo ingreso / consulta" style="width:100%;padding:10px;border:2px solid rgba(255,255,255,.15);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;background:rgba(255,255,255,.08);color:#fff;margin-bottom:10px;">
+                    <textarea id="gpNotasUrg" placeholder="Notas / pendientes / recordatorios..." style="width:100%;padding:10px;border:2px solid rgba(255,255,255,.15);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.9rem;min-height:70px;resize:vertical;background:rgba(255,255,255,.08);color:#fff;margin-bottom:10px;"></textarea>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn btn-primary btn-small" onclick="gpAdd('Urg')">🛏️ Añadir paciente</button>
+                        <button class="btn btn-secondary btn-small" onclick="gpClearForm('Urg')">Limpiar</button>
+                    </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                    <h4 style="font-family:var(--font-display);">🛏️ Lista de pacientes en guardia</h4>
+                    <div style="display:flex;gap:8px;">
+                        <button onclick="gpExport('Urg')" style="padding:6px 12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-sm);cursor:pointer;font-size:.8rem;font-family:var(--font-body);font-weight:600;color:#fff;">📋 Copiar</button>
+                        <button onclick="if(confirm('¿Borrar todos los pacientes?'))gpClearAll('Urg')" style="padding:6px 12px;background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.4);border-radius:var(--radius-sm);cursor:pointer;font-size:.8rem;font-family:var(--font-body);font-weight:600;color:#fca5a5;">🗑️ Borrar todo</button>
+                    </div>
+                </div>
+                <div id="gpListUrg"><div style="text-align:center;padding:30px;opacity:.5;"><div style="font-size:2rem;margin-bottom:8px;">🛏️</div><p>No hay pacientes registrados en esta guardia</p></div></div>
             </div>
         </div>
         </div>
@@ -1755,6 +1826,7 @@ function switchUrgTab(tabName, btnEl) {
     document.querySelectorAll('.tab-urg').forEach(function(b){ b.classList.remove('active'); b.style.color='rgba(255,255,255,.6)'; });
     btnEl.classList.add('active');
     btnEl.style.color='#fff';
+    if(tabName==='urg-pacientes')gpRender('Urg');
 }
 
 function urgViewProtocol(id) {
@@ -1884,7 +1956,7 @@ async function studioAction(t){if(!isReady()||isProcessing)return;var c=studioPr
 function guardarStudioComoNota(){if(!lastSC)return;if(!notas[currentCategory])notas[currentCategory]=[];notas[currentCategory].push({texto:lastST+"\n\n"+lastSC,fecha:new Date().toLocaleString("es-ES")});guardarDatos();actualizarUI();alert("✅ Guardado")}
 function agregarNota(){var t=document.getElementById("noteInput").value.trim();if(!t)return;if(!notas[currentCategory])notas[currentCategory]=[];notas[currentCategory].push({texto:t,fecha:new Date().toLocaleString("es-ES")});document.getElementById("noteInput").value="";guardarDatos();actualizarUI();}
 function eliminarNota(i){if(!confirm("¿Eliminar?"))return;notas[currentCategory].splice(i,1);guardarDatos();actualizarUI();}
-function switchTab(n,b){document.querySelectorAll(".tab-content").forEach(function(t){t.classList.remove("active")});document.querySelectorAll(".tab-btn").forEach(function(x){x.classList.remove("active")});document.getElementById(n).classList.add("active");if(b)b.classList.add("active");}
+function switchTab(n,b){document.querySelectorAll(".tab-content").forEach(function(t){t.classList.remove("active")});document.querySelectorAll(".tab-btn").forEach(function(x){x.classList.remove("active")});document.getElementById(n).classList.add("active");if(b)b.classList.add("active");if(n==="guardiaPacientes")gpRender("");}
 function cambiarCategoria(c,b){currentCategory=c;document.querySelectorAll(".category-btn").forEach(function(x){x.classList.remove("active")});if(b)b.classList.add("active");document.getElementById("categoryTitle").textContent=c;var sc=document.getElementById("studioCategory");if(sc)sc.textContent=c;switchTab("preguntas",document.querySelector(".tab-btn"));actualizarUI();}
 function esc(t){if(!t)return"";return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function actualizarUI(){var docs=documents[currentCategory]||[];document.getElementById("documentosList").innerHTML=docs.length===0?'<div class="empty-state"><div class="empty-state-icon">📄</div><p>No hay documentos</p></div>':docs.map(function(d){return'<div class="doc-item"><div><div class="doc-name">'+d.name+'</div><div class="doc-size">'+d.size_mb+' MB · '+d.type+'</div></div><a href="'+d.url+'" target="_blank" class="doc-btn">Abrir</a></div>'}).join("");document.getElementById("docsCount").textContent=docs.length;document.getElementById("preguntasCount").textContent=(preguntas[currentCategory]||[]).length;document.getElementById("notasCount").textContent=(notas[currentCategory]||[]).length;var pa=preguntas[currentCategory]||[],pl=document.getElementById("preguntasList");pl.innerHTML=pa.length===0?'<div class="empty-state"><div class="empty-state-icon">🩺</div><p>Haz tu primera pregunta</p></div>':pa.map(function(p){return'<div class="question-box"><div class="question-text">'+esc(p.pregunta)+'</div><div class="answer-text">'+esc(p.respuesta)+'</div><div class="note-time">'+p.fecha+'</div></div>'}).join("");var na=notas[currentCategory]||[],nl=document.getElementById("notasList");nl.innerHTML=na.length===0?'<div class="empty-state"><div class="empty-state-icon">📝</div><p>Sin notas</p></div>':na.map(function(n,i){return'<div class="question-box" style="border-left-color:var(--accent)"><div style="font-size:.92rem;white-space:pre-wrap;padding-right:30px;font-weight:300;line-height:1.6">'+esc(n.texto)+'</div><div class="note-time">'+n.fecha+'</div><button onclick="eliminarNota('+i+')" style="position:absolute;top:12px;right:12px;background:none;border:none;cursor:pointer;opacity:.35">🗑️</button></div>'}).join("");}
@@ -2342,7 +2414,104 @@ function nihFallbackSVG(label){
 }
 
 // ═══ TELÉFONOS BUSCAS ═══
-var TEL_DATA=[];// Will be populated when admin uploads data
+var TEL_DATA=[];
+
+// ═══ PACIENTES GUARDIA ═══
+var GP_DATA={prof:[],urg:[]};
+try{var gd=localStorage.getItem("guardia_pacientes_v1");if(gd)GP_DATA=JSON.parse(gd);}catch(e){}
+
+function gpSave(){localStorage.setItem("guardia_pacientes_v1",JSON.stringify(GP_DATA));}
+
+function gpAdd(suffix){
+    suffix=suffix||"";
+    var cama=document.getElementById("gpCama"+suffix).value.trim();
+    var id=document.getElementById("gpId"+suffix).value.trim();
+    var edad=document.getElementById("gpEdad"+suffix).value.trim();
+    var prioridad=document.getElementById("gpPrioridad"+suffix).value;
+    var motivo=document.getElementById("gpMotivo"+suffix).value.trim();
+    var notas=document.getElementById("gpNotas"+suffix).value.trim();
+    if(!cama&&!id&&!motivo){alert("Rellena al menos cama, ID o motivo.");return;}
+    var p={cama:cama,id:id,edad:edad,prioridad:prioridad,motivo:motivo,notas:notas,hora:new Date().toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"}),ts:Date.now()};
+    var key=suffix==="Urg"?"urg":"prof";
+    GP_DATA[key].push(p);
+    gpSave();gpRender(suffix);gpClearForm(suffix);
+}
+
+function gpClearForm(suffix){
+    suffix=suffix||"";
+    ["gpCama","gpId","gpEdad","gpMotivo","gpNotas"].forEach(function(f){var el=document.getElementById(f+suffix);if(el)el.value="";});
+    var sel=document.getElementById("gpPrioridad"+suffix);if(sel)sel.value="normal";
+}
+
+function gpDelete(key,idx){
+    GP_DATA[key].splice(idx,1);gpSave();
+    gpRender(key==="urg"?"Urg":"");
+}
+
+function gpToggleDone(key,idx){
+    GP_DATA[key][idx].done=!GP_DATA[key][idx].done;gpSave();
+    gpRender(key==="urg"?"Urg":"");
+}
+
+function gpRender(suffix){
+    suffix=suffix||"";
+    var key=suffix==="Urg"?"urg":"prof";
+    var list=GP_DATA[key]||[];
+    var el=document.getElementById("gpList"+suffix);
+    if(!list.length){
+        el.innerHTML='<div style="text-align:center;padding:30px;color:var(--text-muted);opacity:.6;"><div style="font-size:2rem;margin-bottom:8px;">🛏️</div><p style="font-size:.9rem;">No hay pacientes registrados en esta guardia</p></div>';
+        return;
+    }
+    var prioOrder={urgente:0,atento:1,normal:2};
+    var sorted=list.map(function(p,i){return{p:p,i:i};}).sort(function(a,b){return(prioOrder[a.p.prioridad]||2)-(prioOrder[b.p.prioridad]||2);});
+    var prioColors={urgente:{bg:"#fef2f2",border:"#dc2626",dot:"🔴"},atento:{bg:"#fffbeb",border:"#f59e0b",dot:"🟡"},normal:{bg:suffix?"rgba(255,255,255,.06)":"var(--bg-card)",border:suffix?"rgba(255,255,255,.12)":"var(--border)",dot:"🟢"}};
+    var isDark=suffix==="Urg";
+    var html=sorted.map(function(item){
+        var p=item.p,i=item.i;
+        var pc=prioColors[p.prioridad]||prioColors.normal;
+        var doneStyle=p.done?"opacity:.5;text-decoration:line-through;":"";
+        return '<div style="background:'+(isDark?"rgba(255,255,255,.04)":pc.bg)+';border:1px solid '+(isDark?"rgba(255,255,255,.1)":pc.border)+';border-left:4px solid '+(p.prioridad==="urgente"?"#dc2626":p.prioridad==="atento"?"#f59e0b":"#4caf50")+';border-radius:var(--radius-sm);padding:14px;margin-bottom:8px;'+doneStyle+'">'+
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">'+
+        '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">'+
+        '<span style="font-size:.85rem;">'+pc.dot+'</span>'+
+        (p.cama?'<span style="background:'+(isDark?"rgba(255,255,255,.12)":"var(--bg-subtle)")+';padding:3px 8px;border-radius:4px;font-weight:700;font-size:.85rem;">'+p.cama+'</span>':'')+
+        (p.id?'<span style="font-weight:600;font-size:.9rem;">'+p.id+'</span>':'')+
+        (p.edad?'<span style="font-size:.82rem;color:'+(isDark?"rgba(255,255,255,.5)":"var(--text-muted)")+';">'+p.edad+'</span>':'')+
+        '<span style="font-size:.78rem;color:'+(isDark?"rgba(255,255,255,.35)":"var(--text-muted)")+';">⏰ '+p.hora+'</span>'+
+        '</div>'+
+        '<div style="display:flex;gap:4px;">'+
+        '<button onclick="gpToggleDone(\''+key+'\','+i+')" style="background:none;border:none;cursor:pointer;font-size:1rem;padding:2px;" title="'+(p.done?"Desmarcar":"Marcar como hecho")+'">'+(p.done?"↩️":"✅")+'</button>'+
+        '<button onclick="if(confirm(\'¿Eliminar?\'))gpDelete(\''+key+'\','+i+')" style="background:none;border:none;cursor:pointer;font-size:1rem;padding:2px;" title="Eliminar">🗑️</button>'+
+        '</div></div>'+
+        (p.motivo?'<div style="font-size:.88rem;font-weight:600;margin-bottom:4px;'+(isDark?"color:#fff;":"")+'">'+p.motivo+'</div>':'')+
+        (p.notas?'<div style="font-size:.84rem;color:'+(isDark?"rgba(255,255,255,.65)":"var(--text-light)")+';line-height:1.5;">'+p.notas.replace(/\n/g,"<br>")+'</div>':'')+
+        '</div>';
+    }).join("");
+    el.innerHTML=html;
+}
+
+function gpExport(suffix){
+    suffix=suffix||"";
+    var key=suffix==="Urg"?"urg":"prof";
+    var list=GP_DATA[key]||[];
+    if(!list.length){alert("No hay pacientes para copiar.");return;}
+    var txt="PACIENTES GUARDIA — "+new Date().toLocaleDateString("es-ES")+"\n"+("=").repeat(40)+"\n\n";
+    list.forEach(function(p,i){
+        txt+=(i+1)+". "+(p.cama||"")+" | "+(p.id||"")+" | "+(p.edad||"")+" | "+({urgente:"🔴 URGENTE",atento:"🟡 ATENTO",normal:"🟢 Normal"}[p.prioridad]||"")+"\n";
+        if(p.motivo)txt+="   Motivo: "+p.motivo+"\n";
+        if(p.notas)txt+="   Notas: "+p.notas+"\n";
+        txt+="   Hora: "+p.hora+(p.done?" ✅ HECHO":"")+"\n\n";
+    });
+    navigator.clipboard.writeText(txt).then(function(){alert("📋 Lista copiada al portapapeles");}).catch(function(){
+        var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);alert("📋 Lista copiada");
+    });
+}
+
+function gpClearAll(suffix){
+    suffix=suffix||"";
+    var key=suffix==="Urg"?"urg":"prof";
+    GP_DATA[key]=[];gpSave();gpRender(suffix);
+}// Will be populated when admin uploads data
 try{var td=localStorage.getItem("tel_buscas_v1");if(td)TEL_DATA=JSON.parse(td);}catch(e){}
 
 function renderTelefonos(data){
