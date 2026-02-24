@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descargar App - Área II Cartagena</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0f1a;color:#e0e0e0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.card{background:#111827;border-radius:20px;padding:40px 30px;max-width:480px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.icon{width:100px;height:100px;border-radius:22px;margin:0 auto 20px;display:block}
+h1{font-size:1.5rem;margin-bottom:6px;color:#fff}
+.subtitle{color:#0f6b4a;font-size:.9rem;font-weight:600;margin-bottom:20px}
+.version{background:#1e293b;display:inline-block;padding:4px 14px;border-radius:20px;font-size:.78rem;color:#94a3b8;margin-bottom:24px}
+.features{text-align:left;margin:20px 0;padding:0 10px}
+.features div{padding:8px 0;border-bottom:1px solid #1e293b;font-size:.88rem;display:flex;align-items:center;gap:10px}
+.features div:last-child{border:none}
+.features span{font-size:1.1rem}
+.btn-download{display:block;width:100%;padding:16px;border:none;border-radius:14px;font-size:1.05rem;font-weight:700;cursor:pointer;text-decoration:none;margin-top:10px;transition:transform .15s,box-shadow .15s}
+.btn-download:active{transform:scale(.97)}
+.btn-android{background:linear-gradient(135deg,#0f6b4a,#0a9f6a);color:#fff;box-shadow:0 4px 20px rgba(15,107,74,.4)}
+.btn-android:hover{box-shadow:0 6px 30px rgba(15,107,74,.6)}
+.btn-pwa{background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;margin-top:12px;box-shadow:0 4px 20px rgba(59,130,246,.3)}
+.btn-ios{background:linear-gradient(135deg,#374151,#6b7280);color:#fff;margin-top:12px}
+.size{font-size:.75rem;color:#64748b;margin-top:6px}
+.divider{border-top:1px solid #1e293b;margin:24px 0;position:relative}
+.divider span{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#111827;padding:0 12px;font-size:.78rem;color:#64748b}
+.instructions{background:#0f172a;border-radius:12px;padding:16px;margin-top:16px;text-align:left;font-size:.82rem;line-height:1.6;color:#94a3b8}
+.instructions strong{color:#e0e0e0}
+.footer{margin-top:24px;font-size:.72rem;color:#475569;line-height:1.5}
+.badge{display:inline-flex;align-items:center;gap:6px;background:#1e293b;padding:6px 12px;border-radius:8px;font-size:.78rem;color:#94a3b8;margin:4px}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <img src="icons/icon-192x192.png" alt="Área II" class="icon">
+    <h1>🏥 Área II Cartagena</h1>
+    <div class="subtitle">Centro de Salud · Servicio Murciano de Salud</div>
+    <div class="version">v1.0.0 · Febrero 2026</div>
+
+    <div class="features">
+        <div><span>🚨</span> 77 protocolos de urgencias</div>
+        <div><span>📋</span> 10 unidades de Atención Primaria</div>
+        <div><span>🔬</span> Herramientas IA docentes (6 modalidades)</div>
+        <div><span>👨‍⚕️</span> Gestión pacientes guardia</div>
+        <div><span>📞</span> Directorio teléfonos hospital</div>
+        <div><span>✈️</span> Funciona sin conexión</div>
+    </div>
+
+    <!-- Android APK -->
+    <a href="downloads/Area-II-Cartagena-v1.0.0.apk" class="btn-download btn-android" download>
+        📱 Descargar para Android (.apk)
+    </a>
+    <div class="size">1.1 MB · Android 7.0+</div>
+
+    <div class="divider"><span>o también</span></div>
+
+    <!-- PWA -->
+    <a href="notebook-local.html" class="btn-download btn-pwa">
+        🌐 Abrir como Web App (PWA)
+    </a>
+    <div class="size">Se instala desde el navegador · Android, iPhone, PC</div>
+
+    <!-- iOS instructions -->
+    <div class="instructions">
+        <strong>📱 iPhone / iPad:</strong><br>
+        1. Abre <a href="notebook-local.html" style="color:#3b82f6">la webapp</a> en <strong>Safari</strong><br>
+        2. Pulsa el botón <strong>Compartir</strong> ⬆<br>
+        3. Selecciona <strong>"Añadir a pantalla de inicio"</strong><br>
+        4. ¡Listo! Se instala como app con icono propio
+    </div>
+
+    <div class="instructions" style="margin-top:10px;">
+        <strong>🤖 Android (APK):</strong><br>
+        1. Descarga el APK de arriba<br>
+        2. Abre el archivo descargado<br>
+        3. Si pide permiso: <strong>Ajustes → Permitir esta fuente</strong><br>
+        4. Pulsa <strong>Instalar</strong> → ¡Listo!
+    </div>
+
+    <div style="margin-top:20px;">
+        <span class="badge">🔒 Login Google</span>
+        <span class="badge">🔥 Firebase</span>
+        <span class="badge">🤖 IA Groq</span>
+    </div>
+
+    <div class="footer">
+        Finalidad exclusivamente docente e informativa.<br>
+        No sustituye el juicio clínico profesional.<br><br>
+        Área II Cartagena · SMS · 2026
+    </div>
+</div>
+
+</body>
+</html>
