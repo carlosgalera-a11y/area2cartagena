@@ -1,16 +1,27 @@
 {
+  "id": "/Cartagenaeste/notebook-local.html",
   "name": "Área II Cartagena - Centro de Salud",
   "short_name": "Área II",
-  "description": "Protocolos médicos, herramientas clínicas y recursos del Área II Cartagena. Urgencias, Atención Primaria, IA diagnóstica docente.",
+  "description": "Protocolos médicos, herramientas clínicas con IA docente y recursos del Área II Cartagena. 77 protocolos de urgencias, 10 unidades de Atención Primaria, análisis de imagen médica, gestión de pacientes y directorio hospitalario.",
   "start_url": "/Cartagenaeste/notebook-local.html",
   "scope": "/Cartagenaeste/",
   "display": "standalone",
+  "display_override": ["standalone", "window-controls-overlay", "minimal-ui"],
   "background_color": "#0a0f1a",
   "theme_color": "#0f6b4a",
   "orientation": "portrait-primary",
-  "lang": "es",
+  "lang": "es-ES",
   "dir": "ltr",
   "categories": ["medical", "health", "education"],
+  "iarc_rating_id": "",
+  "prefer_related_applications": false,
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "edge_side_panel": {
+    "preferred_width": 480
+  },
+  "handle_links": "preferred",
   "icons": [
     { "src": "icons/icon-72x72.png", "sizes": "72x72", "type": "image/png", "purpose": "any" },
     { "src": "icons/icon-96x96.png", "sizes": "96x96", "type": "image/png", "purpose": "any" },
@@ -22,5 +33,76 @@
     { "src": "icons/icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "icons/icon-192x192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
     { "src": "icons/icon-512x512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    {
+      "src": "icons/screenshot-mobile.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Pantalla principal con acceso a protocolos, herramientas y pacientes"
+    },
+    {
+      "src": "icons/screenshot-wide.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Vista de escritorio con protocolos de urgencias y herramientas IA"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Protocolos Urgencias",
+      "short_name": "Urgencias",
+      "description": "77 protocolos clínicos de urgencias",
+      "url": "/Cartagenaeste/notebook-local.html#urgencias",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Herramientas IA",
+      "short_name": "IA Médica",
+      "description": "Análisis de imagen médica con IA docente",
+      "url": "/Cartagenaeste/notebook-local.html#herramientas",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Pacientes Guardia",
+      "short_name": "Pacientes",
+      "description": "Gestión de pacientes anonimizados",
+      "url": "/Cartagenaeste/notebook-local.html#pacientes",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Teléfonos Hospital",
+      "short_name": "Teléfonos",
+      "description": "Directorio de buscas y extensiones",
+      "url": "/Cartagenaeste/notebook-local.html#telefonos",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    }
+  ],
+  "share_target": {
+    "action": "/Cartagenaeste/notebook-local.html",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+area2",
+      "url": "/Cartagenaeste/notebook-local.html?protocol=%s"
+    }
+  ],
+  "related_applications": [],
+  "widgets": [
+    {
+      "name": "Guardia Rápida",
+      "description": "Acceso rápido a pacientes de guardia",
+      "tag": "guardia",
+      "ms_ac_template": "https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    }
   ]
 }
