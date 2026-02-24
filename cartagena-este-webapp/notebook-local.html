@@ -2088,7 +2088,7 @@ function switchTab(n,b){document.querySelectorAll(".tab-content").forEach(functi
 function cambiarCategoria(c,b){currentCategory=c;document.querySelectorAll(".category-btn").forEach(function(x){x.classList.remove("active")});if(b)b.classList.add("active");document.getElementById("categoryTitle").textContent=c;var sc=document.getElementById("studioCategory");if(sc)sc.textContent=c;switchTab("preguntas",document.querySelector(".tab-btn"));actualizarUI();}
 function esc(t){if(!t)return"";return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function actualizarUI(){var docs=documents[currentCategory]||[];document.getElementById("documentosList").innerHTML=docs.length===0?'<div class="empty-state"><div class="empty-state-icon">📄</div><p>No hay documentos</p></div>':docs.map(function(d){return'<div class="doc-item"><div><div class="doc-name">'+d.name+'</div><div class="doc-size">'+d.size_mb+' MB · '+d.type+'</div></div><a href="'+d.url+'" target="_blank" class="doc-btn">Abrir</a></div>'}).join("");document.getElementById("docsCount").textContent=docs.length;document.getElementById("preguntasCount").textContent=(preguntas[currentCategory]||[]).length;document.getElementById("notasCount").textContent=(notas[currentCategory]||[]).length;var pa=preguntas[currentCategory]||[],pl=document.getElementById("preguntasList");pl.innerHTML=pa.length===0?'<div class="empty-state"><div class="empty-state-icon">🩺</div><p>Haz tu primera pregunta</p></div>':pa.map(function(p){return'<div class="question-box"><div class="question-text">'+esc(p.pregunta)+'</div><div class="answer-text">'+esc(p.respuesta)+'</div><div class="note-time">'+p.fecha+'</div></div>'}).join("");var na=notas[currentCategory]||[],nl=document.getElementById("notasList");nl.innerHTML=na.length===0?'<div class="empty-state"><div class="empty-state-icon">📝</div><p>Sin notas</p></div>':na.map(function(n,i){return'<div class="question-box" style="border-left-color:var(--accent)"><div style="font-size:.92rem;white-space:pre-wrap;padding-right:30px;font-weight:300;line-height:1.6">'+esc(n.texto)+'</div><div class="note-time">'+n.fecha+'</div><button onclick="eliminarNota('+i+')" style="position:absolute;top:12px;right:12px;background:none;border:none;cursor:pointer;opacity:.35">🗑️</button></div>'}).join("");}
-function guardarConfig(){CONFIG.provider=document.getElementById("cfgProvider").value;CONFIG.groqKey=document.getElementById("cfgGroqKey").value.trim();CONFIG.groqModel=document.getElementById("cfgGroqModel").value;CONFIG.qwenKey=document.getElementById("cfgQwenKey").value.trim();CONFIG.qwenModel=document.getElementById("cfgQwenModel").value;localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));updateStatus();document.getElementById("cfgStatus").innerHTML='<span style="color:var(--primary)">✅ Guardado</span>';}
+function guardarConfig(){CONFIG.provider=document.getElementById("cfgProvider").value;CONFIG.groqKey=document.getElementById("cfgGroqKey").value.trim();CONFIG.groqModel=document.getElementById("cfgGroqModel").value;CONFIG.qwenKey=document.getElementById("cfgQwenKey").value.trim();CONFIG.qwenModel=document.getElementById("cfgQwenModel").value;localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));if(CONFIG.groqKey&&isAdmin())saveGroqKeyToFirestore(CONFIG.groqKey);updateStatus();document.getElementById("cfgStatus").innerHTML='<span style="color:var(--primary)">✅ Guardado</span>';}
 async function testApiKey(){guardarConfig();if(!isReady()){document.getElementById("cfgStatus").innerHTML='<span style="color:#dc2626">❌ Key inválida</span>';return;}var st=document.getElementById("cfgStatus");st.innerHTML='<span style="color:var(--accent)">⏳ Probando...</span>';var e=ep();try{var r=await fetchWithCorsProxy(e.url,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+e.getKey()},body:JSON.stringify({model:e.getModel(),messages:[{role:"user",content:"Di: OK"}],max_tokens:10})});if(r.ok)st.innerHTML='<span style="color:var(--primary)">✅ ¡Conexión exitosa!</span>';else if(r.status===401)st.innerHTML='<span style="color:#dc2626">❌ Key inválida</span>';else{var err=await r.json().catch(function(){return{}});st.innerHTML='<span style="color:#dc2626">❌ Error '+r.status+"</span>";}}catch(err){st.innerHTML='<span style="color:#dc2626">❌ '+err.message+"</span>";}}
 function guardarDatos(){localStorage.setItem("cartagena_preguntas",JSON.stringify(preguntas));localStorage.setItem("cartagena_notas",JSON.stringify(notas));}
 function cargarDatos(){try{preguntas=JSON.parse(localStorage.getItem("cartagena_preguntas"))||{};}catch(e){preguntas={};}try{notas=JSON.parse(localStorage.getItem("cartagena_notas"))||{};}catch(e){notas={};}}
@@ -2113,10 +2113,24 @@ var SCAN_PWD="gmail";
 var scanType="derma";
 var scanB64=null;
 var scanHist=JSON.parse(localStorage.getItem("scan_hist_v2")||"[]");
-var SCAN_GROQ_KEY_DEFAULT="[REDACTED_GROQ_KEY_2_2026-04-21]";
+var SCAN_GROQ_KEY_DEFAULT="";
 var SCAN_GROQ_MODEL_DEFAULT="meta-llama/llama-4-scout-17b-16e-instruct";
 function getScanGroqKey(){return CONFIG.groqKey||SCAN_GROQ_KEY_DEFAULT;}
 function getScanGroqModel(){return SCAN_GROQ_MODEL_DEFAULT;}
+
+// Guardar/cargar key de referencia en Firestore
+function saveGroqKeyToFirestore(key){
+    if(!key)return;
+    try{db.collection("config").doc("groq_api_key").set({key:key,updatedAt:new Date(),updatedBy:(firebase.auth().currentUser||{}).email||"system"},{merge:true});}catch(e){console.error("Firestore key save error:",e);}
+}
+function loadGroqKeyFromFirestore(){
+    try{db.collection("config").doc("groq_api_key").get().then(function(doc){
+        if(doc.exists&&doc.data().key){
+            SCAN_GROQ_KEY_DEFAULT=doc.data().key;
+            console.log("Groq key loaded from Firestore");
+        }
+    }).catch(function(e){console.log("No Firestore key found");});}catch(e){}
+}
 var SCAN_GROQ_KEY=getScanGroqKey();
 var SCAN_GROQ_MODEL=SCAN_GROQ_MODEL_DEFAULT;
 var SCAN_PROMPTS={
@@ -2727,6 +2741,28 @@ const firebaseConfig={
 
 firebase.initializeApp(firebaseConfig);
 const db=firebase.firestore();
+
+// Cargar key de referencia desde Firestore
+loadGroqKeyFromFirestore();
+
+// Cuando admin inicia sesión, si no hay key en Firestore, pedir que la introduzca
+firebase.auth().onAuthStateChanged(function(user){
+    if(user&&user.email==="ramongalera22@gmail.com"){
+        checkAdminStatus();
+        setTimeout(function(){
+            if(!SCAN_GROQ_KEY_DEFAULT&&!CONFIG.groqKey){
+                var k=prompt("🔑 Admin: Introduce la API Key de Groq para guardarla en la base de datos.\n\nLa key empieza por gsk_...");
+                if(k&&k.startsWith("gsk_")){
+                    SCAN_GROQ_KEY_DEFAULT=k;
+                    saveGroqKeyToFirestore(k);
+                    CONFIG.groqKey=k;
+                    localStorage.setItem("notebook_ai_cfg_v3",JSON.stringify(CONFIG));
+                    alert("✅ Key guardada en Firestore y configuración local.");
+                }
+            }
+        },2000);
+    }
+});
 
 // Handle redirect result (for mobile where popup is blocked)
 firebase.auth().getRedirectResult().then(function(result){
