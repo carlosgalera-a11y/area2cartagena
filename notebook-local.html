@@ -1047,7 +1047,7 @@
 
 <!-- ═══════ TELÉFONOS BUSCAS PAGE ═══════ -->
 <div class="page" id="pageTelefonos">
-    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button></div></nav>
+    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button><button class="page-back" id="loginBtnTelefonos" onclick="showLoginModal()" style="background: linear-gradient(135deg, #1a6b4a, #238c62); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: .85rem; font-family: var(--font-body);">🔐 Admin Login</button></div></nav>
     <div style="flex:1;overflow-y:auto;background:var(--bg-main);padding:40px 20px;">
         <div style="max-width:800px;margin:0 auto;">
             <div style="background:linear-gradient(135deg,#d4a853,#b8912e);border-radius:var(--radius);padding:28px;color:#fff;margin-bottom:28px;position:relative;overflow:hidden;">
@@ -2004,10 +2004,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // ═══ PAGE NAVIGATION ═══
+var PAGES_REQUIRE_LOGIN=["pageTelefonos","pageProtocolosAP"];
 function showPage(id){
+    if(PAGES_REQUIRE_LOGIN.indexOf(id)!==-1){
+        var user=firebase.auth().currentUser;
+        if(!user){
+            pendingPageAfterLogin=id;
+            try{
+                document.getElementById("scanLoginModal").style.display="flex";
+                document.getElementById("scanLoginError").style.display="none";
+            }catch(e){console.error(e);}
+            return;
+        }
+        logPageAccess(id,user);
+    }
     document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active")});
     document.getElementById(id).classList.add("active");
     if(id==="pageProfessionals")initProfessionals();
+}
+var pendingPageAfterLogin=null;
+function logPageAccess(pageId,user){
+    try{
+        db.collection("accesos_profesionales").add({
+            pagina:pageId,
+            email:user.email||"",
+            nombre:user.displayName||"",
+            uid:user.uid,
+            fecha:new Date(),
+            timestamp:Date.now()
+        });
+    }catch(e){console.error("Log access error:",e);}
 }
 
 // ═══ PROFESSIONALS LOGIC (all existing code) ═══
@@ -2106,7 +2132,13 @@ function scanGoogleLogin(){
     firebase.auth().signInWithPopup(provider).then(function(result){
         console.log("Login success:",result.user.email);
         document.getElementById("scanLoginModal").style.display="none";
-        showPage("pageScanIA");scanRenderHist();
+        if(pendingPageAfterLogin){
+            var pg=pendingPageAfterLogin;pendingPageAfterLogin=null;
+            logPageAccess(pg,result.user);
+            showPage(pg);
+        }else{
+            showPage("pageScanIA");scanRenderHist();
+        }
     }).catch(function(error){
         console.error("Google login error:",error);
         if(error.code==="auth/popup-blocked"||error.code==="auth/popup-closed-by-browser"){
@@ -2494,7 +2526,23 @@ var TEL_DATA=[];
 var GP_DATA={prof:[],urg:[]};
 try{var gd=localStorage.getItem("guardia_pacientes_v1");if(gd)GP_DATA=JSON.parse(gd);}catch(e){}
 
-function gpSave(){localStorage.setItem("guardia_pacientes_v1",JSON.stringify(GP_DATA));}
+function gpSave(){
+    localStorage.setItem("guardia_pacientes_v1",JSON.stringify(GP_DATA));
+    try{
+        var user=firebase.auth().currentUser;
+        if(user){
+            db.collection("guardia_cambios").add({
+                email:user.email||"",
+                nombre:user.displayName||"",
+                uid:user.uid,
+                pacientes_prof:GP_DATA.prof.length,
+                pacientes_urg:GP_DATA.urg.length,
+                fecha:new Date(),
+                timestamp:Date.now()
+            });
+        }
+    }catch(e){console.error("Firestore gpSave log error:",e);}
+}
 
 function gpAdd(suffix){
     suffix=suffix||"";
@@ -2652,7 +2700,13 @@ const db=firebase.firestore();
 firebase.auth().getRedirectResult().then(function(result){
     if(result.user){
         console.log("Redirect login success:",result.user.email);
-        showPage("pageScanIA");scanRenderHist();
+        if(pendingPageAfterLogin){
+            var pg=pendingPageAfterLogin;pendingPageAfterLogin=null;
+            logPageAccess(pg,result.user);
+            showPage(pg);
+        }else{
+            showPage("pageScanIA");scanRenderHist();
+        }
     }
 }).catch(function(e){console.log("No redirect result:",e);});
 
