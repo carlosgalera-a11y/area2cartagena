@@ -113,7 +113,47 @@ select{cursor:pointer;padding-right:36px;background-image:url("data:image/svg+xm
 .lo button:hover{color:var(--error);background:var(--error-light)}
 .footer{text-align:center;padding:16px;font-size:9px;color:var(--sub)}
 .footer a{color:var(--accent);text-decoration:none;font-weight:600}
-@media(max-width:480px){.or{flex-direction:column;gap:10px}}
+@media(max-width:480px){.or{flex-direction:column;gap:10px}.dk-row{flex-direction:column;gap:10px}}
+
+/* Dark Publisher */
+.dk{background:#0d1520;border-radius:0 0 14px 14px;overflow:hidden}
+.dk-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #1e2d42}
+.dk-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#0ea5e9,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.dk-title{font-size:14px;font-weight:800;color:#e2e8f0}
+.dk-sub{font-size:10px;color:#64748b;margin-top:1px}
+.dk-body{padding:18px}
+.dk-label{display:block;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.dk-ta{width:100%;min-height:100px;padding:14px;background:#131d2e;border:1px solid #1e2d42;border-radius:10px;color:#cbd5e1;font-family:inherit;font-size:13px;line-height:1.6;resize:vertical;outline:none;transition:border .2s}
+.dk-ta:focus{border-color:#0ea5e9}
+.dk-ta::placeholder{color:#475569}
+.dk-drop{border:2px dashed #1e2d42;border-radius:10px;padding:18px;text-align:center;cursor:pointer;transition:all .2s;margin:14px 0 8px;background:#0a1018}
+.dk-drop:hover,.dk-drop.drag{border-color:#0ea5e9;background:#0c1525}
+.dk-drop-t{font-size:12px;font-weight:700;color:#94a3b8;margin-top:4px}
+.dk-drop-s{font-size:10px;color:#475569}
+.dk-drop input{display:none}
+.dk-fi{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#131d2e;border:1px solid #1e2d42;border-radius:8px;margin-bottom:4px}
+.dk-fi .ic{font-size:14px;flex-shrink:0}
+.dk-fi .nm{flex:1;font-size:11px;font-weight:600;color:#94a3b8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dk-fi .sz{font-size:9px;color:#475569;margin-left:4px;flex-shrink:0}
+.dk-fi .rm{width:22px;height:22px;border-radius:6px;border:none;background:#1e1e2e;color:#f87171;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.dk-fi .rm:hover{background:#f87171;color:#fff}
+.dk-row{display:flex;gap:12px;margin:14px 0}
+.dk-row>div{flex:1}
+.dk-sel{width:100%;padding:10px 12px;background:#131d2e;border:1px solid #1e2d42;border-radius:10px;color:#94a3b8;font-family:inherit;font-size:12px;font-weight:600;outline:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.dk-sel:focus{border-color:#0ea5e9}
+.dk-pub{width:100%;padding:14px;border:none;border-radius:10px;background:linear-gradient(135deg,#0ea5e9,#06b6d4);color:#0c1525;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(14,165,233,.3)}
+.dk-pub:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(14,165,233,.4)}
+.dk-pub:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.dk-pub .sp{display:inline-block;width:14px;height:14px;border:2.5px solid rgba(12,21,37,.3);border-top-color:#0c1525;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:6px}
+.dk-log{display:flex;align-items:flex-start;gap:6px;padding:4px 0;font-size:11px;color:#64748b}
+.dk-log.ok{color:#34d399}
+.dk-log.err{color:#f87171}
+.dk-log .gi{flex-shrink:0;margin-top:1px}
+.dk-suc{background:#06291e;border:1px solid #065f46;border-radius:10px;padding:14px;margin-top:14px}
+.dk-suc h3{font-size:13px;font-weight:800;color:#34d399;margin-bottom:4px}
+.dk-suc .pt{font-size:12px;font-weight:700;color:#e2e8f0;margin-bottom:6px}
+.dk-suc a{color:#38bdf8;font-size:11px;font-weight:600;word-break:break-all}
+.dk-suc .nb{display:inline-flex;margin-top:10px;padding:8px 16px;background:#0ea5e9;color:#0c1525;border:none;border-radius:8px;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer}
 @media print{#loginOverlay,.tabs,.footer,.lo,#pPub{display:none!important}#pQR{display:block!important}body{background:#fff}.header{background:#fff!important}.hdr h1{color:#000!important}.hdr p,.hdr .badge{display:none}.panel{border:none;box-shadow:none}.sg,.lbx{display:none}.po{display:block!important;text-align:center;margin-top:16px;font-size:14px;font-weight:700;color:#333}}
 .po{display:none}
 </style>
@@ -152,6 +192,7 @@ select{cursor:pointer;padding-right:36px;background-image:url("data:image/svg+xm
 <div class="tabs">
 <div class="tab active" onclick="stab('pub')"><span class="ti">✏️</span>Publicar</div>
 <div class="tab" onclick="stab('qr')"><span class="ti">📱</span>QR y Enlace</div>
+<div class="tab" onclick="stab('dark')"><span class="ti">⚡</span>Blog Publisher</div>
 </div>
 
 <!-- PUBLISH -->
@@ -202,6 +243,35 @@ select{cursor:pointer;padding-right:36px;background-image:url("data:image/svg+xm
 </div>
 <div class="po">Escanea este QR para publicar en el blog<br><span style="font-size:12px;font-weight:400;color:#666" id="pUrl"></span></div>
 </div></div>
+
+<!-- DARK BLOG PUBLISHER -->
+<div class="panel" id="pDark"><div class="dk">
+<div class="dk-head">
+<div class="dk-icon">📰</div>
+<div><div class="dk-title">Blog Publisher — cartagenaeste.es</div><div class="dk-sub">Escribe → IA formatea → Se publica automáticamente</div></div>
+</div>
+<div class="dk-body">
+<label class="dk-label">TU CONTENIDO</label>
+<textarea id="dk-content" class="dk-ta" placeholder="Escribe lo que quieras publicar: noticia, evento, aviso del barrio...&#10;&#10;La IA generará título, formato HTML, etiquetas y lo subirá automáticamente."></textarea>
+
+<div class="dk-drop" id="dkDrop">
+<div style="font-size:22px">📁</div>
+<div class="dk-drop-t">Arrastra fotos o archivos aquí</div>
+<div class="dk-drop-s">Imágenes, PDFs, documentos...</div>
+<input type="file" id="dkFileInput" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.pptx,.ppt,.txt,.csv,.zip,.rar">
+</div>
+<div id="dkFiles"></div>
+
+<div class="dk-row">
+<div><label class="dk-label">ESTADO</label><select id="dk-status" class="dk-sel"><option value="publish">✅ Publicar</option><option value="draft">📋 Borrador</option></select></div>
+<div><label class="dk-label">CATEGORÍA</label><select id="dk-cat" class="dk-sel"><option value="">🤖 Automática</option></select></div>
+</div>
+
+<button class="dk-pub" id="dkPubBtn" onclick="dkPublish()">⚡ Publicar automáticamente</button>
+<div id="dkStatus"></div>
+<div id="dkSuccess" style="display:none"></div>
+</div>
+</div></div>
 </div>
 
 <div class="footer">Publicador de <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Centro de Salud Cartagena Este</div>
@@ -225,11 +295,11 @@ function checkPin(){const v=ds.map(d=>d.value).join('');if(v.length<4){document.
 function logout(){sessionStorage.removeItem('ce');document.getElementById('loginOverlay').classList.remove('hidden');ds.forEach(d=>d.value='');ds[0].focus()}
 
 // Tabs
-function stab(n){document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',i===(n==='pub'?0:1))});document.getElementById('pPub').classList.toggle('active',n==='pub');document.getElementById('pQR').classList.toggle('active',n==='qr')}
+function stab(n){const tabs=['pub','qr','dark'];const panels=['pPub','pQR','pDark'];document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('active',tabs[i]===n)});panels.forEach((p,i)=>{document.getElementById(p).classList.toggle('active',tabs[i]===n)})}
 
 // Init
 function initApp(){document.getElementById('linkUrl').value=U;document.getElementById('pUrl').textContent=U;new QRious({element:document.getElementById('qrCanvas'),value:U,size:180,level:'H',foreground:'#1a1a2e',background:'#fff',padding:8});loadCats()}
-async function loadCats(){try{const r=await fetch(WP.url+'/wp-json/filehub/v1/categories',{headers:{'X-Filehub-Key':WP.key}});const c=await r.json();if(Array.isArray(c)){const s=document.getElementById('category');c.forEach(x=>{const o=document.createElement('option');o.value=x.id;o.textContent=x.name;s.appendChild(o)})}}catch(e){}}
+async function loadCats(){try{const r=await fetch(WP.url+'/wp-json/filehub/v1/categories',{headers:{'X-Filehub-Key':WP.key}});const c=await r.json();if(Array.isArray(c)){[document.getElementById('category'),document.getElementById('dk-cat')].forEach(s=>{c.forEach(x=>{const o=document.createElement('option');o.value=x.id;o.textContent=x.name;s.appendChild(o)})})}}catch(e){}}
 if(sessionStorage.getItem('ce')){document.getElementById('loginOverlay').classList.add('hidden');initApp()}
 
 // Files
@@ -260,6 +330,52 @@ function copyLink(){navigator.clipboard.writeText(U).then(()=>{const b=document.
 function shareWA(){window.open('https://wa.me/?text='+encodeURIComponent('📝 *Blog Cartagena Este*\n\nPublica en el blog del centro:\n👉 '+U+'\n\nPIN: '+PIN),'_blank')}
 function shareMail(){window.open('mailto:?subject='+encodeURIComponent('Publicador blog Cartagena Este')+'&body='+encodeURIComponent('Enlace al publicador:\n'+U+'\n\nPIN: '+PIN))}
 function dlQR(){const c=document.getElementById('qrCanvas');const o=document.createElement('canvas');o.width=400;o.height=460;const x=o.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,400,460);x.drawImage(c,30,16,340,340);x.fillStyle='#1a1a2e';x.font='bold 16px sans-serif';x.textAlign='center';x.fillText('Blog Cartagena Este',200,390);x.font='14px sans-serif';x.fillStyle='#666';x.fillText('PIN: '+PIN,200,415);x.fillText(U.replace('https://',''),200,440);const a=document.createElement('a');a.download='QR-Blog-CartagenaEste.png';a.href=o.toDataURL('image/png');a.click()}
+
+// ═══════════════════════════════════════════════
+// DARK PUBLISHER
+// ═══════════════════════════════════════════════
+let dkFiles=[];
+const dkDz=document.getElementById('dkDrop'),dkFi=document.getElementById('dkFileInput');
+dkDz.addEventListener('click',()=>dkFi.click());
+dkDz.addEventListener('dragover',e=>{e.preventDefault();dkDz.classList.add('drag')});
+dkDz.addEventListener('dragleave',()=>dkDz.classList.remove('drag'));
+dkDz.addEventListener('drop',e=>{e.preventDefault();dkDz.classList.remove('drag');dkAddF(e.dataTransfer.files)});
+dkFi.addEventListener('change',()=>{dkAddF(dkFi.files);dkFi.value=''});
+
+function dkAddF(l){for(let i=0;i<l.length;i++)dkFiles.push(l[i]);dkRenF()}
+function dkRmF(i){dkFiles.splice(i,1);dkRenF()}
+function dkRenF(){const el=document.getElementById('dkFiles');if(!dkFiles.length){el.innerHTML='';return}const ic={'image':'🖼️','application/pdf':'📄','application/vnd':'📊','text':'📝'};el.innerHTML=dkFiles.map((f,i)=>{let icon='📎';for(const[k,v]of Object.entries(ic)){if(f.type.startsWith(k)){icon=v;break}}const s=f.size<1048576?(f.size/1024).toFixed(0)+' KB':(f.size/1048576).toFixed(1)+' MB';return`<div class="dk-fi"><span class="ic">${icon}</span><span class="nm">${f.name}</span><span class="sz">${s}</span><button class="rm" onclick="dkRmF(${i})">✕</button></div>`}).join('')}
+
+function dkLog(m,t){const ic={info:'⏳',ok:'✅',err:'❌'};document.getElementById('dkStatus').innerHTML+=`<div class="dk-log ${t||''}""><span class="gi">${ic[t]||'⏳'}</span> ${m}</div>`}
+
+async function dkPublish(){
+  const content=document.getElementById('dk-content').value.trim();
+  const st=document.getElementById('dk-status').value;
+  const catId=document.getElementById('dk-cat').value;
+  if(!content&&!dkFiles.length){alert('Escribe algo o adjunta un archivo');return}
+  const btn=document.getElementById('dkPubBtn');btn.disabled=true;btn.innerHTML='<span class="sp"></span> Publicando...';
+  document.getElementById('dkStatus').innerHTML='';document.getElementById('dkSuccess').style.display='none';
+  try{
+    let media=[];
+    if(dkFiles.length){dkLog('Subiendo '+dkFiles.length+' archivo(s)...','info');for(const f of dkFiles){try{const m=await upF(f);media.push(m);dkLog(f.name+' → ID:'+m.id,'ok')}catch(e){dkLog(f.name+': '+e.message,'err')}}}
+    const imgs=media.filter(m=>m.mime_type?.startsWith('image/')).map(m=>m.source_url);
+    const docs=media.filter(m=>!m.mime_type?.startsWith('image/')).map(m=>({name:m.title||m.source_url.split('/').pop(),url:m.source_url}));
+    dkLog('Generando con IA...','info');
+    const post=await aiGen(content||'Publicación con archivos',imgs,docs);
+    dkLog('Título: "'+post.title+'"','ok');
+    let tagIds=[];if(post.tags?.length)for(const n of post.tags){try{const t=await api('tag',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n})});if(t?.id)tagIds.push(t.id)}catch{}}
+    let catIds=[];if(catId)catIds=[parseInt(catId)];else if(post.category_suggestion){const sel=document.getElementById('dk-cat');for(let i=0;i<sel.options.length;i++){if(sel.options[i].textContent.toLowerCase().includes(post.category_suggestion.toLowerCase())){catIds=[parseInt(sel.options[i].value)];break}}}
+    dkLog('Publicando ('+st+')...','info');
+    const wp={title:post.title,content:post.content,excerpt:post.excerpt||'',status:st};if(tagIds.length)wp.tags=tagIds;if(catIds.length)wp.categories=catIds;const img1=media.find(m=>m.mime_type?.startsWith('image/'));if(img1)wp.featured_media=img1.id;
+    const res=await api('publish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(wp)});
+    dkLog('¡PUBLICADO! → '+res.link,'ok');
+    const sc=document.getElementById('dkSuccess');
+    sc.innerHTML='<div class="dk-suc"><h3>✅ ¡Publicado!</h3><div class="pt">'+post.title+'</div><a href="'+res.link+'" target="_blank">🔗 '+res.link+'</a><br><button class="nb" onclick="dkReset()">✏️ Nueva publicación</button></div>';
+    sc.style.display='block';sc.scrollIntoView({behavior:'smooth',block:'center'});
+  }catch(e){dkLog('Error: '+e.message,'err')}
+  finally{btn.disabled=false;btn.innerHTML='⚡ Publicar automáticamente'}
+}
+function dkReset(){document.getElementById('dk-content').value='';dkFiles=[];dkRenF();document.getElementById('dkStatus').innerHTML='';document.getElementById('dkSuccess').style.display='none';window.scrollTo({top:0,behavior:'smooth'})}
 </script>
 </body>
 </html>
