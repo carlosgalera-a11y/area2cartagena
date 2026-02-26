@@ -3,413 +3,306 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Publicar — Cartagena Este</title>
+<title>Blog Publisher — cartagenaeste.es</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#faf9f7;--card:#ffffff;--text:#1a1a2e;--sub:#6b7280;
-  --accent:#0369a1;--accent-light:#e0f2fe;--accent-dark:#075985;
-  --success:#059669;--success-light:#d1fae5;
-  --error:#dc2626;--error-light:#fee2e2;
-  --border:#e5e7eb;--shadow:0 1px 3px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.04);
-  --radius:16px;
+  --bg:#0f1729;--card:#1a2342;--card2:#1e2a4a;--border:#263354;
+  --text:#e8ecf4;--sub:#8899b8;--accent:#38bdf8;--accent2:#0ea5e9;
+  --green:#34d399;--red:#f87171;--yellow:#fbbf24;
 }
-html{height:100%}
-body{min-height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 500px 400px at 15% 10%,rgba(56,189,248,0.06),transparent),
+    radial-gradient(ellipse 400px 400px at 85% 90%,rgba(52,211,153,0.04),transparent);
+}
 
+.page{min-height:100%;display:flex;flex-direction:column;align-items:center;padding:20px 16px 40px;position:relative;z-index:1}
+
+/* Header */
 .header{
-  background:linear-gradient(135deg,#0c4a6e 0%,#075985 50%,#0369a1 100%);
-  padding:28px 20px 36px;text-align:center;position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:12px;width:100%;max-width:520px;
+  padding:16px 18px;background:linear-gradient(135deg,var(--accent2),var(--accent));
+  border-radius:16px 16px 0 0;
 }
-.header::before{
-  content:'';position:absolute;inset:0;
-  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+.header-icon{font-size:24px}
+.header h1{font-size:16px;font-weight:800;color:#0f1729;flex:1}
+.header p{font-size:10px;color:rgba(15,23,41,0.7);font-weight:600}
+
+/* Main card */
+.main{
+  width:100%;max-width:520px;background:var(--card);
+  border:1px solid var(--border);border-top:none;
+  border-radius:0 0 16px 16px;padding:20px 18px;
 }
-.header-content{position:relative;z-index:1;max-width:600px;margin:0 auto}
-.header h1{font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,30px);font-weight:800;color:white;margin-bottom:6px;letter-spacing:-.5px}
-.header p{color:rgba(255,255,255,.8);font-size:13px;font-weight:500}
-.header .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);padding:5px 12px;border-radius:20px;font-size:11px;color:rgba(255,255,255,.9);font-weight:600;margin-top:10px}
-.header .badge .dot{width:6px;height:6px;border-radius:50%;background:#34d399}
 
-.container{max-width:540px;margin:-18px auto 40px;padding:0 14px;position:relative;z-index:2}
-
-.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden}
-
-/* Steps */
-.steps{display:flex;padding:14px 18px;gap:6px;border-bottom:1px solid var(--border);background:#fafafa}
-.step{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--sub);flex:1}
-.step .num{width:22px;height:22px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--sub);transition:all .3s}
-.step.active .num{background:var(--accent);color:white}
-.step.done .num{background:var(--success);color:white}
-.step.active{color:var(--accent)}
-.step.done{color:var(--success)}
-.step-line{flex:0 0 auto;width:16px;height:2px;background:var(--border);border-radius:1px;align-self:center}
-
-.form-body{padding:20px 18px}
-
+/* Field */
 .field{margin-bottom:18px}
-.field label{display:block;font-size:13px;font-weight:700;color:var(--text);margin-bottom:7px}
-.field label .opt{font-weight:500;color:var(--sub);font-size:11px}
-.field .hint{font-size:11px;color:var(--sub);margin-top:4px;line-height:1.5}
-
-textarea,select{
-  width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:12px;
-  font-family:inherit;font-size:15px;color:var(--text);background:white;
-  outline:none;transition:border .2s,box-shadow .2s;resize:vertical;-webkit-appearance:none;
+.field-label{
+  font-size:11px;font-weight:800;color:var(--sub);
+  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;display:block;
 }
-textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-light)}
-textarea::placeholder{color:#9ca3af}
-textarea{min-height:120px;line-height:1.6}
-select{cursor:pointer;padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+
+textarea{
+  width:100%;padding:14px 16px;background:var(--bg);border:2px solid var(--border);
+  border-radius:12px;font-family:inherit;font-size:14px;color:var(--text);
+  outline:none;resize:vertical;min-height:120px;line-height:1.6;transition:border .2s;
+}
+textarea:focus{border-color:var(--accent)}
+textarea::placeholder{color:#4a5a7a}
 
 /* Dropzone */
 .dropzone{
-  border:2px dashed #d1d5db;border-radius:12px;padding:24px 18px;
-  text-align:center;cursor:pointer;transition:all .2s;background:#fafafa;
+  border:2px dashed var(--border);border-radius:12px;padding:24px 16px;
+  text-align:center;cursor:pointer;transition:all .2s;background:transparent;
 }
-.dropzone:hover,.dropzone.drag{border-color:var(--accent);background:var(--accent-light)}
-.dropzone .icon{font-size:28px;margin-bottom:6px}
-.dropzone .title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
-.dropzone .sub{font-size:11px;color:var(--sub)}
+.dropzone:hover,.dropzone.drag{border-color:var(--accent);background:rgba(56,189,248,0.05)}
+.dropzone .dz-icon{font-size:24px;margin-bottom:4px}
+.dropzone .dz-title{font-size:13px;font-weight:700;color:var(--text)}
+.dropzone .dz-sub{font-size:11px;color:var(--sub);margin-top:2px}
 .dropzone input{display:none}
 
-/* Files */
-.files-list{margin-top:10px}
-.file-item{display:flex;align-items:center;gap:10px;padding:9px 11px;background:#f9fafb;border:1px solid var(--border);border-radius:10px;margin-bottom:5px;animation:slideIn .2s ease}
-@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}}
-.file-icon{font-size:18px;flex-shrink:0}
-.file-info{flex:1;min-width:0}
-.file-name{font-size:12px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.file-size{font-size:10px;color:var(--sub)}
-.file-remove{width:26px;height:26px;border-radius:8px;border:none;background:var(--error-light);color:var(--error);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .15s;flex-shrink:0}
-.file-remove:hover{background:var(--error);color:white}
-
-/* Options */
-.options{display:flex;gap:10px}
-.options>div{flex:1}
-
-/* Button */
-.publish-btn{
-  width:100%;padding:15px;border:none;border-radius:12px;
-  background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);
-  color:white;font-family:inherit;font-size:15px;font-weight:800;
-  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;
-  box-shadow:0 4px 14px rgba(3,105,161,.3);margin-top:4px;
+/* File list */
+.files{margin-top:10px}
+.file-item{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;
+  background:var(--bg);border:1px solid var(--border);border-radius:10px;
+  margin-bottom:6px;animation:slideIn .2s ease;
 }
-.publish-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(3,105,161,.4)}
-.publish-btn:active{transform:translateY(0)}
-.publish-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.publish-btn .spinner{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes slideIn{from{opacity:0;transform:translateY(-6px)}}
+.file-item .fi{font-size:18px;flex-shrink:0}
+.file-item .fname{flex:1;font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-item .fsize{font-size:10px;color:var(--sub)}
+.file-item .fremove{
+  width:24px;height:24px;border-radius:6px;border:none;
+  background:rgba(248,113,113,0.15);color:var(--red);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:12px;
+  transition:all .15s;flex-shrink:0;
+}
+.file-item .fremove:hover{background:var(--red);color:white}
+
+/* Options row */
+.opts{display:flex;gap:10px;margin-bottom:18px}
+.opts>div{flex:1}
+.opts select{
+  width:100%;padding:12px 14px;background:var(--bg);border:2px solid var(--border);
+  border-radius:10px;font-family:inherit;font-size:13px;font-weight:600;
+  color:var(--text);outline:none;cursor:pointer;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238899b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;padding-right:36px;
+}
+.opts select:focus{border-color:var(--accent)}
+
+/* Publish button */
+.pub-btn{
+  width:100%;padding:16px;border:none;border-radius:12px;
+  background:linear-gradient(135deg,var(--accent2),var(--accent));
+  color:#0f1729;font-family:inherit;font-size:15px;font-weight:900;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;
+  justify-content:center;gap:8px;
+  box-shadow:0 4px 20px rgba(56,189,248,0.25);
+}
+.pub-btn:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(56,189,248,0.35)}
+.pub-btn:active{transform:translateY(0)}
+.pub-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.pub-btn .spinner{
+  width:18px;height:18px;border:2.5px solid rgba(15,23,41,0.2);
+  border-top-color:#0f1729;border-radius:50%;animation:spin .7s linear infinite;
+}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Status */
-.status-area{margin-top:14px}
-.log-entry{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:12px;animation:fadeIn .3s ease}
+/* Log */
+.log{margin-top:16px;font-size:12px;font-family:'Outfit',monospace}
+.log-line{display:flex;align-items:flex-start;gap:8px;padding:4px 0;animation:fadeIn .25s}
 @keyframes fadeIn{from{opacity:0}}
-.log-entry .icon{flex-shrink:0;font-size:13px;margin-top:1px}
-.log-entry.info{color:var(--sub)}
-.log-entry.ok{color:var(--success)}
-.log-entry.err{color:var(--error)}
+.log-line .li{flex-shrink:0;font-size:13px}
+.log-line.info{color:var(--sub)}
+.log-line.ok{color:var(--green)}
+.log-line.err{color:var(--red)}
+.log-line.title{color:var(--accent);font-weight:700}
 
 /* Success */
-.success-card{background:var(--success-light);border:1px solid #a7f3d0;border-radius:14px;padding:18px;margin-top:18px;animation:scaleIn .3s ease}
-@keyframes scaleIn{from{opacity:0;transform:scale(.95)}}
-.success-card h3{font-size:15px;font-weight:800;color:var(--success);margin-bottom:5px;display:flex;align-items:center;gap:8px}
-.success-card .post-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px}
-.success-card a{display:inline-flex;align-items:center;gap:4px;color:var(--accent);font-size:12px;font-weight:600;word-break:break-all}
-.success-card .new-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:10px 18px;background:var(--accent);color:white;border:none;border-radius:10px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
-.success-card .new-btn:hover{background:var(--accent-dark)}
+.success{
+  margin-top:16px;padding:16px 18px;
+  background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.25);
+  border-radius:14px;animation:popIn .3s ease;
+}
+@keyframes popIn{from{opacity:0;transform:scale(.95)}}
+.success h3{font-size:14px;font-weight:900;color:var(--green);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.success .stitle{font-size:13px;font-weight:800;color:var(--text);margin-bottom:6px}
+.success a{color:var(--accent);font-size:12px;font-weight:600;word-break:break-all}
+.success .again{
+  display:inline-flex;align-items:center;gap:6px;margin-top:12px;
+  padding:10px 18px;background:var(--accent);color:#0f1729;border:none;
+  border-radius:10px;font-family:inherit;font-size:12px;font-weight:800;
+  cursor:pointer;transition:all .15s;
+}
+.success .again:hover{background:#7dd3fc}
 
-.footer{text-align:center;padding:18px;font-size:10px;color:var(--sub)}
-.footer a{color:var(--accent);text-decoration:none;font-weight:600}
+.footer{text-align:center;padding:24px 16px 8px;font-size:10px;color:var(--sub)}
+.footer a{color:var(--accent);text-decoration:none;font-weight:700}
 
-@media(max-width:480px){.options{flex-direction:column;gap:10px}.steps .step-text{display:none}}
+@media(max-width:480px){.opts{flex-direction:column;gap:10px}}
 </style>
 </head>
 <body>
+<div class="page">
 
-<div class="header">
-  <div class="header-content">
-    <h1>📝 Publica en Cartagena Este</h1>
-    <p>Comparte noticias, sesiones y documentos con tu centro</p>
-    <div class="badge"><span class="dot"></span> cartagenaeste.es</div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="card">
-    <div class="steps">
-      <div class="step active" id="step1"><span class="num">1</span><span class="step-text">Escribe</span></div>
-      <div class="step-line"></div>
-      <div class="step" id="step2"><span class="num">2</span><span class="step-text">Adjunta</span></div>
-      <div class="step-line"></div>
-      <div class="step" id="step3"><span class="num">3</span><span class="step-text">Publica</span></div>
-    </div>
-
-    <div class="form-body">
-      <!-- Texto -->
-      <div class="field">
-        <label>¿Qué quieres compartir?</label>
-        <textarea id="content" placeholder="Escribe aquí tu noticia, sesión clínica, evento o cualquier información...&#10;&#10;Ejemplo: Hoy hemos tenido sesión sobre manejo de colangitis aguda."></textarea>
-        <div class="hint">La inteligencia artificial generará título, formato y etiquetas automáticamente.</div>
-      </div>
-
-      <!-- Archivos -->
-      <div class="field">
-        <label>Adjuntar archivos <span class="opt">(opcional)</span></label>
-        <div class="dropzone" id="dropzone">
-          <div class="icon">📎</div>
-          <div class="title">Toca aquí para adjuntar archivos</div>
-          <div class="sub">Fotos, PDFs, Word, Excel, PowerPoint...</div>
-          <input type="file" id="fileInput" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.pptx,.ppt,.txt,.csv,.zip,.rar">
-        </div>
-        <div class="files-list" id="filesList"></div>
-      </div>
-
-      <!-- Opciones -->
-      <div class="field">
-        <div class="options">
-          <div>
-            <label>Categoría</label>
-            <select id="category"><option value="">🤖 Automática</option></select>
-          </div>
-          <div>
-            <label>Publicar o borrador</label>
-            <select id="status">
-              <option value="publish">✅ Publicar ahora</option>
-              <option value="draft">📋 Guardar borrador</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Botón -->
-      <button class="publish-btn" id="publishBtn" onclick="publish()">🚀 Publicar en cartagenaeste.es</button>
-
-      <!-- Estado -->
-      <div class="status-area" id="statusArea"></div>
-      <div id="successCard" style="display:none"></div>
+  <div class="header">
+    <span class="header-icon">🌐</span>
+    <div>
+      <h1>Blog Publisher — cartagenaeste.es</h1>
+      <p>Escribe → IA formatea → Se publica automáticamente</p>
     </div>
   </div>
-</div>
 
-<div class="footer">
-  Publicador del blog de <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a><br>
-  Centro de Salud Cartagena Este
+  <div class="main">
+    <div class="field">
+      <span class="field-label">Tu contenido</span>
+      <textarea id="content" placeholder="Escribe lo que quieras publicar: noticia, sesión clínica, evento, aviso del barrio...&#10;&#10;La IA generará título, formato HTML, etiquetas y lo subirá automáticamente."></textarea>
+    </div>
+
+    <div class="field">
+      <div class="dropzone" id="dropzone">
+        <div class="dz-icon">📎</div>
+        <div class="dz-title">Arrastra fotos o archivos aquí</div>
+        <div class="dz-sub">Imágenes, PDFs, Word, Excel, PowerPoint...</div>
+        <input type="file" id="fileInput" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.pptx,.ppt,.txt,.csv,.zip,.rar">
+      </div>
+      <div class="files" id="filesList"></div>
+    </div>
+
+    <div class="opts">
+      <div>
+        <span class="field-label">Estado</span>
+        <select id="status">
+          <option value="publish">✏️ Publicar</option>
+          <option value="draft">📋 Borrador</option>
+        </select>
+      </div>
+      <div>
+        <span class="field-label">Categoría</span>
+        <select id="category">
+          <option value="">🤖 Automática</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="pub-btn" id="pubBtn" onclick="doPublish()">⚡ Publicar automáticamente</button>
+
+    <div class="log" id="log"></div>
+    <div id="successBox" style="display:none"></div>
+  </div>
+
+  <div class="footer">
+    Publicador del blog de <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Centro de Salud Cartagena Este
+  </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════
-// CONFIG — Plugin FILEHUB API
-// ═══════════════════════════════════════
-const WP = {
-  url: 'https://cartagenaeste.es',
-  key: 'REDACTED_FH_WP_2026-04'
-};
-const GROQ_KEY = 'gsk_sv9ihruX8Oym' + 'DKX8d6RJWGdyb3FY' + 'IoFSrTjLUrj6dJIanPUukjxE';
+const WP={url:'https://cartagenaeste.es',key:'REDACTED_FH_WP_2026-04'};
+const GROQ='gsk_sv9ihruX8Oym'+'DKX8d6RJWGdyb3FY'+'IoFSrTjLUrj6dJIanPUukjxE';
+let files=[];
 
-let files = [];
+(async()=>{try{const r=await fetch(WP.url+'/wp-json/filehub/v1/categories',{headers:{'X-Filehub-Key':WP.key}});const c=await r.json();if(Array.isArray(c)){const s=document.getElementById('category');c.forEach(x=>{const o=document.createElement('option');o.value=x.id;o.textContent=x.name;s.appendChild(o)})}}catch(e){}})();
 
-// ═══════════════════════════════════════
-// LOAD CATEGORIES
-// ═══════════════════════════════════════
-(async function(){
-  try {
-    const r = await fetch(WP.url+'/wp-json/filehub/v1/categories',{headers:{'X-Filehub-Key':WP.key}});
-    const cats = await r.json();
-    if(Array.isArray(cats)){
-      const sel=document.getElementById('category');
-      cats.forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.name;sel.appendChild(o)});
-    }
-  }catch(e){console.log('Categories:',e)}
-})();
-
-// ═══════════════════════════════════════
-// FILES
-// ═══════════════════════════════════════
 const dz=document.getElementById('dropzone'),fi=document.getElementById('fileInput');
-dz.addEventListener('click',()=>fi.click());
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag')});
-dz.addEventListener('dragleave',()=>dz.classList.remove('drag'));
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('drag');addFiles(e.dataTransfer.files)});
-fi.addEventListener('change',()=>{addFiles(fi.files);fi.value=''});
+dz.onclick=()=>fi.click();
+dz.ondragover=e=>{e.preventDefault();dz.classList.add('drag')};
+dz.ondragleave=()=>dz.classList.remove('drag');
+dz.ondrop=e=>{e.preventDefault();dz.classList.remove('drag');addFiles(e.dataTransfer.files)};
+fi.onchange=()=>{addFiles(fi.files);fi.value=''};
 
-function addFiles(list){for(let i=0;i<list.length;i++)files.push(list[i]);renderFiles();updateSteps()}
-function removeFile(idx){files.splice(idx,1);renderFiles()}
+function addFiles(l){for(let i=0;i<l.length;i++)files.push(l[i]);renderFiles()}
+function removeFile(i){files.splice(i,1);renderFiles()}
 function renderFiles(){
   const el=document.getElementById('filesList');
   if(!files.length){el.innerHTML='';return}
-  const icons={'image':'🖼️','application/pdf':'📄','application/vnd':'📊','text':'📝'};
+  const ic={'image':'🖼️','application/pdf':'📄','application/vnd':'📊','text':'📝'};
   el.innerHTML=files.map((f,i)=>{
-    let icon='📎';for(const[k,v]of Object.entries(icons)){if(f.type.startsWith(k)){icon=v;break}}
-    const size=f.size<1024*1024?(f.size/1024).toFixed(0)+' KB':(f.size/(1024*1024)).toFixed(1)+' MB';
-    return `<div class="file-item"><span class="file-icon">${icon}</span><div class="file-info"><div class="file-name">${f.name}</div><div class="file-size">${size}</div></div><button class="file-remove" onclick="removeFile(${i})">✕</button></div>`;
+    let icon='📎';for(const[k,v]of Object.entries(ic))if(f.type.startsWith(k)){icon=v;break}
+    const sz=f.size<1048576?(f.size/1024).toFixed(0)+' KB':(f.size/1048576).toFixed(1)+' MB';
+    return`<div class="file-item"><span class="fi">${icon}</span><span class="fname">${f.name}</span><span class="fsize">${sz}</span><button class="fremove" onclick="removeFile(${i})">✕</button></div>`;
   }).join('');
 }
-function updateSteps(){
-  const hasText=document.getElementById('content').value.trim().length>0;
-  const hasFiles=files.length>0;
-  document.getElementById('step1').className='step '+(hasText?'done':'active');
-  document.getElementById('step2').className='step '+(hasFiles?'done':(hasText?'active':''));
-}
-document.getElementById('content').addEventListener('input',updateSteps);
 
-// ═══════════════════════════════════════
-// LOG
-// ═══════════════════════════════════════
 function log(msg,type){
-  const icons={info:'⏳',ok:'✅',err:'❌'};
-  const el=document.getElementById('statusArea');
-  el.innerHTML+=`<div class="log-entry ${type||'info'}"><span class="icon">${icons[type]||'⏳'}</span><span>${msg}</span></div>`;
-  el.scrollTop=el.scrollHeight;
+  const icons={info:'🔄',ok:'✅',err:'❌',title:'✅'};
+  document.getElementById('log').innerHTML+=`<div class="log-line ${type||'info'}"><span class="li">${icons[type]||'🔄'}</span><span>${msg}</span></div>`;
 }
 
-// ═══════════════════════════════════════
-// API CALLS
-// ═══════════════════════════════════════
-async function apiCall(endpoint,options){
-  const url=WP.url+'/wp-json/filehub/v1/'+endpoint;
-  const opts=Object.assign({},options||{});
-  if(!opts.headers)opts.headers={};
-  opts.headers['X-Filehub-Key']=WP.key;
-  const res=await fetch(url,opts);
-  const data=await res.json();
-  if(!res.ok)throw new Error(data?.error||'Error '+res.status);
-  return data;
+async function api(ep,opts){
+  const o=Object.assign({},opts||{});if(!o.headers)o.headers={};o.headers['X-Filehub-Key']=WP.key;
+  const r=await fetch(WP.url+'/wp-json/filehub/v1/'+ep,o);const d=await r.json();
+  if(!r.ok)throw new Error(d?.error||'Error '+r.status);return d;
 }
-
-async function uploadFile(file){
+async function upload(file){
   const fd=new FormData();fd.append('file',file);
-  const res=await fetch(WP.url+'/wp-json/filehub/v1/upload',{
-    method:'POST',headers:{'X-Filehub-Key':WP.key},body:fd
-  });
-  const data=await res.json();
-  if(!res.ok)throw new Error(data?.error||'Error subiendo');
-  return data;
+  const r=await fetch(WP.url+'/wp-json/filehub/v1/upload',{method:'POST',headers:{'X-Filehub-Key':WP.key},body:fd});
+  const d=await r.json();if(!r.ok)throw new Error(d?.error||'Error subiendo');return d;
 }
-
-async function generateWithAI(text,imgUrls,docLinks){
+async function aiGen(text,imgs,docs){
   let ctx='';
-  if(imgUrls.length)ctx+='\n\nImágenes:\n'+imgUrls.map((u,i)=>(i+1)+'. '+u).join('\n')+'\nInsértalas con <img src="URL" alt="foto" style="max-width:100%;height:auto;border-radius:8px;margin:16px 0">.';
-  if(docLinks.length)ctx+='\n\nDocumentos adjuntos (incluir como enlaces de descarga al final del post):\n'+docLinks.map(d=>'- '+d.name+': '+d.url).join('\n');
-
-  const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-    method:'POST',
-    headers:{'Authorization':'Bearer '+GROQ_KEY,'Content-Type':'application/json'},
+  if(imgs.length)ctx+='\n\nImágenes:\n'+imgs.map((u,i)=>(i+1)+'. '+u).join('\n')+'\nInsértalas con <img src="URL" alt="foto" style="max-width:100%;height:auto;border-radius:8px;margin:16px 0">.';
+  if(docs.length)ctx+='\n\nDocumentos adjuntos para incluir como enlaces de descarga:\n'+docs.map(d=>'- '+d.name+': '+d.url).join('\n');
+  const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',headers:{'Authorization':'Bearer '+GROQ,'Content-Type':'application/json'},
     body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:4000,temperature:0.7,messages:[
-      {role:'system',content:'Editor blog cartagenaeste.es (centro de salud zona este Cartagena, Murcia). Responde SOLO JSON sin backticks: {"title":"titulo SEO","content":"<p>HTML completo profesional</p>","excerpt":"resumen corto","tags":["tag1","tag2"],"category_suggestion":"categoría"}. Si hay imágenes insértalas en el contenido. Si hay documentos adjuntos incluye al final: <div style="background:#f0f9ff;padding:16px;border-radius:12px;margin-top:24px"><h3>📎 Documentos adjuntos</h3><ul><li><a href="URL" target="_blank" style="color:#0369a1;font-weight:600">NOMBRE</a></li></ul></div>. Tono cercano, profesional, sanitario.'},
-      {role:'user',content:'Genera entrada completa para el blog del centro de salud.\n\n'+text+ctx}
+      {role:'system',content:'Editor blog cartagenaeste.es (centro salud zona este Cartagena, Murcia). Responde SOLO JSON sin backticks: {"title":"titulo SEO","content":"<p>HTML completo</p>","excerpt":"resumen","tags":["tag1"],"category_suggestion":"cat"}. Si hay documentos adjuntos incluye al final del contenido: <div style="background:#f0f9ff;padding:16px;border-radius:12px;margin-top:24px"><h3>📎 Documentos adjuntos</h3><ul><li><a href="URL" target="_blank" style="color:#0369a1;font-weight:600">NOMBRE</a></li></ul></div>. Tono cercano, profesional, sanitario.'},
+      {role:'user',content:'Genera entrada completa para el blog.\n\n'+text+ctx}
     ]})
   });
-  if(!res.ok)throw new Error('Error IA: '+res.status);
-  const data=await res.json();
-  const t=(data.choices?.[0]?.message?.content||'').replace(/```json?\n?/g,'').replace(/```/g,'').trim();
-  const m=t.match(/\{[\s\S]*\}/);
-  if(!m)throw new Error('La IA no generó formato correcto');
+  if(!r.ok)throw new Error('Error IA');
+  const d=await r.json();
+  const t=(d.choices?.[0]?.message?.content||'').replace(/```json?\n?/g,'').replace(/```/g,'').trim();
+  const m=t.match(/\{[\s\S]*\}/);if(!m)throw new Error('IA no generó formato correcto');
   return JSON.parse(m[0]);
 }
 
-// ═══════════════════════════════════════
-// PUBLISH
-// ═══════════════════════════════════════
-async function publish(){
+async function doPublish(){
   const content=document.getElementById('content').value.trim();
   const status=document.getElementById('status').value;
   const catId=document.getElementById('category').value;
-
   if(!content&&!files.length){alert('Escribe algo o adjunta un archivo');return}
-
-  const btn=document.getElementById('publishBtn');
-  btn.disabled=true;
-  btn.innerHTML='<div class="spinner"></div> Publicando...';
-  document.getElementById('statusArea').innerHTML='';
-  document.getElementById('successCard').style.display='none';
-  document.getElementById('step3').className='step active';
-
+  const btn=document.getElementById('pubBtn');
+  btn.disabled=true;btn.innerHTML='<div class="spinner"></div> Publicando...';
+  document.getElementById('log').innerHTML='';document.getElementById('successBox').style.display='none';
   try{
-    // 1. Subir archivos
     let media=[];
     if(files.length){
       log('Subiendo '+files.length+' archivo(s)...','info');
-      for(const f of files){
-        try{
-          const m=await uploadFile(f);
-          media.push(m);
-          log(f.name+' ✓','ok');
-        }catch(e){log(f.name+': '+e.message,'err')}
-      }
+      for(const f of files){try{const m=await upload(f);media.push(m);log('↓ '+f.name,'ok')}catch(e){log(f.name+': '+e.message,'err')}}
+      if(media.length)log('ID:'+media.map(m=>m.id).join(','),'ok');
     }
-
-    // 2. Separar imágenes y documentos
     const imgs=media.filter(m=>m.mime_type?.startsWith('image/')).map(m=>m.source_url);
     const docs=media.filter(m=>!m.mime_type?.startsWith('image/')).map(m=>({name:m.title||m.source_url.split('/').pop(),url:m.source_url}));
-    let fullText=content||'Publicación con archivos adjuntos';
-
-    // 3. IA genera contenido
-    log('Generando contenido con inteligencia artificial...','info');
-    const post=await generateWithAI(fullText,imgs,docs);
-    log('Título: "'+post.title+'"','ok');
-
-    // 4. Tags
+    log('Generando con IA...','info');
+    const post=await aiGen(content||'Publicación con archivos adjuntos',imgs,docs);
+    log('Título: "'+post.title+'"','title');
     let tagIds=[];
-    if(post.tags?.length){
-      for(const n of post.tags){
-        try{const t=await apiCall('tag',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n})});if(t?.id)tagIds.push(t.id)}catch(e){}
-      }
-    }
-
-    // 5. Categoría
+    if(post.tags?.length){for(const n of post.tags){try{const t=await api('tag',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n})});if(t?.id)tagIds.push(t.id)}catch(e){}}}
     let catIds=[];
     if(catId)catIds=[parseInt(catId)];
-    else if(post.category_suggestion){
-      const sel=document.getElementById('category');
-      for(let i=0;i<sel.options.length;i++){
-        if(sel.options[i].textContent.toLowerCase().includes(post.category_suggestion.toLowerCase())){catIds=[parseInt(sel.options[i].value)];break}
-      }
-    }
-
-    // 6. Publicar
-    log('Publicando en cartagenaeste.es...','info');
-    const wpData={title:post.title,content:post.content,excerpt:post.excerpt||'',status};
-    if(tagIds.length)wpData.tags=tagIds;
-    if(catIds.length)wpData.categories=catIds;
-    const firstImg=media.find(m=>m.mime_type?.startsWith('image/'));
-    if(firstImg)wpData.featured_media=firstImg.id;
-
-    const result=await apiCall('publish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(wpData)});
-    log('¡'+(status==='publish'?'Publicado':'Borrador guardado')+'!','ok');
-
-    document.getElementById('step3').className='step done';
-
-    const sc=document.getElementById('successCard');
-    sc.innerHTML=`<div class="success-card">
-      <h3>🎉 ¡${status==='publish'?'Publicado con éxito':'Borrador guardado'}!</h3>
-      <div class="post-title">${post.title}</div>
-      <a href="${result.link}" target="_blank">🔗 Ver en cartagenaeste.es</a>
-      <br><button class="new-btn" onclick="resetForm()">✏️ Crear otra publicación</button>
-    </div>`;
-    sc.style.display='block';
-    sc.scrollIntoView({behavior:'smooth',block:'center'});
-
-  }catch(e){
-    log('Error: '+e.message,'err');
-    document.getElementById('step3').className='step';
-  }finally{
-    btn.disabled=false;
-    btn.innerHTML='🚀 Publicar en cartagenaeste.es';
-  }
+    else if(post.category_suggestion){const sel=document.getElementById('category');for(let i=0;i<sel.options.length;i++){if(sel.options[i].textContent.toLowerCase().includes(post.category_suggestion.toLowerCase())){catIds=[parseInt(sel.options[i].value)];break}}}
+    log('Publicando ('+status+')...','info');
+    const wp={title:post.title,content:post.content,excerpt:post.excerpt||'',status};
+    if(tagIds.length)wp.tags=tagIds;if(catIds.length)wp.categories=catIds;
+    const img1=media.find(m=>m.mime_type?.startsWith('image/'));if(img1)wp.featured_media=img1.id;
+    const res=await api('publish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(wp)});
+    log('¡PUBLICADO! → '+res.link,'ok');
+    const sb=document.getElementById('successBox');
+    sb.innerHTML=`<div class="success"><h3>✅ ¡Publicado!</h3><div class="stitle">${post.title}</div><a href="${res.link}" target="_blank">🔗 ${res.link}</a><br><button class="again" onclick="resetAll()">✏️ Nueva publicación</button></div>`;
+    sb.style.display='block';sb.scrollIntoView({behavior:'smooth',block:'center'});
+  }catch(e){log('Error: '+e.message,'err')}
+  finally{btn.disabled=false;btn.innerHTML='⚡ Publicar automáticamente'}
 }
-
-function resetForm(){
-  document.getElementById('content').value='';
-  files=[];renderFiles();
-  document.getElementById('statusArea').innerHTML='';
-  document.getElementById('successCard').style.display='none';
-  document.getElementById('step1').className='step active';
-  document.getElementById('step2').className='step';
-  document.getElementById('step3').className='step';
+function resetAll(){
+  document.getElementById('content').value='';files=[];renderFiles();
+  document.getElementById('log').innerHTML='';document.getElementById('successBox').style.display='none';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
