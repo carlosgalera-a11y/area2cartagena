@@ -268,7 +268,7 @@ body::before{
     <div class="link-card">
       <label>🔗 Enlace directo al publicador</label>
       <div class="link-row">
-        <input class="link-url" id="linkUrl" value="https://cartagenaeste.es/publica.html" readonly onclick="this.select()">
+        <input class="link-url" id="linkUrl" value="publicador-blog.html" readonly onclick="this.select()">
         <button class="copy-btn" id="copyBtn" onclick="copyLink()">Copiar</button>
       </div>
     </div>
@@ -290,17 +290,17 @@ body::before{
     </div>
 
     <!-- Open publisher -->
-    <a class="open-cta" href="https://cartagenaeste.es/publica.html" target="_blank">
+    <a class="open-cta" href="publicador-blog.html" target="_blank">
       <span class="ico">🚀</span>
       <div>
         <h3>Abrir publicador ahora</h3>
-        <p>Ir a cartagenaeste.es/publica.html</p>
+        <p>Ir al publicador del blog</p>
       </div>
     </a>
 
     <!-- Print footer -->
     <div class="print-footer">
-      Centro de Salud Cartagena Este · <strong>cartagenaeste.es/publica.html</strong>
+      Centro de Salud Cartagena Este · <strong>publicador-blog.html</strong>
     </div>
   </div>
 
@@ -311,7 +311,7 @@ body::before{
 // ═══════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════
-const PUBLISH_URL = 'https://cartagenaeste.es/publica.html';
+const PUBLISH_URL = window.location.origin + '/publicador-blog.html';
 const ACCESS_PIN = '2507'; // ← Cambia este PIN cuando quieras
 
 // ═══════════════════════════════════════
@@ -408,7 +408,7 @@ function downloadQR() {
   ctx.fillStyle = '#0f1729';
   ctx.font = 'bold 16px sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('cartagenaeste.es/publica.html', s / 2, s + 40);
+  ctx.fillText('publicador-blog.html', s / 2, s + 40);
   const a = document.createElement('a');
   a.download = 'QR-Publicador-CartagenaEste.png';
   a.href = out.toDataURL('image/png');
