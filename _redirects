@@ -1,0 +1,5 @@
+# Redirect www to non-www
+https://www.area2cartagena.es/* https://area2cartagena.es/:splat 301!
+
+# Redirect old netlify domain to new domain
+https://cartagenaeste.netlify.app/* https://area2cartagena.es/:splat 301!
