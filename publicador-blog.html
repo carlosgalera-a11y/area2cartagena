@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publicador Blog — Cartagena Este</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,700;9..144,800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f1729;--card:#1a2342;--card-border:#263354;
+  --text:#e8ecf4;--sub:#8899b8;--accent:#38bdf8;--accent-glow:rgba(56,189,248,0.15);
+  --green:#34d399;--green-glow:rgba(52,211,153,0.12);
+  --radius:20px;
+}
+html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background-image:
+    radial-gradient(ellipse 600px 400px at 20% 20%,rgba(56,189,248,0.06),transparent),
+    radial-gradient(ellipse 500px 500px at 80% 80%,rgba(52,211,153,0.04),transparent),
+    linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+  background-size:100% 100%,100% 100%,40px 40px,40px 40px;
+  pointer-events:none;
+}
+
+.wrapper{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:1;padding:24px 16px}
+
+/* ===== LOGIN ===== */
+#loginScreen{text-align:center;max-width:380px;width:100%;animation:fadeUp .6s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+.login-icon{
+  width:84px;height:84px;border-radius:24px;margin:0 auto 28px;
+  background:linear-gradient(135deg,#0ea5e9,#38bdf8,#34d399);
+  display:flex;align-items:center;justify-content:center;font-size:38px;
+  box-shadow:0 8px 40px rgba(56,189,248,0.3);position:relative;
+}
+.login-icon::after{
+  content:'';position:absolute;inset:-3px;border-radius:27px;
+  background:linear-gradient(135deg,var(--accent),var(--green));
+  z-index:-1;opacity:.4;filter:blur(8px);
+}
+
+.login-title{font-family:'Fraunces',serif;font-size:clamp(24px,5vw,32px);font-weight:800;margin-bottom:8px;letter-spacing:-1px;line-height:1.2}
+.login-sub{color:var(--sub);font-size:13px;line-height:1.6;margin-bottom:32px}
+
+/* PIN input */
+.pin-group{margin-bottom:20px}
+.pin-label{font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;display:block}
+.pin-inputs{display:flex;justify-content:center;gap:10px}
+.pin-digit{
+  width:52px;height:62px;border:2px solid var(--card-border);background:var(--card);
+  border-radius:14px;text-align:center;font-family:inherit;font-size:24px;font-weight:800;
+  color:var(--accent);outline:none;transition:all .2s;caret-color:var(--accent);
+}
+.pin-digit:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.pin-digit.error{border-color:#ef4444;animation:shake .4s ease}
+
+.pin-enter{
+  width:100%;padding:16px;border:none;border-radius:14px;
+  background:linear-gradient(135deg,var(--accent),#0ea5e9);
+  color:#0f1729;font-family:inherit;font-size:15px;font-weight:800;
+  cursor:pointer;transition:all .2s;margin-top:8px;
+  box-shadow:0 4px 20px rgba(56,189,248,0.3);
+}
+.pin-enter:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(56,189,248,0.4)}
+.pin-enter:active{transform:translateY(0)}
+
+.pin-error-msg{color:#f87171;font-size:12px;font-weight:600;margin-top:10px;min-height:18px}
+.login-footer{color:var(--sub);font-size:10px;margin-top:24px;opacity:.6}
+
+/* ===== MAIN ===== */
+#mainScreen{display:none;width:100%;max-width:480px;animation:fadeUp .5s ease}
+
+.top-bar{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;
+  padding:12px 16px;background:var(--card);border:1px solid var(--card-border);border-radius:14px;
+}
+.top-bar-left{display:flex;align-items:center;gap:10px}
+.top-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(52,211,153,0.5)}
+.top-bar-text{font-size:12px;font-weight:700;color:var(--green)}
+.top-bar-sub{font-size:10px;color:var(--sub);font-weight:500}
+.logout-btn{
+  background:none;border:1px solid var(--card-border);border-radius:8px;
+  color:var(--sub);font-size:11px;font-weight:600;padding:6px 14px;
+  cursor:pointer;font-family:inherit;transition:all .15s;
+}
+.logout-btn:hover{border-color:#f87171;color:#f87171}
+
+/* QR Card */
+.qr-card{
+  background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
+  overflow:hidden;margin-bottom:16px;
+}
+.qr-header{
+  padding:18px 22px 14px;border-bottom:1px solid var(--card-border);
+  display:flex;align-items:center;gap:12px;
+}
+.qr-header-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:var(--accent-glow);border:1px solid rgba(56,189,248,0.15);
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
+}
+.qr-header h2{font-family:'Fraunces',serif;font-size:18px;font-weight:800;letter-spacing:-0.5px}
+.qr-header p{font-size:11px;color:var(--sub);margin-top:2px}
+
+.qr-body{padding:24px 20px;text-align:center}
+.qr-frame{
+  display:inline-block;padding:14px;background:#fff;border-radius:16px;
+  box-shadow:0 4px 24px rgba(0,0,0,.25);position:relative;
+}
+.qr-frame canvas{display:block;border-radius:4px}
+.qr-badge{
+  position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--green),#10b981);color:#0f1729;
+  font-size:9px;font-weight:900;padding:5px 14px;border-radius:20px;
+  white-space:nowrap;letter-spacing:.8px;text-transform:uppercase;
+  box-shadow:0 2px 12px rgba(52,211,153,0.4);
+}
+
+.qr-instructions{margin-top:24px;font-size:13px;color:var(--sub);line-height:1.8}
+.qr-instructions strong{color:var(--text)}
+.qr-instructions .step-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:7px;background:var(--accent-glow);
+  color:var(--accent);font-size:11px;font-weight:800;margin-right:4px;
+}
+
+/* Link Card */
+.link-card{
+  background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);
+  padding:18px 22px;margin-bottom:16px;
+}
+.link-card label{font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:block}
+.link-row{display:flex;gap:8px}
+.link-url{
+  flex:1;padding:13px 14px;background:var(--bg);border:1px solid var(--card-border);
+  border-radius:12px;font-family:'Outfit',monospace;font-size:12px;font-weight:600;
+  color:var(--accent);outline:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.copy-btn{
+  padding:13px 18px;background:var(--accent);color:#0f1729;border:none;
+  border-radius:12px;font-family:inherit;font-size:12px;font-weight:800;
+  cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.copy-btn:hover{background:#7dd3fc}
+.copy-btn.copied{background:var(--green)}
+
+/* Action buttons */
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.act-btn{
+  padding:16px 12px;border:1px solid var(--card-border);background:var(--card);
+  border-radius:16px;font-family:inherit;font-size:12px;font-weight:700;
+  color:var(--text);cursor:pointer;transition:all .2s;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.act-btn:hover{border-color:var(--accent);background:var(--accent-glow);transform:translateY(-1px)}
+.act-btn .ico{font-size:24px}
+.act-btn .act-sub{font-size:10px;color:var(--sub);font-weight:500}
+
+/* Open publisher CTA */
+.open-cta{
+  display:flex;align-items:center;gap:14px;
+  padding:18px 22px;background:linear-gradient(135deg,rgba(56,189,248,0.12),rgba(52,211,153,0.08));
+  border:1px solid rgba(56,189,248,0.2);border-radius:var(--radius);
+  cursor:pointer;transition:all .2s;text-decoration:none;
+}
+.open-cta:hover{background:linear-gradient(135deg,rgba(56,189,248,0.18),rgba(52,211,153,0.12));transform:translateY(-1px)}
+.open-cta .ico{font-size:30px;flex-shrink:0}
+.open-cta h3{font-size:15px;font-weight:800;color:var(--accent)}
+.open-cta p{font-size:11px;color:var(--sub);margin-top:2px}
+
+/* ===== PRINT ===== */
+@media print{
+  body{background:#fff!important;color:#000!important}
+  body::before{display:none!important}
+  #loginScreen,.top-bar,.link-card,.actions,.open-cta,.logout-btn{display:none!important}
+  #mainScreen{display:block!important;max-width:100%}
+  .wrapper{padding:0}
+  .qr-card{border:2px solid #333;box-shadow:none;page-break-inside:avoid}
+  .qr-card,.qr-header{background:#fff!important;border-color:#ccc!important}
+  .qr-header-icon{background:#eee!important;border-color:#ccc!important}
+  .qr-header h2{color:#000!important}
+  .qr-header p,.qr-instructions,.qr-instructions strong{color:#333!important}
+  .qr-frame{box-shadow:none!important;border:1px solid #ccc}
+  .qr-badge{background:#222!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .step-num{background:#eee!important;color:#333!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-header{display:block!important;text-align:center;margin-bottom:20px}
+  .print-header h1{font-family:'Fraunces',serif;font-size:28px;color:#000;margin-bottom:4px}
+  .print-header p{font-size:14px;color:#555}
+  .print-footer{display:block!important;text-align:center;margin-top:20px;font-size:13px;color:#555;border-top:1px solid #ccc;padding-top:12px}
+}
+.print-header,.print-footer{display:none}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- ===== LOGIN ===== -->
+  <div id="loginScreen">
+    <div class="login-icon">🏥</div>
+    <h1 class="login-title">Publicador Blog<br>Cartagena Este</h1>
+    <p class="login-sub">Introduce el PIN del equipo para acceder al código QR y enlace de publicación.</p>
+
+    <div class="pin-group">
+      <span class="pin-label">Pin de acceso</span>
+      <div class="pin-inputs">
+        <input class="pin-digit" type="tel" maxlength="1" id="p0" inputmode="numeric" autofocus>
+        <input class="pin-digit" type="tel" maxlength="1" id="p1" inputmode="numeric">
+        <input class="pin-digit" type="tel" maxlength="1" id="p2" inputmode="numeric">
+        <input class="pin-digit" type="tel" maxlength="1" id="p3" inputmode="numeric">
+      </div>
+      <div class="pin-error-msg" id="pinError"></div>
+      <button class="pin-enter" onclick="checkPin()">Acceder</button>
+    </div>
+
+    <p class="login-footer">Centro de Salud Cartagena Este · Solo personal autorizado</p>
+  </div>
+
+  <!-- ===== MAIN ===== -->
+  <div id="mainScreen">
+    <!-- Print header -->
+    <div class="print-header">
+      <h1>📝 Publica en el blog del centro</h1>
+      <p>Centro de Salud Cartagena Este — cartagenaeste.es</p>
+    </div>
+
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <span class="top-dot"></span>
+        <div>
+          <div class="top-bar-text">Acceso autorizado</div>
+          <div class="top-bar-sub">Sesión activa</div>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">🔒 Cerrar</button>
+    </div>
+
+    <!-- QR -->
+    <div class="qr-card">
+      <div class="qr-header">
+        <div class="qr-header-icon">📱</div>
+        <div>
+          <h2>Código QR</h2>
+          <p>Escanea con la cámara del móvil para publicar</p>
+        </div>
+      </div>
+      <div class="qr-body">
+        <div class="qr-frame">
+          <canvas id="qrCanvas"></canvas>
+          <div class="qr-badge">cartagenaeste.es</div>
+        </div>
+        <div class="qr-instructions">
+          <span class="step-num">1</span> Abre la <strong>cámara</strong> del móvil<br>
+          <span class="step-num">2</span> Apunta al <strong>código QR</strong><br>
+          <span class="step-num">3</span> Escribe y dale a <strong>Publicar</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link -->
+    <div class="link-card">
+      <label>🔗 Enlace directo al publicador</label>
+      <div class="link-row">
+        <input class="link-url" id="linkUrl" value="https://ramongalera22-ai.github.io/Cartagenaeste/publicador-blog.html" readonly onclick="this.select()">
+        <button class="copy-btn" id="copyBtn" onclick="copyLink()">Copiar</button>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="act-btn" onclick="shareWhatsApp()">
+        <span class="ico">💬</span>Compartir<span class="act-sub">por WhatsApp</span>
+      </button>
+      <button class="act-btn" onclick="shareEmail()">
+        <span class="ico">✉️</span>Enviar<span class="act-sub">por Email</span>
+      </button>
+      <button class="act-btn" onclick="window.print()">
+        <span class="ico">🖨️</span>Imprimir<span class="act-sub">Cartel con QR</span>
+      </button>
+      <button class="act-btn" onclick="downloadQR()">
+        <span class="ico">💾</span>Descargar<span class="act-sub">Imagen QR</span>
+      </button>
+    </div>
+
+    <!-- Open publisher -->
+    <a class="open-cta" href="https://ramongalera22-ai.github.io/Cartagenaeste/publicador-blog.html" target="_blank">
+      <span class="ico">🚀</span>
+      <div>
+        <h3>Abrir publicador ahora</h3>
+        <p>Ir a ramongalera22-ai.github.io/Cartagenaeste/publicador-blog.html</p>
+      </div>
+    </a>
+
+    <!-- Print footer -->
+    <div class="print-footer">
+      Centro de Salud Cartagena Este · <strong>ramongalera22-ai.github.io/Cartagenaeste/publicador-blog.html</strong>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script>
+// ═══════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════
+const PUBLISH_URL = 'https://ramongalera22-ai.github.io/Cartagenaeste/publicador-blog.html';
+const ACCESS_PIN = '2507'; // ← Cambia este PIN cuando quieras
+
+// ═══════════════════════════════════════
+// PIN LOGIN
+// ═══════════════════════════════════════
+const digits = [document.getElementById('p0'), document.getElementById('p1'), document.getElementById('p2'), document.getElementById('p3')];
+
+// Auto-focus next digit
+digits.forEach((d, i) => {
+  d.addEventListener('input', () => {
+    d.value = d.value.replace(/\D/g, '').slice(-1);
+    if (d.value && i < 3) digits[i + 1].focus();
+    if (i === 3 && d.value) checkPin();
+    clearError();
+  });
+  d.addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && !d.value && i > 0) { digits[i - 1].focus(); digits[i - 1].value = ''; }
+    if (e.key === 'Enter') checkPin();
+  });
+  // Allow paste of full PIN
+  d.addEventListener('paste', e => {
+    e.preventDefault();
+    const paste = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 4);
+    paste.split('').forEach((c, j) => { if (digits[j]) digits[j].value = c; });
+    if (paste.length >= 4) checkPin();
+    else if (digits[paste.length]) digits[paste.length].focus();
+  });
+});
+
+function clearError() {
+  document.getElementById('pinError').textContent = '';
+  digits.forEach(d => d.classList.remove('error'));
+}
+
+function checkPin() {
+  const entered = digits.map(d => d.value).join('');
+  if (entered.length < 4) {
+    document.getElementById('pinError').textContent = 'Introduce los 4 dígitos';
+    return;
+  }
+  if (entered === ACCESS_PIN) {
+    sessionStorage.setItem('ceste_auth', '1');
+    showMain();
+  } else {
+    document.getElementById('pinError').textContent = 'PIN incorrecto';
+    digits.forEach(d => { d.classList.add('error'); });
+    setTimeout(() => { digits.forEach(d => { d.value = ''; d.classList.remove('error'); }); digits[0].focus(); }, 600);
+  }
+}
+
+// ═══════════════════════════════════════
+// MAIN SCREEN
+// ═══════════════════════════════════════
+function showMain() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('mainScreen').style.display = 'block';
+  generateQR();
+}
+
+function logout() {
+  sessionStorage.removeItem('ceste_auth');
+  document.getElementById('mainScreen').style.display = 'none';
+  document.getElementById('loginScreen').style.display = '';
+  digits.forEach(d => d.value = '');
+  digits[0].focus();
+}
+
+// ═══════════════════════════════════════
+// QR
+// ═══════════════════════════════════════
+function generateQR() {
+  new QRious({
+    element: document.getElementById('qrCanvas'),
+    value: PUBLISH_URL,
+    size: 200,
+    level: 'H',
+    foreground: '#0f1729',
+    background: '#ffffff',
+    padding: 8
+  });
+}
+
+function downloadQR() {
+  const canvas = document.getElementById('qrCanvas');
+  // Create a larger canvas with label
+  const out = document.createElement('canvas');
+  const s = 400;
+  out.width = s;
+  out.height = s + 60;
+  const ctx = out.getContext('2d');
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, out.width, out.height);
+  ctx.drawImage(canvas, (s - 340) / 2, 16, 340, 340);
+  ctx.fillStyle = '#0f1729';
+  ctx.font = 'bold 16px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('ramongalera22-ai.github.io/Cartagenaeste/publicador-blog.html', s / 2, s + 40);
+  const a = document.createElement('a');
+  a.download = 'QR-Publicador-CartagenaEste.png';
+  a.href = out.toDataURL('image/png');
+  a.click();
+}
+
+// ═══════════════════════════════════════
+// SHARE
+// ═══════════════════════════════════════
+function copyLink() {
+  navigator.clipboard.writeText(PUBLISH_URL).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✅ Copiado';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function shareWhatsApp() {
+  const text = '📝 *Publicador del blog de Cartagena Este*\n\nEntra en este enlace para publicar noticias, sesiones y documentos en el blog del centro:\n\n👉 ' + PUBLISH_URL + '\n\nSolo tienes que escribir el texto y la IA le da formato automáticamente.';
+  window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+}
+
+function shareEmail() {
+  const subject = 'Enlace publicador blog — Centro de Salud Cartagena Este';
+  const body = 'Hola,\n\nCon este enlace puedes publicar directamente en el blog del centro de salud:\n\n' + PUBLISH_URL + '\n\nEs muy sencillo: escribe el texto, adjunta archivos si quieres, y dale a Publicar. La inteligencia artificial le da formato profesional automáticamente.\n\nSaludos';
+  window.open('mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body));
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+if (sessionStorage.getItem('ceste_auth')) showMain();
+</script>
+</body>
+</html>
