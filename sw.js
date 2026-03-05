@@ -1,14 +1,14 @@
 // Service Worker - Área II Cartagena PWA v2
 const CACHE_NAME = 'area2-cartagena-v2';
-const OFFLINE_URL = '/Cartagenaeste/notebook-local.html';
+const OFFLINE_URL = '/notebook-local.html';
 
 // Core files to cache on install
 const PRECACHE_URLS = [
-  '/Cartagenaeste/notebook-local.html',
-  '/Cartagenaeste/manifest.json',
-  '/Cartagenaeste/icons/icon-192x192.png',
-  '/Cartagenaeste/icons/icon-512x512.png',
-  '/Cartagenaeste/icons/icon-96x96.png'
+  '/notebook-local.html',
+  '/manifest.json',
+  '/icons/icon-192x192.png',
+  '/icons/icon-512x512.png',
+  '/icons/icon-96x96.png'
 ];
 
 // Install: precache core files
@@ -84,11 +84,11 @@ self.addEventListener('sync', event => {
 self.addEventListener('periodicsync', event => {
   if (event.tag === 'update-check') {
     event.waitUntil(
-      fetch('/Cartagenaeste/notebook-local.html', { cache: 'no-store' })
+      fetch('/notebook-local.html', { cache: 'no-store' })
         .then(response => {
           if (response.ok) {
             return caches.open(CACHE_NAME).then(cache => {
-              return cache.put('/Cartagenaeste/notebook-local.html', response);
+              return cache.put('/notebook-local.html', response);
             });
           }
         })
@@ -104,8 +104,8 @@ self.addEventListener('push', event => {
     event.waitUntil(
       self.registration.showNotification(data.title || 'Área II Cartagena', {
         body: data.body || 'Nueva actualización disponible',
-        icon: '/Cartagenaeste/icons/icon-192x192.png',
-        badge: '/Cartagenaeste/icons/icon-96x96.png',
+        icon: '/icons/icon-192x192.png',
+        badge: '/icons/icon-96x96.png',
         tag: 'area2-notification'
       })
     );
@@ -120,7 +120,7 @@ self.addEventListener('notificationclick', event => {
       if (clients.length > 0) {
         return clients[0].focus();
       }
-      return self.clients.openWindow('/Cartagenaeste/notebook-local.html');
+      return self.clients.openWindow('/notebook-local.html');
     })
   );
 });
