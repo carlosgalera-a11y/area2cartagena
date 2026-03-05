@@ -179,7 +179,7 @@
       "name": "Guardia Rápida",
       "description": "Acceso rápido a pacientes de guardia",
       "tag": "guardia",
-      "ms_ac_template": "https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html",
+      "ms_ac_template": "https://ramongalera22-ai.github.io/notebook-local.html",
       "icons": [
         {
           "src": "icons/icon-96x96.png",

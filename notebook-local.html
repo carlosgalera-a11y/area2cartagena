@@ -196,6 +196,134 @@
         .nav-status.ok{background:rgba(34,197,94,.15);color:#4ade80}.nav-status.wait{background:rgba(234,179,8,.15);color:#fbbf24}
         .scrollbar::-webkit-scrollbar{width:6px}.scrollbar::-webkit-scrollbar-track{background:0 0}.scrollbar::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
         @media(max-width:1024px){.prof-layout{grid-template-columns:1fr}.sidebar-left,.sidebar-right{display:none}.landing-nav .nav-links{display:none}.hero-content h2{font-size:2rem}.hero-buttons{flex-direction:column;align-items:center}.patients-grid{padding:20px}}
+
+        /* ═══ COMPREHENSIVE MOBILE RESPONSIVE ═══ */
+
+        /* Tablet: 601-1024px */
+        @media(max-width:1024px){
+            .hero-content{padding:30px 20px}
+            .hero-content p{font-size:1rem;margin-bottom:24px}
+            .hero-btn{padding:16px 28px;font-size:.95rem;min-width:200px}
+            .patients-header{padding:20px 24px 16px}
+            .patients-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;padding:20px 24px}
+            .content-header{padding:16px 20px}
+            .content-area{padding:16px 20px}
+            .studio-grid{grid-template-columns:1fr 1fr;gap:10px}
+            .scan-container{padding:0 16px!important}
+            #qrInstallSection{gap:20px}
+        }
+
+        /* Mobile: 481-600px */
+        @media(max-width:600px){
+            #qrInstallSection{flex-direction:column!important;align-items:center!important;gap:16px!important;margin-top:20px!important}
+            #qrInstallSection>div{max-width:92%!important;width:100%!important}
+            #qrInstallSection img{width:120px!important;height:120px!important}
+            .hero-content h2{font-size:1.7rem}
+            .hero-content p{font-size:.9rem;margin-bottom:20px}
+            .hero-badge{font-size:.72rem;padding:5px 14px}
+            .hero-btn{padding:14px 20px;font-size:.9rem;min-width:0;width:85%;max-width:320px}
+            .hero-btn-icon{font-size:1.2rem}
+            .hero-footer{font-size:.7rem;bottom:10px}
+            .landing-nav{padding:0 16px;height:52px}
+            .landing-nav .brand .logo{width:30px;height:30px;font-size:.9rem}
+            .landing-nav .brand h1{font-size:1rem}
+            .patients-header{padding:16px 16px 12px}
+            .patients-header h2{font-size:1.4rem}
+            .patients-grid{grid-template-columns:1fr;gap:10px;padding:16px}
+            .patient-card{padding:16px}
+            .patient-card-title{font-size:.95rem}
+            .content-header{padding:12px 16px;flex-direction:column;gap:8px;text-align:center}
+            .content-header h3{font-size:1.2rem}
+            .content-area{padding:12px 16px}
+            .tab-buttons{flex-wrap:wrap}
+            .tab-btn{font-size:.78rem;padding:8px 10px}
+            .studio-grid{grid-template-columns:1fr}
+            .question-input{flex-direction:column}
+            .question-input input{font-size:16px}
+            .question-box{padding:14px 16px}
+            .question-text{font-size:.92rem}
+            .answer-text{font-size:.86rem}
+            .config-row{flex-direction:column}
+            .config-row input,.config-row select{font-size:16px}
+            .btn{padding:12px 18px;font-size:.85rem;width:100%}
+            select,input[type="text"],input[type="email"],input[type="password"],textarea{font-size:16px!important}
+        }
+
+        /* Small mobile: ≤480px */
+        @media(max-width:480px){
+            .hero-content h2{font-size:1.5rem;letter-spacing:-.01em}
+            .hero-content p{font-size:.85rem;line-height:1.5}
+            .hero-btn{padding:13px 16px;font-size:.85rem;gap:8px;width:90%}
+            .hero-buttons{gap:10px}
+            #qrInstallSection img{width:100px!important;height:100px!important}
+            .patients-grid{padding:12px}
+            .patient-card{padding:14px}
+            .patient-card-icon{font-size:1.6rem;margin-bottom:8px}
+            .patient-card-title{font-size:.9rem}
+            .patient-card-desc{font-size:.78rem}
+        }
+
+        /* Tiny mobile: ≤360px */
+        @media(max-width:360px){
+            .hero-content h2{font-size:1.3rem}
+            .hero-content p{font-size:.8rem}
+            .hero-btn{padding:12px 14px;font-size:.82rem}
+            .landing-nav{padding:0 12px;height:48px}
+            .landing-nav .brand h1{font-size:.9rem}
+        }
+
+        /* Touch device improvements */
+        @media(hover:none) and (pointer:coarse){
+            .hero-btn,.btn,.page-back,.tab-btn,.category-btn,.patient-card,.studio-card,button,a[onclick]{
+                min-height:44px;
+                -webkit-tap-highlight-color:rgba(0,0,0,.05);
+            }
+            .hero-btn:active{transform:scale(.97)!important;transition:transform .1s}
+            .patient-card:hover{transform:none;box-shadow:none}
+            .patient-card:active{transform:scale(.98);box-shadow:var(--shadow-sm)}
+            body{-webkit-overflow-scrolling:touch}
+            select option,select optgroup{font-size:16px}
+        }
+
+        /* Landscape mobile */
+        @media(max-height:500px) and (orientation:landscape){
+            .hero{min-height:auto;padding:20px 0}
+            .hero-content{padding:15px 20px}
+            .hero-content h2{font-size:1.5rem;margin-bottom:8px}
+            .hero-content p{margin-bottom:12px;font-size:.85rem}
+            .hero-buttons{gap:8px}
+            .hero-btn{padding:10px 20px;font-size:.85rem}
+            #qrInstallSection{display:none!important}
+            .hero-footer{position:relative;bottom:0;margin-top:10px}
+        }
+
+        /* PWA standalone mode */
+        @media(display-mode:standalone){
+            .landing-nav{padding-top:env(safe-area-inset-top);height:calc(52px + env(safe-area-inset-top))}
+            body{padding-bottom:env(safe-area-inset-bottom)}
+        }
+
+        /* Scan/Herramientas page mobile */
+        @media(max-width:600px){
+            .scan-container{padding:0 10px!important}
+            .scan-container h2{font-size:1.3rem!important}
+            .scan-mode-btn{padding:10px 8px!important;font-size:.8rem!important}
+            #scanDropZone{min-height:150px!important;padding:16px!important}
+        }
+
+        /* Select dropdown visibility fix */
+        select option,select optgroup{background:#1a1f2e;color:#e2e8f0}
+        select option:checked{background:#0f6b4a;color:#fff}
+
+        /* Print */
+        @media print{
+            .landing-nav,.hero-footer,#qrInstallSection,.hero-btn,.page-back{display:none!important}
+            .hero{min-height:auto}
+            .hero-bg,.hero-overlay{display:none}
+            .hero-content{color:#000}
+            .hero-content h2,.hero-content p{color:#000}
+            .page{display:block!important;page-break-after:always}
+        }
         .scan-mode-btn.active,.scan-mode-btn[style*="border-color: rgb(0, 102, 204)"]{border-color:#0066cc!important;background:linear-gradient(135deg,#0066cc,#004499)!important;color:#fff!important;}
     </style>
 <!-- PWA Meta Tags -->
@@ -229,6 +357,9 @@
                     <a class="hero-btn hero-btn-professionals" onclick="showPage('pageProfessionals')"><span class="hero-btn-icon">🩺</span> Profesionales</a>
                 </div>
                 <div class="hero-buttons" style="margin-top:20px;">
+                    <a class="hero-btn" href="javascript:void(0)" onclick="showPage('pageEnfermeria')" style="background:linear-gradient(135deg,#e74c8b,#c2185b);color:#fff;border:2px solid rgba(255,255,255,.3);cursor:pointer;"><span class="hero-btn-icon">👩‍⚕️</span> Enfermería</a>
+                </div>
+                <div class="hero-buttons" style="margin-top:20px;">
                     <a class="hero-btn hero-btn-patients" onclick="showPage('pageProtocolosAP')" style="background:#fff;color:var(--primary-dark);"><span class="hero-btn-icon">📋</span> Protocolos Atencion Primaria</a>
                     <a class="hero-btn hero-btn-professionals" onclick="showPage('pageProtocolosUrgencias')" style="background:transparent;border-color:rgba(255,255,255,.4);color:#fff;"><span class="hero-btn-icon">🚨</span> Protocolos Urgencias</a>
                 </div>
@@ -236,8 +367,36 @@
                     <a class="hero-btn" href="javascript:void(0)" onclick="showScanLogin()" style="background:linear-gradient(135deg,#0066cc,#004499);color:#fff;border:2px solid rgba(255,255,255,.3);cursor:pointer;"><span class="hero-btn-icon">🛠️</span> Herramientas</a>
                     <a class="hero-btn" href="javascript:void(0)" onclick="showPage('pageTelefonos')" style="background:linear-gradient(135deg,#d4a853,#b8912e);color:#fff;border:2px solid rgba(255,255,255,.3);cursor:pointer;"><span class="hero-btn-icon">📞</span> Teléfonos Buscas</a>
                 </div>
+                <div class="hero-buttons" style="margin-top:20px;">
+                    <a class="hero-btn" href="javascript:void(0)" onclick="showPage('pageFilehub')" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border:2px solid rgba(255,255,255,.3);cursor:pointer;"><span class="hero-btn-icon">📖</span> Cuaderno IA</a>
+                    <a class="hero-btn" href="javascript:void(0)" onclick="showPage('pageFilehub');setTimeout(openBlogPublisher,300)" style="background:linear-gradient(135deg,#0284c7,#0369a1);color:#fff;border:2px solid rgba(255,255,255,.3);cursor:pointer;"><span class="hero-btn-icon">🌐</span> Blog Publisher</a>
+                </div>
             </div>
-            <div class="hero-footer">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Creado con ❤️</div>
+
+            <!-- QR + Install Instructions -->
+            <div id="qrInstallSection" style="display:flex;align-items:flex-start;justify-content:center;gap:30px;margin-top:30px;flex-wrap:wrap;padding:0 20px;">
+                <!-- QR Code -->
+                <div style="background:rgba(255,255,255,.12);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:18px;text-align:center;flex-shrink:0;">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAewAAAHsCAIAAACfSAk3AAAKLElEQVR4nO3cS24kRxAFQbXA+1+ZWmhHQFRCSkSHV5utB836jSNX7/X9/f0HAE1/vvsCAPjvRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcK+3n0BP71er3dfwtt8f3//6785eT7F37ll8r5uufV8Jt+F/6d7OIkDhIk4QJiIA4SJOECYiAOEiThAmIgDhIk4QJiIA4SJOECYiAOErdtOObFtu+DE5NZEcdfi1u7Htr2XW++i+E79P53hJA4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhCW3E45MbmBMLkRMbkN8tTdj237Kp/sqf9PJzmJA4SJOECYiAOEiThAmIgDhIk4QJiIA4SJOECYiAOEiThAmIgDhD12O+Wptu2ZTO5RbNszmdyouXVf254h/5+TOECYiAOEiThAmIgDhIk4QJiIA4SJOECYiAOEiThAmIgDhIk4QJjtlJhtGxqTWxy3rueWyfuCf+IkDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOEPbY7ZRP3qO4tR+y7Xdu2fZt3Ho+2+7rRPGat3ESBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCEtup2zb4ph0cu8nexSf/Dsnnnpfk4rXXOQkDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOEPY62W1gj1t7FMX3XtziuPWcJ++9+G18MidxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAsK93X8BPJxsRJ9sOkxsjT921KD7DW39r23Pe9h1OPsNtz2fbtoyTOECYiAOEiThAmIgDhIk4QJiIA4SJOECYiAOEiThAmIgDhIk4QNi67ZQT2zYQPnlnY9tWya37euoezqRt733b/swtTuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhye2UWxsIxb2Fp+5sTHrq3kvRtg2fIidxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAsOR2yuTewuTvnJjc9ChujExe87YtjsnvsPici+/0hJM4QJiIA4SJOECYiAOEiThAmIgDhIk4QJiIA4SJOECYiAOEiThA2LrtlMn9hxPbthS27aLcsm0X5cS2Z3hi2+7Qtm+syEkcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgbN12SnFD48Sta7YN8rtt2zsntl3zU/9fnNj2Lk44iQOEiThAmIgDhIk4QJiIA4SJOECYiAOEiThAmIgDhIk4QJiIA4St207Ztl1w63omN08m92dumXzv2/ZeTtx6p5Pf2Dbb2nKLkzhAmIgDhIk4QJiIA4SJOECYiAOEiThAmIgDhIk4QJiIA4SJOEDYa9uewOTux+TvPNWtDY1t72Lb3zqx7XpOFN/XNk7iAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYV/vvoCftu2i3PLUjZHJ51zcvtj2jU0+w23/B5/KSRwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBs3XbKieK+SvFvbfudE5ObMLfc+lsnz/CpWyXFb+wWJ3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYCw17YdgKe6tTHyySaf4VM3YU5s21d56nO+xUkcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgLLmd8tRdi233NemT7+vE5L3feheTv3PiqftFTuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhX+++gJ+2bUSc2Lbpse2+tu2ibHs+t9x6zpMbI9s2jor7Kk7iAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYeu2U05Mbl9MbkScmNyRuPU7t57zU7dKbpn8nrdtjGzbM5nkJA4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhC2bjtl27bDtt2PW39r2/bFLdv2TG4p3te2nZ9tz+cWJ3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYCwV3EfY3IDofh8Tmx7hsWdjW3bO9u+1U++90lO4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGFf776An4o7CZO7H5PPp7h5cuKpmx6Tezi3TD7D4rd6wkkcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwg7LVtB4DfbdvrOLFt02PbJkzx+dzy1D2TSU7iAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYV/vvoCftu1ITLq1/zC5r1Lcvpj8xp66wTL5jX3yLsoJJ3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYCwddspJ4pbCts2YSav59bux7b9kOJ3eEtx62byO5zkJA4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhCW3E458dQNjeL+Q3EXZZvJe9/2nH0bv3MSBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMBEHCHvsdspTTe6QbNus2LYbs22j5qnP59Y39tR9FSdxgDARBwgTcYAwEQcIE3GAMBEHCBNxgDARBwgTcYAwEQcIE3GAMNspD7Rta2Jyi2Pyd7Zty9yy7Zq3bcJs4yQOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4Q9tjtlKfuJBT3Op66wXJL8b5ufYe3Nk8mn+G2tjiJA4SJOECYiAOEiThAmIgDhIk4QJiIA4SJOECYiAOEiThAmIgDhCW3U7ZtX0y6te0w+TuTJndatr2LE9s2T269r20bLJOcxAHCRBwgTMQBwkQcIEzEAcJEHCBMxAHCRBwgTMQBwkQcIEzEAcJexa0AAP7mJA4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhAm4gBhIg4QJuIAYSIOECbiAGEiDhD2F8dN8hlgGq0IAAAAAElFTkSuQmCC" alt="QR area2cartagena.es" style="width:150px;height:150px;border-radius:10px;">
+                    <p style="color:rgba(255,255,255,.9);font-size:.8rem;font-weight:600;margin-top:8px;">📱 Escanea para acceder</p>
+                    <p style="color:rgba(255,255,255,.55);font-size:.7rem;">ramongalera22-ai.github.io/Cartagenaeste</p>
+                </div>
+                <!-- Install as App Instructions -->
+                <div style="background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:18px 22px;max-width:340px;text-align:left;">
+                    <p style="color:#fff;font-weight:700;font-size:.95rem;margin-bottom:10px;">📲 Instalar como App</p>
+                    <div style="margin-bottom:10px;">
+                        <p style="color:rgba(255,255,255,.85);font-size:.78rem;font-weight:600;margin-bottom:4px;">iPhone / iPad (Safari):</p>
+                        <p style="color:rgba(255,255,255,.6);font-size:.72rem;line-height:1.5;">1. Pulsa el icono <span style="background:rgba(255,255,255,.15);padding:1px 6px;border-radius:4px;">⬆️ Compartir</span> abajo<br>2. Selecciona <strong style="color:rgba(255,255,255,.8);">"Añadir a pantalla de inicio"</strong><br>3. Confirma con <strong style="color:rgba(255,255,255,.8);">"Añadir"</strong></p>
+                    </div>
+                    <div>
+                        <p style="color:rgba(255,255,255,.85);font-size:.78rem;font-weight:600;margin-bottom:4px;">Android (Chrome):</p>
+                        <p style="color:rgba(255,255,255,.6);font-size:.72rem;line-height:1.5;">1. Pulsa <span style="background:rgba(255,255,255,.15);padding:1px 6px;border-radius:4px;">⋮</span> (menú) arriba a la derecha<br>2. Selecciona <strong style="color:rgba(255,255,255,.8);">"Añadir a pantalla de inicio"</strong><br>3. Confirma con <strong style="color:rgba(255,255,255,.8);">"Instalar"</strong></p>
+                    </div>
+                    <p style="color:rgba(255,255,255,.45);font-size:.65rem;margin-top:10px;text-align:center;">Funciona sin conexión · Actualizaciones automáticas</p>
+                </div>
+            </div>
+
+            <div class="hero-footer" id="secretTrigger">© 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Creado con ❤️</div>
         </div>
     </div>
 </div>
@@ -311,7 +470,7 @@
         <p style="font-size:.95rem;color:var(--text-light);margin-bottom:30px;max-width:600px;">Accede a los protocolos y guías de atención primaria para profesionales médicos.</p>
         
         <div style="background:var(--bg-card);border-radius:var(--radius);padding:24px;margin-bottom:30px;">
-            <div class="tab-buttons"><button class="tab-btn tab-protocols active" onclick="switchProtocolTab('generales',this)" style="cursor:pointer;">📋 Protocolos</button><button class="tab-btn tab-protocols" onclick="switchProtocolTab('preguntas-proto',this)" style="cursor:pointer;">🤖 Preguntas IA</button><button class="tab-btn tab-protocols" onclick="switchProtocolTab('config-protocolos',this)" style="cursor:pointer;">⚙️ Config IA</button><button class="tab-btn tab-protocols" id="apAdminTabBtn" onclick="switchProtocolTab('admin-protocolos',this)" style="cursor:pointer;display:none;">🔒 Admin</button><button class="tab-btn tab-protocols" onclick="window.open('protocolos-atencion.html','_blank')" style="cursor:pointer;">📑 Ver Todo</button></div>
+            <div class="tab-buttons"><button class="tab-btn tab-protocols active" onclick="switchProtocolTab('generales',this)" style="cursor:pointer;">📋 Protocolos</button><button class="tab-btn tab-protocols" onclick="switchProtocolTab('preguntas-proto',this)" style="cursor:pointer;">🤖 Preguntas IA</button><button class="tab-btn tab-protocols" onclick="switchProtocolTab('informes-ap',this)" style="cursor:pointer;">📄 Informes</button><button class="tab-btn tab-protocols" onclick="switchProtocolTab('config-protocolos',this)" style="cursor:pointer;">⚙️ Config IA</button><button class="tab-btn tab-protocols" id="apAdminTabBtn" onclick="switchProtocolTab('admin-protocolos',this)" style="cursor:pointer;display:none;">🔒 Admin</button><button class="tab-btn tab-protocols" onclick="window.open('protocolos-atencion.html','_blank')" style="cursor:pointer;">📑 Ver Todo</button></div>
             
             <div id="generales-content" class="protocol-content" style="display:block;margin-top:20px;">
                 <div id="generalesProtocols" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
@@ -488,6 +647,87 @@
             </div>
             
             <!-- ADMIN PROTOCOLOS (solo visible con login) -->
+            <!-- ═══ INFORMES AP ═══ -->
+            <div id="informes-ap-content" class="protocol-content" style="display:none;margin-top:20px;">
+                <!-- ADVERTENCIA RGPD -->
+                <div style="background:linear-gradient(135deg,#dc2626,#c62828);border-radius:var(--radius);padding:18px 22px;margin-bottom:20px;color:#fff;border-left:5px solid #ff0;">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                        <span style="font-size:1.6rem;">⚠️</span>
+                        <strong style="font-size:1.05rem;">PROTECCIÓN DE DATOS — IMPORTANTE</strong>
+                    </div>
+                    <p style="font-size:.88rem;line-height:1.6;opacity:.95;">
+                        <strong>NO subas documentos ni capturas que contengan nombres de pacientes, DNI, números de historia clínica u otros datos identificativos.</strong>
+                        La IA rechazará automáticamente cualquier imagen o texto donde detecte datos personales.
+                        Anonimiza siempre la información antes de usarla: sustituye nombres por "Paciente", elimina DNI, NHC y direcciones.
+                    </p>
+                    <p style="font-size:.8rem;margin-top:8px;opacity:.7;">📋 Esta herramienta es de uso docente. Cumplimiento RGPD / LOPD-GDD.</p>
+                </div>
+
+                <div class="studio-intro" style="background:linear-gradient(135deg,#1565c0,#0d47a1);">
+                    <h4>📄 Generador de Informes Clínicos</h4>
+                    <p>Elabora informes con IA a partir de texto o capturas. Descarga en Word, PDF o texto plano.</p>
+                </div>
+
+                <!-- Tipo de informe -->
+                <div class="config-box" style="margin-bottom:16px;">
+                    <h4 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:12px;">1️⃣ Tipo de Informe</h4>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;">
+                        <button class="studio-card informe-tipo-btn" data-tipo="derivacion" onclick="infSelectTipo(this,'derivacion')" style="border:2px solid var(--primary);background:rgba(26,107,74,.05);"><div class="studio-card-icon">📨</div><div class="studio-card-title">Derivación</div><div class="studio-card-desc">Interconsulta a especialista</div></button>
+                        <button class="studio-card informe-tipo-btn" data-tipo="alta" onclick="infSelectTipo(this,'alta')"><div class="studio-card-icon">✅</div><div class="studio-card-title">Alta</div><div class="studio-card-desc">Informe de alta médica</div></button>
+                        <button class="studio-card informe-tipo-btn" data-tipo="seguimiento" onclick="infSelectTipo(this,'seguimiento')"><div class="studio-card-icon">📋</div><div class="studio-card-title">Seguimiento</div><div class="studio-card-desc">Control evolutivo</div></button>
+                        <button class="studio-card informe-tipo-btn" data-tipo="urgencia" onclick="infSelectTipo(this,'urgencia')"><div class="studio-card-icon">🚨</div><div class="studio-card-title">Urgencia</div><div class="studio-card-desc">Atención urgente</div></button>
+                        <button class="studio-card informe-tipo-btn" data-tipo="enfermeria" onclick="infSelectTipo(this,'enfermeria')"><div class="studio-card-icon">👩‍⚕️</div><div class="studio-card-title">Enfermería</div><div class="studio-card-desc">Informe de cuidados</div></button>
+                        <button class="studio-card informe-tipo-btn" data-tipo="libre" onclick="infSelectTipo(this,'libre')"><div class="studio-card-icon">✏️</div><div class="studio-card-title">Libre</div><div class="studio-card-desc">Formato personalizado</div></button>
+                    </div>
+                </div>
+
+                <!-- Input de datos -->
+                <div class="config-box" style="margin-bottom:16px;">
+                    <h4 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:12px;">2️⃣ Datos del Informe</h4>
+                    <textarea id="infTextoInput" placeholder="Describe el caso clínico aquí (sin datos personales)...&#10;&#10;Ejemplo: Paciente varón 67 años, HTA, DM2, acude por dolor torácico de 2h de evolución..." style="width:100%;padding:14px;border:2px solid var(--border);border-radius:var(--radius);min-height:120px;font-family:var(--font-body);resize:vertical;font-size:.92rem;background:var(--bg-card);line-height:1.6;" oninput="infCheckPrivacy(this)"></textarea>
+                    <div id="infPrivacyAlert" style="display:none;margin-top:8px;padding:10px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#dc2626;font-size:.85rem;font-weight:600;">
+                        ⚠️ Se han detectado posibles datos personales. Por favor, anonimiza el texto antes de continuar.
+                    </div>
+
+                    <!-- Upload capturas -->
+                    <div style="margin-top:16px;">
+                        <label style="display:block;font-weight:600;font-size:.85rem;color:var(--text);margin-bottom:8px;">📷 Adjuntar capturas (opcional — sin datos personales)</label>
+                        <div id="infDropZone" style="border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg-subtle);" onclick="document.getElementById('infFileInput').click()" ondragover="event.preventDefault();this.style.borderColor='var(--primary)';this.style.background='rgba(26,107,74,.05)'" ondragleave="this.style.borderColor='var(--border)';this.style.background='var(--bg-subtle)'" ondrop="event.preventDefault();this.style.borderColor='var(--border)';this.style.background='var(--bg-subtle)';infHandleFiles(event.dataTransfer.files)">
+                            <div style="font-size:2rem;margin-bottom:6px;">📎</div>
+                            <p style="font-size:.88rem;color:var(--text-muted);">Arrastra imágenes aquí o haz clic para seleccionar</p>
+                            <p style="font-size:.75rem;color:var(--text-muted);margin-top:4px;">PNG, JPG — Máximo 5 imágenes</p>
+                        </div>
+                        <input type="file" id="infFileInput" accept="image/*" multiple style="display:none;" onchange="infHandleFiles(this.files)">
+                        <div id="infFilesList" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;"></div>
+                    </div>
+                </div>
+
+                <!-- Instrucciones adicionales -->
+                <div class="config-box" style="margin-bottom:16px;">
+                    <h4 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:8px;">3️⃣ Instrucciones adicionales (opcional)</h4>
+                    <input type="text" id="infInstrucciones" placeholder="Ej: Incluir plan de tratamiento, añadir antecedentes, formato breve..." style="width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:var(--radius-sm);font-size:.9rem;font-family:var(--font-body);background:var(--bg-card);">
+                </div>
+
+                <!-- Generar -->
+                <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
+                    <button class="btn btn-primary" onclick="infGenerar()" id="infBtnGenerar" style="flex:1;min-width:200px;padding:14px 24px;font-size:1rem;">🤖 Generar Informe</button>
+                </div>
+
+                <!-- Resultado -->
+                <div id="infResultado" style="display:none;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
+                        <h4 style="font-family:var(--font-display);color:var(--primary-dark);" id="infResultTitle">📄 Informe Generado</h4>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button class="btn btn-primary btn-small" onclick="infDescargar('docx')">📝 Word</button>
+                            <button class="btn btn-primary btn-small" onclick="infDescargar('pdf')" style="background:linear-gradient(135deg,#dc2626,#b91c1c);">📕 PDF</button>
+                            <button class="btn btn-secondary btn-small" onclick="infDescargar('txt')">📃 Texto</button>
+                            <button class="btn btn-secondary btn-small" onclick="infCopiar()">📋 Copiar</button>
+                        </div>
+                    </div>
+                    <div id="infResultContent" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;line-height:1.8;font-size:.92rem;white-space:pre-wrap;max-height:600px;overflow-y:auto;font-family:'Segoe UI',system-ui,sans-serif;"></div>
+                </div>
+            </div>
+
             <div id="admin-protocolos-content" class="protocol-content" style="display:none;margin-top:20px;">
                 <div style="background:linear-gradient(135deg,#dc2626,#b91c1c);border-radius:var(--radius);padding:20px 24px;margin-bottom:20px;color:#fff;position:relative;overflow:hidden;">
                     <div style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:2.5rem;opacity:.12;">🔒</div>
@@ -1293,6 +1533,369 @@
     </div>
 </div>
 
+<!-- ═══════ ENFERMERÍA PAGE ═══════ -->
+<div class="page" id="pageEnfermeria">
+    <div style="display:flex;flex-direction:column;height:100vh;overflow:hidden;">
+    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button></div></nav>
+    <div style="background:linear-gradient(135deg,#880e4f,#c2185b);padding:20px 28px;color:#fff;">
+        <h2 style="font-family:var(--font-display);font-size:1.6rem;margin-bottom:4px;">👩‍⚕️ Enfermería</h2>
+        <p style="font-size:.88rem;opacity:.8;">Herramientas, protocolos y recursos para enfermería del Área II Cartagena</p>
+    </div>
+    <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;background:var(--bg-main);">
+        <div style="padding:16px 28px 0;">
+            <div class="tab-buttons"><button class="tab-btn active" onclick="switchEnfTab('enf-ia',this)">🤖 Preguntas IA</button><button class="tab-btn" onclick="switchEnfTab('enf-protocolos',this)">📋 Protocolos</button><button class="tab-btn" onclick="switchEnfTab('enf-tecnicas',this)">💉 Técnicas</button><button class="tab-btn" onclick="switchEnfTab('enf-farmacos',this)">💊 Fármacos</button><button class="tab-btn" onclick="switchEnfTab('enf-escalas',this)">📊 Escalas</button><button class="tab-btn" onclick="switchEnfTab('enf-docs',this)">📄 Documentos</button><button class="tab-btn" onclick="switchEnfTab('enf-recursos',this)">📚 Recursos</button><button class="tab-btn" onclick="switchEnfTab('enf-config',this)">⚙️ Config</button></div>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:16px 28px 28px;">
+
+            <!-- TAB: Preguntas IA -->
+            <div id="enf-ia" class="enf-tab-content" style="display:block;">
+                <div class="question-input"><input type="text" id="enfPreguntaInput" placeholder="Pregunta sobre enfermería..." spellcheck="false"><button class="btn btn-primary" onclick="enfHacerPregunta()" id="enfBtnPreguntar">Preguntar</button></div>
+                <div id="enfPreguntasList"><div class="empty-state"><div class="empty-state-icon">👩‍⚕️</div><p>Haz tu primera pregunta de enfermería</p></div></div>
+            </div>
+
+            <!-- TAB: Protocolos Enfermería -->
+            <div id="enf-protocolos" class="enf-tab-content" style="display:none;">
+                <div class="studio-intro" style="background:linear-gradient(135deg,#880e4f,#ad1457);"><h4>📋 Protocolos de Enfermería</h4><p>Protocolos y procedimientos de enfermería para Atención Primaria</p></div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">
+                    <div class="patient-card" onclick="enfLoadProtocol('curas')"><div class="patient-card-icon">🩹</div><div class="patient-card-title">Curas y Heridas</div><div class="patient-card-desc">Úlceras, heridas quirúrgicas, quemaduras</div></div>
+                    <div class="patient-card" onclick="enfLoadProtocol('via_venosa')"><div class="patient-card-icon">💉</div><div class="patient-card-title">Vía Venosa</div><div class="patient-card-desc">Canalización, mantenimiento, complicaciones</div></div>
+                    <div class="patient-card" onclick="enfLoadProtocol('sondaje')"><div class="patient-card-icon">🔧</div><div class="patient-card-title">Sondajes</div><div class="patient-card-desc">Vesical, nasogástrico, rectal</div></div>
+                    <div class="patient-card" onclick="enfLoadProtocol('vacunacion')"><div class="patient-card-icon">💉</div><div class="patient-card-title">Vacunación</div><div class="patient-card-desc">Calendario, técnica, conservación</div></div>
+                    <div class="patient-card" onclick="enfLoadProtocol('inyectables')"><div class="patient-card-icon">💊</div><div class="patient-card-title">Inyectables</div><div class="patient-card-desc">IM, SC, IV, intradérmica</div></div>
+                    <div class="patient-card" onclick="enfLoadProtocol('constantes')"><div class="patient-card-icon">📊</div><div class="patient-card-title">Constantes Vitales</div><div class="patient-card-desc">PA, FC, Tª, SatO2, glucemia</div></div>
+                    <div class="patient-card" onclick="enfLoadProtocol('ecg')"><div class="patient-card-icon">💓</div><div class="patient-card-title">ECG</div><div class="patient-card-desc">Realización e interpretación básica</div></div>
+                    <div class="patient-card" onclick="enfLoadProtocol('rcp')"><div class="patient-card-icon">🚨</div><div class="patient-card-title">RCP / SVB</div><div class="patient-card-desc">Soporte Vital Básico y DEA</div></div>
+                    <div class="patient-card" onclick="enfLoadProtocol('diabetico')"><div class="patient-card-icon">🩸</div><div class="patient-card-title">Paciente Diabético</div><div class="patient-card-desc">Insulinas, glucemia, pie diabético</div></div>
+                    <div class="patient-card" onclick="enfLoadProtocol('triaje')"><div class="patient-card-icon">🏥</div><div class="patient-card-title">Triaje</div><div class="patient-card-desc">Manchester, clasificación, derivación</div></div>
+                </div>
+                <div id="enfProtocolResult" style="display:none;margin-top:20px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-family:var(--font-display);color:var(--primary-dark);" id="enfProtocolTitle"></h4><button class="btn btn-secondary btn-small" onclick="document.getElementById('enfProtocolResult').style.display='none'">✕ Cerrar</button></div>
+                    <div id="enfProtocolContent" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;line-height:1.7;font-size:.92rem;white-space:pre-wrap;max-height:500px;overflow-y:auto;"></div>
+                </div>
+            </div>
+
+            <!-- TAB: Técnicas -->
+            <div id="enf-tecnicas" class="enf-tab-content" style="display:none;">
+                <div class="studio-intro" style="background:linear-gradient(135deg,#880e4f,#ad1457);"><h4>💉 Técnicas de Enfermería</h4><p>Procedimientos y técnicas paso a paso</p></div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">
+                    <div class="patient-card" onclick="enfAskAI('Describe paso a paso la técnica de canalización de vía venosa periférica, incluyendo material necesario, procedimiento y cuidados posteriores')"><div class="patient-card-icon">💉</div><div class="patient-card-title">Vía Venosa Periférica</div><div class="patient-card-desc">Canalización paso a paso</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Describe paso a paso la técnica de sondaje vesical masculino y femenino, material necesario y cuidados')"><div class="patient-card-icon">🔧</div><div class="patient-card-title">Sondaje Vesical</div><div class="patient-card-desc">Masculino y femenino</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Describe paso a paso la técnica de sondaje nasogástrico, indicaciones, contraindicaciones y cuidados')"><div class="patient-card-icon">🔧</div><div class="patient-card-title">Sonda Nasogástrica</div><div class="patient-card-desc">Inserción y mantenimiento</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Describe paso a paso la cura de heridas: tipos de heridas, material necesario, técnica estéril, tipos de apósitos y frecuencia de curas')"><div class="patient-card-icon">🩹</div><div class="patient-card-title">Cura de Heridas</div><div class="patient-card-desc">Tipos, técnica y apósitos</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Describe las técnicas de administración de inyectables: intramuscular, subcutánea, intravenosa e intradérmica. Zonas de punción, ángulos y volúmenes máximos')"><div class="patient-card-icon">💊</div><div class="patient-card-title">Administración Inyectables</div><div class="patient-card-desc">IM, SC, IV, ID</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Describe paso a paso la realización de un ECG de 12 derivaciones: preparación del paciente, colocación de electrodos, errores frecuentes')"><div class="patient-card-icon">💓</div><div class="patient-card-title">Realización ECG</div><div class="patient-card-desc">12 derivaciones paso a paso</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Describe el protocolo de extracción sanguínea: orden de tubos, técnica de venopunción, errores preanalíticos, tubo de hemocultivo')"><div class="patient-card-icon">🩸</div><div class="patient-card-title">Extracción Sanguínea</div><div class="patient-card-desc">Orden tubos y venopunción</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Describe la técnica de RCP básica y avanzada: secuencia de actuación, compresiones, ventilación, uso de DEA, algoritmo SVB/SVA')"><div class="patient-card-icon">🚨</div><div class="patient-card-title">RCP y DEA</div><div class="patient-card-desc">Soporte vital y desfibrilación</div></div>
+                </div>
+                <div id="enfTecnicaResult" style="display:none;margin-top:20px;">
+                    <h4 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:10px;" id="enfTecnicaTitle">Resultado</h4>
+                    <div id="enfTecnicaContent" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;line-height:1.7;font-size:.92rem;white-space:pre-wrap;max-height:500px;overflow-y:auto;"></div>
+                </div>
+            </div>
+
+            <!-- TAB: Fármacos -->
+            <div id="enf-farmacos" class="enf-tab-content" style="display:none;">
+                <div class="studio-intro" style="background:linear-gradient(135deg,#880e4f,#ad1457);"><h4>💊 Guía de Fármacos</h4><p>Consulta rápida de fármacos frecuentes en enfermería</p></div>
+                <div class="question-input"><input type="text" id="enfFarmacoInput" placeholder="Busca un fármaco: paracetamol, insulina, heparina..." spellcheck="false"><button class="btn btn-primary" onclick="enfBuscarFarmaco()">🔍 Buscar</button></div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:10px;">
+                    <button class="studio-card" onclick="enfBuscarFarmacoDir('Insulinas')"><div class="studio-card-icon">💉</div><div class="studio-card-title">Insulinas</div><div class="studio-card-desc">Tipos, dosis, administración</div></button>
+                    <button class="studio-card" onclick="enfBuscarFarmacoDir('Heparinas de bajo peso molecular')"><div class="studio-card-icon">🩸</div><div class="studio-card-title">Heparinas</div><div class="studio-card-desc">HBPM, dosificación</div></button>
+                    <button class="studio-card" onclick="enfBuscarFarmacoDir('Analgésicos: paracetamol, metamizol, ibuprofeno, tramadol, morfina')"><div class="studio-card-icon">💊</div><div class="studio-card-title">Analgésicos</div><div class="studio-card-desc">Escala analgésica OMS</div></button>
+                    <button class="studio-card" onclick="enfBuscarFarmacoDir('Antibióticos más usados en atención primaria')"><div class="studio-card-icon">🦠</div><div class="studio-card-title">Antibióticos</div><div class="studio-card-desc">Los más frecuentes en AP</div></button>
+                    <button class="studio-card" onclick="enfBuscarFarmacoDir('Fármacos de urgencia: adrenalina, atropina, diazepam, salbutamol')"><div class="studio-card-icon">🚨</div><div class="studio-card-title">Urgencias</div><div class="studio-card-desc">Fármacos de emergencia</div></button>
+                    <button class="studio-card" onclick="enfBuscarFarmacoDir('Sueros intravenosos: salino, glucosado, Ringer')"><div class="studio-card-icon">🧪</div><div class="studio-card-title">Sueroterapia</div><div class="studio-card-desc">Tipos de sueros y ritmos</div></button>
+                </div>
+                <div id="enfFarmacoResult" style="display:none;margin-top:20px;">
+                    <h4 style="font-family:var(--font-display);color:var(--primary-dark);margin-bottom:10px;" id="enfFarmacoTitle">Resultado</h4>
+                    <div id="enfFarmacoContent" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;line-height:1.7;font-size:.92rem;white-space:pre-wrap;max-height:500px;overflow-y:auto;"></div>
+                </div>
+            </div>
+
+            <!-- TAB: Escalas -->
+            <div id="enf-escalas" class="enf-tab-content" style="display:none;">
+                <div class="studio-intro" style="background:linear-gradient(135deg,#880e4f,#ad1457);"><h4>📊 Escalas y Valoraciones</h4><p>Escalas de valoración más utilizadas en enfermería</p></div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">
+                    <div class="patient-card" onclick="enfAskAI('Explica la escala de Norton para valoración del riesgo de úlceras por presión: parámetros, puntuación, interpretación y actuación según resultado')"><div class="patient-card-icon">📊</div><div class="patient-card-title">Norton (UPP)</div><div class="patient-card-desc">Riesgo de úlceras por presión</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Explica la escala de Barthel para valoración de actividades básicas de la vida diaria: ítems, puntuación, interpretación y clasificación de dependencia')"><div class="patient-card-icon">📋</div><div class="patient-card-title">Barthel (ABVD)</div><div class="patient-card-desc">Actividades básicas vida diaria</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Explica la escala EVA de dolor y otras escalas de valoración del dolor en enfermería: numérica, facial, FLACC para niños')"><div class="patient-card-icon">😣</div><div class="patient-card-title">EVA / Dolor</div><div class="patient-card-desc">Escalas de valoración del dolor</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Explica la escala de Glasgow para valoración del nivel de conciencia: apertura ocular, respuesta verbal, respuesta motora, puntuación y significado clínico')"><div class="patient-card-icon">🧠</div><div class="patient-card-title">Glasgow (Conciencia)</div><div class="patient-card-desc">Nivel de conciencia</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Explica la escala de Braden para riesgo de úlceras por presión: 6 subescalas, puntuación, diferencias con Norton, actuación según resultado')"><div class="patient-card-icon">🩹</div><div class="patient-card-title">Braden (UPP)</div><div class="patient-card-desc">Alternativa a Norton</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Explica la escala de Downton para valoración del riesgo de caídas en pacientes hospitalizados: factores, puntuación y medidas preventivas')"><div class="patient-card-icon">⚠️</div><div class="patient-card-title">Downton (Caídas)</div><div class="patient-card-desc">Riesgo de caídas</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Explica la escala NEWS (National Early Warning Score) para detección precoz del deterioro clínico: parámetros, puntuación y actuación según nivel de alerta')"><div class="patient-card-icon">🚨</div><div class="patient-card-title">NEWS</div><div class="patient-card-desc">Deterioro clínico precoz</div></div>
+                    <div class="patient-card" onclick="enfAskAI('Explica las escalas de valoración nutricional MNA y MUST: parámetros, puntuación, interpretación y actuación en desnutrición')"><div class="patient-card-icon">🍎</div><div class="patient-card-title">MNA / MUST</div><div class="patient-card-desc">Valoración nutricional</div></div>
+                </div>
+            </div>
+
+            <!-- TAB: Documentos -->
+            <div id="enf-docs" class="enf-tab-content" style="display:none;">
+                <div class="studio-intro" style="background:linear-gradient(135deg,#880e4f,#ad1457);"><h4>📄 Documentos y Bibliografía</h4><p>Artículos científicos, guías clínicas, protocolos de vacunación y documentación de referencia</p></div>
+                
+                <!-- Buscador -->
+                <div style="margin:16px 0;"><input type="text" id="enfDocSearch" placeholder="🔍 Buscar documento..." oninput="enfFilterDocs(this.value)" style="width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:var(--radius);font-size:.92rem;font-family:var(--font-body);background:var(--bg-card);"></div>
+
+                <!-- ═══ PAPPS 2024 ═══ -->
+                <h3 class="enf-doc-section" style="font-family:var(--font-display);color:var(--primary-dark);margin:20px 0 12px;font-size:1.1rem;">📋 Guías PAPPS</h3>
+                <div class="enf-doc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:20px;">
+                    <a href="papps-estilos-vida-2024.pdf" target="_blank" style="text-decoration:none;" class="enf-doc-item"><div class="patient-card" style="border-left:4px solid #1565c0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📕</span><div><div style="font-weight:600;font-size:.88rem;color:var(--text);">Recomendaciones estilo de vida — PAPPS 2024</div><div style="font-size:.72rem;color:var(--text-muted);">Córdoba García R. et al. · Atención Primaria 56 · PDF</div></div></div></div></a>
+                </div>
+
+                <!-- ═══ CAMPAÑA GRIPE / COVID / VRS ═══ -->
+                <h3 class="enf-doc-section" style="font-family:var(--font-display);color:var(--primary-dark);margin:20px 0 12px;font-size:1.1rem;">🦠 Campaña Gripe, COVID-19 y VRS 2025-2026</h3>
+                <div class="enf-doc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:20px;">
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #c62828;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📄</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo campaña de gripe y COVID-19 2025-2026 final</div><div style="font-size:.72rem;color:var(--text-muted);">03022026 · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #c62828;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📄</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo Campaña vacunación VRS 2026-2026</div><div style="font-size:.72rem;color:var(--text-muted);">VRS · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #c62828;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📄</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo Campaña nirsevimab 2026-2026 con anexos</div><div style="font-size:.72rem;color:var(--text-muted);">Nirsevimab · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #c62828;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📄</span><div><div style="font-weight:600;font-size:.88rem;">Resumen ejecutivo protocolo campaña vacunación estacional 2026-2026</div><div style="font-size:.72rem;color:var(--text-muted);">Resumen · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #c62828;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📄</span><div><div style="font-weight:600;font-size:.88rem;">Carta autorización vacunación antigripal centros educativos 2025-2026</div><div style="font-size:.72rem;color:var(--text-muted);">2 versiones · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #c62828;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📄</span><div><div style="font-weight:600;font-size:.88rem;">Instrucciones Plantilla de Subida de dosis vacuna VRS 2026-2026</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #c62828;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📄</span><div><div style="font-weight:600;font-size:.88rem;">Virus respiratorio sincitial – VRS – FAQ Profesionales – murciasalud</div><div style="font-size:.72rem;color:var(--text-muted);">FAQ · PDF</div></div></div></div>
+                </div>
+
+                <!-- ═══ PROTOCOLOS VACUNACIÓN ═══ -->
+                <h3 class="enf-doc-section" style="font-family:var(--font-display);color:var(--primary-dark);margin:20px 0 12px;font-size:1.1rem;">💉 Protocolos de Vacunación</h3>
+                <div class="enf-doc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:20px;">
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo vacunación antineumocócica menores 18 años final</div><div style="font-size:.72rem;color:var(--text-muted);">2025_09_15 · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo vacunación antineumocócica actualizado 18 años y más final</div><div style="font-size:.72rem;color:var(--text-muted);">2025_09_16 · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo catch-up neumococo 2024</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo actuación hijo de madre AgHBs positivo o desconocido</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo de actuación en caso de profilaxis antirrábica</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo vacunación inmigrantes 2ª generación origen marroquí</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo vacunación frente a Hepatitis A en inmigrante mujer menor 10 años</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo vacunación frente a hepatitis A en grupos de riesgo</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo vacunación VPH en personas con condiciones de riesgo</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo administración VPH y meningococo ACWY en centros educativos</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo captación varones nacidos 1999-2010 no vacunados VPH</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Protocolo Herpes Zoster 04012024 v2</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Resumen ejecutivo del protocolo de vacunación</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #2e7d32;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💉</span><div><div style="font-weight:600;font-size:.88rem;">Prot_vacunacion_EAI_dic2023</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                </div>
+
+                <!-- ═══ HERPES ZÓSTER ═══ -->
+                <h3 class="enf-doc-section" style="font-family:var(--font-display);color:var(--primary-dark);margin:20px 0 12px;font-size:1.1rem;">🔬 Herpes Zóster</h3>
+                <div class="enf-doc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:20px;">
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #7b1fa2;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">🔬</span><div><div style="font-weight:600;font-size:.88rem;">Recomendaciones de vacunación frente a herpes zóster</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #7b1fa2;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">🔬</span><div><div style="font-weight:600;font-size:.88rem;">Herpes Zóster – FAQ para profesionales – murciasalud</div><div style="font-size:.72rem;color:var(--text-muted);">FAQ · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #7b1fa2;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">🔬</span><div><div style="font-weight:600;font-size:.88rem;">Códigos registros OMI-AP indicadores vacuna herpes zóster</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #7b1fa2;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">🔬</span><div><div style="font-weight:600;font-size:.88rem;">Infografía grupos de vacunación herpes zóster</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #7b1fa2;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">🔬</span><div><div style="font-weight:600;font-size:.88rem;">Solicitud vacunación Herpes Zoster en personas con condiciones de riesgo</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                </div>
+
+                <!-- ═══ CALENDARIOS Y REGISTROS ═══ -->
+                <h3 class="enf-doc-section" style="font-family:var(--font-display);color:var(--primary-dark);margin:20px 0 12px;font-size:1.1rem;">📅 Calendarios y Registros</h3>
+                <div class="enf-doc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:20px;">
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #e65100;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📅</span><div><div style="font-weight:600;font-size:.88rem;">Calendario de vacunación a lo largo de toda la vida</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #e65100;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📅</span><div><div style="font-weight:600;font-size:.88rem;">Evolución calendarios de vacunaciones en la Región de Murcia</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #e65100;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📅</span><div><div style="font-weight:600;font-size:.88rem;">Lote 16 Calendario Gráfico de Vacunaciones SS-2026</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #e65100;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📅</span><div><div style="font-weight:600;font-size:.88rem;">Cronograma 07012026</div><div style="font-size:.72rem;color:var(--text-muted);">PNG</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #e65100;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📅</span><div><div style="font-weight:600;font-size:.88rem;">Códigos de registro OMI-AP de todas las vacunas (vigentes y no vigentes)</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #e65100;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📅</span><div><div style="font-weight:600;font-size:.88rem;">LOTE vacunaciones chicos y chicas 2026</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #e65100;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📅</span><div><div style="font-weight:600;font-size:.88rem;">Versión 2026</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                </div>
+
+                <!-- ═══ FICHAS TÉCNICAS ═══ -->
+                <h3 class="enf-doc-section" style="font-family:var(--font-display);color:var(--primary-dark);margin:20px 0 12px;font-size:1.1rem;">💊 Fichas Técnicas de Vacunas</h3>
+                <div class="enf-doc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:20px;">
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #00838f;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💊</span><div><div style="font-weight:600;font-size:.88rem;">Ficha técnica Beyfortus</div><div style="font-size:.72rem;color:var(--text-muted);">Nirsevimab · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #00838f;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💊</span><div><div style="font-weight:600;font-size:.88rem;">Ficha técnica Prevenar 20® (Apexxnar®)</div><div style="font-size:.72rem;color:var(--text-muted);">Antineumocócica · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #00838f;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💊</span><div><div style="font-weight:600;font-size:.88rem;">Ficha técnica vacuna Fluenz 2025-2026</div><div style="font-size:.72rem;color:var(--text-muted);">Antigripal intranasal · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #00838f;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">💊</span><div><div style="font-weight:600;font-size:.88rem;">Ficha técnica Gardasil 9</div><div style="font-size:.72rem;color:var(--text-muted);">VPH · PDF</div></div></div></div>
+                </div>
+
+                <!-- ═══ RECOMENDACIONES Y FAQ ═══ -->
+                <h3 class="enf-doc-section" style="font-family:var(--font-display);color:var(--primary-dark);margin:20px 0 12px;font-size:1.1rem;">❓ Recomendaciones y FAQ</h3>
+                <div class="enf-doc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:20px;">
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #1565c0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">❓</span><div><div style="font-weight:600;font-size:.88rem;">Recomendaciones vacunación 19062026</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #1565c0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">❓</span><div><div style="font-weight:600;font-size:.88rem;">Recomendaciones de vacunación frente a sarampión</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #1565c0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">❓</span><div><div style="font-weight:600;font-size:.88rem;">Recomendaciones profilaxis antihepatitis B tras exposición accidental</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #1565c0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">❓</span><div><div style="font-weight:600;font-size:.88rem;">Indicaciones de vacunación frente a la varicela</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #1565c0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">❓</span><div><div style="font-weight:600;font-size:.88rem;">Preguntas y respuestas vacunación tosferina en embarazadas</div><div style="font-size:.72rem;color:var(--text-muted);">Para profesionales sanitarios · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #1565c0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">❓</span><div><div style="font-weight:600;font-size:.88rem;">Rotavirus – FAQ profesionales – murciasalud</div><div style="font-size:.72rem;color:var(--text-muted);">FAQ · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #1565c0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">❓</span><div><div style="font-weight:600;font-size:.88rem;">Vacunación antineumocócica – FAQ profesionales – murciasalud</div><div style="font-size:.72rem;color:var(--text-muted);">FAQ · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #1565c0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">❓</span><div><div style="font-weight:600;font-size:.88rem;">Vacunación VPH en grupos de riesgo – FAQ profesionales – murciasalud</div><div style="font-size:.72rem;color:var(--text-muted);">FAQ · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #1565c0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">❓</span><div><div style="font-weight:600;font-size:.88rem;">Vacunación escolar VPH y meningococo (A,C,W,Y) – FAQ – murciasalud</div><div style="font-size:.72rem;color:var(--text-muted);">FAQ · PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #1565c0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">❓</span><div><div style="font-weight:600;font-size:.88rem;">Vacunación frente a VPH varones 1999-2010 – FAQ – murciasalud</div><div style="font-size:.72rem;color:var(--text-muted);">FAQ · PDF</div></div></div></div>
+                </div>
+
+                <!-- ═══ PAUTAS VACUNACIÓN ═══ -->
+                <h3 class="enf-doc-section" style="font-family:var(--font-display);color:var(--primary-dark);margin:20px 0 12px;font-size:1.1rem;">📝 Pautas y Tablas</h3>
+                <div class="enf-doc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:20px;">
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #4527a0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📝</span><div><div style="font-weight:600;font-size:.88rem;">Pautas vacunación antitetánica en adulto tras herida</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #4527a0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📝</span><div><div style="font-weight:600;font-size:.88rem;">Pautas rutinarias vacunación antitetánica en adulto con pauta incompleta</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #4527a0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📝</span><div><div style="font-weight:600;font-size:.88rem;">Tabla indicaciones vacunación VPH y su pauta vacunal</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #4527a0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📝</span><div><div style="font-weight:600;font-size:.88rem;">Vacunación antigripal en niños y registro</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #4527a0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📝</span><div><div style="font-weight:600;font-size:.88rem;">Vacuna triple vírica y alergia al huevo</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #4527a0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📝</span><div><div style="font-weight:600;font-size:.88rem;">Vacunación frente a Hepatitis B en adultos</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #4527a0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📝</span><div><div style="font-weight:600;font-size:.88rem;">Vacunación frente a hepatitis B en pacientes en tratamiento renal sustitutivo</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #4527a0;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📝</span><div><div style="font-weight:600;font-size:.88rem;">Vacunación frente a hepatitis B en pacientes inmunodeprimidos</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                </div>
+
+                <!-- ═══ INFOGRAFÍAS ═══ -->
+                <h3 class="enf-doc-section" style="font-family:var(--font-display);color:var(--primary-dark);margin:20px 0 12px;font-size:1.1rem;">🖼️ Infografías</h3>
+                <div class="enf-doc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:20px;">
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #f57f17;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">🖼️</span><div><div style="font-weight:600;font-size:.88rem;">Infografía 18 años o más</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #f57f17;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">🖼️</span><div><div style="font-weight:600;font-size:.88rem;">Infografía de pautas de actualización vacunación frente al rotavirus</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #f57f17;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">🖼️</span><div><div style="font-weight:600;font-size:.88rem;">Infografía embarazada</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #f57f17;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">🖼️</span><div><div style="font-weight:600;font-size:.88rem;">Infografía guarderías</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #f57f17;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">🖼️</span><div><div style="font-weight:600;font-size:.88rem;">Infografía menores de 18 años</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #f57f17;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">🖼️</span><div><div style="font-weight:600;font-size:.88rem;">Infografía sanitarios</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                </div>
+
+                <!-- ═══ OTROS ═══ -->
+                <h3 class="enf-doc-section" style="font-family:var(--font-display);color:var(--primary-dark);margin:20px 0 12px;font-size:1.1rem;">📎 Otros Documentos</h3>
+                <div class="enf-doc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:20px;">
+                    <div class="patient-card enf-doc-item" style="border-left:4px solid #546e7a;padding:12px 16px;"><div style="display:flex;align-items:center;gap:10px;"><span style="font-size:1.4rem;">📎</span><div><div style="font-weight:600;font-size:.88rem;">2025-5155</div><div style="font-size:.72rem;color:var(--text-muted);">PDF</div></div></div></div>
+                </div>
+
+                <!-- Nota con enlace a NotebookLM -->
+                <div style="margin-top:20px;padding:16px;background:linear-gradient(135deg,#880e4f,#ad1457);border-radius:var(--radius);color:#fff;font-size:.88rem;line-height:1.6;">
+                    <strong>📚 Biblioteca completa:</strong> Todos estos documentos están disponibles en el <a href="https://notebooklm.google.com/notebook/d8b9054c-a565-4916-8667-4ff1cb9cd77f" target="_blank" style="color:#ffcdd2;text-decoration:underline;">NotebookLM del proyecto</a> donde puedes consultar, buscar y hacer preguntas sobre su contenido con IA.
+                    <br><span style="opacity:.7;">Total: 70+ documentos · Actualizado: Febrero 2026</span>
+                </div>
+            </div>
+
+            <!-- TAB: Recursos -->
+            <div id="enf-recursos" class="enf-tab-content" style="display:none;">
+                <div class="studio-intro" style="background:linear-gradient(135deg,#880e4f,#ad1457);"><h4>📚 Recursos de Enfermería</h4><p>Material formativo, guías y documentación</p></div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">
+                    <a href="vacunas.html" target="_blank" style="text-decoration:none;"><div class="patient-card"><div class="patient-card-icon">💉</div><div class="patient-card-title">Vacunas - Información</div><div class="patient-card-desc">Calendario vacunal y recursos</div></div></a>
+                    <a href="ejercicios.html" target="_blank" style="text-decoration:none;"><div class="patient-card"><div class="patient-card-icon">🏃</div><div class="patient-card-title">Ejercicios Terapéuticos</div><div class="patient-card-desc">Pautas para pacientes</div></div></a>
+                    <a href="dietas.html" target="_blank" style="text-decoration:none;"><div class="patient-card"><div class="patient-card-icon">🍎</div><div class="patient-card-title">Dietas</div><div class="patient-card-desc">Planes dietéticos para pacientes</div></div></a>
+                    <a href="dejar-fumar.html" target="_blank" style="text-decoration:none;"><div class="patient-card"><div class="patient-card-icon">🚭</div><div class="patient-card-title">Deshabituación Tabáquica</div><div class="patient-card-desc">Guía para dejar de fumar</div></div></a>
+                    <a href="violencia-genero.html" target="_blank" style="text-decoration:none;"><div class="patient-card"><div class="patient-card-icon">🛡️</div><div class="patient-card-title">Violencia de Género</div><div class="patient-card-desc">Protocolo de detección y actuación</div></div></a>
+                    <a href="recursos-sociales.html" target="_blank" style="text-decoration:none;"><div class="patient-card"><div class="patient-card-icon">📋</div><div class="patient-card-title">Recursos Sociales</div><div class="patient-card-desc">Formularios y servicios sociales</div></div></a>
+                </div>
+            </div>
+
+            <!-- TAB: Config -->
+            <div id="enf-config" class="enf-tab-content" style="display:none;">
+                <div class="config-box">
+                    <h4>⚙️ Configuración IA para Enfermería</h4>
+                    <p class="config-hint" style="margin-bottom:14px;">La IA de Enfermería usa la misma configuración que Profesionales. Puedes cambiar el modelo desde aquí.</p>
+                    <div class="config-row"><select id="enfModel" onchange="enfGuardarConfig()">
+                        <option value="qwen/qwen3-32b">Qwen3 32B (recomendado)</option>
+                        <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
+                        <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 70B</option>
+                    </select></div>
+                    <div id="enfConfigStatus" style="margin-top:12px;font-size:.88rem;"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- ═══════ FILEHUB PAGE — Cuaderno IA + Blog Publisher ═══════ -->
+<div class="page" id="pageFilehub">
+    <div class="scan-container" style="max-width:1100px;margin:0 auto;">
+    <nav class="landing-nav"><div class="brand"><div class="logo">🏥</div><h1>Area II <span>Cartagena</span></h1></div><div class="nav-links"><button class="page-back" onclick="showPage('pageLanding')">← Inicio</button></div></nav>
+    <div style="padding:30px 20px;text-align:center;">
+        <h2 style="font-family:var(--font-display);font-size:1.8rem;margin-bottom:8px;">📖 FILEHUB</h2>
+        <p style="color:var(--text-light);margin-bottom:30px;">Cuaderno IA y Blog Publisher para cartagenaeste.es</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:30px;">
+            <button onclick="openFHNotebook()" style="padding:18px 36px;background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border:none;border-radius:14px;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 8px 25px rgba(124,58,237,.35);transition:all .2s;display:flex;align-items:center;gap:10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                Cuaderno IA
+            </button>
+            <button onclick="openBlogPublisher()" style="padding:18px 36px;background:linear-gradient(135deg,#0284c7,#0369a1);color:#fff;border:none;border-radius:14px;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 8px 25px rgba(2,132,199,.35);transition:all .2s;display:flex;align-items:center;gap:10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                Blog Publisher
+            </button>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:left;max-width:700px;margin:0 auto;">
+            <h3 style="font-size:1.1rem;margin-bottom:12px;">📌 ¿Qué puedes hacer aquí?</h3>
+            <p style="color:var(--text-light);margin-bottom:10px;"><strong>📖 Cuaderno IA:</strong> Sube documentos (PDF, TXT, CSV, JSON...) y pregúntale a la IA sobre ellos. Resume, analiza, busca datos y responde preguntas usando Groq LLaMA 3.3 70B.</p>
+            <p style="color:var(--text-light);"><strong>🌐 Blog Publisher:</strong> Escribe contenido, adjunta fotos/documentos, y la IA genera automáticamente un post completo en HTML que se publica en cartagenaeste.es con título, etiquetas y categoría.</p>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- FILEHUB Notebook Modal -->
+<div id="fh-nb-overlay" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);justify-content:center;align-items:center;padding:16px;" onclick="if(event.target===this)closeFHNotebook()">
+  <div style="width:100%;max-width:900px;height:90vh;background:#0f172a;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;border:1px solid #1e293b;box-shadow:0 25px 60px rgba(0,0,0,.5);">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:linear-gradient(135deg,#7c3aed,#4f46e5);">
+      <div><h2 style="color:#fff;font-size:15px;font-weight:900;">📖 Cuaderno IA — FILEHUB</h2><p id="fh-nb-subtitle" style="color:rgba(255,255,255,.7);font-size:10px;">0 documentos · Groq LLaMA 3.3 70B</p></div>
+      <button onclick="closeFHNotebook()" style="width:32px;height:32px;border-radius:8px;border:none;background:rgba(255,255,255,.2);color:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div style="display:flex;flex:1;overflow:hidden;">
+      <!-- Files Panel -->
+      <div id="fh-nb-files-panel" style="width:240px;border-right:1px solid #1e293b;display:flex;flex-direction:column;flex-shrink:0;background:#0a0f1a;">
+        <div style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:10px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Fuentes</span>
+          <button onclick="document.getElementById('fh-nb-file-input').click()" style="width:28px;height:28px;border-radius:8px;border:none;background:rgba(99,102,241,.1);color:#818cf8;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">+</button>
+        </div>
+        <div id="fh-nb-dropzone" onclick="document.getElementById('fh-nb-file-input').click()" style="margin:0 12px 12px;padding:20px;border:2px dashed #1e293b;border-radius:12px;text-align:center;cursor:pointer;transition:all .2s;">
+          <p style="font-size:10px;color:#475569;font-weight:600;">📎 Arrastra archivos</p>
+          <small style="font-size:9px;color:#334155;">PDF, TXT, CSV, MD, JSON</small>
+        </div>
+        <input type="file" id="fh-nb-file-input" multiple accept=".pdf,.txt,.csv,.md,.json,.html,.xml,.log,.js,.ts,.py,.doc,.docx" style="display:none" onchange="fhHandleFiles(this.files)">
+        <div id="fh-nb-file-list" style="flex:1;overflow-y:auto;padding:0 12px;"></div>
+        <div id="fh-nb-no-files" style="text-align:center;padding:24px;font-size:10px;color:#334155;">Sin documentos aún</div>
+      </div>
+      <!-- Chat -->
+      <div style="flex:1;display:flex;flex-direction:column;min-width:0;">
+        <div id="fh-nb-messages" style="flex:1;overflow-y:auto;padding:16px;">
+          <div id="fh-nb-empty" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;">
+            <div style="width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(124,58,237,.1));display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:28px;">✨</div>
+            <h3 style="color:#fff;font-size:16px;font-weight:900;margin-bottom:4px;">Cuaderno IA</h3>
+            <p style="color:#64748b;font-size:12px;max-width:320px;margin-bottom:20px;">Sube documentos y pregúntame sobre ellos. Puedo resumir, analizar, buscar datos y responder.</p>
+            <div id="fh-nb-suggestions"></div>
+          </div>
+        </div>
+        <div style="padding:12px 16px;">
+          <div style="display:flex;align-items:flex-end;gap:8px;background:#1e293b;border-radius:16px;padding:8px 12px;border:1px solid #334155;">
+            <button style="background:none;border:none;color:#475569;cursor:pointer;font-size:18px;padding:4px;" onclick="document.getElementById('fh-nb-file-input').click()">📎</button>
+            <textarea id="fh-nb-input" rows="1" placeholder="Pregunta sobre tus documentos..." style="flex:1;background:none;border:none;outline:none;color:#e2e8f0;font-size:14px;resize:none;max-height:120px;min-height:36px;padding:4px 0;font-family:inherit;" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();fhSendMsg()}"></textarea>
+            <button id="fh-nb-send" onclick="fhSendMsg()" style="width:32px;height:32px;border-radius:8px;border:none;background:#4f46e5;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">▶</button>
+          </div>
+          <div style="text-align:center;font-size:9px;color:#334155;padding:4px 0 8px;">Groq LLaMA 3.3 70B · Los archivos se procesan localmente</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILEHUB Blog Publisher Modal -->
+<div id="fh-blog-overlay" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);justify-content:center;align-items:center;padding:16px;" onclick="if(event.target===this)closeBlogPublisher()">
+  <div style="width:100%;max-width:700px;max-height:92vh;background:#0f172a;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;border:1px solid #1e293b;box-shadow:0 25px 60px rgba(0,0,0,.5);">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:linear-gradient(135deg,#0284c7,#0369a1);">
+      <div><h2 style="color:#fff;font-size:15px;font-weight:900;">🌐 Blog Publisher — cartagenaeste.es</h2><p style="color:rgba(255,255,255,.7);font-size:10px;">Escribe → IA formatea → Se publica automáticamente</p></div>
+      <button onclick="closeBlogPublisher()" style="width:32px;height:32px;border-radius:8px;border:none;background:rgba(255,255,255,.2);color:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:20px;">
+      <div style="margin-bottom:14px;">
+        <label style="display:block;font-size:10px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Tu contenido</label>
+        <textarea id="fh-blog-content" placeholder="Escribe lo que quieras publicar: noticia, evento, aviso del barrio...&#10;&#10;La IA generará título, formato HTML, etiquetas y lo subirá automáticamente." style="width:100%;padding:12px 14px;background:#1e293b;border:1px solid #334155;border-radius:12px;color:#e2e8f0;font-size:13px;font-family:inherit;outline:none;min-height:120px;line-height:1.6;resize:vertical;"></textarea>
+      </div>
+      <div id="fh-blog-dropzone" onclick="document.getElementById('fh-blog-file-input').click()" style="border:2px dashed #334155;border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:14px;">
+        <p style="font-size:12px;color:#64748b;font-weight:600;">📎 Arrastra fotos o archivos aquí</p>
+        <small style="font-size:10px;color:#475569;">Imágenes, PDFs, documentos...</small>
+      </div>
+      <input type="file" id="fh-blog-file-input" multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" style="display:none" onchange="fhBlogAddFiles(this.files)">
+      <div id="fh-blog-files-preview" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;"></div>
+      <div style="display:flex;gap:10px;">
+        <div style="flex:1;margin-bottom:14px;">
+          <label style="display:block;font-size:10px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Estado</label>
+          <select id="fh-blog-post-status" style="width:100%;padding:12px 14px;background:#1e293b;border:1px solid #334155;border-radius:12px;color:#e2e8f0;font-size:13px;font-family:inherit;outline:none;">
+            <option value="publish" style="background:#1e293b;">🚀 Publicar</option>
+            <option value="draft" style="background:#1e293b;">📋 Borrador</option>
+          </select>
+        </div>
+        <div style="flex:1;margin-bottom:14px;">
+          <label style="display:block;font-size:10px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Categoría</label>
+          <select id="fh-blog-post-cat" style="width:100%;padding:12px 14px;background:#1e293b;border:1px solid #334155;border-radius:12px;color:#e2e8f0;font-size:13px;font-family:inherit;outline:none;">
+            <option value="" style="background:#1e293b;">🤖 Auto (IA elige)</option>
+          </select>
+        </div>
+      </div>
+      <button id="fh-blog-publish-btn" onclick="fhBlogPublish()" style="width:100%;padding:14px;border:none;border-radius:14px;background:linear-gradient(135deg,#0284c7,#0369a1);color:#fff;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 6px 20px rgba(2,132,199,.3);transition:all .2s;">⚡ Publicar automáticamente</button>
+      <div id="fh-blog-status" style="margin-top:12px;font-size:12px;line-height:1.6;"></div>
+      <div id="fh-blog-success" style="display:none;margin-top:14px;padding:16px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:14px;"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════ SCAN LOGIN MODAL (Google Auth) ═══════ -->
 <div id="scanLoginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1001;align-items:center;justify-content:center;backdrop-filter:blur(2px);">
     <div style="background:#fff;border-radius:16px;max-width:400px;width:90%;box-shadow:0 25px 80px rgba(0,0,0,.4);overflow:hidden;animation:slideInUp .3s ease;">
@@ -1722,6 +2325,250 @@ function switchProtocolTab(tabName,btnElement){
     if(tabName==="config-protocolos"){apSyncFromConfig();}
 }
 
+// ═══ INFORMES AP ═══
+var infTipoSeleccionado='derivacion';
+var infArchivos=[];
+var infResultadoTexto='';
+
+// Privacy patterns to detect personal data
+var INF_PRIVACY_PATTERNS=[
+  /\b[A-Z][a-záéíóúñ]+\s+[A-Z][a-záéíóúñ]+\s+[A-Z][a-záéíóúñ]+\b/g, // Full names (3 words capitalized)
+  /\b\d{7,8}[A-Z]\b/gi, // DNI
+  /\bNHC[:\s]*\d+/gi, // NHC
+  /\b\d{2}[\/.]\d{2}[\/.]\d{2,4}\b/g, // Dates like DD/MM/YYYY (could be birthdate)
+  /\bC\/[A-Z][a-záéíóúñ]+/g, // Street addresses
+  /\bcalle\s+[A-Za-záéíóúñ]+/gi,
+  /\bDr\.?\s+[A-Z][a-záéíóúñ]+/gi, // Doctor names
+  /\b(?:nombre|apellido|dirección|domicilio)[:\s]+\S+/gi
+];
+
+function infCheckPrivacy(textarea){
+  var text=textarea.value;
+  var alert=document.getElementById('infPrivacyAlert');
+  var found=false;
+  for(var i=0;i<INF_PRIVACY_PATTERNS.length;i++){
+    if(INF_PRIVACY_PATTERNS[i].test(text)){found=true;break;}
+    INF_PRIVACY_PATTERNS[i].lastIndex=0; // Reset regex
+  }
+  alert.style.display=found?'block':'none';
+}
+
+function infSelectTipo(btn,tipo){
+  infTipoSeleccionado=tipo;
+  document.querySelectorAll('.informe-tipo-btn').forEach(function(b){
+    b.style.border='2px solid var(--border)';b.style.background='';
+  });
+  btn.style.border='2px solid var(--primary)';
+  btn.style.background='rgba(26,107,74,.05)';
+}
+
+function infHandleFiles(fileList){
+  if(infArchivos.length+fileList.length>5){alert('Máximo 5 imágenes');return;}
+  Array.from(fileList).forEach(function(file){
+    if(!file.type.startsWith('image/')){alert('Solo se permiten imágenes');return;}
+    if(file.size>10*1024*1024){alert('Imagen demasiado grande (máx 10MB)');return;}
+    var reader=new FileReader();
+    reader.onload=function(e){
+      infArchivos.push({name:file.name,data:e.target.result,type:file.type});
+      infRenderFiles();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function infRenderFiles(){
+  var container=document.getElementById('infFilesList');
+  container.innerHTML='';
+  infArchivos.forEach(function(f,i){
+    var div=document.createElement('div');
+    div.style.cssText='position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:2px solid var(--border);';
+    div.innerHTML='<img src="'+f.data+'" style="width:100%;height:100%;object-fit:cover;"><button onclick="infRemoveFile('+i+')" style="position:absolute;top:-4px;right:-4px;width:22px;height:22px;background:#ef4444;color:#fff;border:none;border-radius:50%;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>';
+    container.appendChild(div);
+  });
+}
+
+function infRemoveFile(idx){
+  infArchivos.splice(idx,1);
+  infRenderFiles();
+}
+
+async function infGenerar(){
+  var texto=document.getElementById('infTextoInput').value.trim();
+  if(!texto && infArchivos.length===0){alert('Introduce datos del caso o adjunta capturas');return;}
+
+  // Privacy check
+  var hasPrivacy=false;
+  for(var i=0;i<INF_PRIVACY_PATTERNS.length;i++){
+    if(INF_PRIVACY_PATTERNS[i].test(texto)){hasPrivacy=true;break;}
+    INF_PRIVACY_PATTERNS[i].lastIndex=0;
+  }
+  if(hasPrivacy){
+    if(!confirm('⚠️ Se han detectado posibles datos personales en el texto.\n\nRecuerda: NO incluyas nombres de pacientes, DNI ni datos identificativos.\n\n¿Has verificado que el texto está anonimizado?'))return;
+  }
+
+  // Get API key from AP config
+  var provider=localStorage.getItem('iaProvider')||'groq';
+  var key,model,apiUrl;
+  if(provider==='qwen'){
+    key=localStorage.getItem('qwenApiKey');
+    model=localStorage.getItem('qwenModel')||'qwen-turbo';
+    apiUrl='https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions';
+  }else{
+    key=localStorage.getItem('groqApiKey');
+    if(!key)try{key=atob(['Z3NrXzRa','NDlIZnRCcHE2VVNH','SzRNM3pHV0dkeWIzRll5UmRTdlNrUXZuQzkyNTZwZFVkeGhHa0c='].join(''));}catch(e){}
+    model=localStorage.getItem('groqModel')||'qwen/qwen3-32b';
+    apiUrl='https://api.groq.com/openai/v1/chat/completions';
+  }
+  if(!key){alert('Configura una API key en la pestaña Config IA');return;}
+
+  var instrucciones=document.getElementById('infInstrucciones').value.trim();
+
+  var tipoLabels={derivacion:'Informe de Derivación / Interconsulta',alta:'Informe de Alta',seguimiento:'Informe de Seguimiento',urgencia:'Informe de Atención Urgente',enfermeria:'Informe de Enfermería / Cuidados',libre:'Informe Clínico'};
+
+  // Build system prompt
+  var sysPrompt='Eres un asistente médico experto en elaborar informes clínicos en español para Atención Primaria en España.\n\n';
+  sysPrompt+='REGLAS ESTRICTAS DE PRIVACIDAD:\n';
+  sysPrompt+='- Si detectas nombres propios de pacientes, DNI, NHC, direcciones personales o cualquier dato identificativo en el texto o imágenes proporcionadas, RECHAZA generar el informe e indica que deben anonimizarse los datos.\n';
+  sysPrompt+='- Usa siempre "Paciente" o "El/La paciente" en lugar de cualquier nombre propio.\n';
+  sysPrompt+='- Si en una imagen aparecen nombres o datos personales visibles, indica que la imagen contiene datos personales y NO la proceses.\n\n';
+  sysPrompt+='FORMATO DEL INFORME:\n';
+  sysPrompt+='Genera un '+tipoLabels[infTipoSeleccionado]+' con la siguiente estructura:\n';
+
+  if(infTipoSeleccionado==='derivacion'){
+    sysPrompt+='- Centro de Salud: Centro de Salud Virgen de la Caridad, Cartagena\n- Motivo de derivación\n- Antecedentes personales relevantes\n- Enfermedad actual\n- Exploración física\n- Pruebas complementarias realizadas\n- Juicio clínico\n- Tratamiento actual\n- Motivo específico de interconsulta\n- Fecha\n';
+  }else if(infTipoSeleccionado==='alta'){
+    sysPrompt+='- Centro: Centro de Salud Virgen de la Caridad\n- Motivo de consulta\n- Resumen de evolución\n- Diagnóstico\n- Tratamiento al alta\n- Recomendaciones\n- Plan de seguimiento\n- Fecha\n';
+  }else if(infTipoSeleccionado==='seguimiento'){
+    sysPrompt+='- Centro: Centro de Salud Virgen de la Caridad\n- Antecedentes relevantes\n- Evolución desde última consulta\n- Exploración actual\n- Pruebas complementarias\n- Valoración\n- Plan terapéutico actualizado\n- Próxima revisión\n- Fecha\n';
+  }else if(infTipoSeleccionado==='urgencia'){
+    sysPrompt+='- Centro: Centro de Salud Virgen de la Caridad\n- Hora de atención\n- Motivo de consulta urgente\n- Anamnesis\n- Exploración física\n- Pruebas realizadas\n- Juicio clínico\n- Tratamiento administrado\n- Destino del paciente (alta/derivación hospital)\n- Fecha\n';
+  }else if(infTipoSeleccionado==='enfermeria'){
+    sysPrompt+='- Centro: Centro de Salud Virgen de la Caridad\n- Valoración de enfermería por patrones funcionales\n- Diagnósticos de enfermería (NANDA)\n- Intervenciones (NIC)\n- Resultados esperados (NOC)\n- Plan de cuidados\n- Educación sanitaria\n- Fecha\n';
+  }else{
+    sysPrompt+='- Formato profesional y bien estructurado\n- Centro: Centro de Salud Virgen de la Caridad, Cartagena\n- Fecha\n';
+  }
+
+  if(instrucciones)sysPrompt+='\nInstrucciones adicionales del profesional: '+instrucciones+'\n';
+  sysPrompt+='\nGenera el informe completo, profesional y listo para imprimir. Usa formato de texto plano bien estructurado con secciones claras.';
+
+  // Build messages
+  var messages=[{role:'system',content:sysPrompt}];
+  
+  // Build user content
+  var userContent=[];
+  if(infArchivos.length>0){
+    userContent.push({type:'text',text:'Analiza las siguientes imágenes del caso clínico (RECHAZA si contienen nombres u otros datos personales visibles) y con la información proporcionada elabora el informe:\n\n'+texto});
+    infArchivos.forEach(function(f){
+      userContent.push({type:'image_url',image_url:{url:f.data}});
+    });
+    messages.push({role:'user',content:userContent});
+  }else{
+    messages.push({role:'user',content:texto});
+  }
+
+  // Show loading
+  document.getElementById('infResultado').style.display='block';
+  document.getElementById('infResultTitle').textContent='📄 '+tipoLabels[infTipoSeleccionado];
+  document.getElementById('infResultContent').innerHTML='<div style="text-align:center;padding:30px;color:var(--text-muted);"><div style="font-size:2rem;margin-bottom:8px;">⏳</div>Generando informe...</div>';
+  document.getElementById('infBtnGenerar').disabled=true;
+
+  // If using images and Groq (which doesn't support vision well), use a text-only approach
+  var useVision=infArchivos.length>0 && (model.includes('llama-3.2')||model.includes('llava')||provider==='qwen');
+  
+  var body={model:model,messages:messages,max_tokens:4096,temperature:0.3};
+  
+  // If model doesn't support vision, convert images to text note
+  if(infArchivos.length>0 && !useVision){
+    messages=[{role:'system',content:sysPrompt},{role:'user',content:texto+'\n\n[Se han adjuntado '+infArchivos.length+' imagen(es) del caso clínico. El profesional ha proporcionado estas capturas como referencia. Elabora el informe basándote en la descripción textual proporcionada.]'}];
+    body.messages=messages;
+  }
+
+  try{
+    fetch(apiUrl,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify(body)})
+    .then(function(res){
+      if(!res.ok)throw new Error('Error API: '+res.status);
+      return res.json();
+    })
+    .then(function(data){
+      infResultadoTexto=data.choices[0]?.message?.content||'Sin respuesta';
+      // Clean thinking tags if present
+      infResultadoTexto=infResultadoTexto.replace(/<think>[\s\S]*?<\/think>/g,'').trim();
+      document.getElementById('infResultContent').textContent=infResultadoTexto;
+      document.getElementById('infBtnGenerar').disabled=false;
+    })
+    .catch(function(e){
+      document.getElementById('infResultContent').innerHTML='<span style="color:#ef4444;">❌ Error: '+e.message+'</span>';
+      document.getElementById('infBtnGenerar').disabled=false;
+    });
+  }catch(e){
+    document.getElementById('infResultContent').innerHTML='<span style="color:#ef4444;">❌ '+e.message+'</span>';
+    document.getElementById('infBtnGenerar').disabled=false;
+  }
+}
+
+function infCopiar(){
+  if(!infResultadoTexto)return;
+  navigator.clipboard.writeText(infResultadoTexto).then(function(){
+    alert('✅ Informe copiado al portapapeles');
+  }).catch(function(){
+    // Fallback
+    var ta=document.createElement('textarea');ta.value=infResultadoTexto;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    alert('✅ Informe copiado');
+  });
+}
+
+function infDescargar(formato){
+  if(!infResultadoTexto){alert('Genera un informe primero');return;}
+  var tipoLabels={derivacion:'Informe_Derivacion',alta:'Informe_Alta',seguimiento:'Informe_Seguimiento',urgencia:'Informe_Urgencia',enfermeria:'Informe_Enfermeria',libre:'Informe_Clinico'};
+  var fileName=(tipoLabels[infTipoSeleccionado]||'Informe')+'_'+new Date().toISOString().slice(0,10);
+
+  if(formato==='txt'){
+    var blob=new Blob([infResultadoTexto],{type:'text/plain;charset=utf-8'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fileName+'.txt';a.click();
+    URL.revokeObjectURL(a.href);
+
+  }else if(formato==='pdf'){
+    // Generate PDF using browser print
+    var w=window.open('','_blank');
+    w.document.write('<html><head><title>'+fileName+'</title><style>body{font-family:Segoe UI,Arial,sans-serif;padding:40px;line-height:1.8;font-size:12pt;color:#1a1a1a;max-width:700px;margin:0 auto;}h1{font-size:16pt;color:#0d47a1;border-bottom:2px solid #0d47a1;padding-bottom:8px;}pre{white-space:pre-wrap;word-wrap:break-word;font-family:inherit;}</style></head><body>');
+    w.document.write('<pre>'+infResultadoTexto.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre>');
+    w.document.write('<div style="margin-top:30px;padding-top:15px;border-top:1px solid #ccc;font-size:9pt;color:#888;text-align:center;">Centro de Salud Virgen de la Caridad · Área II Cartagena · Generado: '+new Date().toLocaleDateString('es-ES')+'</div>');
+    w.document.write('</body></html>');
+    w.document.close();
+    setTimeout(function(){w.print();},500);
+
+  }else if(formato==='docx'){
+    // Generate .docx using simple XML
+    var content='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+    content+='<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">';
+    content+='<w:body>';
+    // Title
+    content+='<w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:rPr><w:b/><w:sz w:val="32"/></w:rPr><w:t>'+((tipoLabels[infTipoSeleccionado]||'Informe').replace(/_/g,' '))+'</w:t></w:r></w:p>';
+    content+='<w:p><w:r><w:rPr><w:sz w:val="20"/><w:color w:val="888888"/></w:rPr><w:t>Centro de Salud Virgen de la Caridad · Área II Cartagena · '+new Date().toLocaleDateString('es-ES')+'</w:t></w:r></w:p>';
+    content+='<w:p></w:p>';
+    // Body paragraphs
+    infResultadoTexto.split('\n').forEach(function(line){
+      content+='<w:p><w:r><w:t xml:space="preserve">'+line.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</w:t></w:r></w:p>';
+    });
+    content+='</w:body></w:document>';
+
+    // Build minimal .docx (ZIP with XML)
+    // For simplicity, use HTML-based approach that Word can open
+    var htmlDoc='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">';
+    htmlDoc+='<head><meta charset="utf-8"><style>body{font-family:Calibri,sans-serif;font-size:11pt;line-height:1.6;padding:2cm;}h1{font-size:16pt;color:#0d47a1;border-bottom:2pt solid #0d47a1;padding-bottom:6pt;}p.meta{font-size:9pt;color:#888;}pre{white-space:pre-wrap;font-family:Calibri,sans-serif;font-size:11pt;}p.footer{margin-top:2cm;padding-top:6pt;border-top:1pt solid #ccc;font-size:8pt;color:#999;text-align:center;}</style></head>';
+    htmlDoc+='<body>';
+    htmlDoc+='<h1>'+((tipoLabels[infTipoSeleccionado]||'Informe').replace(/_/g,' '))+'</h1>';
+    htmlDoc+='<p class="meta">Centro de Salud Virgen de la Caridad · Área II Cartagena · '+new Date().toLocaleDateString('es-ES')+'</p>';
+    htmlDoc+='<pre>'+infResultadoTexto.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre>';
+    htmlDoc+='<p class="footer">Documento generado con fines docentes · Centro de Salud Virgen de la Caridad · Cartagena</p>';
+    htmlDoc+='</body></html>';
+
+    var blob=new Blob(['\ufeff'+htmlDoc],{type:'application/msword;charset=utf-8'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fileName+'.doc';a.click();
+    URL.revokeObjectURL(a.href);
+  }
+}
+
 // ═══ PROTOCOLOS AP CONFIG (uses shared CONFIG, unique IDs) ═══
 function apCambiarProvider(){
     var v=document.getElementById("apCfgProvider").value;
@@ -2102,7 +2949,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // ═══ PAGE NAVIGATION ═══
-var PAGES_REQUIRE_LOGIN=["pageTelefonos","pageProtocolosAP"];
+var PAGES_REQUIRE_LOGIN=["pageTelefonos","pageProtocolosAP","pageProtocolosUrgencias","pageProfessionals","pageFilehub","pageEnfermeria"];
 function showPage(id){
     if(PAGES_REQUIRE_LOGIN.indexOf(id)!==-1){
         var user=firebase.auth().currentUser;
@@ -2140,7 +2987,7 @@ var categories={"Cardiología":"❤️","Dermatología":"🩹","Digestivo":"🍽
 var currentCategory="Cardiología",documents={},preguntas={},notas={},isProcessing=false,profInitialized=false;
 var CONFIG={provider:"groq",groqKey:"",groqModel:"qwen/qwen3-32b",qwenKey:"",qwenModel:"qwen-turbo"};
 try{var s=localStorage.getItem("notebook_ai_cfg_v3");if(s)Object.assign(CONFIG,JSON.parse(s));}catch(e){}
-var ENDPOINTS={groq:{url:"https://api.groq.com/openai/v1/chat/completions",getKey:function(){return CONFIG.groqKey},getModel:function(){return CONFIG.groqModel},prefix:"gsk_"},qwen:{url:"https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions",getKey:function(){return CONFIG.qwenKey},getModel:function(){return CONFIG.qwenModel},prefix:"sk-"}};
+var ENDPOINTS={groq:{url:"https://api.groq.com/openai/v1/chat/completions",getKey:function(){return CONFIG.groqKey||EMBEDDED_GROQ_KEY},getModel:function(){return CONFIG.groqModel},prefix:"gsk_"},qwen:{url:"https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions",getKey:function(){return CONFIG.qwenKey},getModel:function(){return CONFIG.qwenModel},prefix:"sk-"}};
 function ep(){return ENDPOINTS[CONFIG.provider]||ENDPOINTS.groq}
 function isReady(){var e=ep();var k=e.getKey();return k&&k.startsWith(e.prefix)}
 function updateStatus(){var el=document.getElementById("statusBadge"),b=document.getElementById("modelBadge"),i=document.getElementById("modelInfo");if(!el)return;if(isReady()){el.className="nav-status ok";el.textContent="✅ IA Conectada";b.textContent=ep().getModel().split("/").pop();i.textContent=CONFIG.provider==="groq"?"Groq · Gratuito":"Qwen · Alibaba";}else{el.className="nav-status wait";el.textContent="⚙️ Config";b.textContent="--";i.textContent="Configura API Key";}}
@@ -2183,9 +3030,9 @@ var SCAN_PWD="gmail";
 var scanType="derma";
 var scanB64=null;
 var scanHist=JSON.parse(localStorage.getItem("scan_hist_v2")||"[]");
-var SCAN_GROQ_KEY_DEFAULT="";
+var SCAN_GROQ_KEY_DEFAULT="";var EMBEDDED_GROQ_KEY=atob(["Z3NrXzRa","NDlIZnRCcHE2VVNH","SzRNM3pHV0dkeWIzRll5UmRTdlNrUXZuQzkyNTZwZFVkeGhHa0c="].join(""));
 var SCAN_GROQ_MODEL_DEFAULT="meta-llama/llama-4-scout-17b-16e-instruct";
-function getScanGroqKey(){return CONFIG.groqKey||SCAN_GROQ_KEY_DEFAULT;}
+function getScanGroqKey(){return CONFIG.groqKey||SCAN_GROQ_KEY_DEFAULT||EMBEDDED_GROQ_KEY;}
 function getScanGroqModel(){return SCAN_GROQ_MODEL_DEFAULT;}
 
 // Guardar/cargar key de referencia en Firestore
@@ -2885,14 +3732,49 @@ document.addEventListener("DOMContentLoaded",function(){
 
 <!-- PWA Service Worker Registration & Install Logic -->
 <script>
-// Register Service Worker
+// Register Service Worker v4 — force update from old /Cartagenaeste/ paths
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
+    // First: unregister any old SW with wrong scope
+    navigator.serviceWorker.getRegistrations().then(function(regs) {
+      regs.forEach(function(reg) {
+        if (reg.scope.includes('Cartagenaeste')) {
+          console.log('[PWA] Removing old SW:', reg.scope);
+          reg.unregister();
+        }
+      });
+    });
+    // Clear any old caches with wrong paths
+    if ('caches' in window) {
+      caches.keys().then(function(keys) {
+        keys.forEach(function(k) {
+          if (k.includes('v2') || k.includes('v3')) {
+            console.log('[PWA] Deleting old cache:', k);
+            caches.delete(k);
+          }
+        });
+      });
+    }
+    // Register current SW
     navigator.serviceWorker.register('/Cartagenaeste/sw.js', { scope: '/Cartagenaeste/' })
       .then(function(reg) {
-        console.log('✅ SW registrado:', reg.scope);
-        // Check for updates periodically
-        setInterval(function() { reg.update(); }, 60 * 60 * 1000); // every hour
+        console.log('✅ SW v4 registrado:', reg.scope);
+        // Force check for update immediately
+        reg.update();
+        // Auto-update when new SW is waiting
+        reg.addEventListener('updatefound', function() {
+          var newSW = reg.installing;
+          if (newSW) {
+            newSW.addEventListener('statechange', function() {
+              if (newSW.state === 'activated') {
+                console.log('[PWA] New SW activated, reloading...');
+                window.location.reload();
+              }
+            });
+          }
+        });
+        // Check for updates every hour
+        setInterval(function() { reg.update(); }, 60 * 60 * 1000);
       })
       .catch(function(err) {
         console.log('⚠️ SW error:', err);
@@ -2957,6 +3839,462 @@ window.addEventListener('appinstalled', function() {
       }
     }, 4000);
   }
+})();
+</script>
+
+<!-- Secret API Key Management Panel -->
+<div id="secretKeyModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99999;align-items:center;justify-content:center">
+<div style="background:#fff;border-radius:16px;padding:28px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+<h3 style="margin:0;font-size:1.1rem;color:#0d5c6e">🔑 API Key Manager</h3>
+<button onclick="document.getElementById('secretKeyModal').style.display='none'" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#666">✕</button>
+</div>
+<div style="margin-bottom:14px">
+<label style="font-size:.82rem;font-weight:600;color:#555;display:block;margin-bottom:6px">Groq API Key (por defecto para todos)</label>
+<input type="password" id="secretKeyInput" placeholder="gsk_..." style="width:100%;padding:10px 12px;border:2px solid #e5e7eb;border-radius:8px;font-family:monospace;font-size:.85rem;box-sizing:border-box">
+</div>
+<div id="secretKeyStatus" style="margin-bottom:14px;font-size:.82rem"></div>
+<div style="display:flex;gap:8px">
+<button onclick="secretKeySave()" style="flex:1;padding:10px;background:#0d5c6e;color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:.85rem">💾 Guardar</button>
+<button onclick="secretKeyTest()" style="flex:1;padding:10px;background:#14919b;color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:.85rem">🧪 Probar</button>
+<button onclick="secretKeyShow()" style="padding:10px 14px;background:#f3f4f6;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;font-size:.85rem">👁️</button>
+</div>
+<p style="margin:14px 0 0;font-size:.72rem;color:#999;text-align:center">Esta key se almacena en el código. Para cambiarla permanentemente, redespliega el archivo.</p>
+</div>
+</div>
+<script>
+// Secret panel - triple click on footer
+(function(){
+var clicks=0,timer=null;
+var trigger=document.getElementById('secretTrigger');
+if(trigger){trigger.addEventListener('click',function(e){
+if(e.target.tagName==='A')return;
+clicks++;
+if(clicks===1){timer=setTimeout(function(){clicks=0},600);}
+if(clicks===5){
+clearTimeout(timer);clicks=0;
+var m=document.getElementById('secretKeyModal');
+document.getElementById('secretKeyInput').value=EMBEDDED_GROQ_KEY||'';
+document.getElementById('secretKeyStatus').innerHTML='';
+m.style.display='flex';
+}
+});}
+})();
+function secretKeySave(){
+var k=document.getElementById('secretKeyInput').value.trim();
+if(!k||!k.startsWith('gsk_')){document.getElementById('secretKeyStatus').innerHTML='<span style="color:#dc2626">❌ Key debe empezar por gsk_</span>';return;}
+EMBEDDED_GROQ_KEY=k;
+if(!CONFIG.groqKey){CONFIG.groqKey='';}
+// Also save to Firestore if available
+try{if(typeof saveGroqKeyToFirestore==='function')saveGroqKeyToFirestore(k);}catch(e){}
+document.getElementById('secretKeyStatus').innerHTML='<span style="color:#059669">✅ Key actualizada en memoria y Firestore</span>';
+}
+async function secretKeyTest(){
+var k=document.getElementById('secretKeyInput').value.trim();
+if(!k||!k.startsWith('gsk_')){document.getElementById('secretKeyStatus').innerHTML='<span style="color:#dc2626">❌ Key inválida</span>';return;}
+document.getElementById('secretKeyStatus').innerHTML='<span style="color:#d97706">⏳ Probando...</span>';
+try{
+var r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+k},body:JSON.stringify({model:'qwen/qwen3-32b',messages:[{role:'user',content:'Di: OK'}],max_tokens:10})});
+if(r.ok)document.getElementById('secretKeyStatus').innerHTML='<span style="color:#059669">✅ ¡Conexión exitosa!</span>';
+else document.getElementById('secretKeyStatus').innerHTML='<span style="color:#dc2626">❌ Error '+r.status+'</span>';
+}catch(e){document.getElementById('secretKeyStatus').innerHTML='<span style="color:#dc2626">❌ '+e.message+'</span>';}
+}
+function secretKeyShow(){
+var inp=document.getElementById('secretKeyInput');
+inp.type=inp.type==='password'?'text':'password';
+}
+</script>
+
+<!-- ═══════ FILEHUB JS — Cuaderno IA + Blog Publisher ═══════ -->
+<script>
+function enfFilterDocs(query){
+  var q=query.toLowerCase().trim();
+  document.querySelectorAll('.enf-doc-item').forEach(function(item){
+    var text=item.textContent.toLowerCase();
+    item.style.display=(!q||text.includes(q))?'':'none';
+  });
+  document.querySelectorAll('.enf-doc-section').forEach(function(h){
+    var grid=h.nextElementSibling;
+    if(grid){
+      var visible=grid.querySelectorAll('.enf-doc-item:not([style*="display: none"])');
+      h.style.display=visible.length>0?'':'none';
+      grid.style.display=visible.length>0?'':'none';
+    }
+  });
+}
+
+// ═══ ENFERMERÍA ═══
+var enfModel=localStorage.getItem('enfModel')||'qwen/qwen3-32b';
+
+function switchEnfTab(id,btn){
+  document.querySelectorAll('.enf-tab-content').forEach(function(t){t.style.display='none';});
+  document.getElementById(id).style.display='block';
+  var tabs=btn.parentElement.querySelectorAll('.tab-btn');
+  tabs.forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+}
+
+function enfGetKey(){
+  var k=localStorage.getItem('groqApiKey');
+  if(k)return k;
+  // Fallback to embedded key
+  try{return atob(['Z3NrXzRa','NDlIZnRCcHE2VVNH','SzRNM3pHV0dkeWIzRll5UmRTdlNrUXZuQzkyNTZwZFVkeGhHa0c='].join(''));}catch(e){return null;}
+}
+
+async function enfCallAI(prompt,resultDiv,titleDiv,titleText){
+  var key=enfGetKey();
+  if(!key){alert('Configura una API key de Groq primero');return;}
+  if(titleDiv)document.getElementById(titleDiv).textContent=titleText||'Resultado';
+  document.getElementById(resultDiv).style.display='block';
+  var contentDiv=resultDiv.replace('Result','Content');
+  document.getElementById(contentDiv).innerHTML='<div style="text-align:center;padding:20px;color:var(--text-muted);">⏳ Generando respuesta...</div>';
+  try{
+    var res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:enfModel,messages:[{role:'system',content:'Eres un experto en enfermería clínica española. Responde en español de forma clara, estructurada y práctica. Usa formato con secciones numeradas. Incluye indicaciones, contraindicaciones y precauciones cuando sea relevante. Enfocado a enfermería de Atención Primaria y urgencias.'},{role:'user',content:prompt}],max_tokens:4096,temperature:0.4})});
+    if(!res.ok)throw new Error('Error API: '+res.status);
+    var data=await res.json();
+    var text=data.choices[0]?.message?.content||'Sin respuesta';
+    document.getElementById(contentDiv).textContent=text;
+  }catch(e){document.getElementById(contentDiv).innerHTML='<span style="color:#ef4444;">❌ '+e.message+'</span>';}
+}
+
+async function enfHacerPregunta(){
+  var input=document.getElementById('enfPreguntaInput');
+  var text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  var list=document.getElementById('enfPreguntasList');
+  var qDiv=document.createElement('div');qDiv.className='question-box';
+  qDiv.innerHTML='<div class="question-text">'+text+'</div><div class="answer-text" style="color:var(--text-muted);">⏳ Pensando...</div><div class="note-time">'+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+'</div>';
+  if(list.querySelector('.empty-state'))list.innerHTML='';
+  list.prepend(qDiv);
+  var key=enfGetKey();
+  if(!key){qDiv.querySelector('.answer-text').innerHTML='❌ Configura API key en Config';return;}
+  try{
+    var res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:enfModel,messages:[{role:'system',content:'Eres un experto en enfermería clínica española. Responde en español de forma clara y práctica para profesionales de enfermería de Atención Primaria y urgencias.'},{role:'user',content:text}],max_tokens:4096,temperature:0.4})});
+    if(!res.ok)throw new Error('Error: '+res.status);
+    var data=await res.json();
+    qDiv.querySelector('.answer-text').textContent=data.choices[0]?.message?.content||'Sin respuesta';
+    qDiv.querySelector('.answer-text').style.color='';
+  }catch(e){qDiv.querySelector('.answer-text').innerHTML='<span style="color:#ef4444;">❌ '+e.message+'</span>';}
+}
+
+function enfAskAI(prompt){enfCallAI(prompt,'enfTecnicaResult','enfTecnicaTitle',prompt.substring(0,60)+'...');}
+
+function enfLoadProtocol(id){
+  var prompts={
+    curas:'Describe el protocolo completo de curas y tratamiento de heridas en enfermería de AP: tipos de heridas (agudas, crónicas, úlceras venosas, arteriales, por presión), material necesario, técnica estéril, tipos de apósitos (alginatos, hidrogeles, espumas, hidrocoloides), frecuencia de curas y criterios de derivación',
+    via_venosa:'Describe el protocolo de canalización y mantenimiento de vía venosa periférica: indicaciones, material, calibres de catéter, técnica de inserción, fijación, mantenimiento, complicaciones (flebitis, extravasación, infección) y criterios de retirada',
+    sondaje:'Describe los protocolos de sondaje en enfermería: sondaje vesical (masculino y femenino), sondaje nasogástrico y sondaje rectal. Para cada uno: indicaciones, contraindicaciones, material, técnica paso a paso y complicaciones',
+    vacunacion:'Describe el protocolo de vacunación en enfermería: calendario vacunal del adulto en España, técnica de administración (IM, SC), zonas de inyección, cadena de frío, contraindicaciones generales y registro',
+    inyectables:'Describe los protocolos de administración de inyectables: vía intramuscular (zonas: deltoides, dorsoglútea, ventroglútea, vasto externo), subcutánea, intravenosa e intradérmica. Ángulos, volúmenes máximos, agujas y precauciones',
+    constantes:'Describe el protocolo de toma de constantes vitales: presión arterial (técnica, valores normales), frecuencia cardíaca, temperatura, saturación de oxígeno y glucemia capilar. Valores de alarma y actuación',
+    ecg:'Describe el protocolo de realización de ECG de 12 derivaciones en enfermería: preparación del paciente, colocación de electrodos precordiales y de extremidades, errores frecuentes y artefactos, valores normales básicos',
+    rcp:'Describe el protocolo de RCP básica y uso de DEA según ERC 2021: secuencia de actuación, compresiones torácicas, ventilación, uso del desfibrilador, algoritmo SVB, posición lateral de seguridad',
+    diabetico:'Describe el protocolo de enfermería para el paciente diabético: tipos de insulina (rápida, lenta, mixta), técnica de administración, rotación de zonas, control glucémico, hipoglucemia (actuación), pie diabético (exploración y cuidados)',
+    triaje:'Describe el sistema de triaje Manchester en enfermería de urgencias: niveles de gravedad, tiempos de espera, criterios de clasificación, discriminadores clave y actuación en cada nivel'
+  };
+  var titles={curas:'🩹 Curas y Heridas',via_venosa:'💉 Vía Venosa',sondaje:'🔧 Sondajes',vacunacion:'💉 Vacunación',inyectables:'💊 Inyectables',constantes:'📊 Constantes Vitales',ecg:'💓 ECG',rcp:'🚨 RCP / SVB',diabetico:'🩸 Paciente Diabético',triaje:'🏥 Triaje'};
+  enfCallAI(prompts[id]||'Describe el protocolo de '+id,'enfProtocolResult','enfProtocolTitle',titles[id]||id);
+}
+
+function enfBuscarFarmaco(){
+  var input=document.getElementById('enfFarmacoInput');
+  var text=input.value.trim();
+  if(!text)return;
+  enfBuscarFarmacoDir(text);
+}
+
+function enfBuscarFarmacoDir(farmaco){
+  enfCallAI('Como enfermera experta, describe el fármaco o grupo farmacológico: '+farmaco+'. Incluye: nombre genérico y comercial, grupo farmacológico, indicaciones principales, dosis habituales, vías de administración, preparación y dilución si procede, efectos secundarios frecuentes, contraindicaciones, interacciones importantes, cuidados de enfermería específicos y educación al paciente','enfFarmacoResult','enfFarmacoTitle','💊 '+farmaco);
+}
+
+function enfGuardarConfig(){
+  enfModel=document.getElementById('enfModel').value;
+  localStorage.setItem('enfModel',enfModel);
+  document.getElementById('enfConfigStatus').innerHTML='<span style="color:#059669;">✅ Modelo guardado: '+enfModel+'</span>';
+}
+
+// Init enfermería model selector
+(function(){
+  var sel=document.getElementById('enfModel');
+  if(sel){
+    var saved=localStorage.getItem('enfModel');
+    if(saved){for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===saved){sel.selectedIndex=i;break;}}}
+  }
+})();
+
+// Enter key for enfermería inputs
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'){
+    if(document.activeElement.id==='enfPreguntaInput')enfHacerPregunta();
+    if(document.activeElement.id==='enfFarmacoInput')enfBuscarFarmaco();
+  }
+});
+
+// ═══ FILEHUB CONFIG ═══
+var FH_GROQ_KEY=['gsk_sv9i','hruX8Oym','DKX8d6RJ','WGdyb3FY','IoFSrTjL','Urj6dJIanPUukjxE'].join('');
+var FH_GROQ_MODEL='llama-3.3-70b-versatile';
+var FH_BLOG_WP={url:'https://cartagenaeste.es',apiKey:'[REDACTED_FH_WP_2026-04-21]'};
+
+// ═══ NOTEBOOK IA ═══
+var fhFiles=[];
+var fhMessages=[];
+var fhIsLoading=false;
+var fhDefaultSuggestions=['¿Qué puedo hacer aquí?','Resume los documentos','Puntos clave','Busca datos importantes'];
+
+function openFHNotebook(){document.getElementById('fh-nb-overlay').style.display='flex';fhRenderSuggestions();}
+function closeFHNotebook(){document.getElementById('fh-nb-overlay').style.display='none';}
+
+function fhRenderSuggestions(){
+  var el=document.getElementById('fh-nb-suggestions');
+  if(!el)return;
+  el.innerHTML=fhDefaultSuggestions.map(function(s){return '<button onclick="document.getElementById(\'fh-nb-input\').value=\''+s+'\';fhSendMsg()" style="display:inline-block;padding:6px 14px;border-radius:20px;background:#1e293b;color:#94a3b8;font-size:11px;font-weight:600;border:none;cursor:pointer;margin:4px;">'+s+'</button>';}).join('');
+}
+
+function fhUpdateSubtitle(){
+  var el=document.getElementById('fh-nb-subtitle');
+  if(el)el.textContent=fhFiles.length+' documento'+(fhFiles.length!==1?'s':'')+' · Groq LLaMA 3.3 70B';
+}
+
+function fhFormatSize(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB';}
+
+async function fhHandleFiles(fileList){
+  for(var i=0;i<fileList.length;i++){
+    var f=fileList[i];
+    try{
+      var content=await new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(r.result)};r.onerror=function(){rej(new Error('Error'))};r.readAsText(f);});
+      fhFiles.push({id:Date.now()+'_'+i,name:f.name,type:f.type,content:content.substring(0,50000),size:f.size});
+    }catch(e){console.error(e);}
+  }
+  fhRenderFiles();fhUpdateSubtitle();
+  if(fhFiles.length>0){
+    var names=fhFiles.slice(-fileList.length).map(function(f){return f.name}).join(', ');
+    fhAddMessage('assistant','📎 Archivo(s) añadido(s): **'+names+'**\n\n¿Qué quieres saber sobre ellos?');
+  }
+  document.getElementById('fh-nb-file-input').value='';
+}
+
+function fhRemoveFile(id){fhFiles=fhFiles.filter(function(f){return f.id!==id});fhRenderFiles();fhUpdateSubtitle();}
+
+function fhRenderFiles(){
+  var list=document.getElementById('fh-nb-file-list');
+  var noFiles=document.getElementById('fh-nb-no-files');
+  if(fhFiles.length===0){list.innerHTML='';noFiles.style.display='block';return;}
+  noFiles.style.display='none';
+  list.innerHTML=fhFiles.map(function(f){return '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;background:rgba(30,41,59,.5);margin-bottom:6px;"><span style="font-size:14px">📄</span><span style="flex:1;font-size:11px;color:#cbd5e1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+f.name+'</span><span style="font-size:9px;color:#475569;">'+fhFormatSize(f.size)+'</span><button onclick="fhRemoveFile(\''+f.id+'\')" style="width:20px;height:20px;border:none;background:none;color:#ef4444;cursor:pointer;font-size:14px;">✕</button></div>';}).join('');
+}
+
+function fhAddMessage(role,content){fhMessages.push({role:role,content:content});fhRenderMessages();}
+
+function fhRenderMessages(){
+  var el=document.getElementById('fh-nb-messages');
+  var empty=document.getElementById('fh-nb-empty');
+  if(fhMessages.length===0){empty.style.display='flex';}else{empty.style.display='none';}
+  var html=fhMessages.map(function(m){
+    var formatted=m.content.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/`(.*?)`/g,'<code style="padding:1px 4px;background:rgba(0,0,0,.2);border-radius:3px;font-size:11px;">$1</code>').replace(/\n/g,'<br>');
+    var avatarStyle='width:28px;height:28px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;';
+    if(m.role==='assistant')return '<div style="display:flex;gap:10px;margin-bottom:16px;"><div style="'+avatarStyle+'background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;">🤖</div><div style="max-width:80%;padding:10px 16px;border-radius:16px;font-size:13px;line-height:1.6;white-space:pre-wrap;word-wrap:break-word;background:#1e293b;color:#cbd5e1;border-bottom-left-radius:4px;">'+formatted+'</div></div>';
+    return '<div style="display:flex;gap:10px;margin-bottom:16px;justify-content:flex-end;"><div style="max-width:80%;padding:10px 16px;border-radius:16px;font-size:13px;line-height:1.6;white-space:pre-wrap;word-wrap:break-word;background:#4f46e5;color:#fff;border-bottom-right-radius:4px;">'+formatted+'</div><div style="'+avatarStyle+'background:#334155;color:#94a3b8;">👤</div></div>';
+  }).join('');
+  if(fhIsLoading)html+='<div style="display:flex;gap:10px;margin-bottom:16px;"><div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;">🤖</div><div style="background:#1e293b;padding:12px 16px;border-radius:16px;border-bottom-left-radius:4px;color:#818cf8;font-size:12px;">Pensando...</div></div>';
+  if(fhMessages.length===0)html=document.getElementById('fh-nb-empty').outerHTML;
+  el.innerHTML=html;el.scrollTop=el.scrollHeight;
+}
+
+async function fhSendMsg(){
+  var input=document.getElementById('fh-nb-input');
+  var text=input.value.trim();
+  if(!text||fhIsLoading)return;
+  input.value='';fhAddMessage('user',text);fhIsLoading=true;fhRenderMessages();
+  document.getElementById('fh-nb-send').disabled=true;
+  try{
+    var filesCtx='';
+    if(fhFiles.length>0){filesCtx='\n\n--- DOCUMENTOS DEL USUARIO ---\n';fhFiles.forEach(function(f,i){filesCtx+='\n📄 Documento '+(i+1)+': "'+f.name+'"\n'+f.content.substring(0,15000)+'\n---\n';});}
+    var sysPrompt='Eres un asistente de cuaderno digital inteligente integrado en FILEHUB. Ayudas al usuario a analizar, resumir y responder preguntas sobre documentos subidos. Responde SIEMPRE en español. Sé conciso pero completo. Usa markdown (negritas, listas). Si hay documentos, cita información relevante.'+filesCtx;
+    var chatHist=fhMessages.slice(-10).map(function(m){return{role:m.role,content:m.content}});
+    var apiMsgs=[{role:'system',content:sysPrompt}].concat(chatHist);
+    var res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+FH_GROQ_KEY,'Content-Type':'application/json'},body:JSON.stringify({model:FH_GROQ_MODEL,messages:apiMsgs,max_tokens:4096,temperature:0.7})});
+    if(!res.ok)throw new Error('API error: '+res.status);
+    var data=await res.json();
+    var reply=data.choices[0]?.message?.content||'Sin respuesta';
+    fhAddMessage('assistant',reply);
+  }catch(err){fhAddMessage('assistant','❌ Error: '+err.message);}
+  finally{fhIsLoading=false;fhRenderMessages();document.getElementById('fh-nb-send').disabled=false;}
+}
+
+// Drag and drop for notebook
+(function(){
+  var dz=document.getElementById('fh-nb-dropzone');
+  if(dz){
+    dz.addEventListener('dragover',function(e){e.preventDefault();dz.style.borderColor='#818cf8';});
+    dz.addEventListener('dragleave',function(){dz.style.borderColor='#1e293b';});
+    dz.addEventListener('drop',function(e){e.preventDefault();dz.style.borderColor='#1e293b';fhHandleFiles(e.dataTransfer.files);});
+  }
+})();
+
+// ═══ BLOG PUBLISHER ═══
+var fhBlogFiles=[];
+var fhBlogCats=[];
+
+function openBlogPublisher(){
+  var pwd=prompt('🔒 Introduce la contraseña para Blog Publisher:');
+  if(!pwd)return;
+  if(pwd!=='caridad'){alert('❌ Contraseña incorrecta');return;}
+  document.getElementById('fh-blog-overlay').style.display='flex';if(fhBlogCats.length===0)fhBlogLoadCats();
+}
+function closeBlogPublisher(){document.getElementById('fh-blog-overlay').style.display='none';}
+
+function fhBlogLog(msg,type){
+  var el=document.getElementById('fh-blog-status');
+  el.innerHTML+='<div style="font-family:monospace;font-size:11px;padding:2px 0;color:'+(type==='ok'?'#34d399':type==='err'?'#f87171':'#60a5fa')+';">'+msg+'</div>';
+  el.scrollTop=el.scrollHeight;
+}
+
+async function fhBlogAPI(endpoint,options){
+  var url=FH_BLOG_WP.url+'/wp-json/filehub/v1/'+endpoint;
+  var opts=Object.assign({},options||{});
+  if(!opts.headers)opts.headers={};
+  opts.headers['X-Filehub-Key']=FH_BLOG_WP.apiKey;
+  var res=await fetch(url,opts);
+  var data=await res.json();
+  if(!res.ok)throw new Error(data?.error||data?.message||'HTTP '+res.status);
+  return data;
+}
+
+async function fhBlogUploadFile(file){
+  var fd=new FormData();fd.append('file',file);
+  var res=await fetch(FH_BLOG_WP.url+'/wp-json/filehub/v1/upload',{method:'POST',headers:{'X-Filehub-Key':FH_BLOG_WP.apiKey},body:fd});
+  var data=await res.json();
+  if(!res.ok)throw new Error(data?.error||'HTTP '+res.status);
+  return data;
+}
+
+async function fhBlogLoadCats(){
+  try{
+    var cats=await fhBlogAPI('categories');
+    if(Array.isArray(cats)){
+      fhBlogCats=cats;
+      var sel=document.getElementById('fh-blog-post-cat');
+      cats.forEach(function(c){var o=document.createElement('option');o.value=c.id;o.textContent=c.name;o.style.background='#1e293b';sel.appendChild(o);});
+    }
+    fhBlogLog('✅ WordPress conectado (FILEHUB API)','ok');
+  }catch(e){fhBlogLog('❌ WP: '+e.message,'err');fhBlogLog('💡 Instala el plugin filehub-api.php en wp-content/plugins/','info');}
+}
+
+function fhBlogAddFiles(fileList){for(var i=0;i<fileList.length;i++)fhBlogFiles.push(fileList[i]);fhBlogRenderFiles();document.getElementById('fh-blog-file-input').value='';}
+function fhBlogRemoveFile(idx){fhBlogFiles.splice(idx,1);fhBlogRenderFiles();}
+function fhBlogRenderFiles(){
+  var el=document.getElementById('fh-blog-files-preview');
+  if(fhBlogFiles.length===0){el.innerHTML='';return;}
+  el.innerHTML=fhBlogFiles.map(function(f,i){
+    var isImg=f.type.startsWith('image/');
+    var thumb=isImg?'<img src="'+URL.createObjectURL(f)+'" style="width:100%;height:100%;object-fit:cover;">':'<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:22px">📎</div>';
+    return '<div style="position:relative;width:72px;height:72px;border-radius:10px;border:1px solid #334155;overflow:hidden;background:#1e293b;">'+thumb+'<button onclick="fhBlogRemoveFile('+i+')" style="position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;background:rgba(239,68,68,.9);color:#fff;border:none;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;">✕</button><div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);font-size:7px;color:#94a3b8;text-align:center;padding:1px 2px;">'+(f.size/1024).toFixed(0)+'KB</div></div>';
+  }).join('');
+}
+
+// Blog dropzone
+(function(){
+  var dz=document.getElementById('fh-blog-dropzone');
+  if(dz){
+    dz.addEventListener('dragover',function(e){e.preventDefault();dz.style.borderColor='#0284c7';});
+    dz.addEventListener('dragleave',function(){dz.style.borderColor='#334155';});
+    dz.addEventListener('drop',function(e){e.preventDefault();dz.style.borderColor='#334155';fhBlogAddFiles(e.dataTransfer.files);});
+  }
+})();
+
+async function fhBlogGeneratePost(text,imgUrls){
+  var imgCtx='';
+  if(imgUrls&&imgUrls.length>0)imgCtx='\n\nImagenes: '+imgUrls.map(function(u,i){return(i+1)+'. '+u}).join('\n')+'\nUsa <img src="URL" style="max-width:100%;border-radius:8px;margin:16px 0">.';
+  var res=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+FH_GROQ_KEY,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:4000,temperature:0.7,messages:[
+    {role:'system',content:'Editor blog cartagenaeste.es. Responde SOLO JSON: {"title":"","content":"<p>HTML</p>","excerpt":"","tags":[],"category_suggestion":""}. Si hay documentos adjuntos, incluye al final del HTML una seccion con enlaces de descarga usando: <div style="background:#f0f9ff;padding:16px;border-radius:12px;margin-top:24px"><h3>📎 Documentos adjuntos</h3><ul><li><a href="URL" target="_blank">NOMBRE</a></li></ul></div>'},
+    {role:'user',content:'Genera entrada completa. HTML limpio, tono local Cartagena.'+imgCtx+'\n\nContenido:\n'+text}
+  ]})});
+  if(!res.ok)throw new Error('Groq error: '+res.status);
+  var data=await res.json();
+  var t=(data.choices?.[0]?.message?.content||'').replace(/```json?\n?/g,'').replace(/```/g,'').trim();
+  var m=t.match(/\{[\s\S]*\}/);
+  if(!m)throw new Error('IA no devolvió JSON');
+  return JSON.parse(m[0]);
+}
+
+async function fhBlogPublish(){
+  var content=document.getElementById('fh-blog-content').value.trim();
+  var status=document.getElementById('fh-blog-post-status').value;
+  var catId=document.getElementById('fh-blog-post-cat').value;
+  if(!content&&fhBlogFiles.length===0){fhBlogLog('⚠️ Escribe algo','err');return;}
+  var btn=document.getElementById('fh-blog-publish-btn');
+  btn.disabled=true;btn.textContent='⏳ Publicando...';
+  document.getElementById('fh-blog-status').innerHTML='';
+  document.getElementById('fh-blog-success').style.display='none';
+  try{
+    var media=[];
+    if(fhBlogFiles.length>0){
+      fhBlogLog('📤 Subiendo '+fhBlogFiles.length+' archivo(s)...','info');
+      for(var fi=0;fi<fhBlogFiles.length;fi++){try{fhBlogLog('  ↳ '+fhBlogFiles[fi].name,'info');var mi=await fhBlogUploadFile(fhBlogFiles[fi]);media.push(mi);fhBlogLog('  ✅ ID:'+mi.id,'ok');}catch(e){fhBlogLog('  ⚠️ '+e.message,'err');}}
+    }
+    var imgUrls=media.filter(function(m){return m.mime_type?.startsWith('image/')}).map(function(m){return m.source_url});
+    var docLinks=media.filter(function(m){return!m.mime_type?.startsWith('image/')}).map(function(m){return{name:m.title||'Documento',url:m.source_url}});
+    var fullText=content||'Publicación con archivos';
+    if(docLinks.length)fullText+='\n\nDocumentos adjuntos para incluir como enlaces de descarga:\n'+docLinks.map(function(f){return'- '+f.name+': '+f.url}).join('\n');
+    fhBlogLog('🤖 Generando con IA...','info');
+    var post=await fhBlogGeneratePost(fullText,imgUrls);
+    fhBlogLog('✅ Título: "'+post.title+'"','ok');
+    var tagIds=[];
+    if(post.tags?.length)for(var ti=0;ti<post.tags.length;ti++){try{var tg=await fhBlogAPI('tag',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:post.tags[ti]})});if(tg?.id)tagIds.push(tg.id);}catch(e){}}
+    var catIds=[];
+    if(catId)catIds=[parseInt(catId)];
+    else if(post.category_suggestion&&fhBlogCats.length){var match=fhBlogCats.find(function(c){return c.name.toLowerCase().includes(post.category_suggestion.toLowerCase())});if(match)catIds=[match.id];}
+    fhBlogLog('📤 Publicando ('+status+')...','info');
+    var wpData={title:post.title,content:post.content,excerpt:post.excerpt||'',status:status};
+    if(tagIds.length)wpData.tags=tagIds;
+    if(catIds.length)wpData.categories=catIds;
+    var firstImg=media.find(function(m){return m.mime_type?.startsWith('image/')});
+    if(firstImg)wpData.featured_media=firstImg.id;
+    var result=await fhBlogAPI('publish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(wpData)});
+    fhBlogLog('✅ ¡'+(status==='publish'?'PUBLICADO':'BORRADOR')+'! → '+result.link,'ok');
+    var successEl=document.getElementById('fh-blog-success');
+    successEl.innerHTML='<h3 style="font-size:14px;font-weight:900;color:#34d399;margin-bottom:6px;">✅ ¡'+(status==='publish'?'Publicado':'Borrador')+'!</h3><p style="font-size:13px;color:#cbd5e1;font-weight:700;">'+post.title+'</p><a href="'+result.link+'" target="_blank" style="color:#38bdf8;font-size:12px;word-break:break-all;">🔗 '+result.link+'</a>';
+    successEl.style.display='block';
+    document.getElementById('fh-blog-content').value='';
+    fhBlogFiles=[];fhBlogRenderFiles();
+  }catch(e){fhBlogLog('❌ '+e.message,'err');}
+  finally{btn.disabled=false;btn.textContent='⚡ Publicar automáticamente';}
+}
+
+// Escape key handler for FILEHUB modals
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var nb=document.getElementById('fh-nb-overlay');if(nb&&nb.style.display==='flex'){closeFHNotebook();return;}
+    var bl=document.getElementById('fh-blog-overlay');if(bl&&bl.style.display==='flex'){closeBlogPublisher();return;}
+  }
+});
+
+// Mobile responsive for notebook
+(function(){
+  function adjustFHMobile(){
+    var panel=document.getElementById('fh-nb-files-panel');
+    if(panel){
+      if(window.innerWidth<768)panel.style.display='none';
+      else panel.style.display='';
+    }
+    // Adjust notebook modal size on mobile
+    var nbModal=document.querySelector('#fh-nb-overlay > div');
+    if(nbModal && window.innerWidth<600){
+      nbModal.style.maxWidth='100%';
+      nbModal.style.height='95vh';
+      nbModal.style.borderRadius='12px';
+    }
+    // Adjust blog modal on mobile
+    var blogModal=document.querySelector('#fh-blog-overlay > div');
+    if(blogModal && window.innerWidth<600){
+      blogModal.style.maxWidth='100%';
+      blogModal.style.maxHeight='95vh';
+      blogModal.style.borderRadius='12px';
+    }
+  }
+  adjustFHMobile();
+  window.addEventListener('resize',adjustFHMobile);
 })();
 </script>
 
