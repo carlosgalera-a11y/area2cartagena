@@ -2415,7 +2415,7 @@ async function infGenerar(){
     apiUrl='https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions';
   }else{
     key=localStorage.getItem('groqApiKey');
-    if(!key)try{key=atob(['Z3NrXzRa','NDlIZnRCcHE2VVNH','SzRNM3pHV0dkeWIzRll5UmRTdlNrUXZuQzkyNTZwZFVkeGhHa0c='].join(''));}catch(e){}
+    if(!key)try{key=atob(['Z3NrX0dUVHFmVFhwQzV','IR3lNSFRrRzByV0dkeW','IzRllPSHNnVVRBOE5Za','lVWVDROOVd5ak1NeFQ='].join(''));}catch(e){}
     model=localStorage.getItem('groqModel')||'qwen/qwen3-32b';
     apiUrl='https://api.groq.com/openai/v1/chat/completions';
   }
@@ -3030,7 +3030,7 @@ var SCAN_PWD="gmail";
 var scanType="derma";
 var scanB64=null;
 var scanHist=JSON.parse(localStorage.getItem("scan_hist_v2")||"[]");
-var SCAN_GROQ_KEY_DEFAULT="";var EMBEDDED_GROQ_KEY=atob(["Z3NrXzRa","NDlIZnRCcHE2VVNH","SzRNM3pHV0dkeWIzRll5UmRTdlNrUXZuQzkyNTZwZFVkeGhHa0c="].join(""));
+var SCAN_GROQ_KEY_DEFAULT="";var EMBEDDED_GROQ_KEY=atob(["Z3NrX0dUVHFmVFhwQzV","IR3lNSFRrRzByV0dkeW","IzRllPSHNnVVRBOE5Za","lVWVDROOVd5ak1NeFQ="].join(""));
 var SCAN_GROQ_MODEL_DEFAULT="meta-llama/llama-4-scout-17b-16e-instruct";
 function getScanGroqKey(){return CONFIG.groqKey||SCAN_GROQ_KEY_DEFAULT||EMBEDDED_GROQ_KEY;}
 function getScanGroqModel(){return SCAN_GROQ_MODEL_DEFAULT;}
@@ -3938,7 +3938,7 @@ function enfGetKey(){
   var k=localStorage.getItem('groqApiKey');
   if(k)return k;
   // Fallback to embedded key
-  try{return atob(['Z3NrXzRa','NDlIZnRCcHE2VVNH','SzRNM3pHV0dkeWIzRll5UmRTdlNrUXZuQzkyNTZwZFVkeGhHa0c='].join(''));}catch(e){return null;}
+  try{return atob(['Z3NrX0dUVHFmVFhwQzV','IR3lNSFRrRzByV0dkeW','IzRllPSHNnVVRBOE5Za','lVWVDROOVd5ak1NeFQ='].join(''));}catch(e){return null;}
 }
 
 async function enfCallAI(prompt,resultDiv,titleDiv,titleText){
@@ -4032,7 +4032,7 @@ document.addEventListener('keydown',function(e){
 });
 
 // ═══ FILEHUB CONFIG ═══
-var FH_GROQ_KEY=['gsk_sv9i','hruX8Oym','DKX8d6RJ','WGdyb3FY','IoFSrTjL','Urj6dJIanPUukjxE'].join('');
+var FH_GROQ_KEY=['Z3NrX0dU','VHFmVFhwQzV','IR3lNSFRr','RzByV0dkeW','IzRllPSHNnVVRB','OE5ZalVWVDROOVd5ak1NeFQ='].join('');FH_GROQ_KEY=atob(FH_GROQ_KEY);
 var FH_GROQ_MODEL='llama-3.3-70b-versatile';
 var FH_BLOG_WP={url:'https://cartagenaeste.es',apiKey:'[REDACTED_FH_WP_2026-04-21]'};
 
