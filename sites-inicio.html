@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centro de Salud Cartagena Este</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d3d26 0%, #1a6b4a 50%, #238c62 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .badge {
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.3);
+    color: rgba(255,255,255,.9);
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 30px;
+    margin-bottom: 24px;
+  }
+  h1 {
+    color: #fff;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 800;
+    text-align: center;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 12px rgba(0,0,0,.3);
+  }
+  .sub {
+    color: rgba(255,255,255,.75);
+    font-size: 1rem;
+    text-align: center;
+    max-width: 480px;
+    line-height: 1.6;
+    margin-bottom: 44px;
+  }
+  .buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+  .btn {
+    padding: 16px 40px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: .04em;
+    transition: all .2s;
+    min-width: 180px;
+    text-align: center;
+  }
+  .btn-pacientes {
+    background: #e8a000;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(232,160,0,.4);
+  }
+  .btn-pacientes:hover { background: #f0b020; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,160,0,.5); }
+  .btn-profesionales {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,.7);
+  }
+  .btn-profesionales:hover { background: rgba(255,255,255,.1); transform: translateY(-2px); border-color: #fff; }
+  .cards {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 700px;
+  }
+  .card {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 12px;
+    padding: 14px 20px;
+    text-decoration: none;
+    color: #fff;
+    font-size: .85rem;
+    font-weight: 600;
+    transition: all .2s;
+    text-align: center;
+    min-width: 130px;
+  }
+  .card:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); }
+  .card span { display: block; font-size: 1.4rem; margin-bottom: 4px; }
+  .footer {
+    margin-top: 50px;
+    color: rgba(255,255,255,.35);
+    font-size: .72rem;
+    text-align: center;
+  }
+  .footer a { color: rgba(255,255,255,.5); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="badge">🏥 Centro de Salud Cartagena Este</div>
+
+<h1>Tu salud,<br>nuestra prioridad</h1>
+
+<p class="sub">Salud y Formación para tu comunidad. Accede a recursos para pacientes o herramientas de docencia clínica para profesionales.</p>
+
+<div class="buttons">
+  <a class="btn btn-pacientes" href="https://cartagenaeste.es/pacientes/" target="_blank">PACIENTES</a>
+  <a class="btn btn-profesionales" href="https://ramongalera22-ai.github.io/Cartagenaeste/blog-categorias.html" target="_blank">PROFESIONALES</a>
+</div>
+
+<div class="cards">
+  <a class="card" href="https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html" target="_blank">
+    <span>📱</span>App Médica
+  </a>
+  <a class="card" href="https://cartagenaeste.es/home/blog-categorias/" target="_blank">
+    <span>📚</span>Blog
+  </a>
+  <a class="card" href="https://cartagenaeste.es/podcast-2/" target="_blank">
+    <span>🎙️</span>Podcast
+  </a>
+  <a class="card" href="https://ramongalera22-ai.github.io/Cartagenaeste/blog-categorias.html" target="_blank">
+    <span>🔬</span>Especialidades
+  </a>
+  <a class="card" href="https://cartagenaeste.es/consulta/" target="_blank">
+    <span>📅</span>Consulta
+  </a>
+</div>
+
+<p class="footer">© 2026 <a href="https://cartagenaeste.es">cartagenaeste.es</a> · Área II Cartagena</p>
+
+</body>
+</html>
