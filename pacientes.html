@@ -6,84 +6,241 @@
 <title>Pacientes - Centro de Salud Cartagena Este</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Segoe UI',sans-serif; background:#f8f9fa; padding:30px 20px; }
-h1 { text-align:center; color:#1a6b4a; font-size:1.8rem; margin-bottom:8px; }
-.sub { text-align:center; color:#666; font-size:.9rem; margin-bottom:32px; }
-.search { display:block; width:100%; max-width:480px; margin:0 auto 28px; padding:10px 18px; border:2px solid #1a6b4a; border-radius:30px; font-size:.95rem; outline:none; }
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; max-width:900px; margin:0 auto; }
-.card { background:#fff; border-radius:12px; padding:16px 18px; text-decoration:none; color:#333; box-shadow:0 2px 8px rgba(0,0,0,.07); border-left:4px solid #c8920a; transition:all .2s; display:flex; align-items:center; gap:12px; }
-.card:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.12); background:#fffbf0; }
-.card-icon { font-size:1.6rem; flex-shrink:0; }
-.card-name { font-weight:600; font-size:.9rem; }
-.footer { text-align:center; margin-top:36px; font-size:.75rem; color:#aaa; }
+body { font-family:'Segoe UI',sans-serif; background:#f8f9fa; }
+
+header {
+  background: linear-gradient(135deg,#0d3d26,#1a6b4a);
+  padding: 28px 20px 24px;
+  text-align: center;
+  color: #fff;
+}
+header h1 { font-size:1.6rem; font-weight:700; margin-bottom:6px; }
+header p { font-size:.85rem; color:rgba(255,255,255,.75); }
+.back { display:inline-flex; align-items:center; gap:5px; color:rgba(255,255,255,.8); text-decoration:none; font-size:.8rem; margin-bottom:14px; }
+.back:hover { color:#fff; }
+
+.content { max-width:900px; margin:0 auto; padding:28px 16px 60px; }
+
+/* Sección */
+.section { background:#fff; border-radius:14px; margin-bottom:20px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.06); }
+.section-header {
+  display:flex; align-items:center; gap:12px;
+  padding:16px 20px;
+  cursor:pointer;
+  background:#fff;
+  border-bottom:1px solid #f0f0f0;
+  user-select:none;
+  transition:background .15s;
+}
+.section-header:hover { background:#f9fdf9; }
+.section-icon { font-size:1.5rem; flex-shrink:0; }
+.section-title { font-weight:700; font-size:.95rem; color:#1a3a2a; flex:1; }
+.section-count { font-size:.75rem; color:#888; margin-right:8px; }
+.chevron { color:#aaa; font-size:.8rem; transition:transform .2s; }
+.section-body { display:none; padding:8px 0; }
+.section-body.open { display:block; }
+.section-header.open .chevron { transform:rotate(180deg); }
+
+/* Items */
+.item {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 20px;
+  text-decoration:none;
+  color:#333;
+  border-bottom:1px solid #f7f7f7;
+  transition:background .15s;
+}
+.item:last-child { border-bottom:none; }
+.item:hover { background:#f0faf5; }
+.item-icon { font-size:1.1rem; flex-shrink:0; width:24px; text-align:center; }
+.item-text { flex:1; }
+.item-title { font-size:.88rem; font-weight:600; color:#1a3a2a; }
+.item-desc { font-size:.75rem; color:#888; margin-top:2px; }
+.item-badge { font-size:.68rem; background:#e8f5ee; color:#1a6b4a; padding:2px 8px; border-radius:10px; font-weight:600; flex-shrink:0; }
+
+.footer { text-align:center; font-size:.72rem; color:#aaa; padding:20px; }
 .footer a { color:#1a6b4a; text-decoration:none; }
-.back { display:inline-flex; align-items:center; gap:6px; margin-bottom:24px; color:#1a6b4a; text-decoration:none; font-size:.85rem; font-weight:600; }
-.back:hover { text-decoration:underline; }
-.hidden { display:none !important; }
 </style>
 </head>
 <body>
 
-<a class="back" href="https://ramongalera22-ai.github.io/Cartagenaeste/sites-inicio.html" target="_top">← Volver al inicio</a>
+<header>
+  <a class="back" href="https://ramongalera22-ai.github.io/Cartagenaeste/sites-inicio.html" target="_top">← Inicio</a>
+  <h1>👤 Recursos para Pacientes</h1>
+  <p>Centro de Salud Cartagena Este · Área II Cartagena</p>
+</header>
 
-<h1>👤 Recursos para Pacientes</h1>
-<p class="sub">Centro de Salud Cartagena Este · Área II Cartagena</p>
+<div class="content">
 
-<input class="search" type="text" placeholder="🔍 Buscar..." oninput="filtrar(this.value)">
+  <!-- DIETAS -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">🥗</span>
+      <span class="section-title">Dietas y Nutrición</span>
+      <span class="section-count">13 recursos</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://cartagenaeste.es/recomendaciones-sibo/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Recomendaciones SIBO</div></div><span class="item-badge">Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/recomendaciones-dietetico-nutricionales-enfermedad-por-reflujo/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Reflujo gastroesofágico</div></div><span class="item-badge">Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/recomendaciones-dietetico-nutricionales-diarrea-aguda/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Diarrea aguda</div></div><span class="item-badge">Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/recomendaciones-nutricionales-colelitiasis/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Colelitiasis</div></div><span class="item-badge">Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/dietas-para-intolerancia-lactosa/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Intolerancia a la lactosa</div></div><span class="item-badge">Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/dieta-trigliceridos-altos/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Triglicéridos altos</div></div><span class="item-badge">Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/dieta-hipertension-arterial/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Hipertensión arterial</div></div><span class="item-badge">Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/dieta-diabetes/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Diabetes</div></div><span class="item-badge">Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/dieta-colesterol-alto-hipercolesterolemia/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Colesterol alto</div></div><span class="item-badge">Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/dieta-obesidad/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Obesidad</div></div><span class="item-badge">Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/category/dietas/page/2/" target="_blank"><span class="item-icon">➕</span><div class="item-text"><div class="item-title">Ver más dietas...</div></div></a>
+    </div>
+  </div>
 
-<div class="grid" id="grid">
-  <a class="card" href="https://cartagenaeste.es/category/dietas/" target="_blank">
-    <span class="card-icon">🥗</span><span class="card-name">Dietas</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/category/violencia-de-genero/" target="_blank">
-    <span class="card-icon">🛡️</span><span class="card-name">Violencia de género</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/category/recursos-sociales/" target="_blank">
-    <span class="card-icon">🏘️</span><span class="card-name">Recursos sociales</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/category/informacion/" target="_blank">
-    <span class="card-icon">ℹ️</span><span class="card-name">Información</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/category/factores-de-riesgo/" target="_blank">
-    <span class="card-icon">⚠️</span><span class="card-name">Factores de riesgo</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/category/ejercicios/" target="_blank">
-    <span class="card-icon">🏃</span><span class="card-name">Ejercicios</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/category/dentista/" target="_blank">
-    <span class="card-icon">🦷</span><span class="card-name">Dentista</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/category/enlaces-de-interes/" target="_blank">
-    <span class="card-icon">🔗</span><span class="card-name">Enlaces de interés</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/category/vacunas/" target="_blank">
-    <span class="card-icon">💉</span><span class="card-name">Vacunas</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/category/pacientes/programacion-del-centro/" target="_blank">
-    <span class="card-icon">📅</span><span class="card-name">Programación del Centro</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/category/dejar-de-fumar/" target="_blank">
-    <span class="card-icon">🚭</span><span class="card-name">Dejar de fumar</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/podcast-2/" target="_blank">
-    <span class="card-icon">🎙️</span><span class="card-name">Podcast</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/consulta/" target="_blank">
-    <span class="card-icon">📋</span><span class="card-name">Consulta</span>
-  </a>
-  <a class="card" href="https://cartagenaeste.es/pacientes/" target="_blank">
-    <span class="card-icon">🏥</span><span class="card-name">Todos los recursos</span>
-  </a>
+  <!-- FACTORES DE RIESGO -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">⚠️</span>
+      <span class="section-title">Factores de Riesgo</span>
+      <span class="section-count">2 recursos</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://cartagenaeste.es/factores-de-riesgo-3/" target="_blank"><span class="item-icon">📊</span><div class="item-text"><div class="item-title">Plantilla control de glucosa</div><div class="item-desc">Descargable para anotar cifras de glucosa</div></div><span class="item-badge">Descargar</span></a>
+      <a class="item" href="https://cartagenaeste.es/factores-de-riesgo-2/" target="_blank"><span class="item-icon">📊</span><div class="item-text"><div class="item-title">Plantilla control de tensión arterial</div><div class="item-desc">Descargable para anotar cifras de TA</div></div><span class="item-badge">Descargar</span></a>
+    </div>
+  </div>
+
+  <!-- EJERCICIOS -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">🏃</span>
+      <span class="section-title">Ejercicios y Rehabilitación</span>
+      <span class="section-count">2 recursos</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://cartagenaeste.es/ejercicios-rehabilitacion-hombro-2/" target="_blank"><span class="item-icon">💪</span><div class="item-text"><div class="item-title">Ejercicios rehabilitación hombro</div><div class="item-desc">merehabilitoencasa.es</div></div><span class="item-badge">Ver</span></a>
+      <a class="item" href="https://cartagenaeste.es/ejercicios-rehabilitacion-columna-lumbar/" target="_blank"><span class="item-icon">🦴</span><div class="item-text"><div class="item-title">Ejercicios rehabilitación columna lumbar</div></div><span class="item-badge">Ver</span></a>
+    </div>
+  </div>
+
+  <!-- VACUNAS -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">💉</span>
+      <span class="section-title">Vacunas</span>
+      <span class="section-count">1 recurso</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://cartagenaeste.es/calendario-vacunaciones-2025/" target="_blank"><span class="item-icon">📅</span><div class="item-text"><div class="item-title">Calendario de vacunaciones 2025</div></div><span class="item-badge">Ver</span></a>
+    </div>
+  </div>
+
+  <!-- RECURSOS SOCIALES -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">🏘️</span>
+      <span class="section-title">Recursos Sociales</span>
+      <span class="section-count">2 recursos</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://cartagenaeste.es/recurosos-sociales-ayuntamiento-de-cartagena/" target="_blank"><span class="item-icon">🏛️</span><div class="item-text"><div class="item-title">Recursos sociales Ayuntamiento de Cartagena</div><div class="item-desc">serviciossociales.cartagena.es</div></div><span class="item-badge">Ver</span></a>
+      <a class="item" href="https://cartagenaeste.es/recursos-sociales/" target="_blank"><span class="item-icon">📋</span><div class="item-text"><div class="item-title">Recursos sociales generales</div></div><span class="item-badge">Ver</span></a>
+    </div>
+  </div>
+
+  <!-- DEJAR DE FUMAR -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">🚭</span>
+      <span class="section-title">Dejar de Fumar</span>
+      <span class="section-count">1 recurso</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://cartagenaeste.es/category/dejar-de-fumar/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Guía para dejar de fumar</div></div><span class="item-badge">Ver</span></a>
+    </div>
+  </div>
+
+  <!-- DENTISTA -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">🦷</span>
+      <span class="section-title">Dentista</span>
+      <span class="section-count">1 recurso</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://cartagenaeste.es/category/dentista/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Servicios bucodentales</div></div><span class="item-badge">Ver</span></a>
+    </div>
+  </div>
+
+  <!-- VIOLENCIA DE GÉNERO -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">🛡️</span>
+      <span class="section-title">Violencia de Género</span>
+      <span class="section-count">1 recurso</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://cartagenaeste.es/category/violencia-de-genero/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Protocolo y recursos violencia de género</div></div><span class="item-badge">Ver</span></a>
+    </div>
+  </div>
+
+  <!-- ENLACES DE INTERÉS -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">🔗</span>
+      <span class="section-title">Enlaces de Interés</span>
+      <span class="section-count">2 recursos</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://cartagenaeste.es/category/enlaces-de-interes/" target="_blank"><span class="item-icon">🌐</span><div class="item-text"><div class="item-title">Ver todos los enlaces de interés</div></div><span class="item-badge">Ver</span></a>
+    </div>
+  </div>
+
+  <!-- PODCAST -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">🎙️</span>
+      <span class="section-title">Podcast</span>
+      <span class="section-count">Episodios</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://cartagenaeste.es/podcast-2/" target="_blank"><span class="item-icon">▶️</span><div class="item-text"><div class="item-title">Escuchar episodios del podcast</div><div class="item-desc">Audio con descripciones clínicas</div></div><span class="item-badge">Escuchar</span></a>
+    </div>
+  </div>
+
+  <!-- PROGRAMACIÓN -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">📅</span>
+      <span class="section-title">Programación del Centro</span>
+      <span class="section-count">Agenda</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://cartagenaeste.es/consulta/" target="_blank"><span class="item-icon">📋</span><div class="item-text"><div class="item-title">Información de consulta</div></div><span class="item-badge">Ver</span></a>
+      <a class="item" href="https://cartagenaeste.es/category/pacientes/programacion-del-centro/" target="_blank"><span class="item-icon">📅</span><div class="item-text"><div class="item-title">Programación del centro</div></div><span class="item-badge">Ver</span></a>
+    </div>
+  </div>
+
 </div>
 
 <p class="footer">© 2026 <a href="https://cartagenaeste.es">cartagenaeste.es</a> · Centro de Salud Cartagena Este</p>
 
 <script>
-function filtrar(q) {
-  document.querySelectorAll('.card').forEach(c => {
-    c.classList.toggle('hidden', q && !c.textContent.toLowerCase().includes(q.toLowerCase()));
-  });
+function toggle(header) {
+  header.classList.toggle('open');
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
 }
+// Abrir la primera sección por defecto
+document.querySelector('.section-header').click();
 </script>
 </body>
 </html>
