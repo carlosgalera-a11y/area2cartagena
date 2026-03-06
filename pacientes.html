@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pacientes - Centro de Salud Cartagena Este</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI',sans-serif; background:#f8f9fa; padding:30px 20px; }
+h1 { text-align:center; color:#1a6b4a; font-size:1.8rem; margin-bottom:8px; }
+.sub { text-align:center; color:#666; font-size:.9rem; margin-bottom:32px; }
+.search { display:block; width:100%; max-width:480px; margin:0 auto 28px; padding:10px 18px; border:2px solid #1a6b4a; border-radius:30px; font-size:.95rem; outline:none; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; max-width:900px; margin:0 auto; }
+.card { background:#fff; border-radius:12px; padding:16px 18px; text-decoration:none; color:#333; box-shadow:0 2px 8px rgba(0,0,0,.07); border-left:4px solid #c8920a; transition:all .2s; display:flex; align-items:center; gap:12px; }
+.card:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.12); background:#fffbf0; }
+.card-icon { font-size:1.6rem; flex-shrink:0; }
+.card-name { font-weight:600; font-size:.9rem; }
+.footer { text-align:center; margin-top:36px; font-size:.75rem; color:#aaa; }
+.footer a { color:#1a6b4a; text-decoration:none; }
+.back { display:inline-flex; align-items:center; gap:6px; margin-bottom:24px; color:#1a6b4a; text-decoration:none; font-size:.85rem; font-weight:600; }
+.back:hover { text-decoration:underline; }
+.hidden { display:none !important; }
+</style>
+</head>
+<body>
+
+<a class="back" href="https://ramongalera22-ai.github.io/Cartagenaeste/sites-inicio.html" target="_top">← Volver al inicio</a>
+
+<h1>👤 Recursos para Pacientes</h1>
+<p class="sub">Centro de Salud Cartagena Este · Área II Cartagena</p>
+
+<input class="search" type="text" placeholder="🔍 Buscar..." oninput="filtrar(this.value)">
+
+<div class="grid" id="grid">
+  <a class="card" href="https://cartagenaeste.es/category/dietas/" target="_blank">
+    <span class="card-icon">🥗</span><span class="card-name">Dietas</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/category/violencia-de-genero/" target="_blank">
+    <span class="card-icon">🛡️</span><span class="card-name">Violencia de género</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/category/recursos-sociales/" target="_blank">
+    <span class="card-icon">🏘️</span><span class="card-name">Recursos sociales</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/category/informacion/" target="_blank">
+    <span class="card-icon">ℹ️</span><span class="card-name">Información</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/category/factores-de-riesgo/" target="_blank">
+    <span class="card-icon">⚠️</span><span class="card-name">Factores de riesgo</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/category/ejercicios/" target="_blank">
+    <span class="card-icon">🏃</span><span class="card-name">Ejercicios</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/category/dentista/" target="_blank">
+    <span class="card-icon">🦷</span><span class="card-name">Dentista</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/category/enlaces-de-interes/" target="_blank">
+    <span class="card-icon">🔗</span><span class="card-name">Enlaces de interés</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/category/vacunas/" target="_blank">
+    <span class="card-icon">💉</span><span class="card-name">Vacunas</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/category/pacientes/programacion-del-centro/" target="_blank">
+    <span class="card-icon">📅</span><span class="card-name">Programación del Centro</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/category/dejar-de-fumar/" target="_blank">
+    <span class="card-icon">🚭</span><span class="card-name">Dejar de fumar</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/podcast-2/" target="_blank">
+    <span class="card-icon">🎙️</span><span class="card-name">Podcast</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/consulta/" target="_blank">
+    <span class="card-icon">📋</span><span class="card-name">Consulta</span>
+  </a>
+  <a class="card" href="https://cartagenaeste.es/pacientes/" target="_blank">
+    <span class="card-icon">🏥</span><span class="card-name">Todos los recursos</span>
+  </a>
+</div>
+
+<p class="footer">© 2026 <a href="https://cartagenaeste.es">cartagenaeste.es</a> · Centro de Salud Cartagena Este</p>
+
+<script>
+function filtrar(q) {
+  document.querySelectorAll('.card').forEach(c => {
+    c.classList.toggle('hidden', q && !c.textContent.toLowerCase().includes(q.toLowerCase()));
+  });
+}
+</script>
+</body>
+</html>
