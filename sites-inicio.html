@@ -6,138 +6,256 @@
 <title>Centro de Salud Cartagena Este</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
   body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Georgia', 'Times New Roman', serif;
     min-height: 100vh;
-    background: linear-gradient(135deg, #0d3d26 0%, #1a6b4a 50%, #238c62 100%);
+    background: #111;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    background: rgba(0,0,0,.45);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .nav-brand {
+    color: #fff;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,.85);
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: #fff; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
+    text-align: center;
+    padding: 100px 20px 60px;
+    overflow: hidden;
   }
-  .badge {
-    background: rgba(255,255,255,.15);
-    border: 1px solid rgba(255,255,255,.3);
-    color: rgba(255,255,255,.9);
-    font-size: .75rem;
-    font-weight: 600;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    padding: 6px 18px;
-    border-radius: 30px;
-    margin-bottom: 24px;
+
+  /* Fondo: foto del centro + overlay oscuro */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://cartagenaeste.es/wp-content/uploads/2024/11/foto-centro-salud.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(.55);
   }
+  /* Fallback gradiente por si falla la foto */
+  .hero-bg-fallback {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #1a3a2a 0%, #2d6b4a 40%, #1a4a30 100%);
+    z-index: -1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
   h1 {
     color: #fff;
-    font-size: clamp(2rem, 6vw, 3.2rem);
-    font-weight: 800;
-    text-align: center;
+    font-size: clamp(2.4rem, 7vw, 4.2rem);
+    font-weight: 400;
     line-height: 1.15;
-    margin-bottom: 16px;
-    text-shadow: 0 2px 12px rgba(0,0,0,.3);
+    margin-bottom: 20px;
+    text-shadow: 0 2px 20px rgba(0,0,0,.5);
+    font-style: italic;
   }
+
   .sub {
-    color: rgba(255,255,255,.75);
+    color: rgba(255,255,255,.8);
     font-size: 1rem;
-    text-align: center;
-    max-width: 480px;
-    line-height: 1.6;
-    margin-bottom: 44px;
+    font-family: 'Segoe UI', sans-serif;
+    font-style: normal;
+    margin-bottom: 48px;
+    letter-spacing: .02em;
   }
+
   .buttons {
     display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
-    margin-bottom: 50px;
+    flex-wrap: wrap;
   }
+
   .btn {
-    padding: 16px 40px;
-    border-radius: 10px;
-    font-size: 1rem;
+    padding: 16px 44px;
+    font-size: .88rem;
     font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
     text-decoration: none;
-    letter-spacing: .04em;
-    transition: all .2s;
+    border-radius: 4px;
+    transition: all .25s;
+    font-family: 'Segoe UI', sans-serif;
     min-width: 180px;
     text-align: center;
   }
+
   .btn-pacientes {
-    background: #e8a000;
+    background: #c8920a;
     color: #fff;
-    box-shadow: 0 4px 16px rgba(232,160,0,.4);
+    border: 2px solid #c8920a;
   }
-  .btn-pacientes:hover { background: #f0b020; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,160,0,.5); }
+  .btn-pacientes:hover {
+    background: #e0a510;
+    border-color: #e0a510;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(200,146,10,.4);
+  }
+
   .btn-profesionales {
     background: transparent;
     color: #fff;
-    border: 2px solid rgba(255,255,255,.7);
+    border: 2px solid rgba(255,255,255,.75);
   }
-  .btn-profesionales:hover { background: rgba(255,255,255,.1); transform: translateY(-2px); border-color: #fff; }
-  .cards {
+  .btn-profesionales:hover {
+    background: rgba(255,255,255,.12);
+    border-color: #fff;
+    transform: translateY(-1px);
+  }
+
+  /* SECCIÓN INFERIOR */
+  .bottom {
+    background: #f8f8f6;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .bottom h2 {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 24px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+  }
+  .quick-links {
     display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
+    gap: 12px;
     justify-content: center;
+    flex-wrap: wrap;
     max-width: 700px;
+    margin: 0 auto 30px;
   }
-  .card {
-    background: rgba(255,255,255,.1);
-    border: 1px solid rgba(255,255,255,.2);
-    border-radius: 12px;
+  .ql {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
     padding: 14px 20px;
     text-decoration: none;
-    color: #fff;
+    color: #333;
+    font-family: 'Segoe UI', sans-serif;
     font-size: .85rem;
     font-weight: 600;
     transition: all .2s;
     text-align: center;
-    min-width: 130px;
+    min-width: 120px;
   }
-  .card:hover { background: rgba(255,255,255,.2); transform: translateY(-2px); }
-  .card span { display: block; font-size: 1.4rem; margin-bottom: 4px; }
-  .footer {
-    margin-top: 50px;
-    color: rgba(255,255,255,.35);
-    font-size: .72rem;
+  .ql:hover { border-color: #1a6b4a; color: #1a6b4a; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+  .ql span { display: block; font-size: 1.5rem; margin-bottom: 4px; }
+
+  .footer-bar {
+    background: #222;
+    color: rgba(255,255,255,.4);
     text-align: center;
+    padding: 14px;
+    font-size: .72rem;
+    font-family: 'Segoe UI', sans-serif;
   }
-  .footer a { color: rgba(255,255,255,.5); text-decoration: none; }
+  .footer-bar a { color: rgba(255,255,255,.6); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    nav { padding: 14px 20px; }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: .72rem; }
+    h1 { font-size: 2.2rem; }
+  }
 </style>
 </head>
 <body>
 
-<div class="badge">🏥 Centro de Salud Cartagena Este</div>
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="https://cartagenaeste.es/" target="_blank">Centro de Salud Cartagena Este</a>
+  <div class="nav-links">
+    <a href="https://cartagenaeste.es/consulta/" target="_blank">Consulta</a>
+    <a href="https://cartagenaeste.es/pacientes/" target="_blank">Pacientes</a>
+    <a href="https://cartagenaeste.es/podcast-2/" target="_blank">Podcast</a>
+  </div>
+</nav>
 
-<h1>Tu salud,<br>nuestra prioridad</h1>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg-fallback"></div>
+  <div class="hero-bg" onerror="this.style.display='none'"></div>
 
-<p class="sub">Salud y Formación para tu comunidad. Accede a recursos para pacientes o herramientas de docencia clínica para profesionales.</p>
-
-<div class="buttons">
-  <a class="btn btn-pacientes" href="https://cartagenaeste.es/pacientes/" target="_blank">PACIENTES</a>
-  <a class="btn btn-profesionales" href="https://ramongalera22-ai.github.io/Cartagenaeste/blog-categorias.html" target="_blank">PROFESIONALES</a>
+  <div class="hero-content">
+    <h1>Tu salud,<br>nuestra prioridad</h1>
+    <p class="sub">Salud y Formación para tu comunidad</p>
+    <div class="buttons">
+      <a class="btn btn-pacientes" href="https://cartagenaeste.es/pacientes/" target="_blank">Pacientes</a>
+      <a class="btn btn-profesionales" href="https://ramongalera22-ai.github.io/Cartagenaeste/blog-categorias.html" target="_blank">Profesionales</a>
+    </div>
+  </div>
 </div>
 
-<div class="cards">
-  <a class="card" href="https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html" target="_blank">
-    <span>📱</span>App Médica
-  </a>
-  <a class="card" href="https://cartagenaeste.es/home/blog-categorias/" target="_blank">
-    <span>📚</span>Blog
-  </a>
-  <a class="card" href="https://cartagenaeste.es/podcast-2/" target="_blank">
-    <span>🎙️</span>Podcast
-  </a>
-  <a class="card" href="https://ramongalera22-ai.github.io/Cartagenaeste/blog-categorias.html" target="_blank">
-    <span>🔬</span>Especialidades
-  </a>
-  <a class="card" href="https://cartagenaeste.es/consulta/" target="_blank">
-    <span>📅</span>Consulta
-  </a>
+<!-- ACCESOS RÁPIDOS -->
+<div class="bottom">
+  <h2>Accesos rápidos</h2>
+  <div class="quick-links">
+    <a class="ql" href="https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html" target="_blank">
+      <span>📱</span>App Médica
+    </a>
+    <a class="ql" href="https://ramongalera22-ai.github.io/Cartagenaeste/blog-categorias.html" target="_blank">
+      <span>🔬</span>Especialidades
+    </a>
+    <a class="ql" href="https://cartagenaeste.es/home/blog-categorias/" target="_blank">
+      <span>📚</span>Blog
+    </a>
+    <a class="ql" href="https://cartagenaeste.es/podcast-2/" target="_blank">
+      <span>🎙️</span>Podcast
+    </a>
+    <a class="ql" href="https://cartagenaeste.es/consulta/" target="_blank">
+      <span>📅</span>Consulta
+    </a>
+  </div>
 </div>
 
-<p class="footer">© 2026 <a href="https://cartagenaeste.es">cartagenaeste.es</a> · Área II Cartagena</p>
+<div class="footer-bar">
+  © 2026 <a href="https://cartagenaeste.es" target="_blank">cartagenaeste.es</a> · Centro de Salud Cartagena Este · Área II Cartagena
+</div>
 
 </body>
 </html>
