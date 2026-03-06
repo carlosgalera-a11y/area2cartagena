@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subir PDFs a GitHub · Cartagena Este</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;500;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --verde: #0d3d26;
+  --verde2: #1a6b4a;
+  --oro: #c8920a;
+  --bg: #f4f6f3;
+  --white: #fff;
+  --gray: #888;
+  --red: #c0392b;
+  --ok: #27ae60;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  padding: 0 0 60px;
+}
+
+header {
+  background: var(--verde);
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+header h1 { color: #fff; font-size: 1.1rem; font-weight: 700; }
+header p { color: rgba(255,255,255,.55); font-size: .8rem; font-family: 'IBM Plex Mono', monospace; }
+.logo { width: 36px; height: 36px; background: var(--oro); border-radius: 8px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+
+.container { max-width: 760px; margin: 0 auto; padding: 32px 20px; }
+
+/* Token input */
+.token-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  border-left: 4px solid var(--oro);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.token-section label { font-size: .78rem; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: .08em; display: block; margin-bottom: 8px; }
+.token-section input {
+  width: 100%; padding: 10px 14px; border: 1.5px solid #ddd; border-radius: 8px;
+  font-family: 'IBM Plex Mono', monospace; font-size: .82rem; color: #333;
+  outline: none; transition: border .15s;
+}
+.token-section input:focus { border-color: var(--verde2); }
+
+/* Drop zone */
+.dropzone {
+  border: 2.5px dashed #bcd4c5;
+  border-radius: 16px;
+  background: #fff;
+  padding: 52px 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  position: relative;
+  margin-bottom: 24px;
+}
+.dropzone.over { border-color: var(--verde2); background: #f0faf5; transform: scale(1.01); }
+.dropzone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.dropzone-icon { font-size: 2.8rem; margin-bottom: 12px; }
+.dropzone h2 { font-size: 1.05rem; font-weight: 700; color: var(--verde); margin-bottom: 6px; }
+.dropzone p { font-size: .82rem; color: var(--gray); }
+.dropzone strong { color: var(--verde2); }
+
+/* Carpeta selector */
+.folder-row {
+  display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap;
+}
+.folder-btn {
+  padding: 8px 16px; border-radius: 20px; border: 2px solid #ddd;
+  background: #fff; font-size: .82rem; font-weight: 600; color: #555;
+  cursor: pointer; transition: all .15s; font-family: 'IBM Plex Sans', sans-serif;
+}
+.folder-btn:hover { border-color: var(--verde2); color: var(--verde2); }
+.folder-btn.active { background: var(--verde); border-color: var(--verde); color: #fff; }
+
+/* Lista de archivos */
+.file-list { margin-bottom: 24px; }
+.file-list h3 { font-size: .78rem; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+
+.file-item {
+  display: flex; align-items: center; gap: 12px;
+  background: #fff; border-radius: 10px; padding: 12px 16px;
+  margin-bottom: 8px; border: 1.5px solid #eee;
+  transition: border .15s;
+}
+.file-item.uploading { border-color: var(--oro); }
+.file-item.done { border-color: var(--ok); }
+.file-item.error { border-color: var(--red); }
+
+.file-icon { font-size: 1.3rem; flex-shrink: 0; }
+.file-info { flex: 1; min-width: 0; }
+.file-name { font-size: .86rem; font-weight: 600; color: #222; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-size { font-size: .72rem; color: var(--gray); font-family: 'IBM Plex Mono', monospace; }
+.file-dest { font-size: .72rem; color: var(--verde2); font-family: 'IBM Plex Mono', monospace; margin-top: 2px; }
+.file-status { font-size: .75rem; font-weight: 600; flex-shrink: 0; }
+.file-status.pending { color: var(--gray); }
+.file-status.uploading { color: var(--oro); }
+.file-status.done { color: var(--ok); }
+.file-status.error { color: var(--red); }
+
+.progress-bar { height: 3px; background: #eee; border-radius: 2px; margin-top: 6px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--verde2); transition: width .3s; border-radius: 2px; }
+
+/* Botón subir */
+.btn-upload {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 16px; border-radius: 12px;
+  background: var(--verde); color: #fff; border: none;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: all .15s; margin-bottom: 16px;
+}
+.btn-upload:hover:not(:disabled) { background: var(--verde2); transform: translateY(-1px); }
+.btn-upload:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+.btn-clear {
+  display: block; width: 100%; padding: 10px; border-radius: 10px;
+  background: transparent; color: var(--gray); border: 1.5px solid #ddd;
+  font-size: .85rem; cursor: pointer; font-family: 'IBM Plex Sans', sans-serif;
+  transition: all .15s;
+}
+.btn-clear:hover { border-color: var(--red); color: var(--red); }
+
+/* Stats */
+.stats {
+  display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;
+}
+.stat {
+  flex: 1; min-width: 100px; background: #fff; border-radius: 10px;
+  padding: 14px 16px; text-align: center; border: 1.5px solid #eee;
+}
+.stat-num { font-size: 1.6rem; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+.stat-num.verde { color: var(--verde2); }
+.stat-num.oro { color: var(--oro); }
+.stat-num.ok { color: var(--ok); }
+.stat-num.red { color: var(--red); }
+.stat-label { font-size: .72rem; color: var(--gray); text-transform: uppercase; letter-spacing: .06em; margin-top: 2px; }
+
+/* Log */
+.log {
+  background: var(--verde);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .75rem;
+  color: #a8d5b8;
+  max-height: 160px;
+  overflow-y: auto;
+  display: none;
+}
+.log.visible { display: block; }
+.log-line { margin-bottom: 3px; }
+.log-line.ok { color: #6ee89a; }
+.log-line.err { color: #ff7b7b; }
+.log-line.info { color: #ffd580; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">📁</div>
+  <div>
+    <h1>Subir PDFs → GitHub</h1>
+    <p>ramongalera22-ai / Cartagenaeste</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="token-section">
+    <label>🔑 GitHub Token (ya guardado)</label>
+    <input type="password" id="token" placeholder="Pega aquí tu github_pat_...">
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div class="token-section" style="border-color:#bcd4c5; padding:14px 20px;">
+      <label>📂 Carpeta destino en GitHub</label>
+      <div class="folder-row" style="margin:8px 0 0; flex-wrap:wrap;">
+        <button class="folder-btn active" onclick="setFolder('docs', this)">docs/</button>
+        <button class="folder-btn" onclick="setFolder('docs/neurologia', this)">docs/neurologia/</button>
+        <button class="folder-btn" onclick="setFolder('docs/cardiologia', this)">docs/cardiologia/</button>
+        <button class="folder-btn" onclick="setFolder('docs/neumologia', this)">docs/neumologia/</button>
+        <button class="folder-btn" onclick="setFolder('docs/endocrinologia', this)">docs/endocrinologia/</button>
+        <button class="folder-btn" onclick="setFolder('docs/digestivo', this)">docs/digestivo/</button>
+        <button class="folder-btn" onclick="setFolder('docs/reumatologia', this)">docs/reumatologia/</button>
+        <button class="folder-btn" onclick="setFolder('docs/dermatologia', this)">docs/dermatologia/</button>
+        <button class="folder-btn" onclick="setFolder('docs/pediatria', this)">docs/pediatria/</button>
+        <button class="folder-btn" onclick="setFolder('docs/ginecologia', this)">docs/ginecologia/</button>
+        <button class="folder-btn" onclick="setFolder('docs/urgencias', this)">docs/urgencias/</button>
+        <button class="folder-btn" onclick="setFolder('docs/geriatria', this)">docs/geriatria/</button>
+        <button class="folder-btn" onclick="setFolder('docs/salud-mental', this)">docs/salud-mental/</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dropzone" id="dropzone">
+    <input type="file" id="fileInput" multiple accept=".pdf,.PDF">
+    <div class="dropzone-icon">📄</div>
+    <h2>Arrastra los PDFs aquí</h2>
+    <p>o haz clic para seleccionarlos · <strong>Múltiples archivos permitidos</strong></p>
+  </div>
+
+  <div class="stats" id="stats" style="display:none">
+    <div class="stat"><div class="stat-num oro" id="s-total">0</div><div class="stat-label">Total</div></div>
+    <div class="stat"><div class="stat-num verde" id="s-pending">0</div><div class="stat-label">Pendientes</div></div>
+    <div class="stat"><div class="stat-num ok" id="s-done">0</div><div class="stat-label">Subidos</div></div>
+    <div class="stat"><div class="stat-num red" id="s-error">0</div><div class="stat-label">Errores</div></div>
+  </div>
+
+  <div class="file-list" id="fileList"></div>
+
+  <button class="btn-upload" id="btnUpload" disabled onclick="uploadAll()">
+    ⬆️ Subir todos a GitHub
+  </button>
+  <button class="btn-clear" onclick="clearAll()">🗑 Limpiar lista</button>
+
+  <div class="log" id="log"></div>
+
+</div>
+
+<script>
+const REPO = 'ramongalera22-ai/Cartagenaeste';
+let selectedFolder = 'docs';
+let files = [];
+let statuses = {};
+
+function setFolder(folder, btn) {
+  selectedFolder = folder;
+  document.querySelectorAll('.folder-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  updateFileList();
+}
+
+// Drag & drop
+const dz = document.getElementById('dropzone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('over');
+  addFiles(Array.from(e.dataTransfer.files));
+});
+document.getElementById('fileInput').addEventListener('change', e => {
+  addFiles(Array.from(e.target.files));
+  e.target.value = '';
+});
+
+function addFiles(newFiles) {
+  const pdfs = newFiles.filter(f => f.name.toLowerCase().endsWith('.pdf'));
+  pdfs.forEach(f => {
+    if (!files.find(x => x.name === f.name)) {
+      files.push(f);
+      statuses[f.name] = 'pending';
+    }
+  });
+  updateFileList();
+  updateStats();
+  document.getElementById('btnUpload').disabled = files.length === 0;
+  document.getElementById('stats').style.display = files.length ? 'flex' : 'none';
+}
+
+function updateFileList() {
+  const container = document.getElementById('fileList');
+  if (files.length === 0) { container.innerHTML = ''; return; }
+  container.innerHTML = `<h3>${files.length} archivo${files.length>1?'s':''} seleccionado${files.length>1?'s':''}</h3>` +
+    files.map(f => {
+      const st = statuses[f.name] || 'pending';
+      const stLabel = {pending:'Pendiente', uploading:'Subiendo...', done:'✓ Subido', error:'✗ Error'}[st];
+      const dest = `${selectedFolder}/${f.name}`;
+      return `<div class="file-item ${st}" id="item-${CSS.escape(f.name)}">
+        <span class="file-icon">${st==='done'?'✅':st==='error'?'❌':'📄'}</span>
+        <div class="file-info">
+          <div class="file-name">${f.name}</div>
+          <div class="file-size">${(f.size/1024).toFixed(0)} KB</div>
+          <div class="file-dest">→ ${dest}</div>
+          <div class="progress-bar"><div class="progress-fill" id="prog-${CSS.escape(f.name)}" style="width:${st==='done'?100:st==='uploading'?50:0}%"></div></div>
+        </div>
+        <span class="file-status ${st}">${stLabel}</span>
+      </div>`;
+    }).join('');
+}
+
+function updateStats() {
+  const vals = Object.values(statuses);
+  document.getElementById('s-total').textContent = files.length;
+  document.getElementById('s-pending').textContent = vals.filter(s=>s==='pending').length;
+  document.getElementById('s-done').textContent = vals.filter(s=>s==='done').length;
+  document.getElementById('s-error').textContent = vals.filter(s=>s==='error').length;
+}
+
+function log(msg, type='info') {
+  const logEl = document.getElementById('log');
+  logEl.classList.add('visible');
+  const line = document.createElement('div');
+  line.className = `log-line ${type}`;
+  line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  logEl.appendChild(line);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+async function uploadFile(file) {
+  const token = document.getElementById('token').value.trim();
+  if (!token) { log('⚠ Falta el token de GitHub', 'err'); return; }
+
+  const path = `${selectedFolder}/${file.name}`;
+  const url = `https://api.github.com/repos/${REPO}/contents/${path}`;
+
+  // Leer como base64
+  const content = await new Promise((res, rej) => {
+    const reader = new FileReader();
+    reader.onload = () => res(reader.result.split(',')[1]);
+    reader.onerror = rej;
+    reader.readAsDataURL(file);
+  });
+
+  // Ver si ya existe (para obtener SHA)
+  let sha = null;
+  try {
+    const check = await fetch(url, { headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }});
+    if (check.ok) { const d = await check.json(); sha = d.sha; }
+  } catch(e) {}
+
+  const body = { message: `Añadir ${file.name}`, content };
+  if (sha) body.sha = sha;
+
+  const resp = await fetch(url, {
+    method: 'PUT',
+    headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+
+  if (!resp.ok) {
+    const err = await resp.json();
+    throw new Error(err.message || resp.statusText);
+  }
+  return await resp.json();
+}
+
+async function uploadAll() {
+  const btn = document.getElementById('btnUpload');
+  btn.disabled = true;
+  btn.textContent = '⏳ Subiendo...';
+  log(`Iniciando subida de ${files.length} archivos a ${selectedFolder}/`, 'info');
+
+  for (const file of files) {
+    if (statuses[file.name] === 'done') continue;
+    statuses[file.name] = 'uploading';
+    updateFileList();
+    updateStats();
+
+    try {
+      await uploadFile(file);
+      statuses[file.name] = 'done';
+      log(`✓ ${file.name}`, 'ok');
+    } catch(e) {
+      statuses[file.name] = 'error';
+      log(`✗ ${file.name}: ${e.message}`, 'err');
+    }
+    updateFileList();
+    updateStats();
+    await new Promise(r => setTimeout(r, 300)); // pequeña pausa entre subidas
+  }
+
+  const done = Object.values(statuses).filter(s=>s==='done').length;
+  const errors = Object.values(statuses).filter(s=>s==='error').length;
+  log(`Completado: ${done} subidos, ${errors} errores`, done===files.length?'ok':'info');
+  btn.textContent = `✅ ${done}/${files.length} subidos`;
+  btn.disabled = false;
+}
+
+function clearAll() {
+  files = []; statuses = {};
+  document.getElementById('fileList').innerHTML = '';
+  document.getElementById('stats').style.display = 'none';
+  document.getElementById('btnUpload').disabled = true;
+  document.getElementById('btnUpload').textContent = '⬆️ Subir todos a GitHub';
+  document.getElementById('log').innerHTML = '';
+  document.getElementById('log').classList.remove('visible');
+}
+</script>
+</body>
+</html>
