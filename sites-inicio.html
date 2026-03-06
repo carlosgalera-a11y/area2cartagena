@@ -21,18 +21,15 @@ body { font-family:'Segoe UI',sans-serif; }
   overflow: hidden;
 }
 
-/* Fondo: foto real del centro desde WordPress */
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('https://cartagenaeste.es/wp-content/uploads/2024/11/DSC01311-scaled.jpg'),
-                    url('https://cartagenaeste.es/wp-content/uploads/2024/11/DSC01311.jpg'),
-                    url('https://cartagenaeste.es/wp-content/uploads/2024/centro-salud.jpg');
+  background-image: url('https://ramongalera22-ai.github.io/Cartagenaeste/centro-salud.png');
   background-size: cover;
-  background-position: center;
+  background-position: center top;
   background-color: #1a3a2a;
-  filter: brightness(.6);
+  filter: brightness(.55);
   z-index: 0;
 }
 
@@ -79,6 +76,7 @@ h1 {
   min-width: 170px;
   text-align: center;
   cursor: pointer;
+  display: inline-block;
 }
 
 .btn-pac {
