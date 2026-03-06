@@ -12,33 +12,27 @@ header h1 { font-size:1.6rem; font-weight:700; margin-bottom:6px; }
 header p { font-size:.85rem; color:rgba(255,255,255,.75); }
 .back { display:inline-flex; align-items:center; gap:5px; color:rgba(255,255,255,.8); text-decoration:none; font-size:.8rem; margin-bottom:14px; }
 .back:hover { color:#fff; }
-
 .search-wrap { max-width:900px; margin:20px auto 0; padding:0 16px; }
 .search { display:block; width:100%; padding:11px 20px; border:2px solid #1a6b4a; border-radius:30px; font-size:.95rem; outline:none; background:#fff; }
-
 .content { max-width:900px; margin:0 auto; padding:20px 16px 60px; }
-
-.section { background:#fff; border-radius:14px; margin-bottom:16px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.06); }
-.section-header { display:flex; align-items:center; gap:12px; padding:15px 20px; cursor:pointer; border-bottom:1px solid #f0f0f0; user-select:none; transition:background .15s; }
-.section-header:hover { background:#f9fdf9; }
-.section-icon { font-size:1.4rem; flex-shrink:0; }
-.section-title { font-weight:700; font-size:.92rem; color:#1a3a2a; flex:1; }
-.section-count { font-size:.72rem; color:#888; margin-right:6px; }
-.chevron { color:#aaa; font-size:.75rem; transition:transform .2s; }
-.section-body { display:none; padding:6px 0; }
-.section-body.open { display:block; }
-.section-header.open .chevron { transform:rotate(180deg); }
-
+.section { background:#fff; border-radius:14px; margin-bottom:14px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.06); }
+.sh { display:flex; align-items:center; gap:12px; padding:15px 20px; cursor:pointer; border-bottom:1px solid #f0f0f0; user-select:none; transition:background .15s; }
+.sh:hover { background:#f9fdf9; }
+.si { font-size:1.4rem; flex-shrink:0; }
+.st { font-weight:700; font-size:.92rem; color:#1a3a2a; flex:1; }
+.sc { font-size:.72rem; color:#888; margin-right:6px; }
+.chev { color:#aaa; font-size:.75rem; transition:transform .2s; }
+.sb { display:none; padding:6px 0; }
+.sb.open { display:block; }
+.sh.open .chev { transform:rotate(180deg); }
 .item { display:flex; align-items:center; gap:12px; padding:11px 20px; text-decoration:none; color:#333; border-bottom:1px solid #f7f7f7; transition:background .15s; }
 .item:last-child { border-bottom:none; }
 .item:hover { background:#f0faf5; }
-.item-icon { font-size:1rem; flex-shrink:0; width:22px; text-align:center; }
-.item-text { flex:1; }
-.item-title { font-size:.86rem; font-weight:600; color:#1a3a2a; }
-.item-desc { font-size:.73rem; color:#888; margin-top:1px; }
-.badge-pdf { font-size:.67rem; background:#fff0e0; color:#c8920a; padding:2px 8px; border-radius:10px; font-weight:700; flex-shrink:0; }
-.badge-link { font-size:.67rem; background:#e8f5ee; color:#1a6b4a; padding:2px 8px; border-radius:10px; font-weight:700; flex-shrink:0; }
-
+.ii { font-size:1rem; flex-shrink:0; width:22px; text-align:center; }
+.it { flex:1; }
+.it-title { font-size:.86rem; font-weight:600; color:#1a3a2a; }
+.it-desc { font-size:.73rem; color:#888; margin-top:1px; }
+.bp { font-size:.67rem; background:#fff0e0; color:#c8920a; padding:2px 8px; border-radius:10px; font-weight:700; flex-shrink:0; }
 .hidden { display:none !important; }
 .footer { text-align:center; font-size:.72rem; color:#aaa; padding:20px; }
 .footer a { color:#1a6b4a; text-decoration:none; }
@@ -48,233 +42,276 @@ header p { font-size:.85rem; color:rgba(255,255,255,.75); }
 
 <header>
   <a class="back" href="https://ramongalera22-ai.github.io/Cartagenaeste/sites-inicio.html" target="_top">← Inicio</a>
-  <h1>👨‍⚕️ Recursos para Profesionales</h1>
-  <p>Centro de Salud Cartagena Este · Archivo de Docencia Clínica</p>
+  <h1>👨‍⚕️ Recursos Profesionales</h1>
+  <p>Archivo de Docencia Clínica · Centro de Salud Cartagena Este</p>
 </header>
 
 <div class="search-wrap">
-  <input class="search" type="text" placeholder="🔍 Buscar protocolo, tema o especialidad..." oninput="filtrar(this.value)">
+  <input class="search" type="text" placeholder="🔍 Buscar especialidad o tema..." oninput="filtrar(this.value)">
 </div>
 
 <div class="content" id="content">
 
-  <!-- PROTOCOLOS ATENCIÓN PRIMARIA -->
+  <!-- PROTOCOLOS AP COMPLETOS -->
   <div class="section">
-    <div class="section-header open" onclick="toggle(this)">
-      <span class="section-icon">📋</span>
-      <span class="section-title">Protocolos Atención Primaria</span>
-      <span class="section-count">11 PDFs</span>
-      <span class="chevron">▼</span>
+    <div class="sh open" onclick="toggle(this)">
+      <span class="si">📋</span><span class="st">Protocolos Atención Primaria · Completo</span>
+      <span class="sc">11 PDFs</span><span class="chev">▼</span>
     </div>
-    <div class="section-body open">
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/01-problemas-generales.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">01 · Problemas Generales</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/02-respiratorio-cardiovascular.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">02 · Respiratorio y Cardiovascular</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/03-digestivo.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">03 · Digestivo</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/04-neurologia.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">04 · Neurología</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/05-salud-mental.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">05 · Salud Mental</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/06-cronicas-frecuentes.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">06 · Crónicas Frecuentes</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/07-musculoesqueletico.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">07 · Musculoesquelético</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/08-dermatologia.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">08 · Dermatología</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/09-urologia-nefrologia.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">09 · Urología y Nefrología</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/10-ORL.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">10 · ORL</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-atencion-primaria.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Protocolos Atención Primaria (completo)</div></div><span class="badge-pdf">📥 PDF</span></a>
+    <div class="sb open">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-atencion-primaria.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Atención Primaria (documento completo)</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/01-problemas-generales.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">01 · Problemas Generales</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/02-respiratorio-cardiovascular.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">02 · Respiratorio y Cardiovascular</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/03-digestivo.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">03 · Digestivo</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/04-neurologia.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">04 · Neurología</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/05-salud-mental.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">05 · Salud Mental</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/06-cronicas-frecuentes.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">06 · Crónicas Frecuentes</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/07-musculoesqueletico.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">07 · Musculoesquelético</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/08-dermatologia.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">08 · Dermatología</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/09-urologia-nefrologia.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">09 · Urología y Nefrología</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/10-ORL.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">10 · ORL</div></div><span class="bp">📥 PDF</span></a>
     </div>
   </div>
 
   <!-- URGENCIAS -->
   <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🚨</span>
-      <span class="section-title">Urgencias</span>
-      <span class="section-count">9 artículos + PDFs</span>
-      <span class="chevron">▼</span>
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">🚨</span><span class="st">Urgencias</span>
+      <span class="sc">3 PDFs · 9 temas</span><span class="chev">▼</span>
     </div>
-    <div class="section-body">
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-1.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Protocolos Urgencias (1)</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-2.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Protocolos Urgencias (2)</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-3.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Protocolos Urgencias (3)</div></div><span class="badge-pdf">📥 PDF</span></a>
-      <a class="item" href="https://cartagenaeste.es/protocolos-urgencias-ume/" target="_blank"><span class="item-icon">🚑</span><div class="item-text"><div class="item-title">Protocolos Urgencias / UME</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/cetoacidosis-diabetica/" target="_blank"><span class="item-icon">🩸</span><div class="item-text"><div class="item-title">Cetoacidosis Diabética</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/protocolos-de-atencion-en-urgencias-del-husl-a-los-pacientesque-acudan-con-sospecha-de-patologia-vascular/" target="_blank"><span class="item-icon">🫀</span><div class="item-text"><div class="item-title">Patología Vascular en Urgencias HUSL</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/urgencias-residentes-hsagunto/" target="_blank"><span class="item-icon">🏥</span><div class="item-text"><div class="item-title">Urgencias Residentes H. Sagunto</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/fra-secundario-a-rabdomiolisis/" target="_blank"><span class="item-icon">⚡</span><div class="item-text"><div class="item-title">FRA Secundario a Rabdomiólisis</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/manual-vmni/" target="_blank"><span class="item-icon">😷</span><div class="item-text"><div class="item-title">Manual VMNI</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/politrauma/" target="_blank"><span class="item-icon">🩻</span><div class="item-text"><div class="item-title">Politrauma</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/nac-en-urgencias/" target="_blank"><span class="item-icon">🫁</span><div class="item-text"><div class="item-title">NAC en Urgencias</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/exploracion-rodilla/" target="_blank"><span class="item-icon">🦵</span><div class="item-text"><div class="item-title">Exploración de Rodilla</div></div><span class="badge-link">🔗 Blog</span></a>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-1.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos ORL en AP</div><div class="it-desc">Oído, nariz, garganta · dolor de garganta, faringoamigdalitis</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-2.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Riñón y Vías Urinarias</div><div class="it-desc">Hematuria, ITU, cólico renal, incontinencia</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-10.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Respiratorio y Cardiovascular</div><div class="it-desc">Dolor torácico, disnea, tos, palpitaciones, síncope</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-4.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Musculoesquelético</div><div class="it-desc">Cervicalgia, lumbalgia, hombro, rodilla</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-8.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Digestivo</div><div class="it-desc">Dolor abdominal, diarrea, hemorragia digestiva, ictericia</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-7.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Sistema Nervioso</div><div class="it-desc">Cefalea, vértigo, convulsiones, pérdida de fuerza</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-5.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Enfermedades Crónicas</div><div class="it-desc">HTA, diabetes, dislipemia, EPOC, asma</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-3.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Dermatología en AP</div><div class="it-desc">Lesiones cutáneas, acné, prurito, úlceras</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-6.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Salud Mental</div><div class="it-desc">Ansiedad, depresión, insomnio</div></div><span class="bp">📥 PDF</span></a>
     </div>
   </div>
 
   <!-- NEUROLOGÍA -->
   <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🧠</span>
-      <span class="section-title">Neurología</span>
-      <span class="section-count">7 artículos</span>
-      <span class="chevron">▼</span>
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">🧠</span><span class="st">Neurología</span>
+      <span class="sc">2 PDFs · 7 temas</span><span class="chev">▼</span>
     </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/aitaccidente-isquemico-transitorio/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">AIT · Accidente Isquémico Transitorio</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/hemorragia-cerebral/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Hemorragia Cerebral</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/cefaleas-ii/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Cefaleas II</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/cefaleas/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Cefaleas</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/estado-epileptico/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Estado Epiléptico</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/ictus-isquemico/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Ictus Isquémico</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/urgencias-neuro/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Urgencias Neurológicas</div></div><span class="badge-link">🔗 Blog</span></a>
-    </div>
-  </div>
-
-  <!-- GINECOLOGÍA -->
-  <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">👩‍⚕️</span>
-      <span class="section-title">Ginecología y Embarazo</span>
-      <span class="section-count">9 artículos</span>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/guia-anticonceptivos/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Guía Anticonceptivos</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/guia-2025-cribado-cancer-de-cuello-de-utero/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Cribado Cáncer de Cuello Útero 2025</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/condilomas/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Condilomas</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/gripe-y-embarazo/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Gripe y Embarazo</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/tiroides-y-embarazo/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Tiroides y Embarazo</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/migrana-y-gestacion/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Migraña y Gestación</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/hiperemesis-gravidica-2/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Hiperemesis Gravídica (II)</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/hiperemesis-gravidica/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Hiperemesis Gravídica</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/motivos-frecuentes-de-consulta/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Motivos Frecuentes de Consulta</div></div><span class="badge-link">🔗 Blog</span></a>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-7.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Sistema Nervioso</div><div class="it-desc">Cefalea, vértigo, convulsiones, pérdida de fuerza, memoria</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/04-neurologia.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Neurología AP (protocolo completo)</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://cartagenaeste.es/aitaccidente-isquemico-transitorio/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">AIT · Accidente Isquémico Transitorio</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/hemorragia-cerebral/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Hemorragia Cerebral</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/cefaleas-ii/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Cefaleas II</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/cefaleas/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Cefaleas</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/estado-epileptico/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Estado Epiléptico</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/ictus-isquemico/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Ictus Isquémico</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/urgencias-neuro/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Urgencias Neurológicas</div></div><span class="bp">🔗 Leer</span></a>
     </div>
   </div>
 
   <!-- CARDIOLOGÍA -->
   <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">❤️</span>
-      <span class="section-title">Cardiología</span>
-      <span class="section-count">3 artículos</span>
-      <span class="chevron">▼</span>
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">❤️</span><span class="st">Cardiología</span>
+      <span class="sc">1 PDF · 3 temas</span><span class="chev">▼</span>
     </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/cardiologia/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Ver todos los artículos de Cardiología</div></div><span class="badge-link">🔗 Blog</span></a>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-10.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Respiratorio y Cardiovascular</div><div class="it-desc">Dolor torácico, disnea, tos, palpitaciones, síncope</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/02-respiratorio-cardiovascular.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Respiratorio y Cardiovascular AP (completo)</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://cartagenaeste.es/codigo-iam/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Código IAM</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/icc/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">ICC · Insuficiencia Cardíaca</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/fibrilacion-auricular-ap/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Fibrilación Auricular en AP 2025</div></div><span class="bp">🔗 Leer</span></a>
     </div>
   </div>
 
   <!-- NEUMOLOGÍA -->
   <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🫁</span>
-      <span class="section-title">Neumología</span>
-      <span class="section-count">5 artículos</span>
-      <span class="chevron">▼</span>
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">🫁</span><span class="st">Neumología</span>
+      <span class="sc">1 PDF · 5 temas</span><span class="chev">▼</span>
     </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/neumologia/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Ver todos los artículos de Neumología</div></div><span class="badge-link">🔗 Blog</span></a>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/02-respiratorio-cardiovascular.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Respiratorio y Cardiovascular AP</div><div class="it-desc">EPOC, asma, neumonía, disnea</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://cartagenaeste.es/actualizacion-neumonia/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Actualización Neumonía</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/libro-inhaladores/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Libro de Inhaladores</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/manejo-neumo/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Manejo Neumológico</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/neumologia/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Neumología general</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/guia-de-practica-clinica-neumologia/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Guía de Práctica Clínica Neumología</div></div><span class="bp">🔗 Leer</span></a>
     </div>
   </div>
 
   <!-- ENDOCRINOLOGÍA -->
   <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🩸</span>
-      <span class="section-title">Endocrinología</span>
-      <span class="section-count">5 artículos</span>
-      <span class="chevron">▼</span>
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">🩸</span><span class="st">Endocrinología</span>
+      <span class="sc">1 PDF · 5 temas</span><span class="chev">▼</span>
     </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/endocrinologia/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Ver todos los artículos de Endocrinología</div></div><span class="badge-link">🔗 Blog</span></a>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-5.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Enfermedades Crónicas</div><div class="it-desc">HTA, Diabetes, Dislipemia, EPOC, Asma</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://cartagenaeste.es/hipertiroidismo/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Hipertiroidismo</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/hipotiroidismo/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Hipotiroidismo</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/manejo-nodulo-tiroideo/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Manejo Nódulo Tiroideo</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/guia-dm/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Guía Diabetes Mellitus</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/guia-dislipemias/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Guía Dislipemias</div></div><span class="bp">🔗 Leer</span></a>
     </div>
   </div>
 
   <!-- GERIATRÍA -->
   <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">👴</span>
-      <span class="section-title">Geriatría</span>
-      <span class="section-count">5 artículos</span>
-      <span class="chevron">▼</span>
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">👴</span><span class="st">Geriatría</span>
+      <span class="sc">5 temas</span><span class="chev">▼</span>
     </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/geriatria/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Ver todos los artículos de Geriatría</div></div><span class="badge-link">🔗 Blog</span></a>
+    <div class="sb">
+      <a class="item" href="https://cartagenaeste.es/nutricion-en-el-paciente-anciano/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Nutrición en el Paciente Anciano</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/sobrecarga-del-cuidador/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Sobrecarga del Cuidador</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/trastornos-de-la-conducta-en-las-demencias/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Trastornos de Conducta en Demencias</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/otras-demencias/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Otras Demencias</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/diagnostico-precoz-demencias/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Diagnóstico Precoz de Demencias</div></div><span class="bp">🔗 Leer</span></a>
     </div>
   </div>
 
   <!-- DIGESTIVO -->
   <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🫃</span>
-      <span class="section-title">Digestivo</span>
-      <span class="section-count">5 artículos</span>
-      <span class="chevron">▼</span>
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">🫃</span><span class="st">Digestivo</span>
+      <span class="sc">2 PDFs · 5 temas</span><span class="chev">▼</span>
     </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/digestivo/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Ver todos los artículos de Digestivo</div></div><span class="badge-link">🔗 Blog</span></a>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-8.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Problemas Digestivos</div><div class="it-desc">Dolor abdominal, diarrea, hemorragia digestiva, ictericia</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/03-digestivo.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Digestivo AP (protocolo completo)</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://cartagenaeste.es/manejo-compartido-ap-digestivo-2/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Manejo Compartido AP-Digestivo (II)</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/manejo-compartido-ap-digestivo/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Manejo Compartido AP-Digestivo</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/eeii/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">EEII · Enfermedad Inflamatoria Intestinal</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/algoritmo-eeii-en-ap/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Algoritmo EII en AP</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/digestivo-3/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Protocolos AP-Digestivo</div></div><span class="bp">🔗 Leer</span></a>
     </div>
   </div>
 
   <!-- REUMATOLOGÍA -->
   <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🦴</span>
-      <span class="section-title">Reumatología</span>
-      <span class="section-count">4 artículos</span>
-      <span class="chevron">▼</span>
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">🦴</span><span class="st">Reumatología</span>
+      <span class="sc">1 PDF · 4 temas</span><span class="chev">▼</span>
     </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/reumatologia/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Ver todos los artículos de Reumatología</div></div><span class="badge-link">🔗 Blog</span></a>
-    </div>
-  </div>
-
-  <!-- PEDIATRÍA -->
-  <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">👶</span>
-      <span class="section-title">Pediatría</span>
-      <span class="section-count">4 artículos</span>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/pediatria/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Ver todos los artículos de Pediatría</div></div><span class="badge-link">🔗 Blog</span></a>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-4.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Musculoesquelético</div><div class="it-desc">Cervicalgia, lumbalgia, hombro, rodilla</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://cartagenaeste.es/criterios-de-derivacion/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Criterios de Derivación</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/manual/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Manual de Reumatología</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/guia-de-infiltraciones/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Guía de Infiltraciones</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/manual-exploracion-aparato-locomotor/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Manual Exploración Aparato Locomotor</div></div><span class="bp">🔗 Leer</span></a>
     </div>
   </div>
 
   <!-- DERMATOLOGÍA -->
   <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🧬</span>
-      <span class="section-title">Dermatología</span>
-      <span class="section-count">3 artículos</span>
-      <span class="chevron">▼</span>
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">🧬</span><span class="st">Dermatología</span>
+      <span class="sc">2 PDFs · 3 temas</span><span class="chev">▼</span>
     </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/dermatologia/" target="_blank"><span class="item-icon">🔗</span><div class="item-text"><div class="item-title">Ver todos los artículos de Dermatología</div></div><span class="badge-link">🔗 Blog</span></a>
-    </div>
-  </div>
-
-  <!-- HERRAMIENTAS IA -->
-  <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🤖</span>
-      <span class="section-title">Herramientas IA · App Médica</span>
-      <span class="section-count">Acceso directo</span>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-body">
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html" target="_top"><span class="item-icon">📱</span><div class="item-text"><div class="item-title">App Médica Area II Cartagena</div><div class="item-desc">Cuaderno IA · Protocolos · Herramientas</div></div><span class="badge-link">🔗 Abrir</span></a>
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/blog-categorias.html" target="_top"><span class="item-icon">📚</span><div class="item-text"><div class="item-title">Índice completo de especialidades</div><div class="item-desc">Todas las categorías del blog</div></div><span class="badge-link">🔗 Ver</span></a>
-      <a class="item" href="https://cartagenaeste.es/category/sesiones/" target="_blank"><span class="item-icon">🎓</span><div class="item-text"><div class="item-title">Sesiones clínicas</div></div><span class="badge-link">🔗 Blog</span></a>
-      <a class="item" href="https://cartagenaeste.es/category/casos-clinicos/" target="_blank"><span class="item-icon">📋</span><div class="item-text"><div class="item-title">Casos Clínicos</div></div><span class="badge-link">🔗 Blog</span></a>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-3.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Dermatología en AP</div><div class="it-desc">Lesiones cutáneas, acné, prurito, úlceras, ABCDE</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/08-dermatologia.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Dermatología AP (protocolo completo)</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://cartagenaeste.es/atlas-de-imagenes/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Atlas de Imágenes Dermatológicas</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/dermatologia/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Dermatología general</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/guia-dermatologia-ap/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Guía Dermatología AP</div></div><span class="bp">🔗 Leer</span></a>
     </div>
   </div>
 
-  <!-- PAPPS / PREVENCIÓN -->
+  <!-- PEDIATRÍA -->
   <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🌿</span>
-      <span class="section-title">Prevención y PAPPS</span>
-      <span class="section-count">1 PDF</span>
-      <span class="chevron">▼</span>
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">👶</span><span class="st">Pediatría</span>
+      <span class="sc">4 temas</span><span class="chev">▼</span>
     </div>
-    <div class="section-body">
-      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/papps-estilos-vida-2024.pdf" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">PAPPS Estilos de Vida 2024</div><div class="item-desc">Guía de actividades preventivas y estilos de vida</div></div><span class="badge-pdf">📥 PDF</span></a>
+    <div class="sb">
+      <a class="item" href="https://cartagenaeste.es/chuleta-urgencias-pedia/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Chuleta Urgencias Pediatría</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/exantemas-en-pediatria/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Exantemas en Pediatría</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/protocolos-seup-pedia/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Protocolos SEUP Pediatría</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/guia-urgencias-pedia/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Guía Urgencias Pediatría</div></div><span class="bp">🔗 Leer</span></a>
+    </div>
+  </div>
+
+  <!-- GINECOLOGÍA -->
+  <div class="section">
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">👩‍⚕️</span><span class="st">Ginecología y Embarazo</span>
+      <span class="sc">9 temas</span><span class="chev">▼</span>
+    </div>
+    <div class="sb">
+      <a class="item" href="https://cartagenaeste.es/guia-anticonceptivos/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Guía Anticonceptivos</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/guia-2025-cribado-cancer-de-cuello-de-utero/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Cribado Cáncer Cuello Útero 2025</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/condilomas/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Condilomas</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/gripe-y-embarazo/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Gripe y Embarazo</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/tiroides-y-embarazo/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Tiroides y Embarazo</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/migrana-y-gestacion/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Migraña y Gestación</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/hiperemesis-gravidica-2/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Hiperemesis Gravídica (II)</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/hiperemesis-gravidica/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Hiperemesis Gravídica</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/motivos-frecuentes-de-consulta/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Motivos Frecuentes de Consulta</div></div><span class="bp">🔗 Leer</span></a>
+    </div>
+  </div>
+
+  <!-- SALUD MENTAL -->
+  <div class="section">
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">🧩</span><span class="st">Salud Mental</span>
+      <span class="sc">2 PDFs</span><span class="chev">▼</span>
+    </div>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-6.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Salud Mental</div><div class="it-desc">Ansiedad, depresión, insomnio</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/05-salud-mental.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Salud Mental AP (protocolo completo)</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://cartagenaeste.es/category/psiquiatria/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Psiquiatría en AP</div></div><span class="bp">🔗 Leer</span></a>
+    </div>
+  </div>
+
+  <!-- ORL -->
+  <div class="section">
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">👂</span><span class="st">ORL · Otorrinolaringología</span>
+      <span class="sc">2 PDFs</span><span class="chev">▼</span>
+    </div>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-1.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos ORL en AP</div><div class="it-desc">Oído, nariz, garganta, boca · faringoamigdalitis</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/10-ORL.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">ORL AP (protocolo completo)</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://cartagenaeste.es/category/otorrinolaringologia/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Artículos ORL en el blog</div></div><span class="bp">🔗 Leer</span></a>
+    </div>
+  </div>
+
+  <!-- UROLOGÍA / NEFROLOGÍA -->
+  <div class="section">
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">🫘</span><span class="st">Urología y Nefrología</span>
+      <span class="sc">2 PDFs</span><span class="chev">▼</span>
+    </div>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos-2.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Protocolos Riñón y Vías Urinarias</div><div class="it-desc">Hematuria, ITU, cólico renal, incontinencia</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/protocolos/09-urologia-nefrologia.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">Urología y Nefrología AP (completo)</div></div><span class="bp">📥 PDF</span></a>
+      <a class="item" href="https://cartagenaeste.es/category/urologia/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Artículos de Urología en el blog</div></div><span class="bp">🔗 Leer</span></a>
+      <a class="item" href="https://cartagenaeste.es/category/nefrologia/" target="_blank"><span class="ii">🔗</span><div class="it"><div class="it-title">Artículos de Nefrología en el blog</div></div><span class="bp">🔗 Leer</span></a>
+    </div>
+  </div>
+
+  <!-- PREVENCIÓN -->
+  <div class="section">
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">🌿</span><span class="st">Prevención y PAPPS</span>
+      <span class="sc">1 PDF</span><span class="chev">▼</span>
+    </div>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/papps-estilos-vida-2024.pdf" target="_blank"><span class="ii">📄</span><div class="it"><div class="it-title">PAPPS Estilos de Vida 2024</div><div class="it-desc">Actividades preventivas y promoción de la salud</div></div><span class="bp">📥 PDF</span></a>
+    </div>
+  </div>
+
+  <!-- APP IA -->
+  <div class="section">
+    <div class="sh" onclick="toggle(this)">
+      <span class="si">🤖</span><span class="st">App Médica IA</span>
+      <span class="sc">Herramientas</span><span class="chev">▼</span>
+    </div>
+    <div class="sb">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/notebook-local.html" target="_top"><span class="ii">📱</span><div class="it"><div class="it-title">App Médica Area II Cartagena</div><div class="it-desc">Cuaderno IA · Protocolos · Calculadoras · Herramientas</div></div><span class="bp">🔗 Abrir</span></a>
     </div>
   </div>
 
@@ -283,25 +320,21 @@ header p { font-size:.85rem; color:rgba(255,255,255,.75); }
 <p class="footer">© 2026 <a href="https://cartagenaeste.es">cartagenaeste.es</a> · Centro de Salud Cartagena Este</p>
 
 <script>
-function toggle(header) {
-  header.classList.toggle('open');
-  header.nextElementSibling.classList.toggle('open');
+function toggle(h) {
+  h.classList.toggle('open');
+  h.nextElementSibling.classList.toggle('open');
 }
 function filtrar(q) {
   const q2 = q.toLowerCase();
   document.querySelectorAll('.section').forEach(s => {
-    const texto = s.textContent.toLowerCase();
-    const match = !q2 || texto.includes(q2);
+    const match = !q2 || s.textContent.toLowerCase().includes(q2);
     s.classList.toggle('hidden', !match);
     if (match && q2) {
-      s.querySelector('.section-header').classList.add('open');
-      s.querySelector('.section-body').classList.add('open');
+      s.querySelector('.sh').classList.add('open');
+      s.querySelector('.sb').classList.add('open');
     }
   });
 }
-// Cerrar todas menos la primera al inicio
-document.querySelectorAll('.section-body').forEach((b,i) => { if(i>0) b.classList.remove('open'); });
-document.querySelectorAll('.section-header').forEach((h,i) => { if(i>0) h.classList.remove('open'); });
 </script>
 </body>
 </html>
