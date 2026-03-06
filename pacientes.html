@@ -7,31 +7,14 @@
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'Segoe UI',sans-serif; background:#f8f9fa; }
-
-header {
-  background: linear-gradient(135deg,#0d3d26,#1a6b4a);
-  padding: 28px 20px 24px;
-  text-align: center;
-  color: #fff;
-}
+header { background:linear-gradient(135deg,#0d3d26,#1a6b4a); padding:28px 20px 24px; text-align:center; color:#fff; }
 header h1 { font-size:1.6rem; font-weight:700; margin-bottom:6px; }
 header p { font-size:.85rem; color:rgba(255,255,255,.75); }
 .back { display:inline-flex; align-items:center; gap:5px; color:rgba(255,255,255,.8); text-decoration:none; font-size:.8rem; margin-bottom:14px; }
 .back:hover { color:#fff; }
-
 .content { max-width:900px; margin:0 auto; padding:28px 16px 60px; }
-
-/* Sección */
 .section { background:#fff; border-radius:14px; margin-bottom:20px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.06); }
-.section-header {
-  display:flex; align-items:center; gap:12px;
-  padding:16px 20px;
-  cursor:pointer;
-  background:#fff;
-  border-bottom:1px solid #f0f0f0;
-  user-select:none;
-  transition:background .15s;
-}
+.section-header { display:flex; align-items:center; gap:12px; padding:16px 20px; cursor:pointer; border-bottom:1px solid #f0f0f0; user-select:none; transition:background .15s; }
 .section-header:hover { background:#f9fdf9; }
 .section-icon { font-size:1.5rem; flex-shrink:0; }
 .section-title { font-weight:700; font-size:.95rem; color:#1a3a2a; flex:1; }
@@ -40,24 +23,15 @@ header p { font-size:.85rem; color:rgba(255,255,255,.75); }
 .section-body { display:none; padding:8px 0; }
 .section-body.open { display:block; }
 .section-header.open .chevron { transform:rotate(180deg); }
-
-/* Items */
-.item {
-  display:flex; align-items:center; gap:12px;
-  padding:12px 20px;
-  text-decoration:none;
-  color:#333;
-  border-bottom:1px solid #f7f7f7;
-  transition:background .15s;
-}
+.item { display:flex; align-items:center; gap:12px; padding:12px 20px; text-decoration:none; color:#333; border-bottom:1px solid #f7f7f7; transition:background .15s; }
 .item:last-child { border-bottom:none; }
 .item:hover { background:#f0faf5; }
 .item-icon { font-size:1.1rem; flex-shrink:0; width:24px; text-align:center; }
 .item-text { flex:1; }
 .item-title { font-size:.88rem; font-weight:600; color:#1a3a2a; }
 .item-desc { font-size:.75rem; color:#888; margin-top:2px; }
-.item-badge { font-size:.68rem; background:#e8f5ee; color:#1a6b4a; padding:2px 8px; border-radius:10px; font-weight:600; flex-shrink:0; }
-
+.badge-pdf { font-size:.68rem; background:#fff0e0; color:#c8920a; padding:2px 8px; border-radius:10px; font-weight:700; flex-shrink:0; }
+.badge-link { font-size:.68rem; background:#e8f5ee; color:#1a6b4a; padding:2px 8px; border-radius:10px; font-weight:700; flex-shrink:0; }
 .footer { text-align:center; font-size:.72rem; color:#aaa; padding:20px; }
 .footer a { color:#1a6b4a; text-decoration:none; }
 </style>
@@ -74,24 +48,33 @@ header p { font-size:.85rem; color:rgba(255,255,255,.75); }
 
   <!-- DIETAS -->
   <div class="section">
-    <div class="section-header" onclick="toggle(this)">
+    <div class="section-header open" onclick="toggle(this)">
       <span class="section-icon">🥗</span>
       <span class="section-title">Dietas y Nutrición</span>
-      <span class="section-count">13 recursos</span>
+      <span class="section-count">3 PDFs</span>
       <span class="chevron">▼</span>
     </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/recomendaciones-sibo/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Recomendaciones SIBO</div></div><span class="item-badge">Leer</span></a>
-      <a class="item" href="https://cartagenaeste.es/recomendaciones-dietetico-nutricionales-enfermedad-por-reflujo/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Reflujo gastroesofágico</div></div><span class="item-badge">Leer</span></a>
-      <a class="item" href="https://cartagenaeste.es/recomendaciones-dietetico-nutricionales-diarrea-aguda/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Diarrea aguda</div></div><span class="item-badge">Leer</span></a>
-      <a class="item" href="https://cartagenaeste.es/recomendaciones-nutricionales-colelitiasis/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Colelitiasis</div></div><span class="item-badge">Leer</span></a>
-      <a class="item" href="https://cartagenaeste.es/dietas-para-intolerancia-lactosa/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Intolerancia a la lactosa</div></div><span class="item-badge">Leer</span></a>
-      <a class="item" href="https://cartagenaeste.es/dieta-trigliceridos-altos/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Triglicéridos altos</div></div><span class="item-badge">Leer</span></a>
-      <a class="item" href="https://cartagenaeste.es/dieta-hipertension-arterial/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Hipertensión arterial</div></div><span class="item-badge">Leer</span></a>
-      <a class="item" href="https://cartagenaeste.es/dieta-diabetes/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Diabetes</div></div><span class="item-badge">Leer</span></a>
-      <a class="item" href="https://cartagenaeste.es/dieta-colesterol-alto-hipercolesterolemia/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Colesterol alto</div></div><span class="item-badge">Leer</span></a>
-      <a class="item" href="https://cartagenaeste.es/dieta-obesidad/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Dieta Obesidad</div></div><span class="item-badge">Leer</span></a>
-      <a class="item" href="https://cartagenaeste.es/category/dietas/page/2/" target="_blank"><span class="item-icon">➕</span><div class="item-text"><div class="item-title">Ver más dietas...</div></div></a>
+    <div class="section-body open">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/dieta-diarrea-aguda.pdf" target="_blank">
+        <span class="item-icon">📄</span>
+        <div class="item-text"><div class="item-title">Dieta Diarrea Aguda</div><div class="item-desc">Recomendaciones dietético-nutricionales</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/dieta-reflujo-gastroesofagico.pdf" target="_blank">
+        <span class="item-icon">📄</span>
+        <div class="item-text"><div class="item-title">Dieta Reflujo Gastroesofágico</div><div class="item-desc">Recomendaciones dietético-nutricionales</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/dieta-general.pdf" target="_blank">
+        <span class="item-icon">📄</span>
+        <div class="item-text"><div class="item-title">Dieta General</div><div class="item-desc">Recomendaciones nutricionales generales</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/papps-estilos-vida-2024.pdf" target="_blank">
+        <span class="item-icon">📄</span>
+        <div class="item-text"><div class="item-title">PAPPS Estilos de Vida 2024</div><div class="item-desc">Guía de estilos de vida saludable</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
     </div>
   </div>
 
@@ -100,53 +83,15 @@ header p { font-size:.85rem; color:rgba(255,255,255,.75); }
     <div class="section-header" onclick="toggle(this)">
       <span class="section-icon">⚠️</span>
       <span class="section-title">Factores de Riesgo</span>
-      <span class="section-count">2 recursos</span>
+      <span class="section-count">1 PDF</span>
       <span class="chevron">▼</span>
     </div>
     <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/factores-de-riesgo-3/" target="_blank"><span class="item-icon">📊</span><div class="item-text"><div class="item-title">Plantilla control de glucosa</div><div class="item-desc">Descargable para anotar cifras de glucosa</div></div><span class="item-badge">Descargar</span></a>
-      <a class="item" href="https://cartagenaeste.es/factores-de-riesgo-2/" target="_blank"><span class="item-icon">📊</span><div class="item-text"><div class="item-title">Plantilla control de tensión arterial</div><div class="item-desc">Descargable para anotar cifras de TA</div></div><span class="item-badge">Descargar</span></a>
-    </div>
-  </div>
-
-  <!-- EJERCICIOS -->
-  <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🏃</span>
-      <span class="section-title">Ejercicios y Rehabilitación</span>
-      <span class="section-count">2 recursos</span>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/ejercicios-rehabilitacion-hombro-2/" target="_blank"><span class="item-icon">💪</span><div class="item-text"><div class="item-title">Ejercicios rehabilitación hombro</div><div class="item-desc">merehabilitoencasa.es</div></div><span class="item-badge">Ver</span></a>
-      <a class="item" href="https://cartagenaeste.es/ejercicios-rehabilitacion-columna-lumbar/" target="_blank"><span class="item-icon">🦴</span><div class="item-text"><div class="item-title">Ejercicios rehabilitación columna lumbar</div></div><span class="item-badge">Ver</span></a>
-    </div>
-  </div>
-
-  <!-- VACUNAS -->
-  <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">💉</span>
-      <span class="section-title">Vacunas</span>
-      <span class="section-count">1 recurso</span>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/calendario-vacunaciones-2025/" target="_blank"><span class="item-icon">📅</span><div class="item-text"><div class="item-title">Calendario de vacunaciones 2025</div></div><span class="item-badge">Ver</span></a>
-    </div>
-  </div>
-
-  <!-- RECURSOS SOCIALES -->
-  <div class="section">
-    <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🏘️</span>
-      <span class="section-title">Recursos Sociales</span>
-      <span class="section-count">2 recursos</span>
-      <span class="chevron">▼</span>
-    </div>
-    <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/recurosos-sociales-ayuntamiento-de-cartagena/" target="_blank"><span class="item-icon">🏛️</span><div class="item-text"><div class="item-title">Recursos sociales Ayuntamiento de Cartagena</div><div class="item-desc">serviciossociales.cartagena.es</div></div><span class="item-badge">Ver</span></a>
-      <a class="item" href="https://cartagenaeste.es/recursos-sociales/" target="_blank"><span class="item-icon">📋</span><div class="item-text"><div class="item-title">Recursos sociales generales</div></div><span class="item-badge">Ver</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/hoja-controles-glucosa.pdf" target="_blank">
+        <span class="item-icon">📊</span>
+        <div class="item-text"><div class="item-title">Plantilla control de glucosa</div><div class="item-desc">Hoja descargable para anotar cifras de glucosa</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
     </div>
   </div>
 
@@ -155,11 +100,20 @@ header p { font-size:.85rem; color:rgba(255,255,255,.75); }
     <div class="section-header" onclick="toggle(this)">
       <span class="section-icon">🚭</span>
       <span class="section-title">Dejar de Fumar</span>
-      <span class="section-count">1 recurso</span>
+      <span class="section-count">2 PDFs</span>
       <span class="chevron">▼</span>
     </div>
     <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/dejar-de-fumar/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Guía para dejar de fumar</div></div><span class="item-badge">Ver</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/guia-dejar-fumar-2025.pdf" target="_blank">
+        <span class="item-icon">📄</span>
+        <div class="item-text"><div class="item-title">Guía para dejar de fumar 2025</div><div class="item-desc">Recursos y consejos para dejar el tabaco</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/guia-fumadores-2025.pdf" target="_blank">
+        <span class="item-icon">📄</span>
+        <div class="item-text"><div class="item-title">Guía para fumadores 2025</div><div class="item-desc">Información para fumadores activos</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
     </div>
   </div>
 
@@ -168,11 +122,69 @@ header p { font-size:.85rem; color:rgba(255,255,255,.75); }
     <div class="section-header" onclick="toggle(this)">
       <span class="section-icon">🦷</span>
       <span class="section-title">Dentista</span>
-      <span class="section-count">1 recurso</span>
+      <span class="section-count">1 PDF</span>
       <span class="chevron">▼</span>
     </div>
     <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/dentista/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Servicios bucodentales</div></div><span class="item-badge">Ver</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/servicios-bucodentales.pdf" target="_blank">
+        <span class="item-icon">📄</span>
+        <div class="item-text"><div class="item-title">Servicios bucodentales</div><div class="item-desc">Información sobre servicios dentales disponibles</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- VACUNAS -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">💉</span>
+      <span class="section-title">Vacunas</span>
+      <span class="section-count">1 PDF</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/vacunas-informacion.pdf" target="_blank">
+        <span class="item-icon">📄</span>
+        <div class="item-text"><div class="item-title">Información sobre vacunas</div><div class="item-desc">Calendario y recomendaciones de vacunación</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- RECURSOS SOCIALES -->
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-icon">🏘️</span>
+      <span class="section-title">Recursos Sociales</span>
+      <span class="section-count">5 PDFs</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/recursos-sociales-ayuda-domicilio.pdf" target="_blank">
+        <span class="item-icon">🏠</span>
+        <div class="item-text"><div class="item-title">Ayuda a domicilio</div><div class="item-desc">Servicios de ayuda en el hogar</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/recursos-sociales-grado-dependencia.pdf" target="_blank">
+        <span class="item-icon">📋</span>
+        <div class="item-text"><div class="item-title">Grado de dependencia</div><div class="item-desc">Información sobre reconocimiento de dependencia</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/recursos-sociales-pension-jubilacion.pdf" target="_blank">
+        <span class="item-icon">💰</span>
+        <div class="item-text"><div class="item-title">Pensión y jubilación</div><div class="item-desc">Recursos sobre pensiones y jubilación</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/recursos-sociales-punto-acceso.pdf" target="_blank">
+        <span class="item-icon">📍</span>
+        <div class="item-text"><div class="item-title">Punto de acceso a servicios sociales</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/recursos-sociales-servicios-domiciliarios.pdf" target="_blank">
+        <span class="item-icon">🚗</span>
+        <div class="item-text"><div class="item-title">Servicios domiciliarios</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
     </div>
   </div>
 
@@ -181,24 +193,47 @@ header p { font-size:.85rem; color:rgba(255,255,255,.75); }
     <div class="section-header" onclick="toggle(this)">
       <span class="section-icon">🛡️</span>
       <span class="section-title">Violencia de Género</span>
-      <span class="section-count">1 recurso</span>
+      <span class="section-count">3 PDFs</span>
       <span class="chevron">▼</span>
     </div>
     <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/violencia-de-genero/" target="_blank"><span class="item-icon">📄</span><div class="item-text"><div class="item-title">Protocolo y recursos violencia de género</div></div><span class="item-badge">Ver</span></a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/violencia-genero-protocolo.pdf" target="_blank">
+        <span class="item-icon">📄</span>
+        <div class="item-text"><div class="item-title">Protocolo violencia de género</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/violencia-genero-protocolo-2.pdf" target="_blank">
+        <span class="item-icon">📄</span>
+        <div class="item-text"><div class="item-title">Protocolo violencia de género (2)</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
+      <a class="item" href="https://ramongalera22-ai.github.io/Cartagenaeste/violencia-genero-protocolo-3.pdf" target="_blank">
+        <span class="item-icon">📄</span>
+        <div class="item-text"><div class="item-title">Protocolo violencia de género (3)</div></div>
+        <span class="badge-pdf">📥 PDF</span>
+      </a>
     </div>
   </div>
 
-  <!-- ENLACES DE INTERÉS -->
+  <!-- EJERCICIOS -->
   <div class="section">
     <div class="section-header" onclick="toggle(this)">
-      <span class="section-icon">🔗</span>
-      <span class="section-title">Enlaces de Interés</span>
-      <span class="section-count">2 recursos</span>
+      <span class="section-icon">🏃</span>
+      <span class="section-title">Ejercicios y Rehabilitación</span>
+      <span class="section-count">2 enlaces</span>
       <span class="chevron">▼</span>
     </div>
     <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/category/enlaces-de-interes/" target="_blank"><span class="item-icon">🌐</span><div class="item-text"><div class="item-title">Ver todos los enlaces de interés</div></div><span class="item-badge">Ver</span></a>
+      <a class="item" href="https://cartagenaeste.es/ejercicios-rehabilitacion-hombro-2/" target="_blank">
+        <span class="item-icon">💪</span>
+        <div class="item-text"><div class="item-title">Ejercicios rehabilitación hombro</div><div class="item-desc">merehabilitoencasa.es</div></div>
+        <span class="badge-link">🔗 Enlace</span>
+      </a>
+      <a class="item" href="https://cartagenaeste.es/ejercicios-rehabilitacion-columna-lumbar/" target="_blank">
+        <span class="item-icon">🦴</span>
+        <div class="item-text"><div class="item-title">Ejercicios rehabilitación columna lumbar</div></div>
+        <span class="badge-link">🔗 Enlace</span>
+      </a>
     </div>
   </div>
 
@@ -211,7 +246,11 @@ header p { font-size:.85rem; color:rgba(255,255,255,.75); }
       <span class="chevron">▼</span>
     </div>
     <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/podcast-2/" target="_blank"><span class="item-icon">▶️</span><div class="item-text"><div class="item-title">Escuchar episodios del podcast</div><div class="item-desc">Audio con descripciones clínicas</div></div><span class="item-badge">Escuchar</span></a>
+      <a class="item" href="https://cartagenaeste.es/podcast-2/" target="_blank">
+        <span class="item-icon">▶️</span>
+        <div class="item-text"><div class="item-title">Escuchar episodios del podcast</div><div class="item-desc">Audio con información clínica para pacientes</div></div>
+        <span class="badge-link">🔗 Escuchar</span>
+      </a>
     </div>
   </div>
 
@@ -224,8 +263,11 @@ header p { font-size:.85rem; color:rgba(255,255,255,.75); }
       <span class="chevron">▼</span>
     </div>
     <div class="section-body">
-      <a class="item" href="https://cartagenaeste.es/consulta/" target="_blank"><span class="item-icon">📋</span><div class="item-text"><div class="item-title">Información de consulta</div></div><span class="item-badge">Ver</span></a>
-      <a class="item" href="https://cartagenaeste.es/category/pacientes/programacion-del-centro/" target="_blank"><span class="item-icon">📅</span><div class="item-text"><div class="item-title">Programación del centro</div></div><span class="item-badge">Ver</span></a>
+      <a class="item" href="https://cartagenaeste.es/consulta/" target="_blank">
+        <span class="item-icon">📋</span>
+        <div class="item-text"><div class="item-title">Información de consulta</div></div>
+        <span class="badge-link">🔗 Ver</span>
+      </a>
     </div>
   </div>
 
@@ -236,11 +278,8 @@ header p { font-size:.85rem; color:rgba(255,255,255,.75); }
 <script>
 function toggle(header) {
   header.classList.toggle('open');
-  const body = header.nextElementSibling;
-  body.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('open');
 }
-// Abrir la primera sección por defecto
-document.querySelector('.section-header').click();
 </script>
 </body>
 </html>
