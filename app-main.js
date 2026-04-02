@@ -1384,7 +1384,7 @@ async function scanLoadUploaded(docId){
   }catch(e){console.error(e);}
 }
 
-var SCAN_VISION_MODELS=["meta-llama/llama-4-scout:free","qwen/qwen2.5-vl-32b-instruct"];var SCAN_OR_KEY="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";
+var SCAN_VISION_MODELS=["meta-llama/llama-4-scout:free","qwen/qwen2.5-vl-32b-instruct"];var SCAN_OR_KEY="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";
 
 async function scanAnalyze(){
     if(!scanB64){alert("Sube una imagen primero");return;}
