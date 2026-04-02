@@ -1384,7 +1384,7 @@ async function scanLoadUploaded(docId){
   }catch(e){console.error(e);}
 }
 
-var SCAN_VISION_MODELS=["qwen/qwen2.5-vl-32b-instruct"];
+var SCAN_VISION_MODELS=["qwen/qwen2.5-vl-32b-instruct"];var SCAN_OR_KEY="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";
 
 async function scanAnalyze(){
     if(!scanB64){alert("Sube una imagen primero");return;}
@@ -1394,8 +1394,7 @@ async function scanAnalyze(){
     var sys=SCAN_PROMPTS[scanType];if(ctx)sys+="\n\nContexto clínico: "+ctx;
     var mt="image/jpeg";var ps=document.getElementById("scanImgPreview").src;if(ps.indexOf("image/png")>-1)mt="image/png";
     var txt=null;var usedModel="";
-    var OR_KEY="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";
-
+    var OR_KEY=SCAN_OR_KEY;
     // 1. Try OpenRouter vision models (Qwen2.5-VL-32B first)
     for(var mi=0;mi<SCAN_VISION_MODELS.length&&!txt;mi++){
       try{
