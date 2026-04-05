@@ -35,7 +35,7 @@ var ENF_OR_MODELS=['deepseek/deepseek-chat-v3-0324:free','google/gemma-3-27b-it:
 async function enfCallOR(prompt,sysPrompt,idx){
   idx=idx||0;
   var NAS_URL='http://192.168.1.35:3100';
-  var DS_KEY='sk-6a5ea8dfa7d64c929dad02907917979f';
+  var DS_KEY='' // ⚠️ KEY REMOVED — routed through NAS proxy. See api-config.js;
   var msgs=[{role:'system',content:sysPrompt},{role:'user',content:prompt}];
   // Try NAS first (keys hidden) — only on HTTP to avoid mixed content
   if(idx===0 && location.protocol!=='https:'){
@@ -869,7 +869,7 @@ async function trIASend(){
     // Try OpenRouter models in sequence
     async function trIATryModel(idx) {
         var NAS_URL='http://192.168.1.35:3100';
-  var DS_KEY='sk-6a5ea8dfa7d64c929dad02907917979f';
+  var DS_KEY='' // ⚠️ KEY REMOVED — routed through NAS proxy. See api-config.js;
         // Try NAS FIRST (keys hidden) — only on HTTP
         if (idx === 0 && location.protocol!=='https:') {
             try {
