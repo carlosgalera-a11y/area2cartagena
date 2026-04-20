@@ -2,63 +2,155 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper functions
+    // ════════════════════════════════════════════════════════════════════
+    // Helpers
+    // ════════════════════════════════════════════════════════════════════
     function isAuth() { return request.auth != null; }
-    function isSuperAdmin() {
+    function isSuperAdminEmail() {
       return isAuth() && request.auth.token.email in [
         'ramongalera22@gmail.com','carlosgalera2roman@gmail.com','esther.montoro@gmail.com'
       ];
     }
+    function tenantClaim() {
+      return isAuth() && 'tenantId' in request.auth.token
+        ? request.auth.token.tenantId
+        : 'default';
+    }
+    function roleClaim() {
+      return isAuth() && 'role' in request.auth.token
+        ? request.auth.token.role
+        : 'user';
+    }
+    function isSuper() { return isSuperAdminEmail() || roleClaim() == 'superadmin'; }
+    function isAdmin() { return isSuper() || roleClaim() == 'admin'; }
+    function inTenant(t) { return isAuth() && tenantClaim() == t; }
 
-    // Moderadores — read: authenticated, write: superadmin only
-    match /moderadores/{docId} {
-      allow read: if isAuth();
-      allow create, update, delete: if isSuperAdmin();
+    // ════════════════════════════════════════════════════════════════════
+    // SaaS multi-tenant — rama nueva (Plan Maestro §3.4 / §7.2)
+    // El bloque se evalua antes que el deny-all.
+    // ════════════════════════════════════════════════════════════════════
+    match /tenants/{t} {
+      allow read: if inTenant(t) || isSuper();
+      allow create, update: if isSuper();
+      allow delete: if false;
+
+      match /users/{uid} {
+        allow read: if inTenant(t) && (request.auth.uid == uid || isAdmin());
+        allow create, update: if (isAdmin() && inTenant(t)) || isSuper();
+        allow delete: if isAdmin() && inTenant(t) && request.auth.uid != uid;
+
+        // Cuota diaria — solo lectura del propio usuario; escritura
+        // exclusiva desde Cloud Functions (Admin SDK ignora rules).
+        match /aiQuota/{day} {
+          allow read: if inTenant(t) && request.auth.uid == uid;
+          allow write: if false;
+        }
+      }
+
+      match /patients/{pid} {
+        allow read: if inTenant(t);
+        allow create: if inTenant(t)
+          && request.resource.data.keys().hasAll(['initials','createdBy','createdAt'])
+          && request.resource.data.initials is string
+          && request.resource.data.initials.size() <= 4
+          && request.resource.data.createdBy == request.auth.uid;
+        allow update: if inTenant(t)
+          && (resource.data.createdBy == request.auth.uid || isAdmin())
+          && (!('initials' in request.resource.data) || request.resource.data.initials.size() <= 4);
+        allow delete: if isAdmin() && inTenant(t);
+      }
+
+      match /notes/{nid} {
+        allow read, create: if inTenant(t);
+        allow update, delete: if inTenant(t)
+          && (resource.data.authorUid == request.auth.uid || isAdmin());
+      }
+
+      // Cache IA — lectura por tenant; escritura solo desde funciones.
+      match /aiCache/{hash} {
+        allow read: if inTenant(t);
+        allow write: if false;
+      }
+
+      // Solicitudes IA — solo admin del tenant las ve. Inmutables.
+      match /aiRequests/{rid} {
+        allow read: if isAdmin() && inTenant(t);
+        allow write: if false;
+      }
+
+      // Auditoria — inmutable; lectura solo admin del tenant.
+      match /auditLogs/{lid} {
+        allow read: if isAdmin() && inTenant(t);
+        allow write: if false;
+      }
+
+      match /resources/{rid} {
+        allow read: if inTenant(t);
+        allow write: if isAdmin() && inTenant(t);
+      }
     }
 
-    // Propuestas — create: authenticated, moderate: admin/moderator, delete: superadmin
+    // Recursos globales (protocolos compartidos entre tenants)
+    match /globalResources/{rid} {
+      allow read: if isAuth();
+      allow write: if isSuper();
+    }
+
+    // Invitaciones de admin pendientes (Plan §5.4)
+    match /tenantInvites/{inviteId} {
+      allow read: if isAuth() && (
+        resource.data.email == request.auth.token.email || isSuper()
+      );
+      allow create, update, delete: if isSuper();
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // LEGACY — colecciones existentes de la app actual.
+    // Se mantienen intactas para no romper la app que ya usa la gente.
+    // Migración progresiva a /tenants/{t}/** en fases posteriores.
+    // ════════════════════════════════════════════════════════════════════
+
+    match /moderadores/{docId} {
+      allow read: if isAuth();
+      allow create, update, delete: if isSuperAdminEmail();
+    }
+
     match /propuestas_contenido/{docId} {
       allow read: if isAuth();
       allow create: if isAuth();
-      allow update: if isAuth() && (isSuperAdmin() || 
+      allow update: if isAuth() && (isSuperAdminEmail() ||
         exists(/databases/$(database)/documents/moderadores/$(request.auth.token.email)));
-      allow delete: if isSuperAdmin();
+      allow delete: if isSuperAdminEmail();
     }
 
-    // Documentos aprobados — read: authenticated, write: admin/mod
     match /documentos_aprobados/{docId} {
       allow read: if isAuth();
-      allow write: if isAuth() && (isSuperAdmin() || 
+      allow write: if isAuth() && (isSuperAdminEmail() ||
         exists(/databases/$(database)/documents/moderadores/$(request.auth.token.email)));
     }
 
-    // Platform config — read: authenticated, write: superadmin
     match /platform_config/{docId} {
       allow read: if isAuth();
-      allow write: if isSuperAdmin();
+      allow write: if isSuperAdminEmail();
     }
 
-    // AI Audit Log — create: authenticated, read: admin, no update/delete (immutable)
     match /ai_audit_log/{docId} {
       allow create: if isAuth();
-      allow read: if isSuperAdmin();
+      allow read: if isSuperAdminEmail();
       allow update, delete: if false;
     }
 
-    // Config (legacy) — read: authenticated, write: superadmin
     match /config/{docId} {
       allow read: if isAuth();
-      allow write: if isSuperAdmin();
+      allow write: if isSuperAdminEmail();
     }
 
-    // Informes IA — each user can only CRUD their own reports
     match /informes_ia/{docId} {
       allow create: if isAuth() && request.resource.data.uid == request.auth.uid;
       allow read, delete: if isAuth() && resource.data.uid == request.auth.uid;
       allow update: if false;
     }
 
-    // Per-user data — doc ID must match user's uid
     match /mis_plantillas/{docId} {
       allow read, write: if isAuth() && docId == request.auth.uid;
     }
@@ -69,7 +161,6 @@ service cloud.firestore {
       allow read, write: if isAuth() && docId == request.auth.uid;
     }
 
-    // Triajes QR — authenticated users can create, read own
     match /triajes/{docId} {
       allow create: if isAuth();
       allow read: if true;
@@ -77,21 +168,16 @@ service cloud.firestore {
       allow update: if false;
     }
 
-    // Scan uploads — mobile image uploads per user
     match /scan_uploads/{docId} {
       allow create: if isAuth();
-      allow read: if isAuth() && resource.data.uid == request.auth.uid;
-      allow update: if isAuth() && resource.data.uid == request.auth.uid;
-      allow delete: if isAuth() && resource.data.uid == request.auth.uid;
+      allow read, update, delete: if isAuth() && resource.data.uid == request.auth.uid;
     }
 
-    // Guardia pacientes — each user can only CRUD their own patients
     match /guardia_pacientes/{docId} {
       allow create: if isAuth() && request.resource.data.uid == request.auth.uid;
       allow read, update, delete: if isAuth() && resource.data.uid == request.auth.uid;
     }
 
-    // Plantillas backup — per-user doc (docId = uid)
     match /plantillas_backup/{docId} {
       allow read, write: if isAuth() && docId == request.auth.uid;
     }
