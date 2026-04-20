@@ -27,14 +27,14 @@ Pollinations / OpenRouter desde el navegador.
 ```bash
 # 1. Preparar GCP (manual, ver 02-deploy.md)
 firebase login
-firebase use cartagenaeste-prod
+firebase use docenciacartagenaeste
 
-# 2. Compilar y desplegar la función `api`
+# 2. Compilar y desplegar la función `askAi`
 cd functions && npm install && npm run build && cd ..
-firebase deploy --only functions:api,firestore:rules,firestore:indexes
+firebase deploy --only functions:askAi,firestore:rules,firestore:indexes
 
 # 3. Probar
-curl https://cartagenaeste-prod.web.app/api/health
+curl https://docenciacartagenaeste.web.app/api/health
 ```
 
 Más detalle en `02-deploy.md`.

@@ -11,15 +11,21 @@ setGlobalOptions({
 });
 
 /**
- * Funcion HTTP unica que sirve todo el arbol /api/**.
- * Firebase Hosting hace rewrite de /api/** a esta funcion.
+ * Cloud Function `askAi` — el proxy IA del proyecto (CLAUDE.md §Reglas §1).
+ * Es la *unica* funcion HTTP a la que llega el frontend; Firebase Hosting
+ * hace rewrite de /api/** aqui.
  *
- * minInstances=1 evita cold starts en el endpoint mas usado.
+ * Aunque el nombre refleja su proposito principal (IA segura, region UE),
+ * el Express interno tambien sirve endpoints auxiliares triviales
+ * (/api/health, /api/me). Si crecen, se extraeran a una funcion
+ * independiente `api`.
+ *
+ * minInstances=1 evita cold starts en /api/ai/ask.
  * App Check NO se hace enforce a nivel onRequest (el frontend legacy
  * todavia no envia el header en todas las paginas); el middleware
  * lo verifica de forma "soft" hasta completar la migracion.
  */
-export const api = onRequest(
+export const askAi = onRequest(
   {
     secrets: ALL_SECRETS,
     minInstances: 1,

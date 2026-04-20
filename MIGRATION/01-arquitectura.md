@@ -11,13 +11,13 @@
                │ HTTPS  Authorization: Bearer <idToken>
                ▼
 ┌──────────────────────────────────────────────────────┐
-│ Firebase Hosting · cartagenaeste-prod.web.app        │
+│ Firebase Hosting · docenciacartagenaeste.web.app        │
 │  - Sirve los HTML estáticos                          │
-│  - Rewrite /api/** → función `api` (europe-west1)    │
+│  - Rewrite /api/** → función `askAi` (europe-west1)    │
 └──────────────┬───────────────────────────────────────┘
                ▼
 ┌──────────────────────────────────────────────────────┐
-│ Cloud Function v2 `api` (europe-west1, Node 20)      │
+│ Cloud Function v2 `askAi` (europe-west1, Node 20)      │
 │  - Express router (/api/health, /api/me, /api/ai/ask)│
 │  - Middleware: verifyIdToken + verifyAppCheck (soft) │
 │  - Cuota diaria por usuario (transacción Firestore)  │
@@ -45,7 +45,7 @@
 
 ## Decisiones clave
 
-- **Función única `api`** que enruta `/api/**` con Express. Permite añadir
+- **Función única `askAi`** que enruta `/api/**` con Express. Permite añadir
   endpoints sin redesplegar funciones por separado.
 - **Region `europe-west1`** (Bélgica). Residencia UE; coste menor que
   `europe-southwest1`. Misma decisión que el Plan Maestro §3.2.
@@ -72,7 +72,7 @@
 1. Frontend llama `AIProxy.ask({ prompt, systemPrompt })`.
 2. Wrapper añade `Authorization: Bearer <idToken>` y, si está disponible,
    `X-Firebase-AppCheck: <token>`.
-3. Hosting hace rewrite a la función `api`.
+3. Hosting hace rewrite a la función `askAi`.
 4. Middleware `requireAuth` verifica el ID token con Firebase Admin.
    Calcula `tenantId` (claim o `default`) y `role` (claim, email
    superadmin legacy, o `user`).

@@ -22,7 +22,7 @@
       {
         "source": "/api/**",
         "function": {
-          "functionId": "api",
+          "functionId": "askAi",
           "region": "europe-west1"
         }
       },

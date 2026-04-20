@@ -4,14 +4,14 @@
 
 ```bash
 # Estado del proxy
-curl https://cartagenaeste-prod.web.app/api/health
+curl https://docenciacartagenaeste.web.app/api/health
 # → {"status":"ok","ts":"..."}
 
 # Logs en vivo
-firebase functions:log --only api -n 50
+firebase functions:log --only askAi -n 50
 
 # Métricas
-gcloud functions logs read api --region=europe-west1 --limit 100 \
+gcloud functions logs read askAi --region=europe-west1 --limit 100 \
   --format='value(timestamp,severity,textPayload)'
 ```
 
@@ -38,12 +38,12 @@ await firebase.auth().currentUser.getIdToken(true);
 ## Rollback
 
 ```bash
-# Volver a la versión anterior de la función api
+# Volver a la versión anterior de la función askAi
 firebase functions:list
-gcloud functions deploy api --source <prev-source-zip> --region europe-west1
+gcloud functions deploy askAi --source <prev-source-zip> --region europe-west1
 # o redeploy desde un tag git anterior
 git checkout <tag-anterior>
-firebase deploy --only functions:api
+firebase deploy --only functions:askAi
 ```
 
 ## Apagar el proxy (emergencia)
@@ -60,7 +60,7 @@ gcloud firestore documents update \
 O desactivar la función completa:
 
 ```bash
-gcloud functions delete api --region europe-west1
+gcloud functions delete askAi --region europe-west1
 # La rewrite responderá 404; la app puede capturarlo y mostrar mantenimiento.
 ```
 

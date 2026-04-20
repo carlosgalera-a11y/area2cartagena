@@ -2,7 +2,7 @@
 
 ## 0. Requisitos previos (manual, una sola vez)
 
-1. **Crear proyecto GCP** `cartagenaeste-prod` en
+1. **Crear proyecto GCP** `docenciacartagenaeste` en
    <https://console.cloud.google.com>.
 2. **Habilitar billing** y crear presupuesto de 150 €/mes con alertas
    al 25 €, 50 € y 100 € (ver Plan Maestro §5.1).
@@ -17,13 +17,13 @@
    - Cloud Logging
 4. **Firestore**: crear base en modo nativo, región `europe-west1`.
 5. **App Check / reCAPTCHA Enterprise**: registrar el sitio web
-   `area2cartagena.es` y `cartagenaeste-prod.web.app`. Anotar la
+   `area2cartagena.es` y `docenciacartagenaeste.web.app`. Anotar la
    site-key pública.
 
 ## 1. Secretos en Secret Manager
 
 ```bash
-gcloud config set project cartagenaeste-prod
+gcloud config set project docenciacartagenaeste
 
 # Crear los secretos
 echo -n "<DEEPSEEK_KEY>"  | gcloud secrets create DEEPSEEK_API_KEY  --replication-policy=automatic --data-file=-
@@ -54,13 +54,13 @@ npm install -g firebase-tools
 firebase login
 
 # Vincular el proyecto
-firebase use cartagenaeste-prod
+firebase use docenciacartagenaeste
 
 # Instalar deps de la función
 cd functions && npm install && cd ..
 
 # Desplegar reglas + indices + función
-firebase deploy --only firestore:rules,firestore:indexes,functions:api
+firebase deploy --only firestore:rules,firestore:indexes,functions:askAi
 
 # (Opcional) desplegar también hosting
 firebase deploy --only hosting
@@ -70,15 +70,15 @@ firebase deploy --only hosting
 
 ```bash
 # Healthcheck público
-curl https://cartagenaeste-prod.web.app/api/health
+curl https://docenciacartagenaeste.web.app/api/health
 # → {"status":"ok","ts":"..."}
 
 # Endpoint protegido (sin token → 401)
-curl -X POST https://cartagenaeste-prod.web.app/api/ai/ask
+curl -X POST https://docenciacartagenaeste.web.app/api/ai/ask
 # → {"error":"unauthenticated", ...}
 
 # Con un idToken válido (obtenido desde el frontend logueado)
-curl -X POST https://cartagenaeste-prod.web.app/api/ai/ask \
+curl -X POST https://docenciacartagenaeste.web.app/api/ai/ask \
   -H "Authorization: Bearer <ID_TOKEN>" \
   -H "Content-Type: application/json" \
   -d '{"prompt":"Resume hipertensión arterial en 3 frases"}'
@@ -108,7 +108,7 @@ Y redeploy.
 cd functions && npm run build && cd ..
 firebase emulators:start
 # UI en http://localhost:4000
-# Functions en http://localhost:5001/cartagenaeste-prod/europe-west1/api
+# Functions en http://localhost:5001/docenciacartagenaeste/europe-west1/askAi
 ```
 
 Para que la función pueda leer secretos en local, exportar antes:
