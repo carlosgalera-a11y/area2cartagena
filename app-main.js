@@ -2002,9 +2002,34 @@ async function scanAnalyze(){
     var userText=ctx?"Analiza esta imagen médica. Contexto clínico: "+ctx:"Analiza esta imagen médica de forma sistemática y detallada.";
     var txt=null;var usedModel="";var errors=[];
 
+    // ── 1. Backend proxy (/api/ai/vision · Gemini 2.5 Flash EU) ──
+    //    Ruta recomendada por CLAUDE.md §1: sin claves en el frontend.
+    //    Requiere usuario logueado con Firebase Auth y backend desplegado.
+    if(!txt && window.AIProxy && typeof window.AIProxy.vision==="function"){
+        try{
+            res.querySelector('div:last-child').textContent='Proxy IA UE (Gemini)…';
+            var pv=await window.AIProxy.vision({
+                prompt:userText,
+                systemPrompt:sys,
+                imageDataUrl:dataUrl,
+                maxTokens:2000,
+                temperature:0.3
+            });
+            if(pv && pv.answer){
+                txt=pv.answer;
+                usedModel=(pv.provider||'gemini-vision')+(pv.source==='cache'?' (cache)':'');
+            }
+        }catch(e){
+            errors.push("Proxy: "+(e.message||e));
+            console.warn('[Scan] Proxy vision failed, falling back to legacy path:',e);
+        }
+    }
+
     // Pollinations removed (CORS blocked from HTTPS)
 
     // ── 2. OpenRouter — Qwen 2.5 VL + Llama 4 Scout ──
+    //    LEGACY: clave en el navegador. Se elimina cuando el proxy esté
+    //    desplegado y todos los usuarios estén autenticados.
     if(!txt){
         try{
             var orKey=_dk();

@@ -2,12 +2,15 @@ import express, { type Request, type Response, type NextFunction } from 'express
 import { logger } from 'firebase-functions/v2';
 import { requireAuth } from './middleware/auth';
 import { askAi } from './ai/ask';
+import { askVision } from './ai/vision';
 import type { AuthedRequest } from './lib/types';
 
 export function buildApp() {
   const app = express();
 
-  app.use(express.json({ limit: '256kb' }));
+  // Body parser por defecto (pequenyo). /api/ai/vision sube al suyo propio mas abajo.
+  const jsonSmall = express.json({ limit: '256kb' });
+  const jsonVision = express.json({ limit: '4mb' });
 
   app.disable('x-powered-by');
   app.set('trust proxy', true);
@@ -56,8 +59,13 @@ export function buildApp() {
   // Resto de /api/** requiere autenticacion
   app.use('/api', requireAuth);
 
-  app.post('/api/ai/ask', (req: Request, res: Response, next: NextFunction) =>
+  app.post('/api/ai/ask', jsonSmall, (req: Request, res: Response, next: NextFunction) =>
     askAi(req as AuthedRequest, res).catch(next),
+  );
+
+  // Vision: body mas grande para imagen base64 (hasta 4 MB).
+  app.post('/api/ai/vision', jsonVision, (req: Request, res: Response, next: NextFunction) =>
+    askVision(req as AuthedRequest, res).catch(next),
   );
 
   // Quien soy (debug + bootstrap del frontend)
